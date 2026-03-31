@@ -1,0 +1,15 @@
+# Agent OS Standards Index
+
+backend:
+  cqrs-patterns:
+    description: Transaction-first execution, event collection, tx contract, CASL in handlers, thin resolvers
+
+database:
+  prisma-kysely-patterns:
+    description: PrismaPg adapter, Kysely DummyDriver, TxClient type, snake_case mapping, soft delete
+
+frontend:
+  architecture-patterns:
+    description: Feature-first folders, Apollo vs Context, four-state rendering, CASL components, named exports
+  design-system:
+    description: Color system, typography, responsive sidebar, dark mode, Tailwind v4 setup

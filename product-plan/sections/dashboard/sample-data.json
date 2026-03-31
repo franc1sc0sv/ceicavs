@@ -1,0 +1,88 @@
+{
+  "_meta": {
+    "models": {
+      "StatCard": "A summary metric displayed as a card with label, value, and optional trend indicator.",
+      "ActivityItem": "A recent event in the system shown in the activity feed with actor, type, and timestamp.",
+      "QuickAction": "A shortcut button linking to a common task, scoped by user role.",
+      "DraftStatus": "A student's blog draft showing its approval status (pending, approved, rejected).",
+      "RecentPost": "A recently published blog post shown in the student feed.",
+      "StudentWelcome": "Motivational data for the student banner: name, attendance streak, group count."
+    },
+    "relationships": [
+      "AdminDashboardData contains stats, activityFeed, and quickActions",
+      "TeacherDashboardData contains stats, activityFeed, and quickActions scoped to their groups",
+      "StudentDashboardData contains welcome, stats, recentPosts, draftStatuses, and quickActions"
+    ]
+  },
+  "adminData": {
+    "stats": [
+      { "id": "30cf0da6-c2b5-5345-9fa5-2f30f2ab16fc", "label": "Total Estudiantes", "value": 127, "trend": { "direction": "up", "percentage": 4 }, "icon": "users" },
+      { "id": "e403354c-0b3d-598a-b37c-440916ec5786", "label": "Total Docentes", "value": 18, "icon": "graduation-cap" },
+      { "id": "d70e66fb-d659-5538-b051-4ae18129bceb", "label": "Asistencia Hoy", "value": "94%", "trend": { "direction": "up", "percentage": 2 }, "icon": "clipboard-check" },
+      { "id": "e80f0ef5-3cb0-5db0-a926-88449f909046", "label": "Posts Esta Semana", "value": 12, "trend": { "direction": "down", "percentage": 8 }, "icon": "pen-square" },
+      { "id": "e98c16e8-2887-5b15-9c86-173d75fbda2e", "label": "Borradores Pendientes", "value": 5, "icon": "file-clock" },
+      { "id": "2b7d36c8-dfdb-5448-896a-6c7253c2056f", "label": "Grabaciones", "value": 34, "trend": { "direction": "up", "percentage": 15 }, "icon": "audio-lines" },
+      { "id": "2e9ca735-1ff8-56d2-b3c1-e41b1e50ad08", "label": "Grupos Activos", "value": 9, "icon": "layers" }
+    ],
+    "activityFeed": [
+      { "id": "3207e48e-ffb2-5c0f-a615-2313dbe72222", "type": "post_published", "description": "publicó \"Consejos para el examen de matemáticas\"", "actorName": "Carlos Rivera", "actorRole": "teacher", "timestamp": "2026-03-28T08:45:00Z" },
+      { "id": "b9d3b112-f0e9-50fb-976c-4c997bcfdac7", "type": "attendance", "description": "registró asistencia para el grupo 3ºA Matutino", "actorName": "Laura Méndez", "actorRole": "teacher", "timestamp": "2026-03-28T08:30:00Z" },
+      { "id": "e2b13d3f-d0ea-5cbf-8f3b-4029478418f0", "type": "draft_submitted", "description": "envió borrador \"Mi experiencia en la feria de ciencias\"", "actorName": "Ana López", "actorRole": "student", "timestamp": "2026-03-28T08:15:00Z" },
+      { "id": "4e3acad4-1e7a-51ad-9959-30144db9603e", "type": "recording_created", "description": "grabó una reunión de 18 minutos: \"Junta de planeación semanal\"", "actorName": "Morelia Meléndez", "actorRole": "admin", "timestamp": "2026-03-27T17:00:00Z" },
+      { "id": "63a6daa9-6a66-56b6-9100-1ff0e43c0bbf", "type": "user_registered", "description": "fue registrado como nuevo estudiante en el sistema", "actorName": "Diego Ramírez", "actorRole": "student", "timestamp": "2026-03-27T14:20:00Z" },
+      { "id": "6023594a-9cb3-5f79-8653-13cb48ca46be", "type": "post_published", "description": "publicó \"Nuevas reglas del laboratorio de cómputo\"", "actorName": "Morelia Meléndez", "actorRole": "admin", "timestamp": "2026-03-27T10:00:00Z" },
+      { "id": "8f7777f5-226c-57ae-a12b-688ac7cc1b11", "type": "attendance", "description": "registró asistencia para el grupo Club de Robótica", "actorName": "Carlos Rivera", "actorRole": "teacher", "timestamp": "2026-03-27T09:15:00Z" },
+      { "id": "95b6db91-46ae-533f-922f-a916e7885275", "type": "draft_submitted", "description": "envió borrador \"Proyecto de reciclaje escolar\"", "actorName": "Sofía Torres", "actorRole": "student", "timestamp": "2026-03-26T16:30:00Z" }
+    ],
+    "quickActions": [
+      { "id": "09b053e0-d0e1-526d-9bca-5d06551bfca1", "label": "Gestionar Usuarios", "href": "/people", "icon": "users" },
+      { "id": "057c846e-8e6b-56d6-a0c9-58c8150b757e", "label": "Aprobar Borradores", "href": "/blog?filter=pending", "icon": "file-check" }
+    ]
+  },
+  "teacherData": {
+    "stats": [
+      { "id": "d70e66fb-d659-5538-b051-4ae18129bceb", "label": "Asistencia Mis Grupos", "value": "91%", "trend": { "direction": "up", "percentage": 3 }, "icon": "clipboard-check" },
+      { "id": "d8fd837c-8f32-5fdd-895a-e56960909c9c", "label": "Mis Posts", "value": 7, "icon": "pen-square" },
+      { "id": "a9b01760-5548-58e0-9068-39672659056b", "label": "Mis Grabaciones", "value": 4, "icon": "audio-lines" },
+      { "id": "7b10ca17-3847-507b-b721-a54cffb96e71", "label": "Borradores por Revisar", "value": 3, "icon": "file-clock" }
+    ],
+    "activityFeed": [
+      { "id": "4b66388c-6e97-5a21-9d3b-6e393db0f83c", "type": "draft_submitted", "description": "envió borrador \"Mi experiencia en la feria de ciencias\"", "actorName": "Ana López", "actorRole": "student", "timestamp": "2026-03-28T08:15:00Z" },
+      { "id": "7baf7a39-0b82-5a4d-b259-bca9400bd761", "type": "attendance", "description": "registró asistencia para el grupo 3ºA Matutino", "actorName": "Carlos Rivera", "actorRole": "teacher", "timestamp": "2026-03-28T08:30:00Z" },
+      { "id": "960ca8ba-a730-5bbe-97f0-4f58c592890f", "type": "post_published", "description": "publicó \"Consejos para el examen de matemáticas\"", "actorName": "Carlos Rivera", "actorRole": "teacher", "timestamp": "2026-03-28T08:45:00Z" },
+      { "id": "9f7abcbd-6aa6-5475-9a9a-5eac658a751b", "type": "draft_submitted", "description": "envió borrador \"Proyecto de reciclaje escolar\"", "actorName": "Sofía Torres", "actorRole": "student", "timestamp": "2026-03-26T16:30:00Z" },
+      { "id": "01fed3ec-371e-5458-a27c-0221c0ae8df5", "type": "attendance", "description": "registró asistencia para el grupo Club de Robótica", "actorName": "Carlos Rivera", "actorRole": "teacher", "timestamp": "2026-03-27T09:15:00Z" }
+    ],
+    "quickActions": [
+      { "id": "d3638b74-9969-513a-a260-35ae964db400", "label": "Pasar Asistencia", "href": "/attendance", "icon": "clipboard-check" },
+      { "id": "8508b44a-7b94-5b71-b500-ad53ed90153f", "label": "Crear Post", "href": "/blog/new", "icon": "pen-square" }
+    ]
+  },
+  "studentData": {
+    "welcome": {
+      "studentName": "Ana",
+      "attendanceStreak": 12,
+      "groupCount": 3
+    },
+    "stats": [
+      { "id": "c8d14987-17ba-50e3-a5d1-4298cf96ba16", "label": "Mi Asistencia", "value": "97%", "trend": { "direction": "up", "percentage": 1 }, "icon": "clipboard-check" },
+      { "id": "f9a7a12c-1233-5e77-bc24-e8c87d8d5e34", "label": "Racha de Asistencia", "value": "12 días", "icon": "flame" },
+      { "id": "2e9ca735-1ff8-56d2-b3c1-e41b1e50ad08", "label": "Mis Grupos", "value": 3, "icon": "layers" }
+    ],
+    "recentPosts": [
+      { "id": "4593e822-385a-510c-8c18-68bad2fe2719", "title": "Consejos para el examen de matemáticas", "authorName": "Carlos Rivera", "publishedAt": "2026-03-28T08:45:00Z", "categoryName": "Académico" },
+      { "id": "bc302285-43d0-5acd-bda2-240186ff253b", "title": "Nuevas reglas del laboratorio de cómputo", "authorName": "Morelia Meléndez", "publishedAt": "2026-03-27T10:00:00Z", "categoryName": "Anuncios" },
+      { "id": "eeb3078d-9307-5867-9474-e88d5deb41ea", "title": "Resultados del torneo inter-escolar de ajedrez", "authorName": "Laura Méndez", "publishedAt": "2026-03-25T14:00:00Z", "categoryName": "Eventos" },
+      { "id": "493f827d-b631-53ec-8233-a85d1f020cb5", "title": "Convocatoria para el concurso de oratoria 2026", "authorName": "Morelia Meléndez", "publishedAt": "2026-03-24T09:00:00Z", "categoryName": "Anuncios" }
+    ],
+    "draftStatuses": [
+      { "id": "a224e0c6-00eb-5d06-8b26-5b2424da132a", "title": "Mi experiencia en la feria de ciencias", "status": "pending", "submittedAt": "2026-03-28T08:15:00Z" },
+      { "id": "0cab7431-019c-5134-8be4-e6932e835741", "title": "Receta del pastel que hicimos en taller", "status": "approved", "submittedAt": "2026-03-20T11:00:00Z" },
+      { "id": "376ae901-72fe-5595-abd3-6da0987e5de2", "title": "Por qué deberíamos tener más recreo", "status": "rejected", "submittedAt": "2026-03-18T15:30:00Z" }
+    ],
+    "quickActions": [
+      { "id": "6bd5bda3-bff7-55ca-bc47-4c10cb74df7a", "label": "Enviar Borrador", "href": "/blog/new", "icon": "pen-square" },
+      { "id": "a3a08336-9a4f-5c1a-a333-567b116ab76d", "label": "Ver Asistencia", "href": "/attendance", "icon": "clipboard-check" }
+    ]
+  }
+}

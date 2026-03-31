@@ -1,0 +1,139 @@
+{
+  "_meta": {
+    "models": {
+      "Recording": "An audio recording (from microphone or uploaded file) with metadata. Private per user.",
+      "Folder": "A user-created folder for organizing recordings.",
+      "TranscriptionResult": "AI-generated output from a recording: full transcript, summary, key takeaways, and action items.",
+      "RecordingDetail": "A recording with its associated transcription result (if transcribed).",
+      "RecorderData": "State of the in-app audio recorder: idle, recording, or paused with elapsed time and volume."
+    },
+    "relationships": [
+      "Recording belongs to Folder",
+      "RecordingDetail contains one Recording and optionally one TranscriptionResult",
+      "Folder has many Recording"
+    ]
+  },
+  "folders": [
+    { "id": "7eab273b-f866-5d4d-b991-8bcec73d3231", "name": "Juntas de Personal", "recordingCount": 4 },
+    { "id": "4e9d54c2-aea6-583e-b169-c49b6a6af67f", "name": "Grabaciones de Clase", "recordingCount": 3 },
+    { "id": "71ceba18-d57d-58c2-9a3e-e97324c96b49", "name": "Reuniones con Padres", "recordingCount": 1 },
+    { "id": "324dbf7a-8707-5237-993d-4f05ea381ba3", "name": "Varios", "recordingCount": 0 }
+  ],
+  "recordings": [
+    {
+      "id": "76015fb0-1878-5cb1-a9ce-ca081dc032cc",
+      "userId": "d35a2a2a-d1d1-55ed-90a7-348c3da59deb",
+      "name": "Junta de planeación semanal",
+      "folderId": "7eab273b-f866-5d4d-b991-8bcec73d3231",
+      "folderName": "Juntas de Personal",
+      "duration": 1080,
+      "createdAt": "2026-03-27T17:00:00Z",
+      "transcriptionStatus": "completed"
+    },
+    {
+      "id": "5009ee7c-6c1d-573b-bce6-edcf1b5679d8",
+      "userId": "d35a2a2a-d1d1-55ed-90a7-348c3da59deb",
+      "name": "Revisión de calificaciones bimestrales",
+      "folderId": "7eab273b-f866-5d4d-b991-8bcec73d3231",
+      "folderName": "Juntas de Personal",
+      "duration": 1560,
+      "createdAt": "2026-03-25T16:30:00Z",
+      "transcriptionStatus": "completed"
+    },
+    {
+      "id": "2ac18238-20cf-5726-b649-9828e4c4c68d",
+      "userId": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+      "name": "Clase de ciencias - Ecosistemas",
+      "folderId": "4e9d54c2-aea6-583e-b169-c49b6a6af67f",
+      "folderName": "Grabaciones de Clase",
+      "duration": 1800,
+      "createdAt": "2026-03-26T10:00:00Z",
+      "transcriptionStatus": "processing"
+    },
+    {
+      "id": "91bc0673-e0e2-578a-ae5e-87293931b67e",
+      "userId": "d35a2a2a-d1d1-55ed-90a7-348c3da59deb",
+      "name": "Reunión disciplina 3ºA",
+      "folderId": "7eab273b-f866-5d4d-b991-8bcec73d3231",
+      "folderName": "Juntas de Personal",
+      "duration": 720,
+      "createdAt": "2026-03-24T14:00:00Z",
+      "transcriptionStatus": "none"
+    },
+    {
+      "id": "b273201e-24cf-55ac-8799-8a5d81fd89c2",
+      "userId": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+      "name": "Taller de robótica - sesión 8",
+      "folderId": "4e9d54c2-aea6-583e-b169-c49b6a6af67f",
+      "folderName": "Grabaciones de Clase",
+      "duration": 1440,
+      "createdAt": "2026-03-23T11:00:00Z",
+      "transcriptionStatus": "completed"
+    },
+    {
+      "id": "99791055-cf61-5ea8-b311-0d5bac96847b",
+      "userId": "dbc080c1-f33d-5a36-8bd2-68fb0d20f0db",
+      "name": "Entrevista con padres de Diego Ramírez",
+      "folderId": "71ceba18-d57d-58c2-9a3e-e97324c96b49",
+      "folderName": "Reuniones con Padres",
+      "duration": 960,
+      "createdAt": "2026-03-21T09:00:00Z",
+      "transcriptionStatus": "completed"
+    },
+    {
+      "id": "f5afdcad-aed3-5a53-ad84-6ebc9689436a",
+      "userId": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+      "name": "Clase de matemáticas - Fracciones",
+      "folderId": "4e9d54c2-aea6-583e-b169-c49b6a6af67f",
+      "folderName": "Grabaciones de Clase",
+      "duration": 1680,
+      "createdAt": "2026-03-20T08:30:00Z",
+      "transcriptionStatus": "none"
+    },
+    {
+      "id": "57c56925-40b1-5223-8293-95609afb9b92",
+      "userId": "d35a2a2a-d1d1-55ed-90a7-348c3da59deb",
+      "name": "Coordinación de evento de cierre de bimestre",
+      "folderId": "7eab273b-f866-5d4d-b991-8bcec73d3231",
+      "folderName": "Juntas de Personal",
+      "duration": 900,
+      "createdAt": "2026-03-18T15:00:00Z",
+      "transcriptionStatus": "completed"
+    }
+  ],
+  "selectedDetail": {
+    "recording": {
+      "id": "76015fb0-1878-5cb1-a9ce-ca081dc032cc",
+      "userId": "d35a2a2a-d1d1-55ed-90a7-348c3da59deb",
+      "name": "Junta de planeación semanal",
+      "folderId": "7eab273b-f866-5d4d-b991-8bcec73d3231",
+      "folderName": "Juntas de Personal",
+      "duration": 1080,
+      "createdAt": "2026-03-27T17:00:00Z",
+      "transcriptionStatus": "completed"
+    },
+    "transcription": {
+      "fullTranscript": "Morelia: Buenas tardes a todos, vamos a iniciar la junta de planeación de esta semana. El primer punto es la organización del festival de primavera que será el 15 de abril.\n\nCarlos: Ya tengo confirmados a los grupos de 3ºA y 3ºB para la presentación de poesía. Necesitamos definir el horario y el espacio.\n\nLaura: Del lado de arte, los alumnos del taller van a montar una exposición en el patio central. Necesitamos mesas y mamparas.\n\nMorelia: Perfecto. Carlos, ¿puedes coordinar los horarios con los otros profesores y enviarme la propuesta el viernes? Laura, haz una lista del material que necesitas y pásala a administración.\n\nCarlos: Sí, el viernes a más tardar la tengo.\n\nLaura: De acuerdo, mañana la envío.\n\nMorelia: El segundo punto es el tema de las calificaciones del tercer bimestre. Recuerden que la fecha límite para captura es el 2 de abril. Por favor revisen que todos los alumnos tengan sus evaluaciones completas.\n\nCarlos: Tengo una duda sobre el caso de Isabella Morales que tuvo varias faltas justificadas. ¿Aplicamos el criterio de evaluación diferenciada?\n\nMorelia: Sí, en su caso apliquen la rúbrica especial que acordamos el mes pasado. Si tienen otros casos similares, háganmelo saber antes del viernes.\n\nLaura: Yo estoy al corriente con mis grupos, no tengo pendientes.\n\nMorelia: Excelente. ¿Algo más que quieran agregar? Si no, damos por terminada la junta. Nos vemos la próxima semana.",
+      "summary": "Junta semanal de planeación donde se coordinaron dos temas principales: la organización del festival de primavera del 15 de abril (presentaciones de poesía y exposición de arte) y la captura de calificaciones del tercer bimestre con fecha límite el 2 de abril. Se discutió el caso especial de una alumna con faltas justificadas.",
+      "keyTakeaways": [
+        "Festival de primavera programado para el 15 de abril con presentación de poesía y exposición de arte",
+        "Fecha límite para captura de calificaciones del tercer bimestre: 2 de abril",
+        "Se aplicará rúbrica de evaluación diferenciada para alumnos con faltas justificadas",
+        "Se necesitan mesas y mamparas para la exposición del patio central"
+      ],
+      "actionItems": [
+        "Carlos: Enviar propuesta de horarios del festival a Morelia antes del viernes",
+        "Laura: Enviar lista de material necesario para la exposición a administración mañana",
+        "Todos los profesores: Completar captura de calificaciones antes del 2 de abril",
+        "Profesores con casos de evaluación diferenciada: Notificar a Morelia antes del viernes"
+      ],
+      "completedAt": "2026-03-27T17:25:00Z"
+    }
+  },
+  "recorder": {
+    "state": "idle",
+    "elapsedSeconds": 0,
+    "maxSeconds": 1800,
+    "volumeLevel": 0
+  }
+}

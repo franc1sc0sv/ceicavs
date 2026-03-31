@@ -1,0 +1,149 @@
+{
+  "_meta": {
+    "models": {
+      "tool": "A utility tool available in the teaching tools hub. Each tool belongs to a category and has its own dedicated interface.",
+      "category": "A grouping label for organizing tools in the grid (e.g., Teaching & Classroom, File Converters).",
+      "favorite": "A user's pinned tool that appears in the Favorites row at the top of the grid."
+    },
+    "relationships": [
+      "Tool belongs to one Category",
+      "Favorite belongs to User and Tool",
+      "User has many Favorite"
+    ]
+  },
+  "categories": [
+    { "id": "c739e32e-d641-5b3f-bb19-802037f42f0a", "name": "Teaching & Classroom", "slug": "teaching-classroom", "order": 1 },
+    { "id": "ef060fcc-c843-5b1a-9445-658fca1f7113", "name": "File Converters", "slug": "file-converters", "order": 2 },
+    { "id": "546d5904-58f7-5e85-a789-112e2b52e32c", "name": "Media Tools", "slug": "media-tools", "order": 3 },
+    { "id": "b1d8b16d-8ead-5aa8-be3a-1b532eee43ec", "name": "Productivity", "slug": "productivity", "order": 4 }
+  ],
+  "tools": [
+    {
+      "id": "905e288c-c230-5693-a1f2-b313a5bf186d",
+      "name": "Random Student Picker",
+      "description": "Select a random student from a group with a fun spin wheel or shuffle animation",
+      "categoryId": "c739e32e-d641-5b3f-bb19-802037f42f0a",
+      "icon": "users",
+      "color": "lime"
+    },
+    {
+      "id": "dc3e3796-69b9-5f15-bdc3-3321e11e97a4",
+      "name": "Countdown Timer",
+      "description": "Set countdown timers and stopwatches for classroom activities and exams",
+      "categoryId": "c739e32e-d641-5b3f-bb19-802037f42f0a",
+      "icon": "clock",
+      "color": "amber"
+    },
+    {
+      "id": "5f582538-ba72-5e4b-85b8-fea6005011c0",
+      "name": "Noise Level Monitor",
+      "description": "Visual noise meter using the microphone — keeps the classroom volume in check",
+      "categoryId": "c739e32e-d641-5b3f-bb19-802037f42f0a",
+      "icon": "volume-2",
+      "color": "red"
+    },
+    {
+      "id": "2b415492-81df-518c-a7f5-70a10c03c1c7",
+      "name": "Task Organizer",
+      "description": "Create and manage task checklists for lessons, assignments, or personal to-dos",
+      "categoryId": "c739e32e-d641-5b3f-bb19-802037f42f0a",
+      "icon": "check-square",
+      "color": "sky"
+    },
+    {
+      "id": "21781fa3-0ed4-517b-84ac-245dcb99aeae",
+      "name": "PDF Converter",
+      "description": "Convert PDF files to Word documents and Word files to PDF instantly",
+      "categoryId": "ef060fcc-c843-5b1a-9445-658fca1f7113",
+      "icon": "file-text",
+      "color": "rose"
+    },
+    {
+      "id": "ed9ea594-629f-50ee-835d-d62afd7abdd9",
+      "name": "Image Format Converter",
+      "description": "Convert images between PNG, JPG, and WebP formats with quality control",
+      "categoryId": "ef060fcc-c843-5b1a-9445-658fca1f7113",
+      "icon": "image",
+      "color": "violet"
+    },
+    {
+      "id": "bd98503c-4845-52bb-8d43-c1940ab4d386",
+      "name": "CSV / JSON Converter",
+      "description": "Transform CSV spreadsheets to JSON and back — useful for data imports and exports",
+      "categoryId": "ef060fcc-c843-5b1a-9445-658fca1f7113",
+      "icon": "table",
+      "color": "emerald"
+    },
+    {
+      "id": "ca48be9f-0b21-5db8-b125-f6ccd11ae9de",
+      "name": "Video Downloader",
+      "description": "Paste a YouTube URL, choose quality, and download the video for offline classroom use",
+      "categoryId": "546d5904-58f7-5e85-a789-112e2b52e32c",
+      "icon": "download",
+      "color": "red"
+    },
+    {
+      "id": "febbfeb4-f43e-5643-bd2d-340f4aeee76b",
+      "name": "Image Compressor",
+      "description": "Reduce image file size and resize dimensions without losing visible quality",
+      "categoryId": "546d5904-58f7-5e85-a789-112e2b52e32c",
+      "icon": "minimize-2",
+      "color": "orange"
+    },
+    {
+      "id": "44284731-2fbb-5a63-be96-cfd706140c67",
+      "name": "QR Code Generator",
+      "description": "Generate QR codes from any text or URL — perfect for sharing links with students",
+      "categoryId": "546d5904-58f7-5e85-a789-112e2b52e32c",
+      "icon": "grid",
+      "color": "stone"
+    },
+    {
+      "id": "9705a1c2-7a9b-54fe-be1e-19295065118c",
+      "name": "Screenshot to Text",
+      "description": "Upload a screenshot or image and extract the text using OCR — great for digitizing printed materials",
+      "categoryId": "546d5904-58f7-5e85-a789-112e2b52e32c",
+      "icon": "scan",
+      "color": "cyan"
+    },
+    {
+      "id": "8a7088d7-8199-5d58-a5c9-dd73feebe7ea",
+      "name": "Quick Notes",
+      "description": "A simple scratchpad for jotting down ideas, reminders, or class notes on the fly",
+      "categoryId": "b1d8b16d-8ead-5aa8-be3a-1b532eee43ec",
+      "icon": "edit-3",
+      "color": "yellow"
+    },
+    {
+      "id": "43873f40-488b-52de-9ecf-63183dcd91ec",
+      "name": "Scientific Calculator",
+      "description": "Full-featured scientific calculator with trigonometry, logarithms, and expression history",
+      "categoryId": "b1d8b16d-8ead-5aa8-be3a-1b532eee43ec",
+      "icon": "hash",
+      "color": "indigo"
+    },
+    {
+      "id": "86a135cc-6842-5335-9f5f-fed2c4b33941",
+      "name": "Text Diff Comparator",
+      "description": "Paste two texts side by side and highlight the differences — useful for comparing student submissions or document versions",
+      "categoryId": "b1d8b16d-8ead-5aa8-be3a-1b532eee43ec",
+      "icon": "columns",
+      "color": "teal"
+    },
+    {
+      "id": "ccecb121-4c51-52fd-b638-04cc9af830b7",
+      "name": "Password Generator",
+      "description": "Generate strong random passwords with customizable length and character options",
+      "categoryId": "b1d8b16d-8ead-5aa8-be3a-1b532eee43ec",
+      "icon": "lock",
+      "color": "fuchsia"
+    }
+  ],
+  "favorites": [
+    { "userId": "8e366a8d-6e18-50fd-98d9-2efd6d246b24", "toolId": "905e288c-c230-5693-a1f2-b313a5bf186d" },
+    { "userId": "8e366a8d-6e18-50fd-98d9-2efd6d246b24", "toolId": "dc3e3796-69b9-5f15-bdc3-3321e11e97a4" },
+    { "userId": "8e366a8d-6e18-50fd-98d9-2efd6d246b24", "toolId": "ca48be9f-0b21-5db8-b125-f6ccd11ae9de" },
+    { "userId": "933a1a70-8683-5fea-8b3c-02459adb5f31", "toolId": "8a7088d7-8199-5d58-a5c9-dd73feebe7ea" },
+    { "userId": "933a1a70-8683-5fea-8b3c-02459adb5f31", "toolId": "44284731-2fbb-5a63-be96-cfd706140c67" }
+  ]
+}

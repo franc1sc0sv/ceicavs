@@ -1,0 +1,94 @@
+/*
+ * CEICAVS Design Tokens
+ *
+ * CSS custom properties derived from the product design system.
+ * These map to Tailwind CSS v4 built-in color utilities.
+ *
+ * Usage: reference these tokens in your global stylesheet or
+ * use the corresponding Tailwind utility classes directly.
+ */
+
+/* --------------------------------------------------------
+ * Typography
+ * -------------------------------------------------------- */
+:root {
+  --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+}
+
+/* --------------------------------------------------------
+ * Colors — Light Mode (default)
+ * -------------------------------------------------------- */
+:root {
+  /* Primary (indigo) */
+  --color-primary-accent: oklch(0.5106 0.2094 269.33);    /* indigo-600 */
+  --color-primary-subtle: oklch(0.9617 0.0184 272.31);    /* indigo-50  */
+
+  /* Secondary (amber) */
+  --color-secondary-accent: oklch(0.7689 0.1632 70.08);   /* amber-500  */
+  --color-secondary-subtle: oklch(0.9872 0.0263 84.58);   /* amber-50   */
+
+  /* Neutral (slate) */
+  --color-background: oklch(0.9700 0.0014 247.86);        /* slate-50   */
+  --color-surface: oklch(1.0000 0.0000 0.00);             /* white      */
+  --color-text: oklch(0.2078 0.0411 265.75);              /* slate-900  */
+  --color-text-muted: oklch(0.5539 0.0235 264.36);        /* slate-500  */
+  --color-border: oklch(0.8690 0.0142 252.89);            /* slate-200  */
+
+  /* Semantic */
+  --color-success: oklch(0.5960 0.1450 163.23);           /* emerald-600 */
+  --color-warning: oklch(0.7689 0.1632 70.08);            /* amber-500   */
+  --color-error: oklch(0.5772 0.2455 27.33);              /* red-600     */
+  --color-info: oklch(0.5106 0.2094 269.33);              /* indigo-600  */
+}
+
+/* --------------------------------------------------------
+ * Colors — Dark Mode
+ * -------------------------------------------------------- */
+.dark,
+[data-theme="dark"] {
+  /* Primary (indigo) */
+  --color-primary-accent: oklch(0.6732 0.1901 271.16);    /* indigo-400 */
+  --color-primary-subtle: oklch(0.3578 0.0700 270.00 / 0.1); /* indigo-500/10 */
+
+  /* Secondary (amber) */
+  --color-secondary-accent: oklch(0.8266 0.1597 74.94);   /* amber-400  */
+  --color-secondary-subtle: oklch(0.7689 0.1632 70.08 / 0.1); /* amber-500/10 */
+
+  /* Neutral (slate) */
+  --color-background: oklch(0.1293 0.0183 264.18);        /* slate-950  */
+  --color-surface: oklch(0.2078 0.0411 265.75);           /* slate-900  */
+  --color-text: oklch(0.9288 0.0106 255.51);              /* slate-100  */
+  --color-text-muted: oklch(0.6445 0.0216 264.53);        /* slate-400  */
+  --color-border: oklch(0.2793 0.0398 260.03);            /* slate-800  */
+
+  /* Semantic */
+  --color-success: oklch(0.7650 0.1770 163.22);           /* emerald-400 */
+  --color-warning: oklch(0.8266 0.1597 74.94);            /* amber-400   */
+  --color-error: oklch(0.7040 0.1910 22.21);              /* red-400     */
+  --color-info: oklch(0.6732 0.1901 271.16);              /* indigo-400  */
+}
+
+/* --------------------------------------------------------
+ * Spacing & Layout
+ * -------------------------------------------------------- */
+:root {
+  --sidebar-width: 256px;
+  --sidebar-collapsed-width: 72px;
+  --header-height: 64px;
+  --content-max-width: 1280px;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/* --------------------------------------------------------
+ * Transitions
+ * -------------------------------------------------------- */
+:root {
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+}

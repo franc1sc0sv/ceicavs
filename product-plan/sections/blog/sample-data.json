@@ -1,0 +1,462 @@
+{
+  "_meta": {
+    "models": {
+      "PostPreview": "A post card shown in the feed with title, excerpt, author, category, reactions, and comment count.",
+      "PostDetail": "Full post content with rich text HTML, author info, category, and reactions.",
+      "Comment": "A top-level comment on a post. Can have first-level replies, which can have second-level sub-replies.",
+      "Category": "A topic label for organizing and filtering posts.",
+      "Draft": "A student-submitted post awaiting admin/teacher approval. Has a status (draft/published/rejected).",
+      "ReactionSummary": "Aggregated emoji reaction count for a post, with indicator of whether the current user reacted.",
+      "GifAttachment": "A GIPHY GIF embedded in a comment or reply."
+    },
+    "relationships": [
+      "PostPreview belongs to Author and Category, has many ReactionSummary",
+      "PostDetail belongs to Author and Category, has many ReactionSummary",
+      "Comment belongs to Author and PostDetail, has many CommentReply",
+      "CommentReply belongs to Author and Comment, has many SubReply",
+      "Draft belongs to Author and Category"
+    ]
+  },
+  "categories": [
+    {
+      "id": "f0e26c32-c71f-5815-8b62-a5aa1b6d2045",
+      "name": "Anuncios",
+      "postCount": 12
+    },
+    {
+      "id": "78e59041-6e55-5eff-a95a-195d3be7bd08",
+      "name": "Académico",
+      "postCount": 8
+    },
+    {
+      "id": "ab3bbfa5-75dd-5ddf-af25-f2d806462328",
+      "name": "Eventos",
+      "postCount": 6
+    },
+    {
+      "id": "44cffb28-f389-52dd-ab81-9cae0f3385e0",
+      "name": "Tecnología",
+      "postCount": 4
+    },
+    {
+      "id": "78e00313-8288-52c4-9a73-319ea7eddd1e",
+      "name": "Deportes",
+      "postCount": 3
+    },
+    {
+      "id": "b6952fbc-799c-5d4c-8689-3625d73edf25",
+      "name": "Creatividad",
+      "postCount": 2
+    }
+  ],
+  "posts": [
+    {
+      "id": "4593e822-385a-510c-8c18-68bad2fe2719",
+      "title": "Consejos para el examen de matemáticas del tercer bimestre",
+      "excerpt": "Preparé una guía rápida con los temas más importantes que entrarán en el examen. Revisen los ejercicios de fracciones y geometría que practicamos en clase...",
+      "coverImageUrl": null,
+      "author": {
+        "id": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+        "name": "Carlos Rivera",
+        "role": "teacher"
+      },
+      "reactions": [
+        {
+          "emoji": "like",
+          "count": 14,
+          "userReacted": false
+        },
+        {
+          "emoji": "insightful",
+          "count": 7,
+          "userReacted": true
+        },
+        {
+          "emoji": "love",
+          "count": 3,
+          "userReacted": false
+        }
+      ],
+      "commentCount": 5,
+      "publishedAt": "2026-03-28T08:45:00Z",
+      "categories": [
+        {
+          "id": "78e59041-6e55-5eff-a95a-195d3be7bd08",
+          "name": "Académico",
+          "postCount": 8
+        }
+      ]
+    },
+    {
+      "id": "bc302285-43d0-5acd-bda2-240186ff253b",
+      "title": "Nuevas reglas del laboratorio de cómputo",
+      "excerpt": "A partir de abril, el laboratorio tendrá horarios extendidos los jueves y viernes. También se actualizaron las normas de uso de equipos. Favor de leer completo...",
+      "coverImageUrl": null,
+      "author": {
+        "id": "d35a2a2a-d1d1-55ed-90a7-348c3da59deb",
+        "name": "Morelia Meléndez",
+        "role": "admin"
+      },
+      "reactions": [
+        {
+          "emoji": "like",
+          "count": 8,
+          "userReacted": true
+        },
+        {
+          "emoji": "celebrate",
+          "count": 2,
+          "userReacted": false
+        }
+      ],
+      "commentCount": 3,
+      "publishedAt": "2026-03-27T10:00:00Z",
+      "categories": [
+        {
+          "id": "f0e26c32-c71f-5815-8b62-a5aa1b6d2045",
+          "name": "Anuncios",
+          "postCount": 12
+        }
+      ]
+    },
+    {
+      "id": "eeb3078d-9307-5867-9474-e88d5deb41ea",
+      "title": "Resultados del torneo inter-escolar de ajedrez",
+      "excerpt": "¡Felicidades al equipo de ajedrez! Obtuvimos el segundo lugar en la categoría juvenil. Participaron 12 escuelas de la zona metropolitana y nuestros estudiantes demostraron una preparación increíble...",
+      "coverImageUrl": null,
+      "author": {
+        "id": "dbc080c1-f33d-5a36-8bd2-68fb0d20f0db",
+        "name": "Laura Méndez",
+        "role": "teacher"
+      },
+      "reactions": [
+        {
+          "emoji": "celebrate",
+          "count": 22,
+          "userReacted": true
+        },
+        {
+          "emoji": "love",
+          "count": 15,
+          "userReacted": false
+        },
+        {
+          "emoji": "like",
+          "count": 9,
+          "userReacted": false
+        }
+      ],
+      "commentCount": 11,
+      "publishedAt": "2026-03-25T14:00:00Z",
+      "categories": [
+        {
+          "id": "ab3bbfa5-75dd-5ddf-af25-f2d806462328",
+          "name": "Eventos",
+          "postCount": 6
+        }
+      ]
+    },
+    {
+      "id": "493f827d-b631-53ec-8233-a85d1f020cb5",
+      "title": "Convocatoria para el concurso de oratoria 2026",
+      "excerpt": "Se abre la convocatoria para participar en el concurso anual de oratoria. Los interesados deberán inscribirse antes del 5 de abril con su profesor de español...",
+      "coverImageUrl": null,
+      "author": {
+        "id": "d35a2a2a-d1d1-55ed-90a7-348c3da59deb",
+        "name": "Morelia Meléndez",
+        "role": "admin"
+      },
+      "reactions": [
+        {
+          "emoji": "like",
+          "count": 6,
+          "userReacted": false
+        }
+      ],
+      "commentCount": 2,
+      "publishedAt": "2026-03-24T09:00:00Z",
+      "categories": [
+        {
+          "id": "f0e26c32-c71f-5815-8b62-a5aa1b6d2045",
+          "name": "Anuncios",
+          "postCount": 12
+        }
+      ]
+    },
+    {
+      "id": "f3c02198-e14a-5568-91ec-616b44b0a5de",
+      "title": "Introducción a Scratch: programación para principiantes",
+      "excerpt": "En el taller de esta semana aprendimos los conceptos básicos de Scratch. Aquí les comparto un resumen de lo que vimos y algunos recursos para seguir practicando en casa...",
+      "coverImageUrl": null,
+      "author": {
+        "id": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+        "name": "Carlos Rivera",
+        "role": "teacher"
+      },
+      "reactions": [
+        {
+          "emoji": "insightful",
+          "count": 11,
+          "userReacted": false
+        },
+        {
+          "emoji": "like",
+          "count": 8,
+          "userReacted": true
+        },
+        {
+          "emoji": "love",
+          "count": 4,
+          "userReacted": false
+        }
+      ],
+      "commentCount": 7,
+      "publishedAt": "2026-03-22T11:30:00Z",
+      "categories": [
+        {
+          "id": "44cffb28-f389-52dd-ab81-9cae0f3385e0",
+          "name": "Tecnología",
+          "postCount": 4
+        }
+      ]
+    },
+    {
+      "id": "0ab47ba1-9ef8-5bb9-b7f2-4c7e44695d60",
+      "title": "Receta del pastel que hicimos en taller de cocina",
+      "excerpt": "¡Aquí está la receta completa del pastel de zanahoria que preparamos! Necesitarán: 3 zanahorias ralladas, 2 tazas de harina, 1 taza de azúcar...",
+      "coverImageUrl": null,
+      "author": {
+        "id": "933a1a70-8683-5fea-8b3c-02459adb5f31",
+        "name": "Ana López",
+        "role": "student"
+      },
+      "reactions": [
+        {
+          "emoji": "love",
+          "count": 18,
+          "userReacted": false
+        },
+        {
+          "emoji": "like",
+          "count": 5,
+          "userReacted": false
+        },
+        {
+          "emoji": "funny",
+          "count": 3,
+          "userReacted": true
+        }
+      ],
+      "commentCount": 9,
+      "publishedAt": "2026-03-21T15:00:00Z",
+      "categories": [
+        {
+          "id": "b6952fbc-799c-5d4c-8689-3625d73edf25",
+          "name": "Creatividad",
+          "postCount": 2
+        }
+      ]
+    }
+  ],
+  "selectedPost": {
+    "id": "4593e822-385a-510c-8c18-68bad2fe2719",
+    "title": "Consejos para el examen de matemáticas del tercer bimestre",
+    "content": "<h2>Temas principales</h2><p>El examen cubrirá los siguientes temas que hemos trabajado durante las últimas semanas:</p><ul><li><strong>Fracciones:</strong> suma, resta, multiplicación y división de fracciones mixtas</li><li><strong>Geometría:</strong> área y perímetro de figuras compuestas</li><li><strong>Ecuaciones:</strong> resolución de ecuaciones de primer grado</li></ul><h2>Recomendaciones de estudio</h2><p>Les sugiero revisar los ejercicios que hicimos en clase, especialmente los de la página 45-52 del libro de texto. Si tienen dudas, pueden dejarlas en los comentarios y las respondo antes del viernes.</p><p>Recuerden que el examen es el <strong>lunes 30 de marzo</strong> a primera hora. ¡Mucho éxito!</p>",
+    "coverImageUrl": null,
+    "author": {
+      "id": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+      "name": "Carlos Rivera",
+      "role": "teacher"
+    },
+    "reactions": [
+      {
+        "emoji": "like",
+        "count": 14,
+        "userReacted": false
+      },
+      {
+        "emoji": "insightful",
+        "count": 7,
+        "userReacted": true
+      },
+      {
+        "emoji": "love",
+        "count": 3,
+        "userReacted": false
+      }
+    ],
+    "publishedAt": "2026-03-28T08:45:00Z",
+    "categories": [
+      {
+        "id": "78e59041-6e55-5eff-a95a-195d3be7bd08",
+        "name": "Académico",
+        "postCount": 8
+      }
+    ]
+  },
+  "comments": [
+    {
+      "id": "8a0ce526-c115-5dac-ad7d-07c307059f96",
+      "author": {
+        "id": "933a1a70-8683-5fea-8b3c-02459adb5f31",
+        "name": "Ana López",
+        "role": "student"
+      },
+      "text": "¡Gracias profe! ¿Las ecuaciones van a incluir las de dos incógnitas o solo de una?",
+      "createdAt": "2026-03-28T09:10:00Z",
+      "replies": [
+        {
+          "id": "16871c94-e7b2-5c38-bbd4-b8198c8baee3",
+          "author": {
+            "id": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+            "name": "Carlos Rivera",
+            "role": "teacher"
+          },
+          "text": "Solo de una incógnita, Ana. Las de dos las veremos el próximo bimestre 👍",
+          "createdAt": "2026-03-28T09:25:00Z",
+          "subReplies": [
+            {
+              "id": "6d663ac2-0d02-5bdd-9653-c648164b4d76",
+              "author": {
+                "id": "933a1a70-8683-5fea-8b3c-02459adb5f31",
+                "name": "Ana López",
+                "role": "student"
+              },
+              "text": "Perfecto, gracias profe",
+              "createdAt": "2026-03-28T09:30:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2fb732c7-c844-5b61-b432-37d27c9898d3",
+      "author": {
+        "id": "52388865-df5d-5f46-8df6-034d113e9391",
+        "name": "Diego Ramírez",
+        "role": "student"
+      },
+      "text": "¿Alguien quiere hacer grupo de estudio el sábado?",
+      "gif": {
+        "id": "94db73fb-ec46-5c5a-bde4-f214fdda4ccc",
+        "url": "https://media.giphy.com/media/placeholder-studying/giphy.gif",
+        "alt": "Studying hard GIF",
+        "width": 320,
+        "height": 240
+      },
+      "createdAt": "2026-03-28T10:00:00Z",
+      "replies": [
+        {
+          "id": "d79fad19-f8fc-5d4a-86e5-6f688f392458",
+          "author": {
+            "id": "a710b314-b7cc-51d3-97ed-52f7aedba4c0",
+            "name": "Sofía Torres",
+            "role": "student"
+          },
+          "text": "¡Yo me apunto! ¿En la biblioteca a las 10?",
+          "createdAt": "2026-03-28T10:15:00Z",
+          "subReplies": []
+        }
+      ]
+    },
+    {
+      "id": "879a7fc3-fce6-55cf-8757-f7140c5ddee0",
+      "author": {
+        "id": "3ee066f5-64b0-5b81-b4fc-d8f8ede23ed0",
+        "name": "Valentina Herrera",
+        "role": "student"
+      },
+      "text": "Profe, ¿podríamos tener una sesión extra de repaso el viernes después de clases?",
+      "createdAt": "2026-03-28T11:30:00Z",
+      "replies": []
+    }
+  ],
+  "drafts": [
+    {
+      "id": "a224e0c6-00eb-5d06-8b26-5b2424da132a",
+      "title": "Mi experiencia en la feria de ciencias",
+      "excerpt": "Este año participé en la feria con un proyecto sobre energía solar y fue una experiencia increíble. Quiero compartir lo que aprendí...",
+      "author": {
+        "id": "933a1a70-8683-5fea-8b3c-02459adb5f31",
+        "name": "Ana López",
+        "role": "student"
+      },
+      "category": {
+        "id": "ab3bbfa5-75dd-5ddf-af25-f2d806462328",
+        "name": "Eventos",
+        "postCount": 6
+      },
+      "status": "draft",
+      "submittedAt": "2026-03-28T08:15:00Z"
+    },
+    {
+      "id": "0cab7431-019c-5134-8be4-e6932e835741",
+      "title": "Proyecto de reciclaje escolar",
+      "excerpt": "Propongo que implementemos un sistema de reciclaje en la escuela. He investigado cómo otras escuelas lo han hecho y tengo algunas ideas...",
+      "author": {
+        "id": "a710b314-b7cc-51d3-97ed-52f7aedba4c0",
+        "name": "Sofía Torres",
+        "role": "student"
+      },
+      "category": {
+        "id": "f0e26c32-c71f-5815-8b62-a5aa1b6d2045",
+        "name": "Anuncios",
+        "postCount": 12
+      },
+      "status": "draft",
+      "submittedAt": "2026-03-26T16:30:00Z"
+    },
+    {
+      "id": "376ae901-72fe-5595-abd3-6da0987e5de2",
+      "title": "Los mejores juegos para el recreo",
+      "excerpt": "Hice una lista de juegos divertidos que podemos organizar durante el recreo para que todos participen y nos divirtamos más...",
+      "author": {
+        "id": "271814b9-df4f-5305-9347-898e83e672dc",
+        "name": "Mateo Jiménez",
+        "role": "student"
+      },
+      "category": {
+        "id": "b6952fbc-799c-5d4c-8689-3625d73edf25",
+        "name": "Creatividad",
+        "postCount": 2
+      },
+      "status": "draft",
+      "submittedAt": "2026-03-25T13:00:00Z"
+    },
+    {
+      "id": "2c959552-1d1a-5182-9953-ff94b9ac1830",
+      "title": "Por qué deberíamos tener más recreo",
+      "excerpt": "Creo que si tuviéramos 5 minutos más de recreo, regresaríamos a clase con más energía y concentración...",
+      "author": {
+        "id": "52388865-df5d-5f46-8df6-034d113e9391",
+        "name": "Diego Ramírez",
+        "role": "student"
+      },
+      "category": {
+        "id": "f0e26c32-c71f-5815-8b62-a5aa1b6d2045",
+        "name": "Anuncios",
+        "postCount": 12
+      },
+      "status": "rejected",
+      "submittedAt": "2026-03-18T15:30:00Z",
+      "rejectionNote": "Diego, la idea es interesante pero necesita más desarrollo y datos que la respalden. Intenta reescribirlo con ejemplos de otras escuelas."
+    },
+    {
+      "id": "d18431f1-9461-596b-a4b6-cac4dd5b004e",
+      "title": "Receta del pastel que hicimos en taller",
+      "excerpt": "¡Aquí está la receta completa del pastel de zanahoria que preparamos!",
+      "author": {
+        "id": "933a1a70-8683-5fea-8b3c-02459adb5f31",
+        "name": "Ana López",
+        "role": "student"
+      },
+      "category": {
+        "id": "b6952fbc-799c-5d4c-8689-3625d73edf25",
+        "name": "Creatividad",
+        "postCount": 2
+      },
+      "status": "published",
+      "submittedAt": "2026-03-20T11:00:00Z"
+    }
+  ]
+}

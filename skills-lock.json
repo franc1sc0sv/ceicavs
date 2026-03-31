@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-pr-creator": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "7c515aad57df7805161ac10558ad005e2d39020c747cb9a837e091df7aafdce0"
+    },
+    "core-coding-standards": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "8bcc809068695139fc1084bcc4d823b2f785c942dfe45fac49f9beb2d4048ab3"
+    },
+    "design-accessibility": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "a82218ad41ea4104b69e1dfd4176c87af19e85ee6e321c0d1f283adeb3880665"
+    },
+    "design-frontend": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "52bbd7adf49bef29fcf513827b74ef8367e2110bd7adabd9afd8312268992e37"
+    },
+    "lang-typescript": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "6420ba417bad34d6180f39209f776ae3219df055f3389fccb52363cf87a108f3"
+    },
+    "platform-backend": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "da025ee9643c3db6bc383bc9b2208391f910f6f3107d46eda0a74a0d68f2ce66"
+    },
+    "platform-database": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "bfff58f7e2b39622e94edb75d0e0a2986326ae8ca4bed826366fe513ef332242"
+    },
+    "platform-frontend": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "96636854fb67626d7417296f9bd26f49dc52f1eb1c891e6d71cea26852c841cc"
+    },
+    "platform-testing": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "ee151704144633effb50132739671f6cb07665aa430d1c2dedd3766a682cbc6c"
+    },
+    "prisma-cli": {
+      "source": "prisma/skills",
+      "sourceType": "github",
+      "computedHash": "500f80cfb0bebbaf7ef60645b43eb126e6489d6a1a2a592983c37a3ef8a789b5"
+    },
+    "prisma-client-api": {
+      "source": "prisma/skills",
+      "sourceType": "github",
+      "computedHash": "ea94a5efcd3240e45c389bcdadd4613643245d226ffe1318c396e3b3edeb72ee"
+    },
+    "prisma-database-setup": {
+      "source": "prisma/skills",
+      "sourceType": "github",
+      "computedHash": "b05e88d284c4a754d3624697c2f749e21f7da3fc1f4319b6658df318e84b0dd9"
+    },
+    "prisma-driver-adapter-implementation": {
+      "source": "prisma/skills",
+      "sourceType": "github",
+      "computedHash": "866755316f6d86e743dd4ea08411fd3a9be52d34e9cf58db174d97eca56f4e8e"
+    },
+    "prisma-postgres": {
+      "source": "prisma/skills",
+      "sourceType": "github",
+      "computedHash": "7cf11f4b74c616f1e154c6f00735411b4edbe46e9e968d7c420177b8fa5b1518"
+    },
+    "promptify": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "0db37e14e2c1f96b522d335663e07be32a9e55c92e3f6ec6b9c8d48494b8015a"
+    },
+    "tech-react": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "03c6b5a647b8ed1bdd395ad0568f9a7690ca469ed44dac698eefe7ea25e9d8bf"
+    },
+    "tech-tanstack-form": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "a7568a94e2ef45b47e3586ec89f3473ef5b1d0d77c044ad24e8ff35628aef290"
+    },
+    "tech-vitest": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "8594fd9a88d0674ae523a39760ff6d03ad55515e3ba4389ad3f4a8662136e755"
+    },
+    "type-system-audit": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "84203a437e580b33bbb7083641fea64990040bc03c9d9d190bd50c632b8640c3"
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "models": {
+      "AttendanceGroup": "A group of students/people with its own attendance tracking. Shows today's rate on the card.",
+      "RosterStudent": "A student within a group's roster, with their attendance status for a given day.",
+      "StudentReport": "Per-student attendance breakdown for the reports table (rates, counts by status).",
+      "StudentHistoryRecord": "A single attendance entry in a student's personal history view.",
+      "StudentSummary": "Aggregated attendance data for the student's personal summary card."
+    },
+    "relationships": [
+      "AttendanceGroup has many RosterStudent",
+      "AttendanceGroup has many StudentReport (in reports tab)",
+      "StudentSummary aggregates data across all groups a student belongs to",
+      "StudentHistoryRecord references a group name and a status"
+    ]
+  },
+  "groups": [
+    { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino", "memberCount": 28, "todayRate": 93, "todaySubmitted": true },
+    { "id": "70f16c56-81ae-5902-9f8e-13b373f19587", "name": "3ºB Matutino", "memberCount": 25, "todayRate": 88, "todaySubmitted": true },
+    { "id": "1674d635-dc5f-5679-878c-b645bf45f10e", "name": "4ºA Vespertino", "memberCount": 30, "todayRate": null, "todaySubmitted": false },
+    { "id": "a3407602-d757-59b7-b061-d42ce85ce9a4", "name": "Club de Robótica", "memberCount": 12, "todayRate": 100, "todaySubmitted": true },
+    { "id": "d9837508-b6e2-5f76-a2ec-882d83a7f670", "name": "Taller de Arte", "memberCount": 15, "todayRate": null, "todaySubmitted": false },
+    { "id": "1f58aff2-c2ff-5cd8-93d0-02a8a6ac2e91", "name": "Equipo de Fútbol", "memberCount": 18, "todayRate": 89, "todaySubmitted": true }
+  ],
+  "groupDetail": {
+    "group": { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino", "memberCount": 28, "todayRate": 93, "todaySubmitted": true },
+    "date": "2026-03-28",
+    "roster": [
+      { "id": "933a1a70-8683-5fea-8b3c-02459adb5f31", "name": "Ana López", "status": "present" },
+      { "id": "52388865-df5d-5f46-8df6-034d113e9391", "name": "Diego Ramírez", "status": "present" },
+      { "id": "a710b314-b7cc-51d3-97ed-52f7aedba4c0", "name": "Sofía Torres", "status": "late" },
+      { "id": "3e7f0120-56df-5222-a8cb-a2fd1503ce12", "name": "Carlos Martínez", "status": "absent" },
+      { "id": "3ee066f5-64b0-5b81-b4fc-d8f8ede23ed0", "name": "Valentina Herrera", "status": "present" },
+      { "id": "271814b9-df4f-5305-9347-898e83e672dc", "name": "Mateo Jiménez", "status": "present" },
+      { "id": "4025932a-8150-5165-bec3-726ec0f47e30", "name": "Isabella Morales", "status": "excused" },
+      { "id": "39ee98d1-7b3e-5a28-ba39-01ed2143fe0c", "name": "Santiago Flores", "status": "present" },
+      { "id": "bf64b951-8954-58bf-8ec9-1f194c017fe8", "name": "Camila Reyes", "status": "present" },
+      { "id": "26ab961d-925c-5bc7-9ec5-ae404a745994", "name": "Emiliano Guzmán", "status": "late" }
+    ],
+    "reports": [
+      { "studentId": "933a1a70-8683-5fea-8b3c-02459adb5f31", "studentName": "Ana López", "attendanceRate": 97, "presentCount": 29, "absentCount": 0, "lateCount": 1, "excusedCount": 0, "totalDays": 30 },
+      { "studentId": "52388865-df5d-5f46-8df6-034d113e9391", "studentName": "Diego Ramírez", "attendanceRate": 90, "presentCount": 25, "absentCount": 2, "lateCount": 3, "excusedCount": 0, "totalDays": 30 },
+      { "studentId": "a710b314-b7cc-51d3-97ed-52f7aedba4c0", "studentName": "Sofía Torres", "attendanceRate": 87, "presentCount": 22, "absentCount": 1, "lateCount": 5, "excusedCount": 2, "totalDays": 30 },
+      { "studentId": "3e7f0120-56df-5222-a8cb-a2fd1503ce12", "studentName": "Carlos Martínez", "attendanceRate": 73, "presentCount": 20, "absentCount": 6, "lateCount": 2, "excusedCount": 2, "totalDays": 30 },
+      { "studentId": "3ee066f5-64b0-5b81-b4fc-d8f8ede23ed0", "studentName": "Valentina Herrera", "attendanceRate": 100, "presentCount": 30, "absentCount": 0, "lateCount": 0, "excusedCount": 0, "totalDays": 30 },
+      { "studentId": "271814b9-df4f-5305-9347-898e83e672dc", "studentName": "Mateo Jiménez", "attendanceRate": 93, "presentCount": 27, "absentCount": 1, "lateCount": 2, "excusedCount": 0, "totalDays": 30 },
+      { "studentId": "4025932a-8150-5165-bec3-726ec0f47e30", "studentName": "Isabella Morales", "attendanceRate": 83, "presentCount": 21, "absentCount": 2, "lateCount": 2, "excusedCount": 5, "totalDays": 30 },
+      { "studentId": "39ee98d1-7b3e-5a28-ba39-01ed2143fe0c", "studentName": "Santiago Flores", "attendanceRate": 97, "presentCount": 28, "absentCount": 0, "lateCount": 2, "excusedCount": 0, "totalDays": 30 },
+      { "studentId": "bf64b951-8954-58bf-8ec9-1f194c017fe8", "studentName": "Camila Reyes", "attendanceRate": 90, "presentCount": 26, "absentCount": 1, "lateCount": 2, "excusedCount": 1, "totalDays": 30 },
+      { "studentId": "26ab961d-925c-5bc7-9ec5-ae404a745994", "studentName": "Emiliano Guzmán", "attendanceRate": 80, "presentCount": 22, "absentCount": 3, "lateCount": 4, "excusedCount": 1, "totalDays": 30 }
+    ]
+  },
+  "studentSummary": {
+    "overallRate": 95,
+    "currentStreak": 12,
+    "groupCount": 3
+  },
+  "studentHistory": [
+    { "id": "cb6ed21a-1427-5212-b3ae-3b7a92a993f7", "date": "2026-03-28", "groupName": "3ºA Matutino", "status": "present" },
+    { "id": "be7fa566-6df1-5403-a6d4-d2508f5ad913", "date": "2026-03-28", "groupName": "Club de Robótica", "status": "present" },
+    { "id": "e2b9cbe8-5d7d-597a-8da4-8a572bf1158e", "date": "2026-03-27", "groupName": "3ºA Matutino", "status": "present" },
+    { "id": "30944bce-f897-5b8f-9268-a41d40ad103a", "date": "2026-03-27", "groupName": "Club de Robótica", "status": "late" },
+    { "id": "8bb5bfc1-37f3-5a37-ab16-210119a13d1f", "date": "2026-03-27", "groupName": "Taller de Arte", "status": "present" },
+    { "id": "1a90daf0-d531-529d-84ae-8d701d842c6f", "date": "2026-03-26", "groupName": "3ºA Matutino", "status": "present" },
+    { "id": "2a1ad36b-c853-5d9c-88de-91867cccf46e", "date": "2026-03-26", "groupName": "Club de Robótica", "status": "present" },
+    { "id": "2744aa1b-762b-55cf-a3ee-2822bacac528", "date": "2026-03-25", "groupName": "3ºA Matutino", "status": "present" },
+    { "id": "816a56d0-5d71-5cfb-90bc-21d2d16f46e2", "date": "2026-03-25", "groupName": "Taller de Arte", "status": "excused" },
+    { "id": "30b6dbf3-a996-5a0e-a18d-e3b09e670b11", "date": "2026-03-24", "groupName": "3ºA Matutino", "status": "present" },
+    { "id": "90baea33-be2a-5017-ac76-1b121ff6a2c9", "date": "2026-03-24", "groupName": "Club de Robótica", "status": "present" },
+    { "id": "b9cab908-ee9c-5c62-a2c8-65cd5197896e", "date": "2026-03-21", "groupName": "3ºA Matutino", "status": "absent" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@ceicavs/shared",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@casl/ability": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

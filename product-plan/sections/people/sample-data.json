@@ -1,0 +1,285 @@
+{
+  "_meta": {
+    "models": {
+      "user": "A person who accesses the platform with a role (admin, teacher, or student) that determines their permissions and available features.",
+      "group": "A collection of users created by an admin or teacher representing a class, club, or organizational unit.",
+      "groupMembership": "The association between a user and a group. A user can belong to multiple groups simultaneously.",
+      "role": "A predefined role with a set of permissions that determine what actions a user can perform.",
+      "permission": "A specific capability that can be granted or revoked per role, controlling access to features and actions."
+    },
+    "relationships": [
+      "User has one Role",
+      "User has many GroupMembership",
+      "Group has many GroupMembership",
+      "GroupMembership belongs to User and Group",
+      "Role has many Permission"
+    ]
+  },
+  "roles": [
+    {
+      "id": "0c879f76-27f1-51fd-94ea-17ca1c6ddda4",
+      "name": "admin",
+      "description": "Control total de la plataforma: gestión de usuarios, grupos, permisos, blog, herramientas y transcripciones",
+      "userCount": 2
+    },
+    {
+      "id": "c60af52d-03e4-59e9-9542-5a033abf0af6",
+      "name": "teacher",
+      "description": "Gestión de grupos y asistencia, publicación de posts, aprobación de borradores, herramientas y transcripciones",
+      "userCount": 4
+    },
+    {
+      "id": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "name": "student",
+      "description": "Consulta de asistencia personal, lectura y comentarios en blog, envío de borradores, uso de herramientas",
+      "userCount": 10
+    }
+  ],
+  "permissions": [
+    { "id": "75bc12cd-c1ba-5c8b-b72c-95ab5934ea5d", "key": "users.create", "label": "Crear usuarios", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4"] },
+    { "id": "bf4a7847-631e-50d1-8044-880f85a9cfbe", "key": "users.edit", "label": "Editar usuarios", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4"] },
+    { "id": "57d39c75-ae06-58ad-b811-072ae902db78", "key": "users.delete", "label": "Eliminar usuarios", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4"] },
+    { "id": "0c16c5f1-eefc-5e9c-88cb-42a567aee3b2", "key": "users.view", "label": "Ver lista de usuarios", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6"] },
+    { "id": "ca894b65-5043-5b8a-8bb4-3cec9392efdf", "key": "groups.create", "label": "Crear grupos", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6"] },
+    { "id": "d846fc77-75fc-5f20-9fa8-a36ce1211ae5", "key": "groups.edit", "label": "Editar grupos", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6"] },
+    { "id": "701f1337-3838-5649-9496-bd54466582df", "key": "groups.delete", "label": "Eliminar grupos", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6"] },
+    { "id": "271d1500-49c7-5635-b3ef-543677c6c0e1", "key": "attendance.manage", "label": "Gestionar asistencia", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6"] },
+    { "id": "99ebd5ba-1f72-5bbc-93e2-e46d0878c4f2", "key": "blog.publish", "label": "Publicar posts", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6"] },
+    { "id": "84bf0ae8-5fb3-5f7b-ba28-e88db1aca8f9", "key": "blog.moderate", "label": "Moderar comentarios y aprobar borradores", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6"] },
+    { "id": "f51c8a0f-0ec1-5a12-9a85-2d97433b3eb7", "key": "blog.draft", "label": "Enviar borradores", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6", "04bcad6f-7f22-5db2-9199-124b5e750965"] },
+    { "id": "037dbe75-1558-53c1-88f1-eadfd77f79aa", "key": "blog.comment", "label": "Comentar y reaccionar", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6", "04bcad6f-7f22-5db2-9199-124b5e750965"] },
+    { "id": "6799ea3d-2453-5fe7-a7de-022de12a1e94", "key": "tools.access", "label": "Acceso a herramientas", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6", "04bcad6f-7f22-5db2-9199-124b5e750965"] },
+    { "id": "30f207ba-e60e-56cf-9b52-153d63ad5d89", "key": "transcription.access", "label": "Grabar y transcribir audio", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4", "c60af52d-03e4-59e9-9542-5a033abf0af6"] },
+    { "id": "1e68b697-0b84-5b76-bece-d08deb512032", "key": "permissions.manage", "label": "Gestionar permisos", "roles": ["0c879f76-27f1-51fd-94ea-17ca1c6ddda4"] }
+  ],
+  "users": [
+    {
+      "id": "d35a2a2a-d1d1-55ed-90a7-348c3da59deb",
+      "name": "Morelia Meléndez",
+      "email": "morelia.melendez@ceicavs.edu",
+      "role": "admin",
+      "roleId": "0c879f76-27f1-51fd-94ea-17ca1c6ddda4",
+      "groups": [],
+      "createdAt": "2025-08-15T09:00:00Z"
+    },
+    {
+      "id": "1e5f1a27-4c4e-5b84-b4dd-5227b40c755d",
+      "name": "Francisco Hernández",
+      "email": "francisco.hernandez@ceicavs.edu",
+      "role": "admin",
+      "roleId": "0c879f76-27f1-51fd-94ea-17ca1c6ddda4",
+      "groups": [],
+      "createdAt": "2025-08-15T09:00:00Z"
+    },
+    {
+      "id": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+      "name": "Carlos Rivera",
+      "email": "carlos.rivera@ceicavs.edu",
+      "role": "teacher",
+      "roleId": "c60af52d-03e4-59e9-9542-5a033abf0af6",
+      "groups": [
+        { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino" },
+        { "id": "a3407602-d757-59b7-b061-d42ce85ce9a4", "name": "Club de Robótica" }
+      ],
+      "createdAt": "2025-09-01T08:30:00Z"
+    },
+    {
+      "id": "dbc080c1-f33d-5a36-8bd2-68fb0d20f0db",
+      "name": "Laura Méndez",
+      "email": "laura.mendez@ceicavs.edu",
+      "role": "teacher",
+      "roleId": "c60af52d-03e4-59e9-9542-5a033abf0af6",
+      "groups": [
+        { "id": "70f16c56-81ae-5902-9f8e-13b373f19587", "name": "3ºB Matutino" },
+        { "id": "d9837508-b6e2-5f76-a2ec-882d83a7f670", "name": "Taller de Arte" }
+      ],
+      "createdAt": "2025-09-01T08:30:00Z"
+    },
+    {
+      "id": "01235d01-f261-55ab-b63d-d2a10cad9e11",
+      "name": "Patricia Gómez",
+      "email": "patricia.gomez@ceicavs.edu",
+      "role": "teacher",
+      "roleId": "c60af52d-03e4-59e9-9542-5a033abf0af6",
+      "groups": [
+        { "id": "1674d635-dc5f-5679-878c-b645bf45f10e", "name": "4ºA Vespertino" }
+      ],
+      "createdAt": "2025-10-12T14:00:00Z"
+    },
+    {
+      "id": "5d7e3982-b4cf-5ca6-9734-744833b910a3",
+      "name": "Roberto Alvarado",
+      "email": "roberto.alvarado@ceicavs.edu",
+      "role": "teacher",
+      "roleId": "c60af52d-03e4-59e9-9542-5a033abf0af6",
+      "groups": [
+        { "id": "1f58aff2-c2ff-5cd8-93d0-02a8a6ac2e91", "name": "Equipo de Fútbol" }
+      ],
+      "createdAt": "2026-01-10T10:00:00Z"
+    },
+    {
+      "id": "933a1a70-8683-5fea-8b3c-02459adb5f31",
+      "name": "Ana López",
+      "email": "ana.lopez@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino" },
+        { "id": "a3407602-d757-59b7-b061-d42ce85ce9a4", "name": "Club de Robótica" },
+        { "id": "d9837508-b6e2-5f76-a2ec-882d83a7f670", "name": "Taller de Arte" }
+      ],
+      "createdAt": "2026-02-01T07:45:00Z"
+    },
+    {
+      "id": "52388865-df5d-5f46-8df6-034d113e9391",
+      "name": "Diego Ramírez",
+      "email": "diego.ramirez@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino" },
+        { "id": "1f58aff2-c2ff-5cd8-93d0-02a8a6ac2e91", "name": "Equipo de Fútbol" }
+      ],
+      "createdAt": "2026-02-01T07:45:00Z"
+    },
+    {
+      "id": "a710b314-b7cc-51d3-97ed-52f7aedba4c0",
+      "name": "Sofía Torres",
+      "email": "sofia.torres@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino" },
+        { "id": "d9837508-b6e2-5f76-a2ec-882d83a7f670", "name": "Taller de Arte" }
+      ],
+      "createdAt": "2026-02-15T08:00:00Z"
+    },
+    {
+      "id": "3ee066f5-64b0-5b81-b4fc-d8f8ede23ed0",
+      "name": "Valentina Herrera",
+      "email": "valentina.herrera@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino" }
+      ],
+      "createdAt": "2026-02-15T08:00:00Z"
+    },
+    {
+      "id": "271814b9-df4f-5305-9347-898e83e672dc",
+      "name": "Mateo Jiménez",
+      "email": "mateo.jimenez@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino" },
+        { "id": "a3407602-d757-59b7-b061-d42ce85ce9a4", "name": "Club de Robótica" }
+      ],
+      "createdAt": "2026-02-20T08:00:00Z"
+    },
+    {
+      "id": "4025932a-8150-5165-bec3-726ec0f47e30",
+      "name": "Isabella Morales",
+      "email": "isabella.morales@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino" }
+      ],
+      "createdAt": "2026-02-20T08:00:00Z"
+    },
+    {
+      "id": "39ee98d1-7b3e-5a28-ba39-01ed2143fe0c",
+      "name": "Santiago Flores",
+      "email": "santiago.flores@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "70f16c56-81ae-5902-9f8e-13b373f19587", "name": "3ºB Matutino" },
+        { "id": "1f58aff2-c2ff-5cd8-93d0-02a8a6ac2e91", "name": "Equipo de Fútbol" }
+      ],
+      "createdAt": "2026-02-25T08:00:00Z"
+    },
+    {
+      "id": "bf64b951-8954-58bf-8ec9-1f194c017fe8",
+      "name": "Camila Reyes",
+      "email": "camila.reyes@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "70f16c56-81ae-5902-9f8e-13b373f19587", "name": "3ºB Matutino" }
+      ],
+      "createdAt": "2026-03-01T09:20:00Z"
+    },
+    {
+      "id": "26ab961d-925c-5bc7-9ec5-ae404a745994",
+      "name": "Emiliano Guzmán",
+      "email": "emiliano.guzman@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [
+        { "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f", "name": "3ºA Matutino" }
+      ],
+      "createdAt": "2026-03-01T09:20:00Z"
+    },
+    {
+      "id": "3e7f0120-56df-5222-a8cb-a2fd1503ce12",
+      "name": "Carlos Martínez",
+      "email": "carlos.martinez@ceicavs.edu",
+      "role": "student",
+      "roleId": "04bcad6f-7f22-5db2-9199-124b5e750965",
+      "groups": [],
+      "createdAt": "2026-03-10T10:00:00Z"
+    }
+  ],
+  "groups": [
+    {
+      "id": "cb79fcc3-b969-527b-bf49-d7bb1ed6855f",
+      "name": "3ºA Matutino",
+      "description": "Grupo de tercer grado sección A, turno matutino",
+      "memberCount": 28,
+      "createdBy": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+      "createdAt": "2025-09-05T10:00:00Z"
+    },
+    {
+      "id": "70f16c56-81ae-5902-9f8e-13b373f19587",
+      "name": "3ºB Matutino",
+      "description": "Grupo de tercer grado sección B, turno matutino",
+      "memberCount": 25,
+      "createdBy": "dbc080c1-f33d-5a36-8bd2-68fb0d20f0db",
+      "createdAt": "2025-09-05T10:30:00Z"
+    },
+    {
+      "id": "1674d635-dc5f-5679-878c-b645bf45f10e",
+      "name": "4ºA Vespertino",
+      "description": "Grupo de cuarto grado sección A, turno vespertino",
+      "memberCount": 30,
+      "createdBy": "01235d01-f261-55ab-b63d-d2a10cad9e11",
+      "createdAt": "2025-09-10T11:00:00Z"
+    },
+    {
+      "id": "a3407602-d757-59b7-b061-d42ce85ce9a4",
+      "name": "Club de Robótica",
+      "description": "Club extraescolar de robótica y programación",
+      "memberCount": 12,
+      "createdBy": "8e366a8d-6e18-50fd-98d9-2efd6d246b24",
+      "createdAt": "2026-01-15T13:00:00Z"
+    },
+    {
+      "id": "d9837508-b6e2-5f76-a2ec-882d83a7f670",
+      "name": "Taller de Arte",
+      "description": "Taller extraescolar de artes plásticas y manualidades",
+      "memberCount": 15,
+      "createdBy": "dbc080c1-f33d-5a36-8bd2-68fb0d20f0db",
+      "createdAt": "2026-01-20T15:00:00Z"
+    },
+    {
+      "id": "1f58aff2-c2ff-5cd8-93d0-02a8a6ac2e91",
+      "name": "Equipo de Fútbol",
+      "description": "Equipo representativo de fútbol del CEICAVS",
+      "memberCount": 18,
+      "createdBy": "5d7e3982-b4cf-5ca6-9734-744833b910a3",
+      "createdAt": "2026-02-01T09:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/client"
+}
+
+generator kysely {
+  provider = "prisma-kysely"
+  output   = "../src"
+  fileName = "types.ts"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  admin
+  teacher
+  student
+}
+
+enum AttendanceStatus {
+  present
+  absent
+  late
+  excused
+}
+
+enum PostStatus {
+  published
+  draft
+  rejected
+}
+
+enum EmojiReaction {
+  like
+  love
+  insightful
+  funny
+  celebrate
+}
+
+enum TranscriptionStatus {
+  none
+  processing
+  completed
+}
+
+model User {
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
+  password  String
+  avatarUrl String?   @map("avatar_url")
+  role      UserRole  @default(student)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  groupMemberships      GroupMembership[]
+  posts                 Post[]
+  comments              Comment[]
+  reactions             Reaction[]
+  recordings            Recording[]
+  folders               Folder[]
+  favorites             Favorite[]
+  attendanceRecords     AttendanceRecord[]
+  attendanceSubmissions AttendanceSubmission[]
+  activities            Activity[]
+
+  @@index([deletedAt])
+  @@map("users")
+}
+
+model Group {
+  id          String    @id @default(cuid())
+  name        String
+  description String    @default("")
+  createdBy   String    @map("created_by")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at")
+
+  memberships           GroupMembership[]
+  attendanceRecords     AttendanceRecord[]
+  attendanceSubmissions AttendanceSubmission[]
+
+  @@index([deletedAt])
+  @@map("groups")
+}
+
+model GroupMembership {
+  userId   String   @map("user_id")
+  groupId  String   @map("group_id")
+  joinedAt DateTime @default(now()) @map("joined_at")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@id([userId, groupId])
+  @@map("group_memberships")
+}
+
+model AttendanceRecord {
+  id        String           @id @default(cuid())
+  userId    String           @map("user_id")
+  groupId   String           @map("group_id")
+  date      DateTime         @db.Date
+  status    AttendanceStatus
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @updatedAt @map("updated_at")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, groupId, date])
+  @@map("attendance_records")
+}
+
+model AttendanceSubmission {
+  id          String   @id @default(cuid())
+  groupId     String   @map("group_id")
+  submittedBy String   @map("submitted_by")
+  date        DateTime @db.Date
+  submittedAt DateTime @default(now()) @map("submitted_at")
+
+  group     Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  submitter User  @relation(fields: [submittedBy], references: [id])
+
+  @@unique([groupId, date])
+  @@map("attendance_submissions")
+}
+
+model Post {
+  id            String     @id @default(cuid())
+  title         String
+  excerpt       String
+  content       String
+  coverImageUrl String?    @map("cover_image_url")
+  authorId      String     @map("author_id")
+  status        PostStatus @default(draft)
+  rejectionNote String?    @map("rejection_note")
+  publishedAt   DateTime?  @map("published_at")
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+  deletedAt     DateTime?  @map("deleted_at")
+
+  author     User           @relation(fields: [authorId], references: [id])
+  categories PostCategory[]
+  reactions  Reaction[]
+  comments   Comment[]
+
+  @@index([deletedAt])
+  @@map("posts")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  deletedAt DateTime? @map("deleted_at")
+
+  posts PostCategory[]
+
+  @@index([deletedAt])
+  @@map("categories")
+}
+
+model PostCategory {
+  postId     String @map("post_id")
+  categoryId String @map("category_id")
+
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@id([postId, categoryId])
+  @@map("post_categories")
+}
+
+model Reaction {
+  id     String        @id @default(cuid())
+  postId String        @map("post_id")
+  userId String        @map("user_id")
+  emoji  EmojiReaction
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId, emoji])
+  @@map("reactions")
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  postId    String    @map("post_id")
+  authorId  String    @map("author_id")
+  parentId  String?   @map("parent_id")
+  text      String
+  gifUrl    String?   @map("gif_url")
+  gifAlt    String?   @map("gif_alt")
+  depth     Int       @default(0)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  post    Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author  User      @relation(fields: [authorId], references: [id])
+  parent  Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies Comment[] @relation("CommentReplies")
+
+  @@index([deletedAt])
+  @@map("comments")
+}
+
+model ToolCategory {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  order     Int       @default(0)
+  deletedAt DateTime? @map("deleted_at")
+
+  tools Tool[]
+
+  @@index([deletedAt])
+  @@map("tool_categories")
+}
+
+model Tool {
+  id          String    @id @default(cuid())
+  name        String
+  description String
+  categoryId  String    @map("category_id")
+  icon        String
+  color       String
+  deletedAt   DateTime? @map("deleted_at")
+
+  category  ToolCategory @relation(fields: [categoryId], references: [id])
+  favorites Favorite[]
+
+  @@index([deletedAt])
+  @@map("tools")
+}
+
+model Favorite {
+  userId String @map("user_id")
+  toolId String @map("tool_id")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tool Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  @@id([userId, toolId])
+  @@map("favorites")
+}
+
+model Folder {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  name      String
+  deletedAt DateTime? @map("deleted_at")
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recordings Recording[]
+
+  @@index([deletedAt])
+  @@map("folders")
+}
+
+model Recording {
+  id                  String              @id @default(cuid())
+  userId              String              @map("user_id")
+  folderId            String              @map("folder_id")
+  name                String
+  duration            Int
+  audioUrl            String?             @map("audio_url")
+  transcriptionStatus TranscriptionStatus @default(none) @map("transcription_status")
+  createdAt           DateTime            @default(now()) @map("created_at")
+  updatedAt           DateTime            @updatedAt @map("updated_at")
+  deletedAt           DateTime?           @map("deleted_at")
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folder        Folder         @relation(fields: [folderId], references: [id])
+  transcription Transcription?
+
+  @@index([deletedAt])
+  @@map("recordings")
+}
+
+model Transcription {
+  id             String              @id @default(cuid())
+  recordingId    String              @unique @map("recording_id")
+  status         TranscriptionStatus @default(processing)
+  fullTranscript String?             @map("full_transcript")
+  summary        String?
+  keyTakeaways   String[]            @map("key_takeaways")
+  actionItems    String[]            @map("action_items")
+  completedAt    DateTime?           @map("completed_at")
+
+  recording Recording @relation(fields: [recordingId], references: [id], onDelete: Cascade)
+
+  @@map("transcriptions")
+}
+
+model Activity {
+  id         String   @id @default(cuid())
+  type       String
+  description String
+  actorId    String   @map("actor_id")
+  actorRole  UserRole @map("actor_role")
+  entityId   String?  @map("entity_id")
+  entityType String?  @map("entity_type")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  actor User @relation(fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@index([actorId])
+  @@index([createdAt])
+  @@map("activities")
+}
