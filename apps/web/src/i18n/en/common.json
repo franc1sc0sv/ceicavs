@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "attendance": "Attendance",
+    "people": "People",
+    "blog": "Blog",
+    "tools": "Tools",
+    "transcription": "Transcription"
+  },
+  "auth": {
+    "login": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Sign in",
+    "logout": "Sign out",
+    "loginError": "Incorrect email or password",
+    "createAccount": "Create account",
+    "name": "Name",
+    "registerButton": "Sign up",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "noAccount": "Don't have an account?",
+    "registerError": "Could not create account"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "teacher": "Teacher",
+    "student": "Student"
+  },
+  "common": {
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
+    "platform": "Platform",
+    "schoolManagement": "School Management",
+    "tagline": "School Management Platform",
+    "emailPlaceholder": "email@ceicavs.edu",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "language": "Language",
+    "schoolName": "Centro Escolar CEICAVS"
+  }
+}

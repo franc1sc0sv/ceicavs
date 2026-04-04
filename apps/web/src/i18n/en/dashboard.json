@@ -1,0 +1,33 @@
+{
+  "welcome": "Welcome, {{name}}",
+  "sections": {
+    "quickActions": "Quick actions",
+    "overview": "Overview"
+  },
+  "cards": {
+    "users": "Users",
+    "groups": "Groups",
+    "attendance": "Attendance",
+    "posts": "Posts",
+    "tools": "Tools",
+    "recordings": "Recordings",
+    "drafts": "Drafts",
+    "myAttendance": "My attendance",
+    "myGroups": "My groups"
+  },
+  "actions": {
+    "manageUsers": "Manage users",
+    "manageGroups": "Manage groups",
+    "takeAttendance": "Take attendance",
+    "createPost": "Create post",
+    "viewTools": "View tools",
+    "newRecording": "New recording",
+    "viewAttendance": "View attendance",
+    "viewBlog": "View blog"
+  },
+  "role": {
+    "admin": "Admin dashboard",
+    "teacher": "Teacher dashboard",
+    "student": "Student dashboard"
+  }
+}

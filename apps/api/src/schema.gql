@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthTokensType {
+  accessToken: String!
+  refreshToken: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  login(input: LoginInput!): AuthTokensType!
+  refreshToken(input: RefreshTokenInput!): AuthTokensType!
+}
+
+type Query {
+  me: UserProfileType!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
+}
+
+type UserProfileType {
+  avatarUrl: String
+  email: String!
+  id: ID!
+  name: String!
+  role: UserRole!
+}
+
+enum UserRole {
+  admin
+  student
+  teacher
+}

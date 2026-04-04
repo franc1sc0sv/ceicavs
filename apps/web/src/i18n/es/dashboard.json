@@ -1,0 +1,33 @@
+{
+  "welcome": "Bienvenido, {{name}}",
+  "sections": {
+    "quickActions": "Acciones rapidas",
+    "overview": "Resumen"
+  },
+  "cards": {
+    "users": "Usuarios",
+    "groups": "Grupos",
+    "attendance": "Asistencia",
+    "posts": "Publicaciones",
+    "tools": "Herramientas",
+    "recordings": "Grabaciones",
+    "drafts": "Borradores",
+    "myAttendance": "Mi asistencia",
+    "myGroups": "Mis grupos"
+  },
+  "actions": {
+    "manageUsers": "Gestionar usuarios",
+    "manageGroups": "Gestionar grupos",
+    "takeAttendance": "Tomar asistencia",
+    "createPost": "Crear publicacion",
+    "viewTools": "Ver herramientas",
+    "newRecording": "Nueva grabacion",
+    "viewAttendance": "Ver asistencia",
+    "viewBlog": "Ver blog"
+  },
+  "role": {
+    "admin": "Panel de administrador",
+    "teacher": "Panel de docente",
+    "student": "Panel de estudiante"
+  }
+}

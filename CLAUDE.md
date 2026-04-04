@@ -6,9 +6,8 @@ School management platform for Centro Escolar CEICAVS. Turbo + pnpm monorepo wit
 
 | Workspace | Purpose | Entry | Key Dependencies |
 |---|---|---|---|
-| `apps/web` | React SPA | `src/main.tsx` | React 19, Vite, Tailwind v4, Radix UI, React Router v7 |
+| `apps/web` | React SPA | `src/main.tsx` | React 19, Vite, Tailwind v4, shadcn/ui, React Router v7 |
 | `apps/api` | NestJS GraphQL API | `src/main.ts` | NestJS 10, Apollo, @nestjs/cqrs, Passport JWT |
-| `packages/ui` | Shared UI components | `src/index.ts` | Radix UI, Tailwind |
 | `packages/shared` | Shared types + CASL | `src/index.ts` | @casl/ability |
 | `packages/db` | Prisma + Kysely | `src/index.ts` | Prisma 7, @prisma/adapter-pg, Kysely |
 
@@ -108,12 +107,16 @@ modules/[domain]/
 - `prisma-database-setup` — Database provider configuration
 - `prisma-driver-adapter-implementation` — Driver adapter contracts
 - `prisma-postgres` — Prisma Postgres managed database
+- `apollo-skills:apollo-server` — Apollo Server config, plugins, context setup
+- `apollo-skills:graphql-schema` — GraphQL schema design best practices
 
 ### Frontend
 - `tech-react` — React components, hooks, rendering patterns
 - `platform-frontend` — State management, data fetching
 - `design-frontend` — Layout, responsive, Tailwind tokens
 - `design-accessibility` — WCAG AA, ARIA, keyboard navigation
+- `apollo-skills:apollo-client` — Apollo Client 4.x hooks, caching, auth links
+- `apollo-skills:graphql-operations` — Query, mutation, fragment best practices
 
 ### Cross-cutting
 - `lang-typescript` — TypeScript patterns, strict mode, no any
@@ -150,6 +153,14 @@ docker compose up -d              # Start PostgreSQL
 pnpm -r build                    # Build all packages
 ```
 
+## Code Quality (non-negotiable)
+
+- **No `any`** — every value must have an explicit, precise type; never use `any` or cast with `as any`
+- **No type bypasses** — no `@ts-ignore`, `@ts-expect-error`, or unsafe casts (`as unknown as X`)
+- **No comments** — code must be self-documenting through naming and structure; no inline comments, no block comments, no JSDoc
+- **Strict typing everywhere** — function parameters, return types, generics, and object shapes must all be explicitly typed
+- **KISS & DRY** — no speculative abstractions, no duplicate logic, no dead code
+
 ## Do NOT
 
 - Use Zod — use `class-validator` on `@InputType()`
@@ -163,3 +174,5 @@ pnpm -r build                    # Build all packages
 - Use `Pool` with `PrismaPg` — pass connection string directly
 - Skip CASL checks in handlers — authorization is mandatory inside every handler
 - Put business logic in resolvers — resolvers only dispatch to buses
+- Use `any` type — define a proper interface or generic instead
+- Add comments — rename or restructure the code to make it clear without them
