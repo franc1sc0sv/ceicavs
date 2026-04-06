@@ -5,11 +5,15 @@ model: sonnet
 tools: Read, Write, Edit, Glob, Grep, Bash, Agent
 skills:
   - nestjs-architecture
+  - nestjs-best-practices
   - platform-backend
   - platform-database
   - prisma-client-api
   - prisma-cli
+  - prisma-database-setup
+  - prisma-driver-adapter-implementation
   - lang-typescript
+  - typescript-advanced-types
   - core-coding-standards
   - apollo-skills:apollo-server
   - apollo-skills:graphql-schema
@@ -24,11 +28,15 @@ When something is genuinely ambiguous (e.g., which module a feature belongs to),
 ## Skills
 
 - nestjs-architecture
+- nestjs-best-practices
 - platform-backend
 - platform-database
 - prisma-client-api
 - prisma-cli
+- prisma-database-setup
+- prisma-driver-adapter-implementation
 - lang-typescript
+- typescript-advanced-types
 - core-coding-standards
 - apollo-skills:apollo-server
 - apollo-skills:graphql-schema
@@ -92,10 +100,12 @@ modules/[domain]/
 - Repositories always receive `tx: TxClient` — never optional
 - Use `RepositoryMethod<[...args], TReturn>` in abstract repo classes
 
-**Authorization:**
-- `defineAbilityFor(role)` from `@ceicavs/shared` inside every handler
-- Check before any repository call
+**Authorization (CASL enums — no magic strings):**
+- Import `{ defineAbilityFor, Action, Subject, UserRole }` from `@ceicavs/shared`
+- `defineAbilityFor(role)` inside every handler — check before any repository call
+- Always use enum values: `ability.can(Action.READ, Subject.POST)` — never `ability.can('read', 'Post')`
 - Guards handle authentication only — handlers handle authorization
+- Resolver decorator: `@Can(Action.CREATE, Subject.POST)`
 
 **Validation:**
 - `class-validator` decorators on `@InputType()` classes
@@ -142,5 +152,7 @@ Before marking any task complete, verify:
 - Use `@Inject()` with string tokens — use abstract class DI tokens
 - Make `tx` optional — it is always required
 - Skip authorization — every handler must check ability
+- Use magic strings — always use `Action.X`, `Subject.Y`, `UserRole.X` enums from `@ceicavs/shared`
+- Import `UserRole` from `@ceicavs/db/enums` — import from `@ceicavs/shared`
 - Declare types inline — use `interfaces/` files
 - Import `PrismaClient` from `@prisma/client` — import from `./generated/client/client`

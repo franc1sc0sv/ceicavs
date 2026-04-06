@@ -1,0 +1,113 @@
+{
+  "title": "Blog",
+  "newPost": "New article",
+  "actions": {
+    "publish": "Publish",
+    "submitForReview": "Submit for review",
+    "saveDraft": "Save draft",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "reply": "Reply",
+    "approve": "Approve",
+    "reject": "Reject",
+    "back": "Back",
+    "save": "Save"
+  },
+  "pages": {
+    "feed": "Posts",
+    "detail": "Detail",
+    "create": "New article",
+    "edit": "Edit article",
+    "drafts": "My drafts",
+    "queue": "Moderation queue",
+    "categories": "Category management"
+  },
+  "status": {
+    "published": "Published",
+    "draft": "Draft",
+    "rejected": "Rejected"
+  },
+  "drafts": {
+    "rejectionNote": "Rejection note",
+    "rejectDialog": {
+      "title": "Reject draft",
+      "placeholder": "Reason for rejection..."
+    }
+  },
+  "categories": {
+    "name": "Name",
+    "postCount": "Posts",
+    "addCategory": "Add category",
+    "actions": "Actions"
+  },
+  "comments": {
+    "title": "Comments",
+    "placeholder": "Write a comment...",
+    "reply": "Reply",
+    "count": "{{count}} comment",
+    "count_plural": "{{count}} comments",
+    "loadMore": "Load more comments",
+    "loadReplies": "View replies",
+    "loadMoreReplies": "Load more replies",
+    "addEmoji": "Add emoji",
+    "addGif": "Add GIF",
+    "removeGif": "Remove GIF",
+    "searchGifs": "Search GIFs..."
+  },
+  "reactions": {
+    "react": "React"
+  },
+  "empty": {
+    "noPosts": "No posts yet",
+    "noPostsHint": "Be the first to share something with the community",
+    "noResults": "No posts found",
+    "noResultsHint": "Try different terms or categories",
+    "noDrafts": "You have no drafts",
+    "noComments": "Be the first to comment",
+    "noCategories": "No categories yet"
+  },
+  "filters": {
+    "search": "Search posts...",
+    "allCategories": "All categories",
+    "results": "{{count}} result",
+    "results_plural": "{{count}} results",
+    "clearFilters": "Clear filters"
+  },
+  "feed": {
+    "loadingMore": "Loading more posts..."
+  },
+  "images": {
+    "upload": "Click or drag images here",
+    "uploading": "Uploading images...",
+    "remove": "Remove image"
+  },
+  "form": {
+    "title": "Title",
+    "excerpt": "Excerpt",
+    "content": "Content",
+    "coverImage": "Cover image URL",
+    "categories": "Categories",
+    "images": "Images",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "error": {
+    "title": "Error",
+    "retry": "Retry"
+  },
+  "delete": {
+    "title": "Delete post",
+    "warning": "This action cannot be undone.",
+    "confirm": "Delete",
+    "cancel": "Cancel"
+  },
+  "roles": {
+    "admin": "Admin",
+    "teacher": "Teacher",
+    "student": "Student"
+  },
+  "queue": {
+    "rejectNote": "Note for the author"
+  }
+}

@@ -11,7 +11,9 @@ skills:
   - prisma-postgres
   - platform-database
   - lang-typescript
+  - typescript-advanced-types
   - core-coding-standards
+  - nestjs-architecture
 ---
 
 ## Personality
@@ -27,7 +29,9 @@ You are **Vault** — the surgeon of the CEICAVS data layer. You treat every sch
 - prisma-postgres
 - platform-database
 - lang-typescript
+- typescript-advanced-types
 - core-coding-standards
+- nestjs-architecture
 
 ## Worktree Awareness
 
@@ -78,7 +82,7 @@ model PostCategory {
 
 Do NOT add soft delete to: junction tables (`GroupMembership`, `PostCategory`, `Favorite`) or audit tables (`Activity`, `AttendanceRecord`).
 
-**Enums:** Existing: `UserRole`, `AttendanceStatus`, `PostStatus`, `EmojiReaction`, `TranscriptionStatus`
+**Enums:** Prisma generates `UserRole`, `AttendanceStatus`, `PostStatus`, `EmojiReaction`, `TranscriptionStatus` in `src/generated/client/enums.ts`. However, `UserRole` canonical source is `@ceicavs/shared` — never import from `@ceicavs/db/enums` for application code
 
 ### After Any Schema Change
 

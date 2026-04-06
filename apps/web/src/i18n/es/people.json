@@ -1,0 +1,77 @@
+{
+  "title": "Personas",
+  "tabs": { "users": "Usuarios", "groups": "Grupos" },
+  "users": {
+    "active": "Activos",
+    "deactivated": "Desactivados",
+    "addUser": "+ Agregar usuario",
+    "searchPlaceholder": "Buscar por nombre o correo...",
+    "columns": { "name": "Nombre", "email": "Correo", "role": "Rol", "groups": "Grupos", "actions": "Acciones" },
+    "edit": "Editar",
+    "deactivate": "Desactivar",
+    "activate": "Reactivar",
+    "noResults": "No hay usuarios",
+    "loading": "Cargando usuarios..."
+  },
+  "groups": {
+    "createGroup": "+ Crear grupo",
+    "searchPlaceholder": "Buscar grupos...",
+    "members": "{{count}} miembro(s)",
+    "addMember": "Agregar miembro",
+    "removeMember": "Quitar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "noResults": "No hay grupos",
+    "loading": "Cargando grupos...",
+    "membersTitle": "Miembros",
+    "searchUsers": "Buscar usuarios...",
+    "noUsersFound": "No se encontraron usuarios",
+    "noDescription": "Sin descripción"
+  },
+  "dialogs": {
+    "addUser": { "title": "Agregar usuario", "description": "Completa la información del nuevo usuario" },
+    "editUser": { "title": "Editar usuario" },
+    "createGroup": { "title": "Crear grupo", "description": "Completa la información del nuevo grupo" },
+    "editGroup": { "title": "Editar grupo" },
+    "manageMembers": { "title": "Agregar miembro a {{name}}" },
+    "groupDetail": { "title": "Miembros del grupo", "removeMember": "Quitar miembro" },
+    "deactivate": {
+      "title": "Desactivar {{count}} usuario(s)",
+      "warning": "El usuario no podrá acceder a la plataforma.",
+      "confirm": "Desactivar",
+      "cancel": "Cancelar"
+    }
+  },
+  "bulk": {
+    "selected": "{{count}} seleccionado(s)",
+    "deactivate": "Desactivar"
+  },
+  "form": {
+    "name": "Nombre",
+    "email": "Correo",
+    "password": "Contraseña",
+    "role": "Rol",
+    "description": "Descripción",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+  "roles": {
+    "admin": "Administrador",
+    "teacher": "Docente",
+    "student": "Estudiante"
+  },
+  "filters": {
+    "all": "Todos",
+    "admin": "Administrador",
+    "teacher": "Docente",
+    "student": "Estudiante"
+  },
+  "empty": {
+    "noUsers": "No hay usuarios",
+    "noGroups": "No hay grupos"
+  },
+  "error": {
+    "title": "Error al cargar",
+    "retry": "Reintentar"
+  }
+}

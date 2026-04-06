@@ -1,6 +1,12 @@
 import { registerEnumType } from '@nestjs/graphql'
-import { UserRole } from '@ceicavs/db/enums'
+import { UserRole } from '@ceicavs/shared'
 
-registerEnumType(UserRole, { name: 'UserRole' })
+const UserRoleGql = {
+  [UserRole.ADMIN]: UserRole.ADMIN,
+  [UserRole.TEACHER]: UserRole.TEACHER,
+  [UserRole.STUDENT]: UserRole.STUDENT,
+} as const
 
-export { UserRole }
+registerEnumType(UserRoleGql, { name: 'UserRole' })
+
+export { UserRole, UserRoleGql }

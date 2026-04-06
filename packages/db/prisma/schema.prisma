@@ -32,14 +32,6 @@ enum PostStatus {
   rejected
 }
 
-enum EmojiReaction {
-  like
-  love
-  insightful
-  funny
-  celebrate
-}
-
 enum TranscriptionStatus {
   none
   processing
@@ -136,7 +128,6 @@ model Post {
   title         String
   excerpt       String
   content       String
-  coverImageUrl String?    @map("cover_image_url")
   authorId      String     @map("author_id")
   status        PostStatus @default(draft)
   rejectionNote String?    @map("rejection_note")
@@ -149,9 +140,24 @@ model Post {
   categories PostCategory[]
   reactions  Reaction[]
   comments   Comment[]
+  images     PostImage[]
 
   @@index([deletedAt])
   @@map("posts")
+}
+
+model PostImage {
+  id        String   @id @default(cuid())
+  postId    String   @map("post_id")
+  url       String
+  publicId  String   @map("public_id")
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@map("post_images")
 }
 
 model Category {
@@ -177,15 +183,19 @@ model PostCategory {
 }
 
 model Reaction {
-  id     String        @id @default(cuid())
-  postId String        @map("post_id")
-  userId String        @map("user_id")
-  emoji  EmojiReaction
+  id        String  @id @default(cuid())
+  postId    String? @map("post_id")
+  commentId String? @map("comment_id")
+  userId    String  @map("user_id")
+  emoji     String
 
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post    Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([postId, userId, emoji])
+  @@unique([commentId, userId, emoji])
+  @@index([commentId])
   @@map("reactions")
 }
 
@@ -202,12 +212,14 @@ model Comment {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  post    Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  author  User      @relation(fields: [authorId], references: [id])
-  parent  Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
-  replies Comment[] @relation("CommentReplies")
+  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    User       @relation(fields: [authorId], references: [id])
+  parent    Comment?   @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[]  @relation("CommentReplies")
+  reactions Reaction[]
 
   @@index([deletedAt])
+  @@index([postId, parentId, createdAt])
   @@map("comments")
 }
 

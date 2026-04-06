@@ -1,6 +1,6 @@
 import { QueryHandler } from '@nestjs/cqrs'
 import type { TxClient } from '@ceicavs/db'
-import { defineAbilityFor } from '@ceicavs/shared'
+import { defineAbilityFor, Action, Subject } from '@ceicavs/shared'
 import { BaseQueryHandler } from '../../../../common/cqrs'
 import { IDatabaseService } from '../../../../common/database/database.abstract'
 import { ForbiddenException, NotFoundException } from '../../../../common/errors'
@@ -20,7 +20,7 @@ export class GetMeHandler extends BaseQueryHandler<GetMeQuery, IAuthUser> {
   protected async handle(query: GetMeQuery, tx: TxClient): Promise<IAuthUser> {
     const ability = defineAbilityFor(query.role)
 
-    if (!ability.can('read', 'User')) {
+    if (!ability.can(Action.READ, Subject.USER)) {
       throw new ForbiddenException()
     }
 

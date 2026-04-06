@@ -1,0 +1,77 @@
+{
+  "title": "People",
+  "tabs": { "users": "Users", "groups": "Groups" },
+  "users": {
+    "active": "Active",
+    "deactivated": "Deactivated",
+    "addUser": "+ Add user",
+    "searchPlaceholder": "Search by name or email...",
+    "columns": { "name": "Name", "email": "Email", "role": "Role", "groups": "Groups", "actions": "Actions" },
+    "edit": "Edit",
+    "deactivate": "Deactivate",
+    "activate": "Reactivate",
+    "noResults": "No users found",
+    "loading": "Loading users..."
+  },
+  "groups": {
+    "createGroup": "+ Create group",
+    "searchPlaceholder": "Search groups...",
+    "members": "{{count}} member(s)",
+    "addMember": "Add member",
+    "removeMember": "Remove",
+    "edit": "Edit",
+    "delete": "Delete",
+    "noResults": "No groups found",
+    "loading": "Loading groups...",
+    "membersTitle": "Members",
+    "searchUsers": "Search users...",
+    "noUsersFound": "No users found",
+    "noDescription": "No description"
+  },
+  "dialogs": {
+    "addUser": { "title": "Add user", "description": "Fill in the new user's information" },
+    "editUser": { "title": "Edit user" },
+    "createGroup": { "title": "Create group", "description": "Fill in the new group's information" },
+    "editGroup": { "title": "Edit group" },
+    "manageMembers": { "title": "Add member to {{name}}" },
+    "groupDetail": { "title": "Group members", "removeMember": "Remove member" },
+    "deactivate": {
+      "title": "Deactivate {{count}} user(s)",
+      "warning": "The user will not be able to access the platform.",
+      "confirm": "Deactivate",
+      "cancel": "Cancel"
+    }
+  },
+  "bulk": {
+    "selected": "{{count}} selected",
+    "deactivate": "Deactivate"
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "role": "Role",
+    "description": "Description",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "teacher": "Teacher",
+    "student": "Student"
+  },
+  "filters": {
+    "all": "All",
+    "admin": "Administrator",
+    "teacher": "Teacher",
+    "student": "Student"
+  },
+  "empty": {
+    "noUsers": "No users found",
+    "noGroups": "No groups found"
+  },
+  "error": {
+    "title": "Failed to load",
+    "retry": "Retry"
+  }
+}

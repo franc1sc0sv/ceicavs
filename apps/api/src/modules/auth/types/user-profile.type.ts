@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-import { UserRole } from '../../../common/types/user-role.enum'
+import { UserRole, UserRoleGql } from '../../../common/types/user-role.enum'
 
 @ObjectType()
 export class UserProfileType {
@@ -12,7 +12,7 @@ export class UserProfileType {
   @Field(() => String)
   name: string
 
-  @Field(() => UserRole)
+  @Field(() => UserRoleGql)
   role: UserRole
 
   @Field(() => String, { nullable: true })

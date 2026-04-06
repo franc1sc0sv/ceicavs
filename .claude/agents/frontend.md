@@ -10,7 +10,13 @@ skills:
   - ceicavs-frontend-architecture
   - design-frontend
   - design-accessibility
+  - accessibility
+  - tailwind-css-patterns
+  - frontend-design
+  - vercel-react-best-practices
+  - vercel-composition-patterns
   - lang-typescript
+  - typescript-advanced-types
   - core-coding-standards
   - apollo-skills:apollo-client
   - apollo-skills:graphql-operations
@@ -28,7 +34,13 @@ You are **Vera** — the craftsperson of the CEICAVS interface. You build UIs th
 - ceicavs-frontend-architecture
 - design-frontend
 - design-accessibility
+- accessibility
+- tailwind-css-patterns
+- frontend-design
+- vercel-react-best-practices
+- vercel-composition-patterns
 - lang-typescript
+- typescript-advanced-types
 - core-coding-standards
 - apollo-skills:apollo-client
 - apollo-skills:graphql-operations
@@ -101,13 +113,35 @@ src/features/[feature]/
 - CVA for component variants
 - Framer Motion for meaningful animations — not decorative
 
+**GraphQL (codegen pipeline):**
+- Backend is code-first: `@ObjectType`/`@InputType`/`@Resolver` → auto-generates `apps/api/src/schema.gql`
+- Frontend uses `graphql-codegen/client-preset`: `apps/web/codegen.ts` reads `schema.gql`, scans `src/**/*.{ts,tsx}` for `graphql()` calls, generates typed operations into `src/generated/`
+- Always use `graphql()` from `@/generated/gql` — never `gql` from `@apollo/client`
+- After adding/changing operations: `pnpm --filter @ceicavs/web generate`
+- Codegen provides exact types — never manually type `useQuery<MyType>` generics
+- In parallel worktrees: write operations against agreed schema contract; codegen runs post-merge
+
+```typescript
+import { graphql } from '@/generated/gql'
+import { useQuery } from '@apollo/client'
+
+const GET_POSTS = graphql(`
+  query GetPosts { posts { id title } }
+`)
+const { data } = useQuery(GET_POSTS) // data is fully typed
+```
+
 **State:**
 - Apollo for all server state — never `useState` + `fetch` for API data
 - React Context for client-only shared state (auth, ability, theme)
 - Local `useState` for UI-only state (open/closed, hover, etc.)
 
-**Permissions:**
+**Permissions (CASL enums — no magic strings):**
+- Import `{ Action, Subject, UserRole }` from `@ceicavs/shared` — never raw strings
 - Use `AbilityProvider` and `Can` component from `src/context/ability.context.tsx`
+- `<Can I={Action.CREATE} a={Subject.POST}>` — never `<Can I="create" a="Post">`
+- `RequireAbility` route guard: `<RequireAbility action={Action.CREATE} subject={Subject.GROUP} />`
+- Role comparisons: `role === UserRole.ADMIN` — never `role === 'admin'`
 - Never hard-code role checks — always use CASL
 - Wrap actions (not just views) with permission checks
 
@@ -153,7 +187,9 @@ Before marking any task complete, verify:
 - [ ] New interactive elements are keyboard navigable
 - [ ] No default exports (except route components)
 - [ ] No CSS modules or styled-components — Tailwind only
-- [ ] Permission-gated actions use `Can` from CASL context
+- [ ] Permission-gated actions use `Can` from CASL context with enum values
+- [ ] GraphQL operations use `graphql()` from `@/generated/gql`, not `gql` from Apollo
+- [ ] `pnpm --filter @ceicavs/web generate` runs without errors (if schema.gql is available)
 - [ ] `pnpm --filter @ceicavs/web typecheck` passes
 
 ### What NOT To Do
@@ -162,5 +198,9 @@ Before marking any task complete, verify:
 - Create barrel files inside feature folders
 - Use `useState` + `fetch` for server data — use Apollo
 - Hard-code role checks — always use CASL
+- Use magic strings for roles, actions, or subjects — always use `UserRole.X`, `Action.X`, `Subject.X` enums
 - Add English text to the UI
 - Use `any` in TypeScript
+- Import `gql` from `@apollo/client` — use `graphql()` from `@/generated/gql`
+- Manually type `useQuery<T>` generics — codegen provides exact types
+- Redeclare GraphQL types locally — import from `@/generated/graphql`

@@ -8,6 +8,7 @@ import { AbilityBridge } from '@/context/ability-bridge'
 import { AppBootstrap } from '@/components/AppBootstrap'
 import { apolloClient } from '@/lib/apollo'
 import { i18n } from '@/i18n/index'
+import { NuqsAdapter } from 'nuqs/adapters/react-router'
 import { Router } from '@/router/Router'
 import '@/index.css'
 
@@ -19,7 +20,9 @@ createRoot(document.getElementById('root')!).render(
           <AuthProvider>
             <AppBootstrap>
               <AbilityBridge>
-                <Router />
+                <NuqsAdapter>
+                  <Router />
+                </NuqsAdapter>
               </AbilityBridge>
             </AppBootstrap>
           </AuthProvider>

@@ -3,136 +3,123 @@ import {
   createMongoAbility,
   MongoAbility,
 } from '@casl/ability'
-import type { UserRole } from './types'
 
-// ---------------------------------------------------------------------------
-// Actions
-// ---------------------------------------------------------------------------
-export type Action =
-  | 'manage'   // wildcard — all actions
-  | 'create'
-  | 'read'
-  | 'update'
-  | 'delete'
-  | 'publish'  // post: publish directly (admin/teacher only)
-  | 'approve'  // post: approve a student draft
-  | 'reject'   // post: reject a student draft
-  | 'submit'   // post: submit as draft (student only)
-  | 'export'   // attendance: export PDF/Excel
-  | 'transcribe' // recording: trigger AI transcription
+export const UserRole = {
+  ADMIN: 'admin',
+  TEACHER: 'teacher',
+  STUDENT: 'student',
+} as const
 
-// ---------------------------------------------------------------------------
-// Subjects
-// ---------------------------------------------------------------------------
-export type Subject =
-  | 'User'
-  | 'Group'
-  | 'AttendanceRecord'
-  | 'AttendanceSubmission'
-  | 'Post'
-  | 'Category'
-  | 'Comment'
-  | 'Reaction'
-  | 'Tool'
-  | 'Favorite'
-  | 'Folder'
-  | 'Recording'
-  | 'Transcription'
-  | 'Activity'
-  | 'all'   // CASL wildcard
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+export const Action = {
+  MANAGE: 'manage',
+  CREATE: 'create',
+  READ: 'read',
+  UPDATE: 'update',
+  DELETE: 'delete',
+  PUBLISH: 'publish',
+  APPROVE: 'approve',
+  REJECT: 'reject',
+  SUBMIT: 'submit',
+  EXPORT: 'export',
+  TRANSCRIBE: 'transcribe',
+} as const
+
+export type Action = (typeof Action)[keyof typeof Action]
+
+export const Subject = {
+  USER: 'User',
+  GROUP: 'Group',
+  ATTENDANCE_RECORD: 'AttendanceRecord',
+  ATTENDANCE_SUBMISSION: 'AttendanceSubmission',
+  POST: 'Post',
+  CATEGORY: 'Category',
+  COMMENT: 'Comment',
+  REACTION: 'Reaction',
+  TOOL: 'Tool',
+  FAVORITE: 'Favorite',
+  FOLDER: 'Folder',
+  RECORDING: 'Recording',
+  TRANSCRIPTION: 'Transcription',
+  ACTIVITY: 'Activity',
+  ALL: 'all',
+} as const
+
+export type Subject = (typeof Subject)[keyof typeof Subject]
 
 export type AppAbility = MongoAbility<[Action, Subject]>
 
-// ---------------------------------------------------------------------------
-// Ability factory — call with the authenticated user's role
-// ---------------------------------------------------------------------------
 export function defineAbilityFor(role: UserRole): AppAbility {
   const { can, cannot, build } = new AbilityBuilder<AppAbility>(
     createMongoAbility,
   )
 
-  if (role === 'admin') {
-    // Admins can do everything
-    can('manage', 'all')
+  if (role === UserRole.ADMIN) {
+    can(Action.MANAGE, Subject.ALL)
   }
 
-  if (role === 'teacher') {
-    // Users
-    can('read', 'User')
-    cannot('create', 'User')
-    cannot('delete', 'User')
-    cannot('update', 'User')
+  if (role === UserRole.TEACHER) {
+    can(Action.READ, Subject.USER)
+    cannot(Action.CREATE, Subject.USER)
+    cannot(Action.DELETE, Subject.USER)
+    cannot(Action.UPDATE, Subject.USER)
 
-    // Groups — teachers manage their own groups
-    can('read', 'Group')
-    can('create', 'Group')
-    can('update', 'Group')
-    can('delete', 'Group')
+    can(Action.READ, Subject.GROUP)
+    can(Action.CREATE, Subject.GROUP)
+    can(Action.UPDATE, Subject.GROUP)
+    can(Action.DELETE, Subject.GROUP)
 
-    // Attendance — full control
-    can('manage', 'AttendanceRecord')
-    can('manage', 'AttendanceSubmission')
-    can('export', 'AttendanceRecord')
+    can(Action.MANAGE, Subject.ATTENDANCE_RECORD)
+    can(Action.MANAGE, Subject.ATTENDANCE_SUBMISSION)
+    can(Action.EXPORT, Subject.ATTENDANCE_RECORD)
 
-    // Blog — publish their own, approve/reject student drafts
-    can('read', 'Post')
-    can('create', 'Post')
-    can('update', 'Post')
-    can('delete', 'Post')
-    can('publish', 'Post')
-    can('approve', 'Post')
-    can('reject', 'Post')
+    can(Action.READ, Subject.POST)
+    can(Action.CREATE, Subject.POST)
+    can(Action.UPDATE, Subject.POST)
+    can(Action.DELETE, Subject.POST)
+    can(Action.PUBLISH, Subject.POST)
+    can(Action.APPROVE, Subject.POST)
+    can(Action.REJECT, Subject.POST)
 
-    // Categories
-    can('manage', 'Category')
+    can(Action.MANAGE, Subject.CATEGORY)
 
-    // Comments & reactions
-    can('manage', 'Comment')
-    can('manage', 'Reaction')
+    can(Action.MANAGE, Subject.COMMENT)
+    can(Action.MANAGE, Subject.REACTION)
 
-    // Tools
-    can('read', 'Tool')
-    can('manage', 'Favorite')
+    can(Action.READ, Subject.TOOL)
+    can(Action.MANAGE, Subject.FAVORITE)
 
-    // Recordings & transcription — manage their own
-    can('manage', 'Folder')
-    can('manage', 'Recording')
-    can('transcribe', 'Recording')
-    can('read', 'Transcription')
+    can(Action.MANAGE, Subject.FOLDER)
+    can(Action.MANAGE, Subject.RECORDING)
+    can(Action.TRANSCRIBE, Subject.RECORDING)
+    can(Action.READ, Subject.TRANSCRIPTION)
 
-    // Activity
-    can('read', 'Activity')
+    can(Action.READ, Subject.ACTIVITY)
   }
 
-  if (role === 'student') {
-    // Users — read own profile only (enforced at resolver level with conditions)
-    can('read', 'User')
+  if (role === UserRole.STUDENT) {
+    can(Action.READ, Subject.USER)
 
-    // Groups — read only
-    can('read', 'Group')
+    can(Action.READ, Subject.GROUP)
 
-    // Attendance — read own records only
-    can('read', 'AttendanceRecord')
+    can(Action.READ, Subject.ATTENDANCE_RECORD)
 
-    // Blog — read published posts, submit drafts, manage own drafts
-    can('read', 'Post')
-    can('create', 'Post')   // creates as draft
-    can('submit', 'Post')
-    can('update', 'Post')   // own draft only — enforced at resolver level
-    can('delete', 'Post')   // own draft only
+    can(Action.READ, Subject.POST)
+    can(Action.CREATE, Subject.POST)
+    can(Action.SUBMIT, Subject.POST)
+    can(Action.UPDATE, Subject.POST)
+    can(Action.DELETE, Subject.POST)
 
-    // Comments & reactions
-    can('create', 'Comment')
-    can('update', 'Comment')  // own only
-    can('delete', 'Comment')  // own only
-    can('manage', 'Reaction')
+    can(Action.CREATE, Subject.COMMENT)
+    can(Action.UPDATE, Subject.COMMENT)
+    can(Action.DELETE, Subject.COMMENT)
+    can(Action.MANAGE, Subject.REACTION)
 
-    // Tools
-    can('read', 'Tool')
-    can('manage', 'Favorite')
+    can(Action.READ, Subject.TOOL)
+    can(Action.MANAGE, Subject.FAVORITE)
 
-    // Activity — read own
-    can('read', 'Activity')
+    can(Action.READ, Subject.ACTIVITY)
   }
 
   return build()

@@ -1,0 +1,77 @@
+{
+  "title": "Asistencia",
+  "subtitle": "Selecciona un grupo para tomar la lista del día",
+  "tabs": {
+    "roster": "Lista del día",
+    "reports": "Reportes"
+  },
+  "status": {
+    "present": "Presente",
+    "absent": "Ausente",
+    "late": "Tarde",
+    "excused": "Justificado",
+    "submitted": "Enviada hoy",
+    "pending": "Pendiente"
+  },
+  "period": {
+    "daily": "Diario",
+    "weekly": "Semanal",
+    "monthly": "Mensual"
+  },
+  "actions": {
+    "submit": "Enviar asistencia",
+    "update": "Actualizar asistencia",
+    "exportPdf": "PDF",
+    "exportExcel": "Excel"
+  },
+  "empty": {
+    "noGroups": "No tienes grupos asignados todavía",
+    "noStudents": "No hay alumnos en este grupo",
+    "noHistory": "Sin registros de asistencia todavía",
+    "noReports": "Sin datos de reportes para este período"
+  },
+  "pending": "{{count}} grupo(s) sin asistencia registrada hoy",
+  "student": {
+    "title": "Mi Asistencia",
+    "streakLabel": "días seguidos",
+    "groupsLabel": "grupos",
+    "generalLabel": "General",
+    "historyLabel": "Historial"
+  },
+  "report": {
+    "student": "Alumno",
+    "attendance": "Asistencia"
+  },
+  "export": {
+    "queued": "Exportación en proceso",
+    "ready": "Listo para descargar",
+    "failed": "Error en la exportación"
+  },
+  "members": "{{count}} miembros",
+  "dateLabel": "Fecha:",
+  "error": {
+    "title": "Error",
+    "retry": "Reintentar"
+  },
+  "noMark": "Sin marcar todavía",
+  "legend": {
+    "present": "Presente",
+    "absent": "Ausente",
+    "late": "Tarde",
+    "excused": "Justificado"
+  },
+  "back": "Asistencia",
+  "sheet": {
+    "title": "Editar grupo",
+    "name": "Nombre",
+    "description": "Descripción",
+    "save": "Guardar cambios",
+    "members": "Miembros",
+    "addMember": "Agregar miembro",
+    "removeMember": "Eliminar miembro",
+    "searchPlaceholder": "Buscar usuario...",
+    "noMembers": "Sin miembros todavía",
+    "noResults": "Sin resultados",
+    "edit": "Editar grupo"
+  }
+}

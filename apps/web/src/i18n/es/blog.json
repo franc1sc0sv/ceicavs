@@ -1,0 +1,112 @@
+{
+  "title": "Blog",
+  "newPost": "Nuevo artículo",
+  "actions": {
+    "publish": "Publicar",
+    "submitForReview": "Enviar a revisión",
+    "saveDraft": "Guardar borrador",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Agregar",
+    "reply": "Responder",
+    "approve": "Aprobar",
+    "reject": "Rechazar",
+    "back": "Volver",
+    "save": "Guardar"
+  },
+  "pages": {
+    "feed": "Publicaciones",
+    "detail": "Detalle",
+    "create": "Nuevo artículo",
+    "edit": "Editar artículo",
+    "drafts": "Mis borradores",
+    "queue": "Cola de moderación",
+    "categories": "Gestión de categorías"
+  },
+  "status": {
+    "published": "Publicado",
+    "draft": "Borrador",
+    "rejected": "Rechazado"
+  },
+  "drafts": {
+    "rejectionNote": "Nota de rechazo",
+    "rejectDialog": {
+      "title": "Rechazar borrador",
+      "placeholder": "Razón del rechazo..."
+    }
+  },
+  "categories": {
+    "name": "Nombre",
+    "postCount": "Publicaciones",
+    "addCategory": "Agregar categoría",
+    "actions": "Acciones"
+  },
+  "comments": {
+    "title": "Comentarios",
+    "placeholder": "Escribe un comentario...",
+    "reply": "Responder",
+    "count": "{{count}} comentarios",
+    "loadMore": "Cargar más comentarios",
+    "loadReplies": "Ver respuestas",
+    "loadMoreReplies": "Cargar más respuestas",
+    "addEmoji": "Agregar emoji",
+    "addGif": "Agregar GIF",
+    "removeGif": "Quitar GIF",
+    "searchGifs": "Buscar GIFs..."
+  },
+  "reactions": {
+    "react": "Reaccionar"
+  },
+  "empty": {
+    "noPosts": "No hay publicaciones todavía",
+    "noPostsHint": "Sé el primero en compartir algo con la comunidad",
+    "noResults": "No se encontraron publicaciones",
+    "noResultsHint": "Intenta con otros términos o categorías",
+    "noDrafts": "No tienes borradores",
+    "noComments": "Sé el primero en comentar",
+    "noCategories": "No hay categorías"
+  },
+  "filters": {
+    "search": "Buscar publicaciones...",
+    "allCategories": "Todas las categorías",
+    "results": "{{count}} resultado",
+    "results_plural": "{{count}} resultados",
+    "clearFilters": "Limpiar filtros"
+  },
+  "feed": {
+    "loadingMore": "Cargando más publicaciones..."
+  },
+  "images": {
+    "upload": "Haz clic o arrastra imágenes aquí",
+    "uploading": "Subiendo imágenes...",
+    "remove": "Quitar imagen"
+  },
+  "form": {
+    "title": "Título",
+    "excerpt": "Extracto",
+    "content": "Contenido",
+    "coverImage": "URL de imagen de portada",
+    "categories": "Categorías",
+    "images": "Imágenes",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+  "error": {
+    "title": "Error",
+    "retry": "Reintentar"
+  },
+  "delete": {
+    "title": "Eliminar publicación",
+    "warning": "Esta acción no se puede deshacer.",
+    "confirm": "Eliminar",
+    "cancel": "Cancelar"
+  },
+  "roles": {
+    "admin": "Admin",
+    "teacher": "Docente",
+    "student": "Estudiante"
+  },
+  "queue": {
+    "rejectNote": "Nota para el autor"
+  }
+}

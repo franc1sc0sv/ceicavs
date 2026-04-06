@@ -2,9 +2,188 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AddCommentInput {
+  gifAlt: String
+  gifUrl: String
+  parentId: ID
+  postId: ID!
+  text: String!
+}
+
+type AttendanceGroupType {
+  id: ID!
+  memberCount: Int!
+  name: String!
+  todayRate: Float
+  todaySubmitted: Boolean!
+}
+
+input AttendanceRecordItemInput {
+  status: AttendanceStatus!
+  studentId: String!
+}
+
+enum AttendanceStatus {
+  absent
+  excused
+  late
+  present
+}
+
 type AuthTokensType {
   accessToken: String!
   refreshToken: String!
+}
+
+type AuthorType {
+  avatarUrl: String
+  id: ID!
+  name: String!
+  role: UserRole!
+}
+
+input BulkDeleteUsersInput {
+  ids: [String!]!
+}
+
+input BulkUpdateUsersInput {
+  ids: [String!]!
+  role: UserRole!
+}
+
+type CategoryType {
+  id: ID!
+  name: String!
+}
+
+type CommentType {
+  author: AuthorType!
+  createdAt: DateTime!
+  depth: Int!
+  gifAlt: String
+  gifUrl: String
+  id: ID!
+  parentId: ID
+  postId: ID!
+  reactionSummary: [ReactionSummaryType!]!
+  replyCount: Int
+  text: String!
+  updatedAt: DateTime!
+}
+
+type CommentsPageType {
+  items: [CommentType!]!
+  nextCursor: String
+}
+
+input CreateGroupInput {
+  description: String
+  name: String!
+}
+
+input CreatePostInput {
+  categoryIds: [String!]!
+  content: String!
+  excerpt: String!
+  images: [PostImageInput!]
+  publish: Boolean!
+  title: String!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+  role: UserRole!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input ExportAttendanceInput {
+  format: ExportFormat!
+  groupId: String!
+  period: ReportPeriod!
+}
+
+enum ExportFormat {
+  EXCEL
+  PDF
+}
+
+enum ExportJobStatus {
+  DONE
+  FAILED
+  PENDING
+  PROCESSING
+}
+
+type ExportJobType {
+  jobId: ID!
+}
+
+type ExportStatusType {
+  downloadUrl: String
+  jobId: ID!
+  status: ExportJobStatus!
+}
+
+input GroupFiltersInput {
+  search: String
+}
+
+type GroupMemberType {
+  avatarUrl: String
+  email: String!
+  id: ID!
+  joinedAt: DateTime!
+  name: String!
+  role: UserRole!
+}
+
+type GroupRosterType {
+  date: String!
+  group: AttendanceGroupType!
+  roster: [RosterStudentType!]!
+}
+
+type GroupType {
+  createdAt: DateTime!
+  createdBy: String!
+  description: String!
+  id: ID!
+  memberCount: Int!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type GroupWithMembersType {
+  createdAt: DateTime!
+  createdBy: String!
+  description: String!
+  id: ID!
+  memberCount: Int!
+  members: [GroupMemberType!]!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input ImportUserRowInput {
+  email: String!
+  name: String!
+  role: UserRole!
+}
+
+input ImportUsersInput {
+  rows: [ImportUserRowInput!]!
+}
+
+type ImportUsersResultType {
+  created: Int!
+  errors: [String!]!
+  skipped: Int!
 }
 
 input LoginInput {
@@ -13,16 +192,193 @@ input LoginInput {
 }
 
 type Mutation {
+  addComment(input: AddCommentInput!): CommentType!
+  addMemberToGroup(groupId: ID!, userId: ID!): Boolean!
+  bulkDeleteUsers(input: BulkDeleteUsersInput!): Boolean!
+  bulkUpdateUsers(input: BulkUpdateUsersInput!): Boolean!
+  createCategory(name: String!): CategoryType!
+  createGroup(input: CreateGroupInput!): GroupType!
+  createPost(input: CreatePostInput!): PostType!
+  createUser(input: CreateUserInput!): UserType!
+  deleteCategory(id: ID!): Boolean!
+  deleteComment(id: ID!): Boolean!
+  deleteGroup(id: ID!): Boolean!
+  deletePost(id: ID!): Boolean!
+  deleteUser(id: ID!): Boolean!
+  exportAttendance(input: ExportAttendanceInput!): ExportJobType!
+  importUsers(input: ImportUsersInput!): ImportUsersResultType!
   login(input: LoginInput!): AuthTokensType!
+  recordAttendance(input: RecordAttendanceInput!): Boolean!
   refreshToken(input: RefreshTokenInput!): AuthTokensType!
+  removeMemberFromGroup(groupId: ID!, userId: ID!): Boolean!
+  reviewDraft(id: ID!, input: ReviewDraftInput!): PostType!
+  toggleReaction(commentId: ID, emoji: String, postId: ID): [ReactionSummaryType!]!
+  updateCategory(id: ID!, name: String!): CategoryType!
+  updateComment(id: ID!, text: String!): CommentType!
+  updateGroup(id: ID!, input: UpdateGroupInput!): GroupType!
+  updatePost(id: ID!, input: UpdatePostInput!): PostType!
+  updateUser(id: ID!, input: UpdateUserInput!): UserType!
+}
+
+input PostFiltersInput {
+  authorId: ID
+  categoryId: ID
+  search: String
+  status: PostStatus
+}
+
+input PostImageInput {
+  order: Int!
+  publicId: String!
+  url: String!
+}
+
+type PostImageType {
+  id: ID!
+  order: Int!
+  publicId: String!
+  url: String!
+}
+
+enum PostStatus {
+  draft
+  published
+  rejected
+}
+
+type PostType {
+  author: AuthorType!
+  authorId: ID!
+  categories: [CategoryType!]!
+  commentCount: Int!
+  comments: [CommentType!]
+  content: String!
+  createdAt: DateTime!
+  excerpt: String!
+  id: ID!
+  images: [PostImageType!]
+  publishedAt: DateTime
+  reactionSummary: [ReactionSummaryType!]!
+  rejectionNote: String
+  status: PostStatus!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type PostsPageType {
+  items: [PostType!]!
+  nextCursor: String
 }
 
 type Query {
+  attendanceExportStatus(jobId: String!): ExportStatusType!
+  attendanceGroups: [AttendanceGroupType!]!
+  attendanceReport(groupId: String!, period: ReportPeriod!): [StudentReportType!]!
+  attendanceRoster(date: String!, groupId: String!): GroupRosterType!
+  categories: [CategoryType!]!
+  comments(cursor: String, limit: Int, postId: ID!): CommentsPageType!
+  draftQueue: [PostType!]!
+  feed(cursor: String, filters: PostFiltersInput, limit: Int): PostsPageType!
+  getGroup(id: ID!): GroupWithMembersType
+  getGroups(filters: GroupFiltersInput): [GroupType!]!
+  getUser(id: ID!): UserType
+  getUsers(filters: UserFiltersInput): [UserType!]!
   me: UserProfileType!
+  myDrafts: [PostType!]!
+  post(id: ID!): PostType!
+  posts(filters: PostFiltersInput): [PostType!]!
+  replies(cursor: String, limit: Int, parentId: ID!): CommentsPageType!
+  studentAttendanceHistory: [StudentHistoryRecordType!]!
+  studentAttendanceSummary: StudentSummaryType!
+}
+
+type ReactionSummaryType {
+  count: Int!
+  emoji: String!
+  userReacted: Boolean!
+}
+
+input RecordAttendanceInput {
+  date: String!
+  groupId: String!
+  records: [AttendanceRecordItemInput!]!
 }
 
 input RefreshTokenInput {
   refreshToken: String!
+}
+
+enum ReportPeriod {
+  DAILY
+  MONTHLY
+  WEEKLY
+}
+
+input ReviewDraftInput {
+  action: String!
+  rejectionNote: String
+}
+
+type RosterStudentType {
+  avatarUrl: String
+  id: ID!
+  name: String!
+  status: AttendanceStatus
+}
+
+type StudentHistoryRecordType {
+  date: String!
+  groupName: String!
+  id: ID!
+  status: AttendanceStatus!
+}
+
+type StudentReportType {
+  absentCount: Int!
+  attendanceRate: Float!
+  excusedCount: Int!
+  lateCount: Int!
+  presentCount: Int!
+  studentId: ID!
+  studentName: String!
+  totalDays: Int!
+}
+
+type StudentSummaryType {
+  currentStreak: Int!
+  groupCount: Int!
+  overallRate: Float!
+}
+
+input UpdateGroupInput {
+  description: String
+  name: String
+}
+
+input UpdatePostInput {
+  categoryIds: [String!]
+  content: String
+  excerpt: String
+  images: [PostImageInput!]
+  title: String
+}
+
+input UpdateUserInput {
+  email: String
+  name: String
+  role: UserRole
+}
+
+input UserFiltersInput {
+  groupId: String
+  isDeactivated: Boolean
+  role: UserRole
+  search: String
+}
+
+type UserGroupType {
+  id: ID!
+  name: String!
 }
 
 type UserProfileType {
@@ -37,4 +393,14 @@ enum UserRole {
   admin
   student
   teacher
+}
+
+type UserType {
+  avatarUrl: String
+  createdAt: DateTime!
+  email: String!
+  groups: [UserGroupType!]
+  id: ID!
+  name: String!
+  role: UserRole!
 }

@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common'
-import type { AppAbility, Action, Subject } from '@ceicavs/shared'
+import { type AppAbility, type Action, type Subject } from '@ceicavs/shared'
 
 export interface PolicyHandler {
   handle(ability: AppAbility): boolean

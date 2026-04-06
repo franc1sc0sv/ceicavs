@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { GraduationCap } from 'lucide-react'
 import { MainNav } from './MainNav'
@@ -19,9 +19,11 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
+  BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import { BreadcrumbProvider, useBreadcrumb } from '@/context/breadcrumb.context'
 
 const ROUTE_KEYS: Record<string, string> = {
   dashboard: 'nav.dashboard',
@@ -32,9 +34,10 @@ const ROUTE_KEYS: Record<string, string> = {
   transcription: 'nav.transcription',
 }
 
-export function AppShell() {
+function AppShellInner() {
   const { t } = useTranslation('common')
   const location = useLocation()
+  const { items } = useBreadcrumb()
   const segment = location.pathname.split('/').filter(Boolean)[0] ?? 'dashboard'
   const pageTitle = t(ROUTE_KEYS[segment] ?? 'nav.dashboard')
 
@@ -77,9 +80,29 @@ export function AppShell() {
                 CEICAVS
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>{pageTitle}</BreadcrumbPage>
-              </BreadcrumbItem>
+              {items.length > 0 ? (
+                items.map((item, index) => {
+                  const isLast = index === items.length - 1
+                  return (
+                    <span key={item.label} className="inline-flex items-center gap-1.5">
+                      {index > 0 && <BreadcrumbSeparator />}
+                      <BreadcrumbItem>
+                        {isLast || !item.to ? (
+                          <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                        ) : (
+                          <BreadcrumbLink render={<Link to={item.to} />}>
+                            {item.label}
+                          </BreadcrumbLink>
+                        )}
+                      </BreadcrumbItem>
+                    </span>
+                  )
+                })
+              ) : (
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{pageTitle}</BreadcrumbPage>
+                </BreadcrumbItem>
+              )}
             </BreadcrumbList>
           </Breadcrumb>
         </header>
@@ -88,5 +111,13 @@ export function AppShell() {
         </main>
       </SidebarInset>
     </SidebarProvider>
+  )
+}
+
+export function AppShell() {
+  return (
+    <BreadcrumbProvider>
+      <AppShellInner />
+    </BreadcrumbProvider>
   )
 }

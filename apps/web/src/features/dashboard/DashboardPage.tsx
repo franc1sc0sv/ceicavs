@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '../../context/auth.context'
 import { Can } from '../../context/ability.context'
-import type { Action, Subject } from '@ceicavs/shared'
+import { Action, Subject, UserRole } from '@ceicavs/shared'
 
 interface StatCardProps {
   icon: LucideIcon
@@ -101,16 +101,16 @@ const STUDENT_STATS: StatCardProps[] = [
 ]
 
 const ADMIN_ACTIONS: QuickActionProps[] = [
-  { icon: Users, labelKey: 'actions.manageUsers', href: '/people', permission: { action: 'create', subject: 'User' } },
-  { icon: UsersRound, labelKey: 'actions.manageGroups', href: '/people', permission: { action: 'create', subject: 'Group' } },
-  { icon: FileText, labelKey: 'actions.createPost', href: '/blog', permission: { action: 'publish', subject: 'Post' } },
-  { icon: AudioLines, labelKey: 'actions.newRecording', href: '/transcription', permission: { action: 'transcribe', subject: 'Recording' } },
+  { icon: Users, labelKey: 'actions.manageUsers', href: '/people', permission: { action: Action.CREATE, subject: Subject.USER } },
+  { icon: UsersRound, labelKey: 'actions.manageGroups', href: '/people', permission: { action: Action.CREATE, subject: Subject.GROUP } },
+  { icon: FileText, labelKey: 'actions.createPost', href: '/blog', permission: { action: Action.PUBLISH, subject: Subject.POST } },
+  { icon: AudioLines, labelKey: 'actions.newRecording', href: '/transcription', permission: { action: Action.TRANSCRIBE, subject: Subject.RECORDING } },
 ]
 
 const TEACHER_ACTIONS: QuickActionProps[] = [
-  { icon: ClipboardCheck, labelKey: 'actions.takeAttendance', href: '/attendance', permission: { action: 'create', subject: 'AttendanceRecord' } },
-  { icon: FileText, labelKey: 'actions.createPost', href: '/blog', permission: { action: 'publish', subject: 'Post' } },
-  { icon: AudioLines, labelKey: 'actions.newRecording', href: '/transcription', permission: { action: 'transcribe', subject: 'Recording' } },
+  { icon: ClipboardCheck, labelKey: 'actions.takeAttendance', href: '/attendance', permission: { action: Action.CREATE, subject: Subject.ATTENDANCE_RECORD } },
+  { icon: FileText, labelKey: 'actions.createPost', href: '/blog', permission: { action: Action.PUBLISH, subject: Subject.POST } },
+  { icon: AudioLines, labelKey: 'actions.newRecording', href: '/transcription', permission: { action: Action.TRANSCRIBE, subject: Subject.RECORDING } },
   { icon: Wrench, labelKey: 'actions.viewTools', href: '/tools' },
 ]
 
@@ -120,15 +120,15 @@ const STUDENT_ACTIONS: QuickActionProps[] = [
   { icon: Wrench, labelKey: 'actions.viewTools', href: '/tools' },
 ]
 
-function getStatsForRole(role: string): StatCardProps[] {
-  if (role === 'admin') return ADMIN_STATS
-  if (role === 'teacher') return TEACHER_STATS
+function getStatsForRole(role: UserRole): StatCardProps[] {
+  if (role === UserRole.ADMIN) return ADMIN_STATS
+  if (role === UserRole.TEACHER) return TEACHER_STATS
   return STUDENT_STATS
 }
 
-function getActionsForRole(role: string): QuickActionProps[] {
-  if (role === 'admin') return ADMIN_ACTIONS
-  if (role === 'teacher') return TEACHER_ACTIONS
+function getActionsForRole(role: UserRole): QuickActionProps[] {
+  if (role === UserRole.ADMIN) return ADMIN_ACTIONS
+  if (role === UserRole.TEACHER) return TEACHER_ACTIONS
   return STUDENT_ACTIONS
 }
 

@@ -6,7 +6,11 @@ tools: Read, Write, Edit, Glob, Grep, Bash
 skills:
   - tech-vitest
   - platform-testing
+  - tech-react
+  - nestjs-architecture
+  - prisma-client-api
   - lang-typescript
+  - typescript-advanced-types
   - core-coding-standards
 ---
 
@@ -18,7 +22,11 @@ You are **Bishop** — the skeptic of the CEICAVS codebase. Your job is to assum
 
 - tech-vitest
 - platform-testing
+- tech-react
+- nestjs-architecture
+- prisma-client-api
 - lang-typescript
+- typescript-advanced-types
 - core-coding-standards
 
 ## Worktree Awareness
@@ -97,11 +105,12 @@ describe('CreatePostHandler', () => {
 - Test with `renderHook` from `@testing-library/react`
 - Mock Apollo operations with MSW at the network boundary
 
-**Permission rendering:**
+**Permission rendering (always use enums, never magic strings):**
 ```typescript
-// Wrap with a specific ability for testing
+import { defineAbilityFor, UserRole } from '@ceicavs/shared'
+
 const wrapper = ({ children }) => (
-  <AbilityProvider ability={defineAbilityFor('TEACHER')}>
+  <AbilityProvider ability={defineAbilityFor(UserRole.TEACHER)}>
     {children}
   </AbilityProvider>
 );
@@ -187,3 +196,4 @@ Before marking any task complete, verify:
 - Leave `console.log` or `debugger` in test files
 - Use `test.only` or `describe.only` in committed code
 - Write tests before reading the source — understand the contract first
+- Use magic strings in tests — always use `UserRole.X`, `Action.X`, `Subject.X` enums from `@ceicavs/shared`

@@ -1,0 +1,77 @@
+{
+  "title": "Attendance",
+  "subtitle": "Select a group to take today's attendance",
+  "tabs": {
+    "roster": "Today's roster",
+    "reports": "Reports"
+  },
+  "status": {
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "excused": "Excused",
+    "submitted": "Submitted today",
+    "pending": "Pending"
+  },
+  "period": {
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly"
+  },
+  "actions": {
+    "submit": "Submit attendance",
+    "update": "Update attendance",
+    "exportPdf": "PDF",
+    "exportExcel": "Excel"
+  },
+  "empty": {
+    "noGroups": "You have no groups assigned yet",
+    "noStudents": "There are no students in this group",
+    "noHistory": "No attendance records yet",
+    "noReports": "No report data for this period"
+  },
+  "pending": "{{count}} group(s) without attendance recorded today",
+  "student": {
+    "title": "My Attendance",
+    "streakLabel": "days in a row",
+    "groupsLabel": "groups",
+    "generalLabel": "Overall",
+    "historyLabel": "History"
+  },
+  "report": {
+    "student": "Student",
+    "attendance": "Attendance"
+  },
+  "export": {
+    "queued": "Export in progress",
+    "ready": "Ready to download",
+    "failed": "Export failed"
+  },
+  "members": "{{count}} members",
+  "dateLabel": "Date:",
+  "error": {
+    "title": "Error",
+    "retry": "Retry"
+  },
+  "noMark": "Not marked yet",
+  "legend": {
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "excused": "Excused"
+  },
+  "back": "Attendance",
+  "sheet": {
+    "title": "Edit group",
+    "name": "Name",
+    "description": "Description",
+    "save": "Save changes",
+    "members": "Members",
+    "addMember": "Add member",
+    "removeMember": "Remove member",
+    "searchPlaceholder": "Search user...",
+    "noMembers": "No members yet",
+    "noResults": "No results",
+    "edit": "Edit group"
+  }
+}
