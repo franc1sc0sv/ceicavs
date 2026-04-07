@@ -44,7 +44,21 @@
   },
   "activity": {
     "empty": "No recent activity",
-    "viewAll": "View all activity"
+    "viewAll": "View all activity",
+    "types": {
+      "ATTENDANCE_SUBMITTED": "submitted attendance",
+      "POST_CREATED": "created a post",
+      "DRAFT_REVIEWED": "reviewed a draft",
+      "POST_PUBLISHED": "published a post",
+      "USER_CREATED": "created a user ({{role}})",
+      "USER_DELETED": "deleted a user"
+    },
+    "time": {
+      "now": "just now",
+      "minutes": "{{count}}m ago",
+      "hours": "{{count}}h ago",
+      "days": "{{count}}d ago"
+    }
   },
   "charts": {
     "attendanceTrend": "Attendance trend (7 days)",

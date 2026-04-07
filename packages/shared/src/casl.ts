@@ -43,6 +43,8 @@ export const Subject = {
   RECORDING: 'Recording',
   TRANSCRIPTION: 'Transcription',
   ACTIVITY: 'Activity',
+  NOTE: 'Note',
+  TASK_ITEM: 'TaskItem',
   ALL: 'all',
 } as const
 
@@ -96,6 +98,8 @@ export function defineAbilityFor(role: UserRole): AppAbility {
     can(Action.READ, Subject.TRANSCRIPTION)
 
     can(Action.READ, Subject.ACTIVITY)
+    can(Action.MANAGE, Subject.NOTE)
+    can(Action.MANAGE, Subject.TASK_ITEM)
   }
 
   if (role === UserRole.STUDENT) {
@@ -120,6 +124,8 @@ export function defineAbilityFor(role: UserRole): AppAbility {
     can(Action.MANAGE, Subject.FAVORITE)
 
     can(Action.READ, Subject.ACTIVITY)
+    can(Action.MANAGE, Subject.NOTE)
+    can(Action.MANAGE, Subject.TASK_ITEM)
   }
 
   return build()

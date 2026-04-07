@@ -8,6 +8,8 @@ export class UserCreatedEvent implements IDomainEvent {
   constructor(
     public readonly userId: string,
     public readonly role: UserRole,
+    public readonly creatorId: string,
+    public readonly creatorRole: UserRole,
   ) {
     this.occurredAt = new Date()
   }

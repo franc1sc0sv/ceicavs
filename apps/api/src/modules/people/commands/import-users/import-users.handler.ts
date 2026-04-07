@@ -56,7 +56,7 @@ export class ImportUsersHandler extends BaseCommandHandler<ImportUsersCommand, I
           tx,
         )
 
-        events.push(new UserCreatedEvent(user.id, user.role))
+        events.push(new UserCreatedEvent(user.id, user.role, command.user.id, command.user.role))
         created++
       } catch {
         errors.push(`Row for ${row.email}: could not be created`)

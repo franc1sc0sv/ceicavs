@@ -59,6 +59,8 @@ model User {
   attendanceRecords     AttendanceRecord[]
   attendanceSubmissions AttendanceSubmission[]
   activities            Activity[]
+  notes                 Note[]
+  taskItems             TaskItem[]
 
   @@index([deletedAt])
   @@map("users")
@@ -261,6 +263,38 @@ model Favorite {
 
   @@id([userId, toolId])
   @@map("favorites")
+}
+
+model Note {
+  id        String    @id @default(cuid())
+  content   String
+  userId    String    @map("user_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([deletedAt])
+  @@index([userId])
+  @@map("notes")
+}
+
+model TaskItem {
+  id        String    @id @default(cuid())
+  text      String
+  completed Boolean   @default(false)
+  order     Int       @default(0)
+  userId    String    @map("user_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([deletedAt])
+  @@index([userId])
+  @@map("task_items")
 }
 
 model Folder {

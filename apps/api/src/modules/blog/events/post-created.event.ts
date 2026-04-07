@@ -1,4 +1,5 @@
 import type { IDomainEvent } from '../../../common/cqrs'
+import type { UserRole } from '@ceicavs/shared'
 import type { PostStatus } from '../interfaces/blog.interfaces'
 
 export class PostCreatedEvent implements IDomainEvent {
@@ -9,6 +10,7 @@ export class PostCreatedEvent implements IDomainEvent {
     readonly postId: string,
     readonly authorId: string,
     readonly status: PostStatus,
+    readonly actorRole: UserRole,
   ) {
     this.occurredAt = new Date()
   }

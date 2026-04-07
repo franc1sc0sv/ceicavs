@@ -38,7 +38,7 @@ export class CreatePostHandler extends BaseCommandHandler<CreatePostCommand, IPo
 
     const post = await this.postRepository.create(command.data, command.userId, status, tx)
 
-    events.push(new PostCreatedEvent(post.id, command.userId, status))
+    events.push(new PostCreatedEvent(post.id, command.userId, status, command.role))
 
     const posts = await this.postRepository.findMany({ authorId: command.userId }, tx)
     const fullPost = posts.find((p) => p.id === post.id)

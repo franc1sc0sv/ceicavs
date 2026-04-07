@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 interface ActivityItemData {
@@ -16,20 +17,6 @@ interface ActivityItemProps {
   item: ActivityItemData
 }
 
-function formatRelativeTime(dateString: string): string {
-  const date = new Date(dateString)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffMins = Math.floor(diffMs / 60000)
-  const diffHours = Math.floor(diffMins / 60)
-  const diffDays = Math.floor(diffHours / 24)
-
-  if (diffMins < 1) return 'ahora'
-  if (diffMins < 60) return `hace ${diffMins}m`
-  if (diffHours < 24) return `hace ${diffHours}h`
-  return `hace ${diffDays}d`
-}
-
 function getInitials(name: string): string {
   return name
     .split(' ')
@@ -39,7 +26,34 @@ function getInitials(name: string): string {
     .toUpperCase()
 }
 
+function parseMetadata(description: string): Record<string, string> {
+  try {
+    return JSON.parse(description) as Record<string, string>
+  } catch {
+    return {}
+  }
+}
+
 export function ActivityItem({ item }: ActivityItemProps) {
+  const { t } = useTranslation('dashboard')
+
+  const metadata = parseMetadata(item.description)
+  const typeKey = `activity.types.${item.type}`
+  const description = t(typeKey, metadata)
+
+  const date = new Date(item.createdAt)
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffMins = Math.floor(diffMs / 60000)
+  const diffHours = Math.floor(diffMins / 60)
+  const diffDays = Math.floor(diffHours / 24)
+
+  let relativeTime: string
+  if (diffMins < 1) relativeTime = t('activity.time.now')
+  else if (diffMins < 60) relativeTime = t('activity.time.minutes', { count: diffMins })
+  else if (diffHours < 24) relativeTime = t('activity.time.hours', { count: diffHours })
+  else relativeTime = t('activity.time.days', { count: diffDays })
+
   return (
     <li className="flex items-start gap-3 py-3">
       <Avatar className="size-8 shrink-0">
@@ -53,10 +67,10 @@ export function ActivityItem({ item }: ActivityItemProps) {
       <div className="flex-1 min-w-0">
         <p className="text-sm leading-snug">
           <span className="font-medium">{item.actorName}</span>{' '}
-          <span className="text-muted-foreground">{item.description}</span>
+          <span className="text-muted-foreground">{description}</span>
         </p>
         <p className="text-xs text-muted-foreground mt-0.5">
-          {formatRelativeTime(item.createdAt)}
+          {relativeTime}
         </p>
       </div>
     </li>

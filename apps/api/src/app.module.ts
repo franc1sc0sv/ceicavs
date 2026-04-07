@@ -12,6 +12,7 @@ import { PeopleModule } from './modules/people/people.module'
 import { BlogModule } from './modules/blog/blog.module'
 import { ToolsModule } from './modules/tools/tools.module'
 import { TranscriptionModule } from './modules/transcription/transcription.module'
+import { ActivityModule } from './modules/activity/activity.module'
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { TranscriptionModule } from './modules/transcription/transcription.modul
     BlogModule,
     ToolsModule,
     TranscriptionModule,
+    ActivityModule,
   ],
 })
 export class AppModule {}

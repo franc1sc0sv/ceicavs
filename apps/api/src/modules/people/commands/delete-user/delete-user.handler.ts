@@ -39,6 +39,6 @@ export class DeleteUserHandler extends BaseCommandHandler<DeleteUserCommand, voi
 
     await this.userRepository.softDelete(command.userId, tx)
 
-    events.push(new UserDeletedEvent(command.userId))
+    events.push(new UserDeletedEvent(command.userId, command.user.id, command.user.role))
   }
 }

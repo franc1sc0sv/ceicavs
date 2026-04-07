@@ -34,7 +34,7 @@ export class CreateUserHandler extends BaseCommandHandler<CreateUserCommand, IUs
 
     const user = await this.userRepository.create(command.data, tx)
 
-    events.push(new UserCreatedEvent(user.id, user.role))
+    events.push(new UserCreatedEvent(user.id, user.role, command.user.id, command.user.role))
 
     return user
   }

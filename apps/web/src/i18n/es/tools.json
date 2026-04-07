@@ -1,0 +1,20 @@
+{
+  "title": "Herramientas",
+  "subtitle": "{{count}} herramientas disponibles",
+  "search": "Buscar herramientas...",
+  "clearSearch": "Limpiar búsqueda",
+  "favorites": "Favoritos",
+  "addFavorite": "Agregar a favoritos",
+  "removeFavorite": "Quitar de favoritos",
+  "results": "{{count}} resultado(s)",
+  "noResults": "No se encontraron herramientas",
+  "noResultsHint": "Intenta con otros términos de búsqueda",
+  "backToTools": "Herramientas",
+  "loading": "Cargando herramientas...",
+  "comingSoon": "Próximamente",
+  "comingSoonDescription": "Esta herramienta está en desarrollo",
+  "error": {
+    "title": "Error al cargar",
+    "retry": "Reintentar"
+  }
+}

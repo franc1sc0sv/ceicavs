@@ -44,10 +44,10 @@ export class ReviewDraftHandler extends BaseCommandHandler<ReviewDraftCommand, I
 
     await this.postRepository.updateStatus(command.postId, status, rejectionNote, tx)
 
-    events.push(new DraftReviewedEvent(command.postId, command.data.action, command.userId))
+    events.push(new DraftReviewedEvent(command.postId, command.data.action, command.userId, command.role))
 
     if (command.data.action === 'approve') {
-      events.push(new PostPublishedEvent(command.postId))
+      events.push(new PostPublishedEvent(command.postId, command.userId, command.role))
     }
 
     const posts = await this.postRepository.findMany({ authorId: post.authorId }, tx)

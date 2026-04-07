@@ -19,6 +19,7 @@ const DraftQueuePage = React.lazy(() => import('@/features/blog/pages/draft-queu
 const MyDraftsPage = React.lazy(() => import('@/features/blog/pages/my-drafts-page'))
 const CategoryManagementPage = React.lazy(() => import('@/features/blog/pages/category-management-page'))
 const ToolsPage = React.lazy(() => import('@/features/tools/ToolsPage'))
+const ToolDetailPage = React.lazy(() => import('@/features/tools/pages/tool-detail-page'))
 const TranscriptionPage = React.lazy(() => import('@/features/transcription/TranscriptionPage'))
 
 function PageFallback() {
@@ -60,6 +61,7 @@ export const router = createBrowserRouter([
       { path: 'blog/:id/edit', element: withSuspense(<EditPostPage />) },
       { path: 'blog/:id', element: withSuspense(<PostDetailPage />) },
       { path: 'tools', element: withSuspense(<ToolsPage />) },
+      { path: 'tools/:toolId', element: withSuspense(<ToolDetailPage />) },
       {
         element: <RequireAbility action={Action.CREATE} subject={Subject.RECORDING} />,
         children: [

@@ -1,0 +1,20 @@
+{
+  "title": "Tools",
+  "subtitle": "{{count}} tools available",
+  "search": "Search tools...",
+  "clearSearch": "Clear search",
+  "favorites": "Favorites",
+  "addFavorite": "Add to favorites",
+  "removeFavorite": "Remove from favorites",
+  "results": "{{count}} result(s)",
+  "noResults": "No tools found",
+  "noResultsHint": "Try different search terms",
+  "backToTools": "Tools",
+  "loading": "Loading tools...",
+  "comingSoon": "Coming Soon",
+  "comingSoonDescription": "This tool is under development",
+  "error": {
+    "title": "Failed to load",
+    "retry": "Retry"
+  }
+}

@@ -44,7 +44,21 @@
   },
   "activity": {
     "empty": "Sin actividad reciente",
-    "viewAll": "Ver toda la actividad"
+    "viewAll": "Ver toda la actividad",
+    "types": {
+      "ATTENDANCE_SUBMITTED": "registró asistencia",
+      "POST_CREATED": "creó una publicación",
+      "DRAFT_REVIEWED": "revisó un borrador",
+      "POST_PUBLISHED": "publicó un artículo",
+      "USER_CREATED": "creó un usuario ({{role}})",
+      "USER_DELETED": "eliminó un usuario"
+    },
+    "time": {
+      "now": "ahora",
+      "minutes": "hace {{count}}m",
+      "hours": "hace {{count}}h",
+      "days": "hace {{count}}d"
+    }
   },
   "charts": {
     "attendanceTrend": "Tendencia de asistencia (7 días)",

@@ -46,7 +46,7 @@ export class RecordAttendanceHandler extends BaseCommandHandler<RecordAttendance
     )
 
     events.push(
-      new AttendanceSubmittedEvent(command.groupId, command.submittedBy, command.date),
+      new AttendanceSubmittedEvent(command.groupId, command.submittedBy, command.date, command.role),
     )
   }
 }

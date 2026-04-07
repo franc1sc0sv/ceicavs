@@ -44,6 +44,10 @@ type Documents = {
     "\n  query GetFeed($filters: PostFiltersInput, $cursor: String, $limit: Int) {\n    feed(filters: $filters, cursor: $cursor, limit: $limit) {\n      items {\n        id\n        title\n        excerpt\n        status\n        createdAt\n        publishedAt\n        authorId\n        author {\n          id\n          name\n          avatarUrl\n          role\n        }\n        categories {\n          id\n          name\n        }\n        reactionSummary {\n          emoji\n          count\n          userReacted\n        }\n        commentCount\n        images {\n          id\n          url\n          publicId\n          order\n        }\n      }\n      nextCursor\n    }\n  }\n": typeof types.GetFeedDocument,
     "\n  query GetComments($postId: ID!, $cursor: String, $limit: Int) {\n    comments(postId: $postId, cursor: $cursor, limit: $limit) {\n      items {\n        id\n        text\n        parentId\n        postId\n        depth\n        gifUrl\n        gifAlt\n        replyCount\n        reactionSummary {\n          emoji\n          count\n          userReacted\n        }\n        createdAt\n        updatedAt\n        author {\n          id\n          name\n          avatarUrl\n          role\n        }\n      }\n      nextCursor\n    }\n  }\n": typeof types.GetCommentsDocument,
     "\n  query GetReplies($parentId: ID!, $cursor: String, $limit: Int) {\n    replies(parentId: $parentId, cursor: $cursor, limit: $limit) {\n      items {\n        id\n        text\n        parentId\n        postId\n        depth\n        gifUrl\n        gifAlt\n        replyCount\n        reactionSummary {\n          emoji\n          count\n          userReacted\n        }\n        createdAt\n        updatedAt\n        author {\n          id\n          name\n          avatarUrl\n          role\n        }\n      }\n      nextCursor\n    }\n  }\n": typeof types.GetRepliesDocument,
+    "\n  query GetAdminDashboard {\n    adminDashboard {\n      totalUsers\n      totalGroups\n      publishedPostsThisMonth\n      publishedPostsLastMonth\n      globalAttendanceRateThisWeek\n      globalAttendanceRateLastWeek\n      usersByRole {\n        admin\n        teacher\n        student\n      }\n      postsByStatus {\n        published\n        draft\n        rejected\n      }\n      attendanceTrend {\n        date\n        rate\n      }\n    }\n  }\n": typeof types.GetAdminDashboardDocument,
+    "\n  query GetTeacherDashboard {\n    teacherDashboard {\n      myGroupCount\n      myGroupsTodayRate\n      myPostCount\n      pendingAttendanceCount\n      myGroupAttendanceTrend {\n        groupId\n        groupName\n        points {\n          date\n          rate\n        }\n      }\n      myPostsByStatus {\n        published\n        draft\n        rejected\n      }\n    }\n  }\n": typeof types.GetTeacherDashboardDocument,
+    "\n  query GetStudentDashboard {\n    studentDashboard {\n      myAttendanceRate\n      myCurrentStreak\n      myDraftCount\n      myGroupMembershipCount\n      myAttendanceTrend {\n        date\n        status\n      }\n    }\n  }\n": typeof types.GetStudentDashboardDocument,
+    "\n  query GetRecentActivity($limit: Int) {\n    recentActivity(limit: $limit) {\n      id\n      type\n      description\n      actorName\n      actorAvatarUrl\n      actorRole\n      entityId\n      entityType\n      createdAt\n    }\n  }\n": typeof types.GetRecentActivityDocument,
     "\n  query GetUsers($filters: UserFiltersInput) {\n    getUsers(filters: $filters) {\n      id\n      name\n      email\n      role\n      avatarUrl\n      createdAt\n      groups {\n        id\n        name\n      }\n    }\n  }\n": typeof types.GetUsersDocument,
     "\n  query GetUser($id: ID!) {\n    getUser(id: $id) {\n      id\n      name\n      email\n      role\n      avatarUrl\n      createdAt\n      groups {\n        id\n        name\n      }\n    }\n  }\n": typeof types.GetUserDocument,
     "\n  query GetGroups($filters: GroupFiltersInput) {\n    getGroups(filters: $filters) {\n      id\n      name\n      description\n      memberCount\n      createdBy\n      createdAt\n    }\n  }\n": typeof types.GetGroupsDocument,
@@ -59,6 +63,15 @@ type Documents = {
     "\n  mutation DeleteGroup($id: ID!) {\n    deleteGroup(id: $id)\n  }\n": typeof types.DeleteGroupDocument,
     "\n  mutation AddMemberToGroup($groupId: ID!, $userId: ID!) {\n    addMemberToGroup(groupId: $groupId, userId: $userId)\n  }\n": typeof types.AddMemberToGroupDocument,
     "\n  mutation RemoveMemberFromGroup($groupId: ID!, $userId: ID!) {\n    removeMemberFromGroup(groupId: $groupId, userId: $userId)\n  }\n": typeof types.RemoveMemberFromGroupDocument,
+    "\n  mutation CreateNote($input: CreateNoteInput!) {\n    createNote(input: $input) {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.CreateNoteDocument,
+    "\n  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {\n    updateNote(id: $id, input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n": typeof types.UpdateNoteDocument,
+    "\n  mutation DeleteNote($id: ID!) {\n    deleteNote(id: $id)\n  }\n": typeof types.DeleteNoteDocument,
+    "\n  query GetNotes {\n    notes {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GetNotesDocument,
+    "\n  mutation CreateTaskItem($input: CreateTaskItemInput!) {\n    createTaskItem(input: $input) {\n      id\n      text\n      completed\n      order\n    }\n  }\n": typeof types.CreateTaskItemDocument,
+    "\n  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {\n    updateTaskItem(id: $id, input: $input) {\n      id\n      text\n      completed\n    }\n  }\n": typeof types.UpdateTaskItemDocument,
+    "\n  mutation DeleteTaskItem($id: ID!) {\n    deleteTaskItem(id: $id)\n  }\n": typeof types.DeleteTaskItemDocument,
+    "\n  mutation ReorderTaskItems($input: ReorderTaskItemsInput!) {\n    reorderTaskItems(input: $input)\n  }\n": typeof types.ReorderTaskItemsDocument,
+    "\n  query GetTaskItems {\n    taskItems {\n      id\n      text\n      completed\n      order\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GetTaskItemsDocument,
 };
 const documents: Documents = {
     "\n  mutation RecordAttendance($input: RecordAttendanceInput!) {\n    recordAttendance(input: $input)\n  }\n": types.RecordAttendanceDocument,
@@ -91,6 +104,10 @@ const documents: Documents = {
     "\n  query GetFeed($filters: PostFiltersInput, $cursor: String, $limit: Int) {\n    feed(filters: $filters, cursor: $cursor, limit: $limit) {\n      items {\n        id\n        title\n        excerpt\n        status\n        createdAt\n        publishedAt\n        authorId\n        author {\n          id\n          name\n          avatarUrl\n          role\n        }\n        categories {\n          id\n          name\n        }\n        reactionSummary {\n          emoji\n          count\n          userReacted\n        }\n        commentCount\n        images {\n          id\n          url\n          publicId\n          order\n        }\n      }\n      nextCursor\n    }\n  }\n": types.GetFeedDocument,
     "\n  query GetComments($postId: ID!, $cursor: String, $limit: Int) {\n    comments(postId: $postId, cursor: $cursor, limit: $limit) {\n      items {\n        id\n        text\n        parentId\n        postId\n        depth\n        gifUrl\n        gifAlt\n        replyCount\n        reactionSummary {\n          emoji\n          count\n          userReacted\n        }\n        createdAt\n        updatedAt\n        author {\n          id\n          name\n          avatarUrl\n          role\n        }\n      }\n      nextCursor\n    }\n  }\n": types.GetCommentsDocument,
     "\n  query GetReplies($parentId: ID!, $cursor: String, $limit: Int) {\n    replies(parentId: $parentId, cursor: $cursor, limit: $limit) {\n      items {\n        id\n        text\n        parentId\n        postId\n        depth\n        gifUrl\n        gifAlt\n        replyCount\n        reactionSummary {\n          emoji\n          count\n          userReacted\n        }\n        createdAt\n        updatedAt\n        author {\n          id\n          name\n          avatarUrl\n          role\n        }\n      }\n      nextCursor\n    }\n  }\n": types.GetRepliesDocument,
+    "\n  query GetAdminDashboard {\n    adminDashboard {\n      totalUsers\n      totalGroups\n      publishedPostsThisMonth\n      publishedPostsLastMonth\n      globalAttendanceRateThisWeek\n      globalAttendanceRateLastWeek\n      usersByRole {\n        admin\n        teacher\n        student\n      }\n      postsByStatus {\n        published\n        draft\n        rejected\n      }\n      attendanceTrend {\n        date\n        rate\n      }\n    }\n  }\n": types.GetAdminDashboardDocument,
+    "\n  query GetTeacherDashboard {\n    teacherDashboard {\n      myGroupCount\n      myGroupsTodayRate\n      myPostCount\n      pendingAttendanceCount\n      myGroupAttendanceTrend {\n        groupId\n        groupName\n        points {\n          date\n          rate\n        }\n      }\n      myPostsByStatus {\n        published\n        draft\n        rejected\n      }\n    }\n  }\n": types.GetTeacherDashboardDocument,
+    "\n  query GetStudentDashboard {\n    studentDashboard {\n      myAttendanceRate\n      myCurrentStreak\n      myDraftCount\n      myGroupMembershipCount\n      myAttendanceTrend {\n        date\n        status\n      }\n    }\n  }\n": types.GetStudentDashboardDocument,
+    "\n  query GetRecentActivity($limit: Int) {\n    recentActivity(limit: $limit) {\n      id\n      type\n      description\n      actorName\n      actorAvatarUrl\n      actorRole\n      entityId\n      entityType\n      createdAt\n    }\n  }\n": types.GetRecentActivityDocument,
     "\n  query GetUsers($filters: UserFiltersInput) {\n    getUsers(filters: $filters) {\n      id\n      name\n      email\n      role\n      avatarUrl\n      createdAt\n      groups {\n        id\n        name\n      }\n    }\n  }\n": types.GetUsersDocument,
     "\n  query GetUser($id: ID!) {\n    getUser(id: $id) {\n      id\n      name\n      email\n      role\n      avatarUrl\n      createdAt\n      groups {\n        id\n        name\n      }\n    }\n  }\n": types.GetUserDocument,
     "\n  query GetGroups($filters: GroupFiltersInput) {\n    getGroups(filters: $filters) {\n      id\n      name\n      description\n      memberCount\n      createdBy\n      createdAt\n    }\n  }\n": types.GetGroupsDocument,
@@ -106,6 +123,15 @@ const documents: Documents = {
     "\n  mutation DeleteGroup($id: ID!) {\n    deleteGroup(id: $id)\n  }\n": types.DeleteGroupDocument,
     "\n  mutation AddMemberToGroup($groupId: ID!, $userId: ID!) {\n    addMemberToGroup(groupId: $groupId, userId: $userId)\n  }\n": types.AddMemberToGroupDocument,
     "\n  mutation RemoveMemberFromGroup($groupId: ID!, $userId: ID!) {\n    removeMemberFromGroup(groupId: $groupId, userId: $userId)\n  }\n": types.RemoveMemberFromGroupDocument,
+    "\n  mutation CreateNote($input: CreateNoteInput!) {\n    createNote(input: $input) {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n": types.CreateNoteDocument,
+    "\n  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {\n    updateNote(id: $id, input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n": types.UpdateNoteDocument,
+    "\n  mutation DeleteNote($id: ID!) {\n    deleteNote(id: $id)\n  }\n": types.DeleteNoteDocument,
+    "\n  query GetNotes {\n    notes {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n": types.GetNotesDocument,
+    "\n  mutation CreateTaskItem($input: CreateTaskItemInput!) {\n    createTaskItem(input: $input) {\n      id\n      text\n      completed\n      order\n    }\n  }\n": types.CreateTaskItemDocument,
+    "\n  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {\n    updateTaskItem(id: $id, input: $input) {\n      id\n      text\n      completed\n    }\n  }\n": types.UpdateTaskItemDocument,
+    "\n  mutation DeleteTaskItem($id: ID!) {\n    deleteTaskItem(id: $id)\n  }\n": types.DeleteTaskItemDocument,
+    "\n  mutation ReorderTaskItems($input: ReorderTaskItemsInput!) {\n    reorderTaskItems(input: $input)\n  }\n": types.ReorderTaskItemsDocument,
+    "\n  query GetTaskItems {\n    taskItems {\n      id\n      text\n      completed\n      order\n      createdAt\n      updatedAt\n    }\n  }\n": types.GetTaskItemsDocument,
 };
 
 /**
@@ -245,6 +271,22 @@ export function graphql(source: "\n  query GetReplies($parentId: ID!, $cursor: S
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  query GetAdminDashboard {\n    adminDashboard {\n      totalUsers\n      totalGroups\n      publishedPostsThisMonth\n      publishedPostsLastMonth\n      globalAttendanceRateThisWeek\n      globalAttendanceRateLastWeek\n      usersByRole {\n        admin\n        teacher\n        student\n      }\n      postsByStatus {\n        published\n        draft\n        rejected\n      }\n      attendanceTrend {\n        date\n        rate\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetAdminDashboard {\n    adminDashboard {\n      totalUsers\n      totalGroups\n      publishedPostsThisMonth\n      publishedPostsLastMonth\n      globalAttendanceRateThisWeek\n      globalAttendanceRateLastWeek\n      usersByRole {\n        admin\n        teacher\n        student\n      }\n      postsByStatus {\n        published\n        draft\n        rejected\n      }\n      attendanceTrend {\n        date\n        rate\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetTeacherDashboard {\n    teacherDashboard {\n      myGroupCount\n      myGroupsTodayRate\n      myPostCount\n      pendingAttendanceCount\n      myGroupAttendanceTrend {\n        groupId\n        groupName\n        points {\n          date\n          rate\n        }\n      }\n      myPostsByStatus {\n        published\n        draft\n        rejected\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetTeacherDashboard {\n    teacherDashboard {\n      myGroupCount\n      myGroupsTodayRate\n      myPostCount\n      pendingAttendanceCount\n      myGroupAttendanceTrend {\n        groupId\n        groupName\n        points {\n          date\n          rate\n        }\n      }\n      myPostsByStatus {\n        published\n        draft\n        rejected\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetStudentDashboard {\n    studentDashboard {\n      myAttendanceRate\n      myCurrentStreak\n      myDraftCount\n      myGroupMembershipCount\n      myAttendanceTrend {\n        date\n        status\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetStudentDashboard {\n    studentDashboard {\n      myAttendanceRate\n      myCurrentStreak\n      myDraftCount\n      myGroupMembershipCount\n      myAttendanceTrend {\n        date\n        status\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetRecentActivity($limit: Int) {\n    recentActivity(limit: $limit) {\n      id\n      type\n      description\n      actorName\n      actorAvatarUrl\n      actorRole\n      entityId\n      entityType\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  query GetRecentActivity($limit: Int) {\n    recentActivity(limit: $limit) {\n      id\n      type\n      description\n      actorName\n      actorAvatarUrl\n      actorRole\n      entityId\n      entityType\n      createdAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query GetUsers($filters: UserFiltersInput) {\n    getUsers(filters: $filters) {\n      id\n      name\n      email\n      role\n      avatarUrl\n      createdAt\n      groups {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetUsers($filters: UserFiltersInput) {\n    getUsers(filters: $filters) {\n      id\n      name\n      email\n      role\n      avatarUrl\n      createdAt\n      groups {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -302,6 +344,42 @@ export function graphql(source: "\n  mutation AddMemberToGroup($groupId: ID!, $u
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation RemoveMemberFromGroup($groupId: ID!, $userId: ID!) {\n    removeMemberFromGroup(groupId: $groupId, userId: $userId)\n  }\n"): (typeof documents)["\n  mutation RemoveMemberFromGroup($groupId: ID!, $userId: ID!) {\n    removeMemberFromGroup(groupId: $groupId, userId: $userId)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateNote($input: CreateNoteInput!) {\n    createNote(input: $input) {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  mutation CreateNote($input: CreateNoteInput!) {\n    createNote(input: $input) {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {\n    updateNote(id: $id, input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {\n    updateNote(id: $id, input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteNote($id: ID!) {\n    deleteNote(id: $id)\n  }\n"): (typeof documents)["\n  mutation DeleteNote($id: ID!) {\n    deleteNote(id: $id)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetNotes {\n    notes {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query GetNotes {\n    notes {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateTaskItem($input: CreateTaskItemInput!) {\n    createTaskItem(input: $input) {\n      id\n      text\n      completed\n      order\n    }\n  }\n"): (typeof documents)["\n  mutation CreateTaskItem($input: CreateTaskItemInput!) {\n    createTaskItem(input: $input) {\n      id\n      text\n      completed\n      order\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {\n    updateTaskItem(id: $id, input: $input) {\n      id\n      text\n      completed\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {\n    updateTaskItem(id: $id, input: $input) {\n      id\n      text\n      completed\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteTaskItem($id: ID!) {\n    deleteTaskItem(id: $id)\n  }\n"): (typeof documents)["\n  mutation DeleteTaskItem($id: ID!) {\n    deleteTaskItem(id: $id)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation ReorderTaskItems($input: ReorderTaskItemsInput!) {\n    reorderTaskItems(input: $input)\n  }\n"): (typeof documents)["\n  mutation ReorderTaskItems($input: ReorderTaskItemsInput!) {\n    reorderTaskItems(input: $input)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetTaskItems {\n    taskItems {\n      id\n      text\n      completed\n      order\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query GetTaskItems {\n    taskItems {\n      id\n      text\n      completed\n      order\n      createdAt\n      updatedAt\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
