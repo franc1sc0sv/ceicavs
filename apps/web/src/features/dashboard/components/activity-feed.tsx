@@ -25,13 +25,13 @@ export function ActivityFeed({ activities, loading }: ActivityFeedProps) {
   const { t } = useTranslation('dashboard')
 
   return (
-    <Card>
+    <Card className="h-full flex flex-col">
       <CardHeader>
         <CardTitle className="text-sm font-medium">
           {t('sections.activity')}
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-1 overflow-y-auto">
         {loading ? (
           <ul className="space-y-3" aria-busy="true" aria-label={t('sections.activity')}>
             {Array.from({ length: 5 }).map((_, i) => (

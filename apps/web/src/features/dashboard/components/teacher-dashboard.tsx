@@ -82,8 +82,8 @@ export function TeacherDashboard() {
         </div>
       </section>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-1">
+      <div className="grid gap-6 lg:grid-cols-3 lg:items-stretch">
+        <div className="lg:col-span-1 flex flex-col">
           <ActivityFeed activities={activities} loading={activityLoading} />
         </div>
         <div className="lg:col-span-2 space-y-4">
