@@ -1,33 +1,76 @@
 {
   "welcome": "Welcome, {{name}}",
+  "role": {
+    "admin": "Admin dashboard",
+    "teacher": "Teacher dashboard",
+    "student": "Student dashboard"
+  },
   "sections": {
+    "overview": "Overview",
     "quickActions": "Quick actions",
-    "overview": "Overview"
+    "activity": "Recent activity",
+    "analytics": "Analytics"
   },
   "cards": {
-    "users": "Users",
-    "groups": "Groups",
+    "users": "Active users",
+    "groups": "Active groups",
+    "postsThisMonth": "Posts this month",
+    "attendanceThisWeek": "Attendance this week",
+    "myGroups": "My groups",
+    "todayRate": "Today's attendance",
+    "myPosts": "My posts",
+    "pendingAttendance": "Pending attendance",
+    "myAttendanceRate": "My attendance",
+    "currentStreak": "Current streak",
+    "myDrafts": "My drafts",
     "attendance": "Attendance",
     "posts": "Posts",
     "tools": "Tools",
     "recordings": "Recordings",
     "drafts": "Drafts",
-    "myAttendance": "My attendance",
-    "myGroups": "My groups"
+    "myAttendance": "My attendance"
   },
   "actions": {
     "manageUsers": "Manage users",
     "manageGroups": "Manage groups",
-    "takeAttendance": "Take attendance",
     "createPost": "Create post",
-    "viewTools": "View tools",
+    "reviewDrafts": "Review drafts",
     "newRecording": "New recording",
+    "takeAttendance": "Take attendance",
+    "viewTools": "View tools",
     "viewAttendance": "View attendance",
+    "writePost": "Write post",
     "viewBlog": "View blog"
   },
-  "role": {
-    "admin": "Admin dashboard",
-    "teacher": "Teacher dashboard",
-    "student": "Student dashboard"
+  "activity": {
+    "empty": "No recent activity",
+    "viewAll": "View all activity"
+  },
+  "charts": {
+    "attendanceTrend": "Attendance trend (7 days)",
+    "groupAttendanceTrend": "Attendance by group (7 days)",
+    "myAttendance": "My attendance (7 days)",
+    "attendanceRate": "Attendance rate",
+    "postsByStatus": "Posts by status",
+    "usersByRole": "Users by role",
+    "published": "Published",
+    "draft": "Drafts",
+    "rejected": "Rejected",
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "excused": "Excused",
+    "roleAdmin": "Admin",
+    "roleTeacher": "Teacher",
+    "roleStudent": "Student"
+  },
+  "trend": {
+    "up": "Up",
+    "down": "Down",
+    "same": "No change"
+  },
+  "error": {
+    "load": "Could not load dashboard data.",
+    "retry": "Retry"
   }
 }

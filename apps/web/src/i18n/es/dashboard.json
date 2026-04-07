@@ -1,33 +1,76 @@
 {
   "welcome": "Bienvenido, {{name}}",
+  "role": {
+    "admin": "Panel de administrador",
+    "teacher": "Panel de docente",
+    "student": "Panel de estudiante"
+  },
   "sections": {
-    "quickActions": "Acciones rapidas",
-    "overview": "Resumen"
+    "overview": "Resumen",
+    "quickActions": "Acciones rápidas",
+    "activity": "Actividad reciente",
+    "analytics": "Análisis"
   },
   "cards": {
-    "users": "Usuarios",
-    "groups": "Grupos",
+    "users": "Usuarios activos",
+    "groups": "Grupos activos",
+    "postsThisMonth": "Publicaciones este mes",
+    "attendanceThisWeek": "Asistencia esta semana",
+    "myGroups": "Mis grupos",
+    "todayRate": "Asistencia hoy",
+    "myPosts": "Mis publicaciones",
+    "pendingAttendance": "Asistencia pendiente",
+    "myAttendanceRate": "Mi asistencia",
+    "currentStreak": "Racha actual",
+    "myDrafts": "Mis borradores",
     "attendance": "Asistencia",
     "posts": "Publicaciones",
     "tools": "Herramientas",
     "recordings": "Grabaciones",
     "drafts": "Borradores",
-    "myAttendance": "Mi asistencia",
-    "myGroups": "Mis grupos"
+    "myAttendance": "Mi asistencia"
   },
   "actions": {
     "manageUsers": "Gestionar usuarios",
     "manageGroups": "Gestionar grupos",
+    "createPost": "Crear publicación",
+    "reviewDrafts": "Revisar borradores",
+    "newRecording": "Nueva grabación",
     "takeAttendance": "Tomar asistencia",
-    "createPost": "Crear publicacion",
     "viewTools": "Ver herramientas",
-    "newRecording": "Nueva grabacion",
     "viewAttendance": "Ver asistencia",
+    "writePost": "Escribir publicación",
     "viewBlog": "Ver blog"
   },
-  "role": {
-    "admin": "Panel de administrador",
-    "teacher": "Panel de docente",
-    "student": "Panel de estudiante"
+  "activity": {
+    "empty": "Sin actividad reciente",
+    "viewAll": "Ver toda la actividad"
+  },
+  "charts": {
+    "attendanceTrend": "Tendencia de asistencia (7 días)",
+    "groupAttendanceTrend": "Asistencia por grupo (7 días)",
+    "myAttendance": "Mi asistencia (7 días)",
+    "attendanceRate": "Tasa de asistencia",
+    "postsByStatus": "Publicaciones por estado",
+    "usersByRole": "Usuarios por rol",
+    "published": "Publicados",
+    "draft": "Borradores",
+    "rejected": "Rechazados",
+    "present": "Presente",
+    "absent": "Ausente",
+    "late": "Tardanza",
+    "excused": "Justificado",
+    "roleAdmin": "Admin",
+    "roleTeacher": "Docente",
+    "roleStudent": "Estudiante"
+  },
+  "trend": {
+    "up": "Subida",
+    "down": "Bajada",
+    "same": "Sin cambio"
+  },
+  "error": {
+    "load": "No se pudieron cargar los datos del panel.",
+    "retry": "Reintentar"
   }
 }

@@ -2,12 +2,47 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ActivityItemType {
+  actorAvatarUrl: String
+  actorName: String!
+  actorRole: UserRole!
+  createdAt: DateTime!
+  description: String!
+  entityId: String
+  entityType: String
+  id: ID!
+  type: String!
+}
+
 input AddCommentInput {
   gifAlt: String
   gifUrl: String
   parentId: ID
   postId: ID!
   text: String!
+}
+
+type AdminDashboardStatsType {
+  attendanceTrend: [AttendanceDayPointType!]!
+  globalAttendanceRateLastWeek: Float!
+  globalAttendanceRateThisWeek: Float!
+  postsByStatus: DashboardPostsByStatusType!
+  publishedPostsLastMonth: Int!
+  publishedPostsThisMonth: Int!
+  totalGroups: Int!
+  totalUsers: Int!
+  usersByRole: DashboardUsersByRoleType!
+}
+
+type AttendanceDayPointType {
+  date: String!
+  rate: Float!
+}
+
+type AttendanceGroupLineType {
+  groupId: ID!
+  groupName: String!
+  points: [AttendanceDayPointType!]!
 }
 
 type AttendanceGroupType {
@@ -81,6 +116,10 @@ input CreateGroupInput {
   name: String!
 }
 
+input CreateNoteInput {
+  content: String!
+}
+
 input CreatePostInput {
   categoryIds: [String!]!
   content: String!
@@ -90,11 +129,27 @@ input CreatePostInput {
   title: String!
 }
 
+input CreateTaskItemInput {
+  text: String!
+}
+
 input CreateUserInput {
   email: String!
   name: String!
   password: String!
   role: UserRole!
+}
+
+type DashboardPostsByStatusType {
+  draft: Int!
+  published: Int!
+  rejected: Int!
+}
+
+type DashboardUsersByRoleType {
+  admin: Int!
+  student: Int!
+  teacher: Int!
 }
 
 """
@@ -198,12 +253,16 @@ type Mutation {
   bulkUpdateUsers(input: BulkUpdateUsersInput!): Boolean!
   createCategory(name: String!): CategoryType!
   createGroup(input: CreateGroupInput!): GroupType!
+  createNote(input: CreateNoteInput!): NoteType!
   createPost(input: CreatePostInput!): PostType!
+  createTaskItem(input: CreateTaskItemInput!): TaskItemType!
   createUser(input: CreateUserInput!): UserType!
   deleteCategory(id: ID!): Boolean!
   deleteComment(id: ID!): Boolean!
   deleteGroup(id: ID!): Boolean!
+  deleteNote(id: ID!): Boolean!
   deletePost(id: ID!): Boolean!
+  deleteTaskItem(id: ID!): Boolean!
   deleteUser(id: ID!): Boolean!
   exportAttendance(input: ExportAttendanceInput!): ExportJobType!
   importUsers(input: ImportUsersInput!): ImportUsersResultType!
@@ -211,13 +270,23 @@ type Mutation {
   recordAttendance(input: RecordAttendanceInput!): Boolean!
   refreshToken(input: RefreshTokenInput!): AuthTokensType!
   removeMemberFromGroup(groupId: ID!, userId: ID!): Boolean!
+  reorderTaskItems(input: ReorderTaskItemsInput!): Boolean!
   reviewDraft(id: ID!, input: ReviewDraftInput!): PostType!
   toggleReaction(commentId: ID, emoji: String, postId: ID): [ReactionSummaryType!]!
   updateCategory(id: ID!, name: String!): CategoryType!
   updateComment(id: ID!, text: String!): CommentType!
   updateGroup(id: ID!, input: UpdateGroupInput!): GroupType!
+  updateNote(id: ID!, input: UpdateNoteInput!): NoteType!
   updatePost(id: ID!, input: UpdatePostInput!): PostType!
+  updateTaskItem(id: ID!, input: UpdateTaskItemInput!): TaskItemType!
   updateUser(id: ID!, input: UpdateUserInput!): UserType!
+}
+
+type NoteType {
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
 }
 
 input PostFiltersInput {
@@ -271,6 +340,7 @@ type PostsPageType {
 }
 
 type Query {
+  adminDashboard: AdminDashboardStatsType!
   attendanceExportStatus(jobId: String!): ExportStatusType!
   attendanceGroups: [AttendanceGroupType!]!
   attendanceReport(groupId: String!, period: ReportPeriod!): [StudentReportType!]!
@@ -285,11 +355,16 @@ type Query {
   getUsers(filters: UserFiltersInput): [UserType!]!
   me: UserProfileType!
   myDrafts: [PostType!]!
+  notes: [NoteType!]!
   post(id: ID!): PostType!
   posts(filters: PostFiltersInput): [PostType!]!
+  recentActivity(limit: Int = 10): [ActivityItemType!]!
   replies(cursor: String, limit: Int, parentId: ID!): CommentsPageType!
   studentAttendanceHistory: [StudentHistoryRecordType!]!
   studentAttendanceSummary: StudentSummaryType!
+  studentDashboard: StudentDashboardStatsType!
+  taskItems: [TaskItemType!]!
+  teacherDashboard: TeacherDashboardStatsType!
 }
 
 type ReactionSummaryType {
@@ -308,6 +383,15 @@ input RefreshTokenInput {
   refreshToken: String!
 }
 
+input ReorderItemInput {
+  id: ID!
+  order: Int!
+}
+
+input ReorderTaskItemsInput {
+  items: [ReorderItemInput!]!
+}
+
 enum ReportPeriod {
   DAILY
   MONTHLY
@@ -324,6 +408,19 @@ type RosterStudentType {
   id: ID!
   name: String!
   status: AttendanceStatus
+}
+
+type StudentAttendanceDayPointType {
+  date: String!
+  status: String
+}
+
+type StudentDashboardStatsType {
+  myAttendanceRate: Float!
+  myAttendanceTrend: [StudentAttendanceDayPointType!]!
+  myCurrentStreak: Int!
+  myDraftCount: Int!
+  myGroupMembershipCount: Int!
 }
 
 type StudentHistoryRecordType {
@@ -350,9 +447,31 @@ type StudentSummaryType {
   overallRate: Float!
 }
 
+type TaskItemType {
+  completed: Boolean!
+  createdAt: DateTime!
+  id: ID!
+  order: Int!
+  text: String!
+  updatedAt: DateTime!
+}
+
+type TeacherDashboardStatsType {
+  myGroupAttendanceTrend: [AttendanceGroupLineType!]!
+  myGroupCount: Int!
+  myGroupsTodayRate: Float!
+  myPostCount: Int!
+  myPostsByStatus: DashboardPostsByStatusType!
+  pendingAttendanceCount: Int!
+}
+
 input UpdateGroupInput {
   description: String
   name: String
+}
+
+input UpdateNoteInput {
+  content: String!
 }
 
 input UpdatePostInput {
@@ -361,6 +480,11 @@ input UpdatePostInput {
   excerpt: String
   images: [PostImageInput!]
   title: String
+}
+
+input UpdateTaskItemInput {
+  completed: Boolean
+  text: String
 }
 
 input UpdateUserInput {
