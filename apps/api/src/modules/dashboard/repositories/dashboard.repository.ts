@@ -30,12 +30,12 @@ interface AttendanceGroupTrendRow {
 
 interface UserRoleCountRow {
   role: string
-  count: string | number
+  count: string | number | bigint
 }
 
 interface PostStatusCountRow {
   status: string
-  count: string | number
+  count: string | number | bigint
 }
 
 interface StudentTrendRow {
@@ -61,7 +61,8 @@ function toRate(value: string | number | null): number {
   return isNaN(n) ? 0 : n
 }
 
-function toCount(value: string | number): number {
+function toCount(value: string | number | bigint): number {
+  if (typeof value === 'bigint') return Number(value)
   const n = typeof value === 'string' ? parseInt(value, 10) : value
   return isNaN(n) ? 0 : n
 }
@@ -280,7 +281,7 @@ export class DashboardRepository extends IDashboardRepository {
       )
       .compile()
 
-    const rows = await tx.$queryRawUnsafe<{ count: string | number }[]>(
+    const rows = await tx.$queryRawUnsafe<{ count: string | number | bigint }[]>(
       query.sql,
       ...query.parameters,
     )
