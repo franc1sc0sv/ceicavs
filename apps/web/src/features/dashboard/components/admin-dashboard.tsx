@@ -10,7 +10,7 @@ import { UserRole } from '@ceicavs/shared'
 import { ROUTES } from '@/lib/routes'
 import { useAdminDashboard } from '../hooks/use-admin-dashboard'
 import { useRecentActivity } from '../hooks/use-recent-activity'
-import { StatCard, computeTrend } from './stat-card'
+import { StatCard } from './stat-card'
 import { ActivityFeed } from './activity-feed'
 import { QuickActionsGrid } from './quick-actions-grid'
 import { AttendanceLineChart } from './attendance-line-chart'
@@ -19,7 +19,7 @@ import { UsersBarChart } from './users-bar-chart'
 import { DashboardSkeleton } from './dashboard-skeleton'
 
 function formatPercent(rate: number): string {
-  return `${Math.round(rate * 100)}%`
+  return `${Math.round(rate)}%`
 }
 
 export function AdminDashboard() {
@@ -49,15 +49,6 @@ export function AdminDashboard() {
 
   if (!stats) return null
 
-  const postsTrend = computeTrend(
-    stats.publishedPostsThisMonth,
-    stats.publishedPostsLastMonth,
-  )
-  const attendanceTrend = computeTrend(
-    stats.globalAttendanceRateThisWeek,
-    stats.globalAttendanceRateLastWeek,
-  )
-
   return (
     <div className="space-y-8">
       <section aria-labelledby="admin-overview-heading">
@@ -82,14 +73,12 @@ export function AdminDashboard() {
             label={t('cards.postsThisMonth')}
             value={stats.publishedPostsThisMonth}
             href={ROUTES.BLOG}
-            trend={postsTrend}
           />
           <StatCard
             icon={ClipboardCheck}
             label={t('cards.attendanceThisWeek')}
             value={formatPercent(stats.globalAttendanceRateThisWeek)}
             href={ROUTES.ATTENDANCE}
-            trend={attendanceTrend}
           />
         </div>
       </section>

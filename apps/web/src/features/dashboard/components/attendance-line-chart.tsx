@@ -1,24 +1,22 @@
 import { useTranslation } from 'react-i18next'
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts'
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  type ChartConfig,
+} from '@/components/ui/chart'
 
-const GROUP_COLORS = [
-  '#6366f1',
-  '#10b981',
-  '#f59e0b',
-  '#3b82f6',
-  '#ec4899',
-  '#8b5cf6',
-]
+const GROUP_PALETTE = [
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
+] as const
 
 interface AttendanceDayPoint {
   date: string
@@ -47,9 +45,16 @@ export function AttendanceLineChart(props: AttendanceLineChartProps) {
   const { t } = useTranslation('dashboard')
 
   if (props.mode === 'admin') {
+    const chartConfig = {
+      rate: {
+        label: t('charts.attendanceRate'),
+        color: 'var(--chart-1)',
+      },
+    } satisfies ChartConfig
+
     const formatted = props.data.map((d) => ({
       date: d.date,
-      rate: Math.round(d.rate * 100),
+      rate: Math.round(d.rate),
     }))
 
     return (
@@ -60,46 +65,35 @@ export function AttendanceLineChart(props: AttendanceLineChartProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={formatted}>
-              <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-              <XAxis
-                dataKey="date"
-                tick={{ fontSize: 11 }}
-                className="fill-muted-foreground"
-              />
-              <YAxis
-                domain={[0, 100]}
-                unit="%"
-                tick={{ fontSize: 11 }}
-                className="fill-muted-foreground"
-              />
-              <Tooltip
-                formatter={(value) => [
-                  typeof value === 'number' ? `${value}%` : value,
-                  t('charts.attendanceRate'),
-                ]}
-                labelClassName="text-foreground"
-                contentStyle={{
-                  backgroundColor: 'hsl(var(--card))',
-                  border: '1px solid hsl(var(--border))',
-                  borderRadius: '6px',
-                }}
+          <ChartContainer config={chartConfig}>
+            <LineChart accessibilityLayer data={formatted} margin={{ left: 12, right: 12 }}>
+              <CartesianGrid vertical={false} />
+              <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} />
+              <YAxis domain={[0, 100]} tickLine={false} axisLine={false} tickFormatter={(v) => `${v}%`} />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent formatter={(v) => [`${v}%`, t('charts.attendanceRate')]} />}
               />
               <Line
-                type="monotone"
                 dataKey="rate"
-                stroke="#6366f1"
+                type="monotone"
+                stroke="var(--color-rate)"
                 strokeWidth={2}
                 dot={false}
-                activeDot={{ r: 4 }}
               />
             </LineChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </CardContent>
       </Card>
     )
   }
+
+  const chartConfig = Object.fromEntries(
+    props.data.map((group, index) => [
+      group.groupId,
+      { label: group.groupName, color: GROUP_PALETTE[index % GROUP_PALETTE.length] },
+    ]),
+  ) satisfies ChartConfig
 
   const allDates = Array.from(
     new Set(props.data.flatMap((g) => g.points.map((p) => p.date))),
@@ -107,9 +101,10 @@ export function AttendanceLineChart(props: AttendanceLineChartProps) {
 
   const formatted = allDates.map((date) => {
     const point: Record<string, string | number> = { date }
-    props.data.forEach((group) => {
+    props.data.forEach((group, index) => {
       const match = group.points.find((p) => p.date === date)
-      point[group.groupId] = match ? Math.round(match.rate * 100) : 0
+      point[group.groupId] = match ? Math.round(match.rate) : 0
+      void index
     })
     return point
   })
@@ -122,53 +117,25 @@ export function AttendanceLineChart(props: AttendanceLineChartProps) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={formatted}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-            <XAxis
-              dataKey="date"
-              tick={{ fontSize: 11 }}
-              className="fill-muted-foreground"
-            />
-            <YAxis
-              domain={[0, 100]}
-              unit="%"
-              tick={{ fontSize: 11 }}
-              className="fill-muted-foreground"
-            />
-            <Tooltip
-              formatter={(value, name) => {
-                const groupName = typeof name === 'string'
-                  ? (props.data.find((g) => g.groupId === name)?.groupName ?? name)
-                  : String(name)
-                const displayValue = typeof value === 'number' ? `${value}%` : value
-                return [displayValue, groupName]
-              }}
-              contentStyle={{
-                backgroundColor: 'hsl(var(--card))',
-                border: '1px solid hsl(var(--border))',
-                borderRadius: '6px',
-              }}
-            />
-            <Legend
-              formatter={(value: string) => {
-                const group = props.data.find((g) => g.groupId === value)
-                return group?.groupName ?? value
-              }}
-            />
+        <ChartContainer config={chartConfig}>
+          <LineChart accessibilityLayer data={formatted} margin={{ left: 12, right: 12 }}>
+            <CartesianGrid vertical={false} />
+            <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} />
+            <YAxis domain={[0, 100]} tickLine={false} axisLine={false} tickFormatter={(v) => `${v}%`} />
+            <ChartTooltip content={<ChartTooltipContent formatter={(v) => `${v}%`} />} />
+            <ChartLegend content={<ChartLegendContent />} />
             {props.data.map((group, index) => (
               <Line
                 key={group.groupId}
-                type="monotone"
                 dataKey={group.groupId}
-                stroke={GROUP_COLORS[index % GROUP_COLORS.length]}
+                type="monotone"
+                stroke={GROUP_PALETTE[index % GROUP_PALETTE.length]}
                 strokeWidth={2}
                 dot={false}
-                activeDot={{ r: 4 }}
               />
             ))}
           </LineChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   )

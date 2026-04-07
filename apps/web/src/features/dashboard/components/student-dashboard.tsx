@@ -17,7 +17,7 @@ import { StudentAttendanceChart } from './student-attendance-chart'
 import { DashboardSkeleton } from './dashboard-skeleton'
 
 function formatPercent(rate: number): string {
-  return `${Math.round(rate * 100)}%`
+  return `${Math.round(rate)}%`
 }
 
 export function StudentDashboard() {

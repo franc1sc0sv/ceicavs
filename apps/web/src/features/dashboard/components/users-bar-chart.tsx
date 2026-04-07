@@ -1,15 +1,12 @@
 import { useTranslation } from 'react-i18next'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Cell,
-  ResponsiveContainer,
-} from 'recharts'
+import { Bar, BarChart, XAxis } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from '@/components/ui/chart'
 
 interface UsersByRole {
   admin: number
@@ -21,19 +18,20 @@ interface UsersBarChartProps {
   data: UsersByRole
 }
 
-const ROLE_COLORS = {
-  admin: '#4f46e5',
-  teacher: '#10b981',
-  student: '#0ea5e9',
-}
-
 export function UsersBarChart({ data }: UsersBarChartProps) {
   const { t } = useTranslation('dashboard')
 
+  const chartConfig = {
+    value: { label: t('charts.usersByRole') },
+    admin: { label: t('charts.roleAdmin'), color: 'var(--chart-1)' },
+    teacher: { label: t('charts.roleTeacher'), color: 'var(--chart-2)' },
+    student: { label: t('charts.roleStudent'), color: 'var(--chart-3)' },
+  } satisfies ChartConfig
+
   const chartData = [
-    { role: t('charts.roleAdmin'), key: 'admin', value: data.admin },
-    { role: t('charts.roleTeacher'), key: 'teacher', value: data.teacher },
-    { role: t('charts.roleStudent'), key: 'student', value: data.student },
+    { role: 'admin', label: t('charts.roleAdmin'), value: data.admin, fill: 'var(--color-admin)' },
+    { role: 'teacher', label: t('charts.roleTeacher'), value: data.teacher, fill: 'var(--color-teacher)' },
+    { role: 'student', label: t('charts.roleStudent'), value: data.student, fill: 'var(--color-student)' },
   ]
 
   return (
@@ -44,36 +42,13 @@ export function UsersBarChart({ data }: UsersBarChartProps) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={chartData} barSize={40}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-            <XAxis
-              dataKey="role"
-              tick={{ fontSize: 12 }}
-              className="fill-muted-foreground"
-            />
-            <YAxis
-              allowDecimals={false}
-              tick={{ fontSize: 11 }}
-              className="fill-muted-foreground"
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: 'hsl(var(--card))',
-                border: '1px solid hsl(var(--border))',
-                borderRadius: '6px',
-              }}
-            />
-            <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-              {chartData.map((entry) => (
-                <Cell
-                  key={entry.key}
-                  fill={ROLE_COLORS[entry.key as keyof typeof ROLE_COLORS]}
-                />
-              ))}
-            </Bar>
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={chartData}>
+            <XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={8} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+            <Bar dataKey="value" radius={[4, 4, 0, 0]} />
           </BarChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   )

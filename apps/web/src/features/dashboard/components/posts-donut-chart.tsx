@@ -1,6 +1,14 @@
 import { useTranslation } from 'react-i18next'
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { Pie, PieChart } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  type ChartConfig,
+} from '@/components/ui/chart'
 
 interface PostsByStatus {
   published: number
@@ -12,20 +20,20 @@ interface PostsDonutChartProps {
   data: PostsByStatus
 }
 
-const STATUS_COLORS = {
-  published: '#22c55e',
-  draft: '#f59e0b',
-  rejected: '#ef4444',
-}
-
 export function PostsDonutChart({ data }: PostsDonutChartProps) {
   const { t } = useTranslation('dashboard')
 
+  const chartConfig = {
+    published: { label: t('charts.published'), color: 'var(--chart-1)' },
+    draft: { label: t('charts.draft'), color: 'var(--chart-2)' },
+    rejected: { label: t('charts.rejected'), color: 'var(--chart-3)' },
+  } satisfies ChartConfig
+
   const chartData = [
-    { key: 'published', value: data.published, label: t('charts.published') },
-    { key: 'draft', value: data.draft, label: t('charts.draft') },
-    { key: 'rejected', value: data.rejected, label: t('charts.rejected') },
-  ].filter((item) => item.value > 0)
+    { status: 'published', value: data.published, fill: 'var(--color-published)' },
+    { status: 'draft', value: data.draft, fill: 'var(--color-draft)' },
+    { status: 'rejected', value: data.rejected, fill: 'var(--color-rejected)' },
+  ].filter((d) => d.value > 0)
 
   return (
     <Card>
@@ -35,35 +43,13 @@ export function PostsDonutChart({ data }: PostsDonutChartProps) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
           <PieChart>
-            <Pie
-              data={chartData}
-              dataKey="value"
-              nameKey="label"
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={100}
-              paddingAngle={3}
-            >
-              {chartData.map((entry) => (
-                <Cell
-                  key={entry.key}
-                  fill={STATUS_COLORS[entry.key as keyof typeof STATUS_COLORS]}
-                />
-              ))}
-            </Pie>
-            <Tooltip
-              contentStyle={{
-                backgroundColor: 'hsl(var(--card))',
-                border: '1px solid hsl(var(--border))',
-                borderRadius: '6px',
-              }}
-            />
-            <Legend />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent nameKey="status" hideLabel />} />
+            <Pie data={chartData} dataKey="value" nameKey="status" innerRadius={55} />
+            <ChartLegend content={<ChartLegendContent nameKey="status" />} />
           </PieChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   )

@@ -18,7 +18,7 @@ import { PostsDonutChart } from './posts-donut-chart'
 import { DashboardSkeleton } from './dashboard-skeleton'
 
 function formatPercent(rate: number): string {
-  return `${Math.round(rate * 100)}%`
+  return `${Math.round(rate)}%`
 }
 
 export function TeacherDashboard() {
