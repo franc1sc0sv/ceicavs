@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard'
@@ -8,8 +8,10 @@ import { NoteType } from '../types/note.type'
 import { TaskItemType } from '../types/task-item.type'
 import { CreateNoteInput } from '../commands/create-note/create-note.input'
 import { UpdateNoteInput } from '../commands/update-note/update-note.input'
+import { DeleteNoteInput } from '../commands/delete-note/delete-note.input'
 import { CreateTaskItemInput } from '../commands/create-task-item/create-task-item.input'
 import { UpdateTaskItemInput } from '../commands/update-task-item/update-task-item.input'
+import { DeleteTaskItemInput } from '../commands/delete-task-item/delete-task-item.input'
 import { ReorderTaskItemsInput } from '../commands/reorder-task-items/reorder-task-items.input'
 import { GetNotesQuery } from '../queries/get-notes/get-notes.query'
 import { GetTaskItemsQuery } from '../queries/get-task-items/get-task-items.query'
@@ -22,6 +24,9 @@ import { DeleteTaskItemCommand } from '../commands/delete-task-item/delete-task-
 import { ReorderTaskItemsCommand } from '../commands/reorder-task-items/reorder-task-items.command'
 import type { INote } from '../interfaces/note.interfaces'
 import type { ITaskItem } from '../interfaces/task-item.interfaces'
+import type { ITool } from '../interfaces/tool.interfaces'
+import { ToolType } from '../types/tool.type'
+import { GetToolsQuery } from '../queries/get-tools/get-tools.query'
 
 @Resolver()
 @UseGuards(JwtAuthGuard)
@@ -30,6 +35,11 @@ export class ToolsResolver {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
+
+  @Query(() => [ToolType])
+  async tools(@CurrentUser() user: IJwtUser): Promise<ITool[]> {
+    return this.queryBus.execute<GetToolsQuery, ITool[]>(new GetToolsQuery(user.role))
+  }
 
   @Query(() => [NoteType])
   async notes(@CurrentUser() user: IJwtUser): Promise<INote[]> {
@@ -42,19 +52,15 @@ export class ToolsResolver {
   }
 
   @Mutation(() => NoteType)
-  async updateNote(
-    @CurrentUser() user: IJwtUser,
-    @Args('id', { type: () => ID }) id: string,
-    @Args('input') input: UpdateNoteInput,
-  ): Promise<INote> {
+  async updateNote(@CurrentUser() user: IJwtUser, @Args('input') input: UpdateNoteInput): Promise<INote> {
     return this.commandBus.execute<UpdateNoteCommand, INote>(
-      new UpdateNoteCommand(id, input.content, user.id, user.role),
+      new UpdateNoteCommand(input.id, input.content, user.id, user.role),
     )
   }
 
   @Mutation(() => Boolean)
-  async deleteNote(@CurrentUser() user: IJwtUser, @Args('id', { type: () => ID }) id: string): Promise<boolean> {
-    await this.commandBus.execute<DeleteNoteCommand, void>(new DeleteNoteCommand(id, user.id, user.role))
+  async deleteNote(@CurrentUser() user: IJwtUser, @Args('input') input: DeleteNoteInput): Promise<boolean> {
+    await this.commandBus.execute<DeleteNoteCommand, void>(new DeleteNoteCommand(input.id, user.id, user.role))
     return true
   }
 
@@ -71,19 +77,15 @@ export class ToolsResolver {
   }
 
   @Mutation(() => TaskItemType)
-  async updateTaskItem(
-    @CurrentUser() user: IJwtUser,
-    @Args('id', { type: () => ID }) id: string,
-    @Args('input') input: UpdateTaskItemInput,
-  ): Promise<ITaskItem> {
+  async updateTaskItem(@CurrentUser() user: IJwtUser, @Args('input') input: UpdateTaskItemInput): Promise<ITaskItem> {
     return this.commandBus.execute<UpdateTaskItemCommand, ITaskItem>(
-      new UpdateTaskItemCommand(id, { text: input.text, completed: input.completed }, user.id, user.role),
+      new UpdateTaskItemCommand(input.id, { text: input.text, completed: input.completed }, user.id, user.role),
     )
   }
 
   @Mutation(() => Boolean)
-  async deleteTaskItem(@CurrentUser() user: IJwtUser, @Args('id', { type: () => ID }) id: string): Promise<boolean> {
-    await this.commandBus.execute<DeleteTaskItemCommand, void>(new DeleteTaskItemCommand(id, user.id, user.role))
+  async deleteTaskItem(@CurrentUser() user: IJwtUser, @Args('input') input: DeleteTaskItemInput): Promise<boolean> {
+    await this.commandBus.execute<DeleteTaskItemCommand, void>(new DeleteTaskItemCommand(input.id, user.id, user.role))
     return true
   }
 

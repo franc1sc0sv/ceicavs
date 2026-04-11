@@ -1,0 +1,138 @@
+{
+  "page": {
+    "title": "Nueva Grabación",
+    "description": "Sube un archivo de audio o graba directamente para obtener una transcripción automática y un resumen."
+  },
+  "uploader": {
+    "tabFile": "Subir archivo",
+    "tabRecord": "Grabar",
+    "dropzone": "Arrastra un archivo de audio aquí",
+    "browse": "Seleccionar archivo",
+    "formats": "MP3, WAV, M4A, OGG",
+    "selectMic": "Seleccionar micrófono",
+    "defaultMic": "Micrófono predeterminado",
+    "record": "Iniciar grabación",
+    "recording": "Grabando...",
+    "stopRecording": "Detener grabación"
+  },
+  "processing": {
+    "transcribing": "Transcribiendo audio...",
+    "summarizing": "Generando resumen..."
+  },
+  "transcript": {
+    "label": "Transcripción",
+    "copy": "Copiar",
+    "copied": "Copiado"
+  },
+  "summary": {
+    "label": "Resumen",
+    "generating": "Generando resumen...",
+    "failed": "Error al generar el resumen",
+    "error": {
+      "rate_limit_day": "Límite diario de uso alcanzado. Intenta de nuevo mañana.",
+      "rate_limit_minute": "Demasiadas solicitudes. Espera un momento e intenta de nuevo.",
+      "request_too_large": "La transcripción es demasiado larga para procesarla.",
+      "json_error": "Error al generar el resumen. Intenta de nuevo.",
+      "unknown": "Error inesperado. Intenta de nuevo."
+    }
+  },
+  "navigation": {
+    "blockTitle": "Transcripción en progreso",
+    "blockMessage": "La transcripción está en proceso. Si sales ahora, se perderá el progreso.",
+    "leave": "Salir de todas formas",
+    "stay": "Quedarme"
+  },
+  "listPage": {
+    "title": "Mis Grabaciones",
+    "newRecording": "Nueva Grabación",
+    "empty": "No tienes grabaciones aún",
+    "emptyAction": "Crear primera grabación"
+  },
+  "table": {
+    "name": "Nombre",
+    "date": "Fecha",
+    "duration": "Duración",
+    "status": "Estado",
+    "actions": "Acciones",
+    "view": "Ver grabación"
+  },
+  "status": {
+    "none": "Sin procesar",
+    "processing": "Procesando...",
+    "completed": "Completado"
+  },
+  "detail": {
+    "back": "Volver",
+    "transcript": "Transcripción",
+    "summary": "Resumen",
+    "summaryLabel": "Resumen general",
+    "keyTakeaways": "Puntos clave",
+    "actionItems": "Acciones a seguir",
+    "exportTxt": "Exportar TXT",
+    "processing": "Transcripción en proceso...",
+    "languageLabel": "Idioma",
+    "durationLabel": "Duración",
+    "generateTranscription": "Generar Transcripción",
+    "regenerateTranscription": "Regenerar",
+    "regenerateSummary": "Regenerar Resumen",
+    "generateSummary": "Generar Resumen",
+    "transcribing": "Transcribiendo audio...",
+    "transcribingHint": "El modelo de IA está procesando el audio en tu dispositivo",
+    "generatingSummary": "Generando resumen...",
+    "generatingSummaryHint": "El modelo de IA está procesando la transcripción en tu dispositivo",
+    "savingTranscript": "Guardando transcripción...",
+    "fetchingAudio": "Cargando audio desde la nube...",
+    "fetchAudioError": "Error al cargar el audio. Intenta de nuevo.",
+    "downloadingModel": "Descargando modelo de IA",
+    "downloadingModelHint": "Solo ocurre la primera vez. El modelo se guardará en caché.",
+    "noTranscriptTitle": "Sin transcripción",
+    "noTranscriptDescription": "Genera una transcripción automática del audio con el modelo Whisper de OpenAI.",
+    "noSummaryTitle": "Sin resumen",
+    "noSummaryDescription": "Genera un resumen automático basado en la transcripción.",
+    "notFound": "No se encontró la grabación.",
+    "transcriptSaved": "Transcripción guardada correctamente",
+    "summarySaved": "Resumen guardado correctamente",
+    "saveError": "Error al guardar. Intenta de nuevo."
+  },
+  "languages": {
+    "spanish": "Español",
+    "english": "Inglés",
+    "portuguese": "Portugués",
+    "french": "Francés",
+    "german": "Alemán",
+    "italian": "Italiano"
+  },
+  "upload": {
+    "saving": "Guardando grabación...",
+    "uploading": "Subiendo audio...",
+    "untitled": "Grabación sin título"
+  },
+  "success": {
+    "title": "¡Grabación guardada!",
+    "description": "El audio se subió correctamente. Ahora puedes generar la transcripción automática desde la página de la grabación.",
+    "step1": "Abre la grabación",
+    "step2": "Haz clic en \"Generar Transcripción\"",
+    "step3": "Opcionalmente genera un resumen con IA",
+    "cta": "Ir a la grabación",
+    "another": "Subir otra grabación"
+  },
+  "player": {
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "seekbar": "Barra de reproducción",
+    "skipBack": "Retroceder {{seconds}} segundos",
+    "skipForward": "Avanzar {{seconds}} segundos"
+  },
+  "delete": {
+    "confirm": "¿Eliminar grabación?",
+    "description": "Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "confirm_action": "Eliminar"
+  },
+  "prompt": {
+    "customize": "Personalizar prompt",
+    "label": "Instrucciones para la IA",
+    "hint": "Las instrucciones se aplican solo a la generación actual y no se guardan.",
+    "resetToDefault": "Restaurar predeterminado"
+  }
+}

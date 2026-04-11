@@ -12,8 +12,8 @@ export const CREATE_TASK_ITEM = graphql(`
 `)
 
 export const UPDATE_TASK_ITEM = graphql(`
-  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {
-    updateTaskItem(id: $id, input: $input) {
+  mutation UpdateTaskItem($input: UpdateTaskItemInput!) {
+    updateTaskItem(input: $input) {
       id
       text
       completed
@@ -22,8 +22,8 @@ export const UPDATE_TASK_ITEM = graphql(`
 `)
 
 export const DELETE_TASK_ITEM = graphql(`
-  mutation DeleteTaskItem($id: ID!) {
-    deleteTaskItem(id: $id)
+  mutation DeleteTaskItem($input: DeleteTaskItemInput!) {
+    deleteTaskItem(input: $input)
   }
 `)
 

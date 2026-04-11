@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { ApolloProvider } from '@apollo/client/react'
 import { I18nextProvider } from 'react-i18next'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { Toaster } from '@/components/ui/sonner'
 import { AuthProvider } from '@/context/auth.context'
 import { AbilityBridge } from '@/context/ability-bridge'
 import { AppBootstrap } from '@/components/AppBootstrap'
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
               <AbilityBridge>
                 <NuqsAdapter>
                   <Router />
+                  <Toaster position="bottom-right" richColors />
                 </NuqsAdapter>
               </AbilityBridge>
             </AppBootstrap>

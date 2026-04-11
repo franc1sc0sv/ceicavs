@@ -129,6 +129,13 @@ input CreatePostInput {
   title: String!
 }
 
+input CreateRecordingInput {
+  audioUrl: String!
+  cloudinaryPublicId: String!
+  duration: Int!
+  name: String!
+}
+
 input CreateTaskItemInput {
   text: String!
 }
@@ -157,6 +164,18 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DeleteNoteInput {
+  id: ID!
+}
+
+input DeleteRecordingInput {
+  id: ID!
+}
+
+input DeleteTaskItemInput {
+  id: ID!
+}
+
 input ExportAttendanceInput {
   format: ExportFormat!
   groupId: String!
@@ -183,6 +202,15 @@ type ExportStatusType {
   downloadUrl: String
   jobId: ID!
   status: ExportJobStatus!
+}
+
+input GenerateSummaryInput {
+  prompt: String
+  recordingId: ID!
+}
+
+input GetRecordingInput {
+  id: ID!
 }
 
 input GroupFiltersInput {
@@ -255,16 +283,19 @@ type Mutation {
   createGroup(input: CreateGroupInput!): GroupType!
   createNote(input: CreateNoteInput!): NoteType!
   createPost(input: CreatePostInput!): PostType!
+  createRecording(input: CreateRecordingInput!): RecordingType!
   createTaskItem(input: CreateTaskItemInput!): TaskItemType!
   createUser(input: CreateUserInput!): UserType!
   deleteCategory(id: ID!): Boolean!
   deleteComment(id: ID!): Boolean!
   deleteGroup(id: ID!): Boolean!
-  deleteNote(id: ID!): Boolean!
+  deleteNote(input: DeleteNoteInput!): Boolean!
   deletePost(id: ID!): Boolean!
-  deleteTaskItem(id: ID!): Boolean!
+  deleteRecording(input: DeleteRecordingInput!): Boolean!
+  deleteTaskItem(input: DeleteTaskItemInput!): Boolean!
   deleteUser(id: ID!): Boolean!
   exportAttendance(input: ExportAttendanceInput!): ExportJobType!
+  generateSummary(input: GenerateSummaryInput!): Boolean!
   importUsers(input: ImportUsersInput!): ImportUsersResultType!
   login(input: LoginInput!): AuthTokensType!
   recordAttendance(input: RecordAttendanceInput!): Boolean!
@@ -276,9 +307,11 @@ type Mutation {
   updateCategory(id: ID!, name: String!): CategoryType!
   updateComment(id: ID!, text: String!): CommentType!
   updateGroup(id: ID!, input: UpdateGroupInput!): GroupType!
-  updateNote(id: ID!, input: UpdateNoteInput!): NoteType!
+  updateNote(input: UpdateNoteInput!): NoteType!
   updatePost(id: ID!, input: UpdatePostInput!): PostType!
-  updateTaskItem(id: ID!, input: UpdateTaskItemInput!): TaskItemType!
+  updateSummaryPrompt(input: UpdateSummaryPromptInput!): Boolean!
+  updateTaskItem(input: UpdateTaskItemInput!): TaskItemType!
+  updateTranscription(input: UpdateTranscriptionInput!): Boolean!
   updateUser(id: ID!, input: UpdateUserInput!): UserType!
 }
 
@@ -351,6 +384,9 @@ type Query {
   feed(cursor: String, filters: PostFiltersInput, limit: Int): PostsPageType!
   getGroup(id: ID!): GroupWithMembersType
   getGroups(filters: GroupFiltersInput): [GroupType!]!
+  getRecording(input: GetRecordingInput!): RecordingType!
+  getRecordings: [RecordingType!]!
+  getSummaryPrompt: String!
   getUser(id: ID!): UserType
   getUsers(filters: UserFiltersInput): [UserType!]!
   me: UserProfileType!
@@ -365,6 +401,7 @@ type Query {
   studentDashboard: StudentDashboardStatsType!
   taskItems: [TaskItemType!]!
   teacherDashboard: TeacherDashboardStatsType!
+  tools: [ToolType!]!
 }
 
 type ReactionSummaryType {
@@ -377,6 +414,18 @@ input RecordAttendanceInput {
   date: String!
   groupId: String!
   records: [AttendanceRecordItemInput!]!
+}
+
+type RecordingType {
+  audioUrl: String
+  cloudinaryPublicId: String
+  createdAt: DateTime!
+  duration: Int!
+  id: ID!
+  name: String!
+  transcription: TranscriptionType
+  transcriptionStatus: String!
+  updatedAt: DateTime!
 }
 
 input RefreshTokenInput {
@@ -465,6 +514,36 @@ type TeacherDashboardStatsType {
   pendingAttendanceCount: Int!
 }
 
+type ToolCategoryType {
+  id: ID!
+  name: String!
+  order: Int!
+  slug: String!
+}
+
+type ToolType {
+  category: ToolCategoryType!
+  color: String!
+  description: String!
+  icon: String!
+  id: ID!
+  name: String!
+  slug: String!
+}
+
+type TranscriptionType {
+  actionItems: [String!]!
+  completedAt: DateTime
+  fullTranscript: String
+  id: ID!
+  keyTakeaways: [String!]!
+  segments: String
+  status: String!
+  summary: String
+  summaryError: String
+  summaryStatus: String!
+}
+
 input UpdateGroupInput {
   description: String
   name: String
@@ -472,6 +551,7 @@ input UpdateGroupInput {
 
 input UpdateNoteInput {
   content: String!
+  id: ID!
 }
 
 input UpdatePostInput {
@@ -482,9 +562,21 @@ input UpdatePostInput {
   title: String
 }
 
+input UpdateSummaryPromptInput {
+  prompt: String
+}
+
 input UpdateTaskItemInput {
   completed: Boolean
+  id: ID!
   text: String
+}
+
+input UpdateTranscriptionInput {
+  fullTranscript: String!
+  recordingId: String!
+  segments: String!
+  summary: String
 }
 
 input UpdateUserInput {

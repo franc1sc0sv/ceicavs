@@ -27,6 +27,9 @@
     "teacher": "Teacher",
     "student": "Student"
   },
+  "modelDownload": {
+    "label": "Downloading model... {{percentage}}%"
+  },
   "common": {
     "darkMode": "Dark mode",
     "lightMode": "Light mode",

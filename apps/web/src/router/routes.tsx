@@ -21,6 +21,8 @@ const CategoryManagementPage = React.lazy(() => import('@/features/blog/pages/ca
 const ToolsPage = React.lazy(() => import('@/features/tools/ToolsPage'))
 const ToolDetailPage = React.lazy(() => import('@/features/tools/pages/tool-detail-page'))
 const TranscriptionPage = React.lazy(() => import('@/features/transcription/TranscriptionPage'))
+const RecordingsListPage = React.lazy(() => import('@/features/transcription/pages/recordings-list-page'))
+const RecordingDetailPage = React.lazy(() => import('@/features/transcription/pages/recording-detail-page'))
 
 function PageFallback() {
   return (
@@ -65,7 +67,9 @@ export const router = createBrowserRouter([
       {
         element: <RequireAbility action={Action.CREATE} subject={Subject.RECORDING} />,
         children: [
-          { path: 'transcription', element: withSuspense(<TranscriptionPage />) },
+          { path: 'transcription', element: withSuspense(<RecordingsListPage />) },
+          { path: 'transcription/new', element: withSuspense(<TranscriptionPage />) },
+          { path: 'transcription/:id', element: withSuspense(<RecordingDetailPage />) },
         ],
       },
     ],

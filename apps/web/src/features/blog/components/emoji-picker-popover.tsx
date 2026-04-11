@@ -9,7 +9,7 @@ import {
 
 interface EmojiPickerPopoverProps {
   onEmojiSelect: (native: string) => void
-  children: React.ReactNode
+  children: React.ReactElement
 }
 
 export function EmojiPickerPopover({ onEmojiSelect, children }: EmojiPickerPopoverProps) {
@@ -17,7 +17,7 @@ export function EmojiPickerPopover({ onEmojiSelect, children }: EmojiPickerPopov
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger className="inline-flex cursor-pointer bg-transparent border-0 p-0">{children}</PopoverTrigger>
+      <PopoverTrigger render={children} />
       <PopoverContent className="w-auto p-0 border-0">
         <Picker
           data={data}

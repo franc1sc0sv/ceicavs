@@ -7,12 +7,12 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { GET_TASK_ITEMS } from '../graphql/task-items.queries'
+import { GET_TASK_ITEMS } from '../../graphql/task-items.queries'
 import {
   CREATE_TASK_ITEM,
   UPDATE_TASK_ITEM,
   DELETE_TASK_ITEM,
-} from '../graphql/task-items.mutations'
+} from '../../graphql/task-items.mutations'
 
 export function TaskOrganizer() {
   const [newTaskText, setNewTaskText] = useState('')
@@ -60,12 +60,12 @@ export function TaskOrganizer() {
 
   function handleToggleCompleted(id: string, currentCompleted: boolean) {
     updateTaskItem({
-      variables: { id, input: { completed: !currentCompleted, text: undefined } },
+      variables: { input: { id, completed: !currentCompleted, text: undefined } },
     })
   }
 
   function handleDelete(id: string) {
-    deleteTaskItem({ variables: { id } })
+    deleteTaskItem({ variables: { input: { id } } })
   }
 
   if (loading) {

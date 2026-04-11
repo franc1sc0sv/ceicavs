@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAbility } from '@/context/ability.context'
 import { Action, Subject } from '@ceicavs/shared'
+import { getApiBase, getAuthHeaders } from '@/lib/api-client'
 import { useCategories } from '../hooks/use-categories'
 
 interface PostImageItem {
@@ -64,14 +65,11 @@ export function PostForm({ initialValues, onSubmit, onCancel, submitting }: Post
   async function uploadImages(files: FileList) {
     setUploading(true)
     try {
-      const apiBase = (import.meta.env.VITE_API_URL ?? 'http://localhost:3001').replace(/\/graphql$/, '')
-      const token = localStorage.getItem('accessToken')
-
       for (let i = 0; i < files.length; i++) {
         const file = files[i]
-        const signRes = await fetch(`${apiBase}/upload/sign`, {
+        const signRes = await fetch(`${getApiBase()}/upload/sign`, {
           method: 'POST',
-          headers: { Authorization: `Bearer ${token}` },
+          headers: getAuthHeaders(),
         })
         const { signature, timestamp, apiKey, cloudName, folder } =
           (await signRes.json()) as CloudinarySignResponse

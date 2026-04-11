@@ -12,8 +12,8 @@ export const CREATE_NOTE = graphql(`
 `)
 
 export const UPDATE_NOTE = graphql(`
-  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {
-    updateNote(id: $id, input: $input) {
+  mutation UpdateNote($input: UpdateNoteInput!) {
+    updateNote(input: $input) {
       id
       content
       updatedAt
@@ -22,7 +22,7 @@ export const UPDATE_NOTE = graphql(`
 `)
 
 export const DELETE_NOTE = graphql(`
-  mutation DeleteNote($id: ID!) {
-    deleteNote(id: $id)
+  mutation DeleteNote($input: DeleteNoteInput!) {
+    deleteNote(input: $input)
   }
 `)

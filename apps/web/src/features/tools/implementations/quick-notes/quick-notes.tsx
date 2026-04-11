@@ -15,8 +15,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import { GET_NOTES } from '../graphql/notes.queries'
-import { CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE } from '../graphql/notes.mutations'
+import { GET_NOTES } from '../../graphql/notes.queries'
+import { CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE } from '../../graphql/notes.mutations'
 
 type EditingState =
   | { mode: 'idle' }
@@ -80,7 +80,7 @@ export function QuickNotes() {
       createNote({ variables: { input: { content: draftContent.trim() } } })
     } else if (editingState.mode === 'editing') {
       updateNote({
-        variables: { id: editingState.noteId, input: { content: draftContent.trim() } },
+        variables: { input: { id: editingState.noteId, content: draftContent.trim() } },
       })
       setEditingState({ mode: 'idle' })
       setDraftContent('')
@@ -92,7 +92,7 @@ export function QuickNotes() {
       if (debounceRef.current) clearTimeout(debounceRef.current)
       debounceRef.current = setTimeout(() => {
         if (draftContent.trim() !== '') {
-          updateNote({ variables: { id: noteId, input: { content: draftContent.trim() } } })
+          updateNote({ variables: { input: { id: noteId, content: draftContent.trim() } } })
         }
       }, 500)
     },
@@ -250,7 +250,7 @@ export function QuickNotes() {
               disabled={deleting}
               onClick={() => {
                 if (deleteTargetId) {
-                  deleteNote({ variables: { id: deleteTargetId } })
+                  deleteNote({ variables: { input: { id: deleteTargetId } } })
                 }
               }}
             >

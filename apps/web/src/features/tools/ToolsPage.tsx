@@ -9,19 +9,29 @@ import { useTools } from './hooks/use-tools'
 export default function ToolsPage() {
   const { t } = useTranslation('tools')
   const navigate = useNavigate()
-  const { tools, categories, favoriteIds, search, setSearch, toggleFavorite } = useTools()
-
-  const sortedCategories = [...categories].sort((a, b) => a.order - b.order)
-
-  const filteredTools = search
-    ? tools.filter(
-        (tool) =>
-          tool.name.toLowerCase().includes(search.toLowerCase()) ||
-          tool.description.toLowerCase().includes(search.toLowerCase())
-      )
-    : tools
+  const { tools, categories, favoriteIds, search, loading, error, setSearch, toggleFavorite } = useTools()
 
   const favoriteTools = tools.filter((tool) => favoriteIds.has(tool.id))
+
+  if (loading) {
+    return (
+      <main className="p-4 sm:p-6 lg:p-8">
+        <div className="flex h-64 items-center justify-center">
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-muted border-t-foreground" aria-label={t('loading')} />
+        </div>
+      </main>
+    )
+  }
+
+  if (error) {
+    return (
+      <main className="p-4 sm:p-6 lg:p-8">
+        <div className="flex h-64 items-center justify-center">
+          <p className="text-sm text-muted-foreground">{t('errorLoading')}</p>
+        </div>
+      </main>
+    )
+  }
 
   return (
     <main className="p-4 sm:p-6 lg:p-8">
@@ -84,7 +94,7 @@ export default function ToolsPage() {
 
       {search ? (
         <div>
-          {filteredTools.length === 0 ? (
+          {tools.length === 0 ? (
             <div className="py-16 text-center">
               <p className="mb-2 text-3xl" aria-hidden="true">🔍</p>
               <p className="text-sm text-muted-foreground">
@@ -94,10 +104,10 @@ export default function ToolsPage() {
           ) : (
             <>
               <p className="mb-4 text-sm text-muted-foreground">
-                {t('results', { count: filteredTools.length })}
+                {t('results', { count: tools.length })}
               </p>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {filteredTools.map((tool) => (
+                {tools.map((tool) => (
                   <ToolCard
                     key={tool.id}
                     tool={tool}
@@ -112,8 +122,8 @@ export default function ToolsPage() {
         </div>
       ) : (
         <div className="space-y-10">
-          {sortedCategories.map((category) => {
-            const categoryTools = filteredTools.filter((tool) => tool.categoryId === category.id)
+          {categories.map((category) => {
+            const categoryTools = tools.filter((tool) => tool.category.id === category.id)
             if (categoryTools.length === 0) return null
             return (
               <section key={category.id} aria-labelledby={`category-${category.id}`}>

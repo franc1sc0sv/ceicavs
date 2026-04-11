@@ -1,0 +1,138 @@
+{
+  "page": {
+    "title": "New Recording",
+    "description": "Upload an audio file or record directly to get an automatic transcription and summary."
+  },
+  "uploader": {
+    "tabFile": "Upload file",
+    "tabRecord": "Record",
+    "dropzone": "Drag an audio file here",
+    "browse": "Select file",
+    "formats": "MP3, WAV, M4A, OGG",
+    "selectMic": "Select microphone",
+    "defaultMic": "Default microphone",
+    "record": "Start recording",
+    "recording": "Recording...",
+    "stopRecording": "Stop recording"
+  },
+  "processing": {
+    "transcribing": "Transcribing audio...",
+    "summarizing": "Generating summary..."
+  },
+  "transcript": {
+    "label": "Transcript",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "summary": {
+    "label": "Summary",
+    "generating": "Generating summary...",
+    "failed": "Failed to generate the summary",
+    "error": {
+      "rate_limit_day": "Daily usage limit reached. Try again tomorrow.",
+      "rate_limit_minute": "Too many requests. Wait a moment and try again.",
+      "request_too_large": "The transcript is too long to process.",
+      "json_error": "Failed to generate the summary. Please try again.",
+      "unknown": "Unexpected error. Please try again."
+    }
+  },
+  "navigation": {
+    "blockTitle": "Transcription in progress",
+    "blockMessage": "The transcription is still processing. If you leave now, your progress will be lost.",
+    "leave": "Leave anyway",
+    "stay": "Stay"
+  },
+  "listPage": {
+    "title": "My Recordings",
+    "newRecording": "New Recording",
+    "empty": "You have no recordings yet",
+    "emptyAction": "Create first recording"
+  },
+  "table": {
+    "name": "Name",
+    "date": "Date",
+    "duration": "Duration",
+    "status": "Status",
+    "actions": "Actions",
+    "view": "View recording"
+  },
+  "status": {
+    "none": "Unprocessed",
+    "processing": "Processing...",
+    "completed": "Completed"
+  },
+  "detail": {
+    "back": "Back",
+    "transcript": "Transcript",
+    "summary": "Summary",
+    "summaryLabel": "General summary",
+    "keyTakeaways": "Key takeaways",
+    "actionItems": "Action items",
+    "exportTxt": "Export TXT",
+    "processing": "Transcription in progress...",
+    "languageLabel": "Language",
+    "durationLabel": "Duration",
+    "generateTranscription": "Generate Transcription",
+    "regenerateTranscription": "Regenerate",
+    "regenerateSummary": "Regenerate Summary",
+    "generateSummary": "Generate Summary",
+    "transcribing": "Transcribing audio...",
+    "transcribingHint": "The AI model is processing the audio on your device",
+    "generatingSummary": "Generating summary...",
+    "generatingSummaryHint": "The AI model is processing the transcript on your device",
+    "savingTranscript": "Saving transcript...",
+    "fetchingAudio": "Loading audio from cloud...",
+    "fetchAudioError": "Failed to load audio. Please try again.",
+    "downloadingModel": "Downloading AI model",
+    "downloadingModelHint": "Only happens once. The model will be cached for future use.",
+    "noTranscriptTitle": "No transcription yet",
+    "noTranscriptDescription": "Generate an automatic transcription using OpenAI's Whisper model.",
+    "noSummaryTitle": "No summary yet",
+    "noSummaryDescription": "Generate an automatic summary based on the transcript.",
+    "notFound": "Recording not found.",
+    "transcriptSaved": "Transcript saved successfully",
+    "summarySaved": "Summary saved successfully",
+    "saveError": "Failed to save. Please try again."
+  },
+  "languages": {
+    "spanish": "Spanish",
+    "english": "English",
+    "portuguese": "Portuguese",
+    "french": "French",
+    "german": "German",
+    "italian": "Italian"
+  },
+  "upload": {
+    "saving": "Saving recording...",
+    "uploading": "Uploading audio...",
+    "untitled": "Untitled recording"
+  },
+  "success": {
+    "title": "Recording saved!",
+    "description": "The audio was uploaded successfully. You can now generate the automatic transcription from the recording page.",
+    "step1": "Open the recording",
+    "step2": "Click \"Generate Transcription\"",
+    "step3": "Optionally generate an AI summary",
+    "cta": "Go to recording",
+    "another": "Upload another recording"
+  },
+  "player": {
+    "play": "Play",
+    "pause": "Pause",
+    "seekbar": "Seek bar",
+    "skipBack": "Skip back {{seconds}} seconds",
+    "skipForward": "Skip forward {{seconds}} seconds"
+  },
+  "delete": {
+    "confirm": "Delete recording?",
+    "description": "This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm_action": "Delete"
+  },
+  "prompt": {
+    "customize": "Customize prompt",
+    "label": "AI instructions",
+    "hint": "Instructions apply to the current generation only and are not saved.",
+    "resetToDefault": "Reset to default"
+  }
+}

@@ -1,4 +1,68 @@
 {
+  "categories": {
+    "teaching-classroom": "Enseñanza y aula",
+    "file-converters": "Convertidores de archivos",
+    "media-tools": "Herramientas multimedia",
+    "productivity": "Productividad"
+  },
+  "tools": {
+    "random-student-picker": {
+      "name": "Selector aleatorio de estudiantes",
+      "description": "Elige un estudiante al azar con una animación — justo e instantáneo"
+    },
+    "countdown-timer": {
+      "name": "Temporizador",
+      "description": "Configura temporizadores y cronómetros para actividades y exámenes en clase"
+    },
+    "task-organizer": {
+      "name": "Organizador de tareas",
+      "description": "Crea y gestiona listas de tareas para lecciones, asignaciones o pendientes personales"
+    },
+    "word-pdf-converter": {
+      "name": "Conversor Word / PDF",
+      "description": "Convierte archivos PDF a Word y documentos Word a PDF al instante"
+    },
+    "image-format-converter": {
+      "name": "Conversor de formato de imagen",
+      "description": "Convierte imágenes entre PNG, JPG y WebP con control de calidad"
+    },
+    "youtube-downloader": {
+      "name": "Descargador de YouTube",
+      "description": "Pega una URL de YouTube, elige la calidad y descarga el video para verlo sin conexión"
+    },
+    "image-compressor": {
+      "name": "Compresor de imágenes",
+      "description": "Reduce el tamaño de archivos de imagen y cambia el tamaño sin perder calidad visible"
+    },
+    "qr-code-generator": {
+      "name": "Generador de código QR",
+      "description": "Genera códigos QR desde cualquier texto o URL — ideal para compartir enlaces"
+    },
+    "screenshot-to-text": {
+      "name": "Captura a texto",
+      "description": "Sube una captura o imagen y extrae el texto mediante OCR — ideal para digitalizar materiales"
+    },
+    "quick-notes": {
+      "name": "Notas rápidas",
+      "description": "Un bloc de notas sencillo para anotar ideas, recordatorios o apuntes de clase al vuelo"
+    },
+    "scientific-calculator": {
+      "name": "Calculadora científica",
+      "description": "Calculadora científica completa con trigonometría, logaritmos e historial de expresiones"
+    },
+    "password-generator": {
+      "name": "Generador de contraseñas",
+      "description": "Genera contraseñas seguras y aleatorias con longitud y opciones de caracteres personalizables"
+    },
+    "roulette": {
+      "name": "Ruleta",
+      "description": "Agrega opciones personalizadas y gira la rueda para elegir al azar — ideal para sorteos y decisiones"
+    },
+    "text-simplifier": {
+      "name": "Simplificador de texto",
+      "description": "Simplifica textos complejos para que sean más fáciles de entender — ideal para adaptar materiales a los estudiantes"
+    }
+  },
   "title": "Herramientas",
   "subtitle": "{{count}} herramientas disponibles",
   "search": "Buscar herramientas...",
@@ -16,5 +80,56 @@
   "error": {
     "title": "Error al cargar",
     "retry": "Reintentar"
+  },
+  "youtubeDownloader": {
+    "title": "Descargador de YouTube",
+    "urlLabel": "URL de YouTube",
+    "urlPlaceholder": "Pega una URL de YouTube...",
+    "lookup": "Buscar",
+    "looking": "Cargando...",
+    "qualityLabel": "Calidad",
+    "download": "Descargar",
+    "downloading": "Descargando...",
+    "error": "Error al descargar. Intenta de nuevo.",
+    "errorInfo": "No se pudo cargar el video. Verifica la URL.",
+    "errorBusy": "El servidor está ocupado. Intenta en un momento."
+  },
+  "wordPdfConverter": {
+    "title": "Conversor Word / PDF",
+    "directionLabel": "Conversión",
+    "wordToPdf": "Word → PDF",
+    "pdfToWord": "PDF → Word",
+    "dropzone": "Arrastra un archivo aquí o haz clic para seleccionar",
+    "convert": "Convertir",
+    "converting": "Convirtiendo...",
+    "limitedFidelity": "La conversión PDF → Word produce solo texto (sin preservar el diseño).",
+    "error": "Error al convertir. Por favor intenta de nuevo."
+  },
+  "screenshotToText": {
+    "dropzone": "Arrastra una imagen aquí",
+    "or": "o",
+    "browse": "Seleccionar imagen",
+    "formats": "PNG, JPG, WEBP",
+    "extract": "Extraer texto",
+    "extractedText": "Texto extraído",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "processing": "Extrayendo texto...",
+    "error": "No se pudo extraer el texto. Por favor intenta de nuevo."
+  },
+  "textSimplifier": {
+    "inputLabel": "Texto a simplificar",
+    "inputPlaceholder": "Pega o escribe el texto aquí...",
+    "toneLabel": "Tono",
+    "toneSimple": "Más simple",
+    "toneFormal": "Formal",
+    "toneCasual": "Casual",
+    "simplify": "Simplificar",
+    "resultLabel": "Texto simplificado",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "processing": "Simplificando...",
+    "notAvailable": "Esta función requiere Chrome 138 o superior.",
+    "emptyInput": "Escribe o pega un texto para simplificarlo."
   }
 }

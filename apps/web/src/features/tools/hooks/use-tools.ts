@@ -1,5 +1,7 @@
 import { useState, useMemo } from 'react'
-import { TOOLS, CATEGORIES, type Tool, type ToolCategory } from '../data/tools-data'
+import { useQuery } from '@apollo/client/react'
+import type { ToolCategoryType, ToolType } from '@/generated/graphql'
+import { GET_TOOLS } from '../graphql/tools.queries'
 
 const FAVORITES_KEY = 'ceicavs-tool-favorites'
 
@@ -14,10 +16,12 @@ function loadFavorites(): Set<string> {
 }
 
 export interface UseToolsResult {
-  tools: Tool[]
-  categories: ToolCategory[]
+  tools: ToolType[]
+  categories: ToolCategoryType[]
   favoriteIds: Set<string>
   search: string
+  loading: boolean
+  error: boolean
   setSearch: (q: string) => void
   toggleFavorite: (toolId: string) => void
 }
@@ -26,15 +30,31 @@ export function useTools(): UseToolsResult {
   const [search, setSearch] = useState('')
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(loadFavorites)
 
-  const tools = useMemo(() => {
-    if (!search.trim()) return TOOLS
+  const { data, loading, error } = useQuery(GET_TOOLS)
+
+  const allTools: ToolType[] = data?.tools ?? []
+
+  const categories = useMemo<ToolCategoryType[]>(() => {
+    const seen = new Set<string>()
+    const result: ToolCategoryType[] = []
+    for (const tool of allTools) {
+      if (!seen.has(tool.category.id)) {
+        seen.add(tool.category.id)
+        result.push(tool.category)
+      }
+    }
+    return result.sort((a, b) => a.order - b.order)
+  }, [allTools])
+
+  const tools = useMemo<ToolType[]>(() => {
+    if (!search.trim()) return allTools
     const q = search.toLowerCase()
-    return TOOLS.filter(
-      (t) =>
-        t.name.toLowerCase().includes(q) ||
-        t.description.toLowerCase().includes(q),
+    return allTools.filter(
+      (tool) =>
+        tool.name.toLowerCase().includes(q) ||
+        tool.description.toLowerCase().includes(q),
     )
-  }, [search])
+  }, [search, allTools])
 
   function toggleFavorite(toolId: string): void {
     setFavoriteIds((prev) => {
@@ -51,9 +71,11 @@ export function useTools(): UseToolsResult {
 
   return {
     tools,
-    categories: CATEGORIES,
+    categories,
     favoriteIds,
     search,
+    loading,
+    error: !!error,
     setSearch,
     toggleFavorite,
   }

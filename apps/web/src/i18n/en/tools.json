@@ -1,4 +1,68 @@
 {
+  "categories": {
+    "teaching-classroom": "Teaching & Classroom",
+    "file-converters": "File Converters",
+    "media-tools": "Media Tools",
+    "productivity": "Productivity"
+  },
+  "tools": {
+    "random-student-picker": {
+      "name": "Random Student Picker",
+      "description": "Pick a student at random with a shuffle animation — fair and instant"
+    },
+    "countdown-timer": {
+      "name": "Countdown Timer",
+      "description": "Set timers and stopwatches for classroom activities and exams"
+    },
+    "task-organizer": {
+      "name": "Task Organizer",
+      "description": "Create and manage task lists for lessons, assignments, or personal to-dos"
+    },
+    "word-pdf-converter": {
+      "name": "Word / PDF Converter",
+      "description": "Convert PDF files to Word and Word documents to PDF instantly"
+    },
+    "image-format-converter": {
+      "name": "Image Format Converter",
+      "description": "Convert images between PNG, JPG, and WebP formats with quality control"
+    },
+    "youtube-downloader": {
+      "name": "YouTube Downloader",
+      "description": "Paste a YouTube URL, choose quality, and download the video for offline use"
+    },
+    "image-compressor": {
+      "name": "Image Compressor",
+      "description": "Reduce image file size and resize without losing visible quality"
+    },
+    "qr-code-generator": {
+      "name": "QR Code Generator",
+      "description": "Generate QR codes from any text or URL — perfect for sharing links"
+    },
+    "screenshot-to-text": {
+      "name": "Screenshot to Text",
+      "description": "Upload a screenshot or image and extract text using OCR — ideal for digitizing materials"
+    },
+    "quick-notes": {
+      "name": "Quick Notes",
+      "description": "A simple notepad to jot down ideas, reminders, or class notes on the fly"
+    },
+    "scientific-calculator": {
+      "name": "Scientific Calculator",
+      "description": "Full scientific calculator with trigonometry, logarithms, and expression history"
+    },
+    "password-generator": {
+      "name": "Password Generator",
+      "description": "Generate secure random passwords with customizable length and character options"
+    },
+    "roulette": {
+      "name": "Roulette",
+      "description": "Add custom options and spin the wheel to pick at random — great for draws and decisions"
+    },
+    "text-simplifier": {
+      "name": "Text Simplifier",
+      "description": "Simplify complex texts to make them easier to understand — ideal for adapting materials for students"
+    }
+  },
   "title": "Tools",
   "subtitle": "{{count}} tools available",
   "search": "Search tools...",
@@ -16,5 +80,56 @@
   "error": {
     "title": "Failed to load",
     "retry": "Retry"
+  },
+  "youtubeDownloader": {
+    "title": "YouTube Downloader",
+    "urlLabel": "YouTube URL",
+    "urlPlaceholder": "Paste a YouTube URL...",
+    "lookup": "Look up",
+    "looking": "Loading...",
+    "qualityLabel": "Quality",
+    "download": "Download",
+    "downloading": "Downloading...",
+    "error": "Download failed. Try again.",
+    "errorInfo": "Could not load video. Check the URL.",
+    "errorBusy": "Server is busy. Try again in a moment."
+  },
+  "wordPdfConverter": {
+    "title": "Word / PDF Converter",
+    "directionLabel": "Conversion",
+    "wordToPdf": "Word → PDF",
+    "pdfToWord": "PDF → Word",
+    "dropzone": "Drag a file here or click to select",
+    "convert": "Convert",
+    "converting": "Converting...",
+    "limitedFidelity": "PDF → Word conversion produces text-only output (no layout preservation).",
+    "error": "Conversion failed. Please try again."
+  },
+  "screenshotToText": {
+    "dropzone": "Drag an image here",
+    "or": "or",
+    "browse": "Select image",
+    "formats": "PNG, JPG, WEBP",
+    "extract": "Extract text",
+    "extractedText": "Extracted text",
+    "copy": "Copy",
+    "copied": "Copied",
+    "processing": "Extracting text...",
+    "error": "Failed to extract text. Please try again."
+  },
+  "textSimplifier": {
+    "inputLabel": "Text to simplify",
+    "inputPlaceholder": "Paste or type your text here...",
+    "toneLabel": "Tone",
+    "toneSimple": "Simpler",
+    "toneFormal": "Formal",
+    "toneCasual": "Casual",
+    "simplify": "Simplify",
+    "resultLabel": "Simplified text",
+    "copy": "Copy",
+    "copied": "Copied",
+    "processing": "Simplifying...",
+    "notAvailable": "This feature requires Chrome 138 or later.",
+    "emptyInput": "Type or paste text to simplify."
   }
 }

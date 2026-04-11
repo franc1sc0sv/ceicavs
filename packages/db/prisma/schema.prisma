@@ -38,13 +38,21 @@ enum TranscriptionStatus {
   completed
 }
 
+enum SummaryStatus {
+  none
+  generating
+  completed
+  failed
+}
+
 model User {
   id        String    @id @default(cuid())
   name      String
   email     String    @unique
   password  String
-  avatarUrl String?   @map("avatar_url")
-  role      UserRole  @default(student)
+  avatarUrl     String?   @map("avatar_url")
+  summaryPrompt String?   @map("summary_prompt")
+  role          UserRole  @default(student)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
@@ -241,6 +249,7 @@ model ToolCategory {
 model Tool {
   id          String    @id @default(cuid())
   name        String
+  slug        String    @unique
   description String
   categoryId  String    @map("category_id")
   icon        String
@@ -311,22 +320,24 @@ model Folder {
 }
 
 model Recording {
-  id                  String              @id @default(cuid())
-  userId              String              @map("user_id")
-  folderId            String              @map("folder_id")
-  name                String
-  duration            Int
-  audioUrl            String?             @map("audio_url")
-  transcriptionStatus TranscriptionStatus @default(none) @map("transcription_status")
-  createdAt           DateTime            @default(now()) @map("created_at")
-  updatedAt           DateTime            @updatedAt @map("updated_at")
-  deletedAt           DateTime?           @map("deleted_at")
+  id                   String              @id @default(cuid())
+  userId               String              @map("user_id")
+  folderId             String?             @map("folder_id")
+  name                 String
+  duration             Int
+  audioUrl             String?             @map("audio_url")
+  cloudinaryPublicId   String?             @map("cloudinary_public_id")
+  transcriptionStatus  TranscriptionStatus @default(none) @map("transcription_status")
+  createdAt            DateTime            @default(now()) @map("created_at")
+  updatedAt            DateTime            @updatedAt @map("updated_at")
+  deletedAt            DateTime?           @map("deleted_at")
 
   user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  folder        Folder         @relation(fields: [folderId], references: [id])
+  folder        Folder?        @relation(fields: [folderId], references: [id])
   transcription Transcription?
 
   @@index([deletedAt])
+  @@index([userId])
   @@map("recordings")
 }
 
@@ -335,7 +346,10 @@ model Transcription {
   recordingId    String              @unique @map("recording_id")
   status         TranscriptionStatus @default(processing)
   fullTranscript String?             @map("full_transcript")
+  segments       Json?
   summary        String?
+  summaryStatus  SummaryStatus       @default(none) @map("summary_status")
+  summaryError   String?             @map("summary_error")
   keyTakeaways   String[]            @map("key_takeaways")
   actionItems    String[]            @map("action_items")
   completedAt    DateTime?           @map("completed_at")

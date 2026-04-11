@@ -1,11 +1,11 @@
 import {
   Users, Clock, CheckSquare, FileText, Image, Download,
-  Minimize2, LayoutGrid, Scan, Pencil, Hash, Lock, RotateCw,
+  Minimize2, LayoutGrid, Scan, Pencil, Hash, Lock, RotateCw, Sparkles,
   type LucideIcon,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
-import type { Tool, ToolColor } from '../data/tools-data'
+import type { ToolType } from '@/generated/graphql'
 
 const ICON_MAP: Record<string, LucideIcon> = {
   users: Users,
@@ -21,9 +21,10 @@ const ICON_MAP: Record<string, LucideIcon> = {
   hash: Hash,
   lock: Lock,
   'rotate-cw': RotateCw,
+  sparkles: Sparkles,
 }
 
-const COLOR_MAP: Record<ToolColor, { iconBg: string; iconText: string }> = {
+const COLOR_MAP: Record<string, { iconBg: string; iconText: string }> = {
   lime:    { iconBg: 'bg-lime-100 dark:bg-lime-500/20',    iconText: 'text-lime-600 dark:text-lime-400' },
   amber:   { iconBg: 'bg-amber-100 dark:bg-amber-500/20',  iconText: 'text-amber-600 dark:text-amber-400' },
   sky:     { iconBg: 'bg-sky-100 dark:bg-sky-500/20',      iconText: 'text-sky-600 dark:text-sky-400' },
@@ -39,15 +40,17 @@ const COLOR_MAP: Record<ToolColor, { iconBg: string; iconText: string }> = {
   red:     { iconBg: 'bg-red-100 dark:bg-red-500/20',      iconText: 'text-red-600 dark:text-red-400' },
 }
 
+const FALLBACK_COLORS = COLOR_MAP.indigo
+
 interface FavoritePillProps {
-  tool: Tool
+  tool: ToolType
   onSelect: () => void
   onRemove: () => void
 }
 
 export function FavoritePill({ tool, onSelect, onRemove }: FavoritePillProps) {
   const { t } = useTranslation('tools')
-  const colors = COLOR_MAP[tool.color] ?? COLOR_MAP.indigo
+  const colors = COLOR_MAP[tool.color] ?? FALLBACK_COLORS
   const Icon = ICON_MAP[tool.icon] ?? LayoutGrid
 
   return (

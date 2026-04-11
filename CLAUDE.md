@@ -11,6 +11,14 @@ School management platform for Centro Escolar CEICAVS. Turbo + pnpm monorepo wit
 | `packages/shared` | CASL authorization enums + ability factory | `src/index.ts` | @casl/ability |
 | `packages/db` | Prisma + Kysely | `src/index.ts` | Prisma 7, @prisma/adapter-pg, Kysely |
 
+## CRITICAL: Frontend UI Rule
+
+**All frontend UI changes and new components MUST use shadcn/ui.** No exceptions.
+
+- Check shadcn/ui for an existing primitive before writing any UI code
+- Install missing components: `pnpm dlx shadcn@latest add <component>`
+- Never build buttons, inputs, dialogs, tables, cards, etc. from scratch
+
 ## Architecture Rules
 
 ### CQRS (non-negotiable)
@@ -242,6 +250,7 @@ pnpm -r build                    # Build all packages
 - **No magic strings** — every domain value (roles, actions, subjects, statuses, etc.) must use an `as const` enum constant; never raw string literals
 - **No hardcoded UI text** — all user-facing strings via `useTranslation()` from `react-i18next`; one namespace per feature (`'attendance'`, `'people'`, `'blog'`); shared strings in `'common'`
 - **KISS & DRY** — no speculative abstractions, no duplicate logic, no dead code
+- **shadcn/ui first (non-negotiable)** — every UI change or new component MUST use shadcn/ui primitives; never build custom components from scratch when a shadcn equivalent exists; install missing ones with `pnpm dlx shadcn@latest add <component>`
 
 ## Do NOT
 
@@ -262,3 +271,4 @@ pnpm -r build                    # Build all packages
 - Use `any` type — define a proper interface or generic instead
 - Add comments — rename or restructure the code to make it clear without them
 - Hardcode Spanish/English UI text — always use `t('key')` via `useTranslation()`
+- Build UI components from scratch — always check shadcn/ui first; this applies to every frontend change, no exceptions

@@ -64,14 +64,24 @@ type Documents = {
     "\n  mutation AddMemberToGroup($groupId: ID!, $userId: ID!) {\n    addMemberToGroup(groupId: $groupId, userId: $userId)\n  }\n": typeof types.AddMemberToGroupDocument,
     "\n  mutation RemoveMemberFromGroup($groupId: ID!, $userId: ID!) {\n    removeMemberFromGroup(groupId: $groupId, userId: $userId)\n  }\n": typeof types.RemoveMemberFromGroupDocument,
     "\n  mutation CreateNote($input: CreateNoteInput!) {\n    createNote(input: $input) {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.CreateNoteDocument,
-    "\n  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {\n    updateNote(id: $id, input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n": typeof types.UpdateNoteDocument,
-    "\n  mutation DeleteNote($id: ID!) {\n    deleteNote(id: $id)\n  }\n": typeof types.DeleteNoteDocument,
+    "\n  mutation UpdateNote($input: UpdateNoteInput!) {\n    updateNote(input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n": typeof types.UpdateNoteDocument,
+    "\n  mutation DeleteNote($input: DeleteNoteInput!) {\n    deleteNote(input: $input)\n  }\n": typeof types.DeleteNoteDocument,
     "\n  query GetNotes {\n    notes {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GetNotesDocument,
     "\n  mutation CreateTaskItem($input: CreateTaskItemInput!) {\n    createTaskItem(input: $input) {\n      id\n      text\n      completed\n      order\n    }\n  }\n": typeof types.CreateTaskItemDocument,
-    "\n  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {\n    updateTaskItem(id: $id, input: $input) {\n      id\n      text\n      completed\n    }\n  }\n": typeof types.UpdateTaskItemDocument,
-    "\n  mutation DeleteTaskItem($id: ID!) {\n    deleteTaskItem(id: $id)\n  }\n": typeof types.DeleteTaskItemDocument,
+    "\n  mutation UpdateTaskItem($input: UpdateTaskItemInput!) {\n    updateTaskItem(input: $input) {\n      id\n      text\n      completed\n    }\n  }\n": typeof types.UpdateTaskItemDocument,
+    "\n  mutation DeleteTaskItem($input: DeleteTaskItemInput!) {\n    deleteTaskItem(input: $input)\n  }\n": typeof types.DeleteTaskItemDocument,
     "\n  mutation ReorderTaskItems($input: ReorderTaskItemsInput!) {\n    reorderTaskItems(input: $input)\n  }\n": typeof types.ReorderTaskItemsDocument,
     "\n  query GetTaskItems {\n    taskItems {\n      id\n      text\n      completed\n      order\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.GetTaskItemsDocument,
+    "\n  query GetTools {\n    tools {\n      id\n      name\n      slug\n      description\n      icon\n      color\n      category {\n        id\n        name\n        slug\n        order\n      }\n    }\n  }\n": typeof types.GetToolsDocument,
+    "\n  mutation CreateRecording($input: CreateRecordingInput!) {\n    createRecording(input: $input) {\n      id\n      name\n      transcriptionStatus\n    }\n  }\n": typeof types.CreateRecordingDocument,
+    "\n  mutation DeleteRecording($input: DeleteRecordingInput!) {\n    deleteRecording(input: $input)\n  }\n": typeof types.DeleteRecordingDocument,
+    "\n  query GetSummaryPrompt {\n    getSummaryPrompt\n  }\n": typeof types.GetSummaryPromptDocument,
+    "\n  mutation UpdateSummaryPrompt($input: UpdateSummaryPromptInput!) {\n    updateSummaryPrompt(input: $input)\n  }\n": typeof types.UpdateSummaryPromptDocument,
+    "\n  query GetRecording($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n": typeof types.GetRecordingDocument,
+    "\n  query GetRecordings {\n    getRecordings {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n    }\n  }\n": typeof types.GetRecordingsDocument,
+    "\n  mutation UpdateTranscription($input: UpdateTranscriptionInput!) {\n    updateTranscription(input: $input)\n  }\n": typeof types.UpdateTranscriptionDocument,
+    "\n  mutation GenerateSummary($input: GenerateSummaryInput!) {\n    generateSummary(input: $input)\n  }\n": typeof types.GenerateSummaryDocument,
+    "\n  query GetRecordingDetail($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n": typeof types.GetRecordingDetailDocument,
 };
 const documents: Documents = {
     "\n  mutation RecordAttendance($input: RecordAttendanceInput!) {\n    recordAttendance(input: $input)\n  }\n": types.RecordAttendanceDocument,
@@ -124,14 +134,24 @@ const documents: Documents = {
     "\n  mutation AddMemberToGroup($groupId: ID!, $userId: ID!) {\n    addMemberToGroup(groupId: $groupId, userId: $userId)\n  }\n": types.AddMemberToGroupDocument,
     "\n  mutation RemoveMemberFromGroup($groupId: ID!, $userId: ID!) {\n    removeMemberFromGroup(groupId: $groupId, userId: $userId)\n  }\n": types.RemoveMemberFromGroupDocument,
     "\n  mutation CreateNote($input: CreateNoteInput!) {\n    createNote(input: $input) {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n": types.CreateNoteDocument,
-    "\n  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {\n    updateNote(id: $id, input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n": types.UpdateNoteDocument,
-    "\n  mutation DeleteNote($id: ID!) {\n    deleteNote(id: $id)\n  }\n": types.DeleteNoteDocument,
+    "\n  mutation UpdateNote($input: UpdateNoteInput!) {\n    updateNote(input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n": types.UpdateNoteDocument,
+    "\n  mutation DeleteNote($input: DeleteNoteInput!) {\n    deleteNote(input: $input)\n  }\n": types.DeleteNoteDocument,
     "\n  query GetNotes {\n    notes {\n      id\n      content\n      createdAt\n      updatedAt\n    }\n  }\n": types.GetNotesDocument,
     "\n  mutation CreateTaskItem($input: CreateTaskItemInput!) {\n    createTaskItem(input: $input) {\n      id\n      text\n      completed\n      order\n    }\n  }\n": types.CreateTaskItemDocument,
-    "\n  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {\n    updateTaskItem(id: $id, input: $input) {\n      id\n      text\n      completed\n    }\n  }\n": types.UpdateTaskItemDocument,
-    "\n  mutation DeleteTaskItem($id: ID!) {\n    deleteTaskItem(id: $id)\n  }\n": types.DeleteTaskItemDocument,
+    "\n  mutation UpdateTaskItem($input: UpdateTaskItemInput!) {\n    updateTaskItem(input: $input) {\n      id\n      text\n      completed\n    }\n  }\n": types.UpdateTaskItemDocument,
+    "\n  mutation DeleteTaskItem($input: DeleteTaskItemInput!) {\n    deleteTaskItem(input: $input)\n  }\n": types.DeleteTaskItemDocument,
     "\n  mutation ReorderTaskItems($input: ReorderTaskItemsInput!) {\n    reorderTaskItems(input: $input)\n  }\n": types.ReorderTaskItemsDocument,
     "\n  query GetTaskItems {\n    taskItems {\n      id\n      text\n      completed\n      order\n      createdAt\n      updatedAt\n    }\n  }\n": types.GetTaskItemsDocument,
+    "\n  query GetTools {\n    tools {\n      id\n      name\n      slug\n      description\n      icon\n      color\n      category {\n        id\n        name\n        slug\n        order\n      }\n    }\n  }\n": types.GetToolsDocument,
+    "\n  mutation CreateRecording($input: CreateRecordingInput!) {\n    createRecording(input: $input) {\n      id\n      name\n      transcriptionStatus\n    }\n  }\n": types.CreateRecordingDocument,
+    "\n  mutation DeleteRecording($input: DeleteRecordingInput!) {\n    deleteRecording(input: $input)\n  }\n": types.DeleteRecordingDocument,
+    "\n  query GetSummaryPrompt {\n    getSummaryPrompt\n  }\n": types.GetSummaryPromptDocument,
+    "\n  mutation UpdateSummaryPrompt($input: UpdateSummaryPromptInput!) {\n    updateSummaryPrompt(input: $input)\n  }\n": types.UpdateSummaryPromptDocument,
+    "\n  query GetRecording($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n": types.GetRecordingDocument,
+    "\n  query GetRecordings {\n    getRecordings {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n    }\n  }\n": types.GetRecordingsDocument,
+    "\n  mutation UpdateTranscription($input: UpdateTranscriptionInput!) {\n    updateTranscription(input: $input)\n  }\n": types.UpdateTranscriptionDocument,
+    "\n  mutation GenerateSummary($input: GenerateSummaryInput!) {\n    generateSummary(input: $input)\n  }\n": types.GenerateSummaryDocument,
+    "\n  query GetRecordingDetail($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n": types.GetRecordingDetailDocument,
 };
 
 /**
@@ -351,11 +371,11 @@ export function graphql(source: "\n  mutation CreateNote($input: CreateNoteInput
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {\n    updateNote(id: $id, input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateNote($id: ID!, $input: UpdateNoteInput!) {\n    updateNote(id: $id, input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n"];
+export function graphql(source: "\n  mutation UpdateNote($input: UpdateNoteInput!) {\n    updateNote(input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateNote($input: UpdateNoteInput!) {\n    updateNote(input: $input) {\n      id\n      content\n      updatedAt\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation DeleteNote($id: ID!) {\n    deleteNote(id: $id)\n  }\n"): (typeof documents)["\n  mutation DeleteNote($id: ID!) {\n    deleteNote(id: $id)\n  }\n"];
+export function graphql(source: "\n  mutation DeleteNote($input: DeleteNoteInput!) {\n    deleteNote(input: $input)\n  }\n"): (typeof documents)["\n  mutation DeleteNote($input: DeleteNoteInput!) {\n    deleteNote(input: $input)\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -367,11 +387,11 @@ export function graphql(source: "\n  mutation CreateTaskItem($input: CreateTaskI
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {\n    updateTaskItem(id: $id, input: $input) {\n      id\n      text\n      completed\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateTaskItem($id: ID!, $input: UpdateTaskItemInput!) {\n    updateTaskItem(id: $id, input: $input) {\n      id\n      text\n      completed\n    }\n  }\n"];
+export function graphql(source: "\n  mutation UpdateTaskItem($input: UpdateTaskItemInput!) {\n    updateTaskItem(input: $input) {\n      id\n      text\n      completed\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateTaskItem($input: UpdateTaskItemInput!) {\n    updateTaskItem(input: $input) {\n      id\n      text\n      completed\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation DeleteTaskItem($id: ID!) {\n    deleteTaskItem(id: $id)\n  }\n"): (typeof documents)["\n  mutation DeleteTaskItem($id: ID!) {\n    deleteTaskItem(id: $id)\n  }\n"];
+export function graphql(source: "\n  mutation DeleteTaskItem($input: DeleteTaskItemInput!) {\n    deleteTaskItem(input: $input)\n  }\n"): (typeof documents)["\n  mutation DeleteTaskItem($input: DeleteTaskItemInput!) {\n    deleteTaskItem(input: $input)\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -380,6 +400,46 @@ export function graphql(source: "\n  mutation ReorderTaskItems($input: ReorderTa
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetTaskItems {\n    taskItems {\n      id\n      text\n      completed\n      order\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query GetTaskItems {\n    taskItems {\n      id\n      text\n      completed\n      order\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetTools {\n    tools {\n      id\n      name\n      slug\n      description\n      icon\n      color\n      category {\n        id\n        name\n        slug\n        order\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetTools {\n    tools {\n      id\n      name\n      slug\n      description\n      icon\n      color\n      category {\n        id\n        name\n        slug\n        order\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateRecording($input: CreateRecordingInput!) {\n    createRecording(input: $input) {\n      id\n      name\n      transcriptionStatus\n    }\n  }\n"): (typeof documents)["\n  mutation CreateRecording($input: CreateRecordingInput!) {\n    createRecording(input: $input) {\n      id\n      name\n      transcriptionStatus\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteRecording($input: DeleteRecordingInput!) {\n    deleteRecording(input: $input)\n  }\n"): (typeof documents)["\n  mutation DeleteRecording($input: DeleteRecordingInput!) {\n    deleteRecording(input: $input)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetSummaryPrompt {\n    getSummaryPrompt\n  }\n"): (typeof documents)["\n  query GetSummaryPrompt {\n    getSummaryPrompt\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateSummaryPrompt($input: UpdateSummaryPromptInput!) {\n    updateSummaryPrompt(input: $input)\n  }\n"): (typeof documents)["\n  mutation UpdateSummaryPrompt($input: UpdateSummaryPromptInput!) {\n    updateSummaryPrompt(input: $input)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetRecording($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetRecording($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetRecordings {\n    getRecordings {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  query GetRecordings {\n    getRecordings {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateTranscription($input: UpdateTranscriptionInput!) {\n    updateTranscription(input: $input)\n  }\n"): (typeof documents)["\n  mutation UpdateTranscription($input: UpdateTranscriptionInput!) {\n    updateTranscription(input: $input)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation GenerateSummary($input: GenerateSummaryInput!) {\n    generateSummary(input: $input)\n  }\n"): (typeof documents)["\n  mutation GenerateSummary($input: GenerateSummaryInput!) {\n    generateSummary(input: $input)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetRecordingDetail($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetRecordingDetail($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
