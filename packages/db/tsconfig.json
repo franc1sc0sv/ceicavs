@@ -4,8 +4,10 @@
     "module": "commonjs",
     "strict": true,
     "skipLibCheck": true,
-    "noEmit": true,
+    "outDir": "dist",
+    "declaration": true,
     "resolveJsonModule": true
   },
-  "include": ["src", "prisma"]
+  "include": ["src"],
+  "exclude": ["dist", "prisma"]
 }

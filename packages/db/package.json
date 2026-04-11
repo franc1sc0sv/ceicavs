@@ -2,14 +2,17 @@
   "name": "@ceicavs/db",
   "private": true,
   "version": "0.0.1",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
-    "postinstall": "patch-package && prisma generate",
+    "postinstall": "prisma generate",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "ts-node prisma/seed.ts",
-    "build": "tsc --noEmit",
+    "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
