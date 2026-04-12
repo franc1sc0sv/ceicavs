@@ -12,7 +12,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:migrate:deploy": "prisma migrate deploy",
-    "db:seed": "ts-node prisma/seed.ts",
+    "db:seed": "tsx prisma/seed.ts",
     "build": "tsc && cp -r src/generated dist/",
     "typecheck": "tsc --noEmit"
   },
@@ -25,7 +25,7 @@
     "prisma": "^7.0.0"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -34,7 +34,7 @@
     "bcryptjs": "^2.4.3",
     "patch-package": "^8.0.0",
     "prisma-kysely": "^1.8.0",
-    "ts-node": "^10.0.0",
+    "tsx": "^4.0.0",
     "typescript": "^5"
   }
 }
