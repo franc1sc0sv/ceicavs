@@ -1,0 +1,941 @@
+{
+  "app_name": "CEICAVS School Management Platform",
+  "generated_at": "2026-04-12T00:00:00Z",
+  "project": {
+    "frontend_path": "apps/web",
+    "backend_path": "apps/api",
+    "shared_paths": ["packages/shared", "packages/db"],
+    "tech_stack": {
+      "frontend": "React 19, Vite, Tailwind v4, shadcn/ui, React Router v7, Apollo Client, react-i18next",
+      "backend": "NestJS 10, Apollo GraphQL, CQRS pattern, Passport JWT",
+      "database": "PostgreSQL, Prisma 7, Kysely",
+      "ai": "Groq (Whisper transcription), Gemini (AI summary), Cloudinary (audio storage)",
+      "auth": "JWT access + refresh tokens"
+    }
+  },
+  "frontend": {
+    "routes": [
+      {
+        "path": "/login",
+        "component": "LoginPage",
+        "file": "apps/web/src/features/auth/LoginPage.tsx",
+        "is_protected": false,
+        "is_lazy": false,
+        "layout": null,
+        "params": []
+      },
+      {
+        "path": "/dashboard",
+        "component": "DashboardPage",
+        "file": "apps/web/src/features/dashboard/DashboardPage.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": []
+      },
+      {
+        "path": "/attendance",
+        "component": "AttendancePage",
+        "file": "apps/web/src/features/attendance/AttendancePage.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": []
+      },
+      {
+        "path": "/attendance/:id",
+        "component": "AttendanceDetailPage",
+        "file": "apps/web/src/features/attendance/pages/attendance-detail-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": ["id"]
+      },
+      {
+        "path": "/people",
+        "component": "PeoplePage",
+        "file": "apps/web/src/features/people/PeoplePage.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "ability_guard": { "action": "CREATE", "subject": "GROUP" },
+        "accessible_roles": ["admin", "teacher"],
+        "params": []
+      },
+      {
+        "path": "/blog",
+        "component": "BlogPage",
+        "file": "apps/web/src/features/blog/BlogPage.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": []
+      },
+      {
+        "path": "/blog/new",
+        "component": "CreatePostPage",
+        "file": "apps/web/src/features/blog/pages/create-post-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": []
+      },
+      {
+        "path": "/blog/queue",
+        "component": "DraftQueuePage",
+        "file": "apps/web/src/features/blog/pages/draft-queue-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": []
+      },
+      {
+        "path": "/blog/drafts",
+        "component": "MyDraftsPage",
+        "file": "apps/web/src/features/blog/pages/my-drafts-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": []
+      },
+      {
+        "path": "/blog/categories",
+        "component": "CategoryManagementPage",
+        "file": "apps/web/src/features/blog/pages/category-management-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": []
+      },
+      {
+        "path": "/blog/:id",
+        "component": "PostDetailPage",
+        "file": "apps/web/src/features/blog/pages/post-detail-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": ["id"]
+      },
+      {
+        "path": "/blog/:id/edit",
+        "component": "EditPostPage",
+        "file": "apps/web/src/features/blog/pages/edit-post-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": ["id"]
+      },
+      {
+        "path": "/tools",
+        "component": "ToolsPage",
+        "file": "apps/web/src/features/tools/ToolsPage.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": []
+      },
+      {
+        "path": "/tools/:toolId",
+        "component": "ToolDetailPage",
+        "file": "apps/web/src/features/tools/pages/tool-detail-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "params": ["toolId"]
+      },
+      {
+        "path": "/transcription",
+        "component": "RecordingsListPage",
+        "file": "apps/web/src/features/transcription/pages/recordings-list-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "ability_guard": { "action": "CREATE", "subject": "RECORDING" },
+        "accessible_roles": ["admin", "teacher"],
+        "params": []
+      },
+      {
+        "path": "/transcription/new",
+        "component": "TranscriptionPage",
+        "file": "apps/web/src/features/transcription/TranscriptionPage.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "ability_guard": { "action": "CREATE", "subject": "RECORDING" },
+        "accessible_roles": ["admin", "teacher"],
+        "params": []
+      },
+      {
+        "path": "/transcription/:id",
+        "component": "RecordingDetailPage",
+        "file": "apps/web/src/features/transcription/pages/recording-detail-page.tsx",
+        "is_protected": true,
+        "is_lazy": true,
+        "layout": "ProtectedLayout",
+        "ability_guard": { "action": "CREATE", "subject": "RECORDING" },
+        "accessible_roles": ["admin", "teacher"],
+        "params": ["id"]
+      }
+    ]
+  },
+  "backend": {
+    "graphql_modules": [
+      {
+        "module": "auth",
+        "operations": [
+          { "type": "mutation", "name": "login", "input": "LoginInput", "returns": "AuthTokens", "auth_required": false },
+          { "type": "mutation", "name": "refreshToken", "input": "RefreshTokenInput", "returns": "AuthTokens", "auth_required": false },
+          { "type": "query", "name": "me", "returns": "UserProfile", "auth_required": true }
+        ]
+      },
+      {
+        "module": "dashboard",
+        "operations": [
+          { "type": "query", "name": "adminDashboard", "returns": "AdminDashboardStats", "roles": ["admin"] },
+          { "type": "query", "name": "teacherDashboard", "returns": "TeacherDashboardStats", "roles": ["teacher"] },
+          { "type": "query", "name": "studentDashboard", "returns": "StudentDashboardStats", "roles": ["student"] },
+          { "type": "query", "name": "recentActivity", "returns": "ActivityItem[]", "roles": ["admin", "teacher", "student"] }
+        ]
+      },
+      {
+        "module": "attendance",
+        "operations": [
+          { "type": "query", "name": "attendanceGroups", "returns": "AttendanceGroup[]", "auth_required": true },
+          { "type": "query", "name": "groupRoster", "returns": "GroupRoster", "auth_required": true },
+          { "type": "query", "name": "attendanceReport", "returns": "StudentReport[]", "auth_required": true },
+          { "type": "query", "name": "studentHistory", "returns": "StudentHistoryRecord[]", "auth_required": true },
+          { "type": "query", "name": "studentSummary", "returns": "StudentSummary", "auth_required": true },
+          { "type": "query", "name": "exportStatus", "returns": "ExportStatus", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "recordAttendance", "input": "RecordAttendanceInput", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "exportAttendance", "input": "ExportAttendanceInput", "returns": "ExportJob", "roles": ["admin", "teacher"] }
+        ]
+      },
+      {
+        "module": "people",
+        "operations": [
+          { "type": "query", "name": "users", "returns": "User[]", "roles": ["admin", "teacher"] },
+          { "type": "query", "name": "user", "returns": "User", "roles": ["admin", "teacher"] },
+          { "type": "query", "name": "groups", "returns": "Group[]", "roles": ["admin", "teacher"] },
+          { "type": "query", "name": "group", "returns": "GroupWithMembers", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "createUser", "input": "CreateUserInput", "roles": ["admin"] },
+          { "type": "mutation", "name": "updateUser", "input": "UpdateUserInput", "roles": ["admin"] },
+          { "type": "mutation", "name": "deleteUser", "roles": ["admin"] },
+          { "type": "mutation", "name": "bulkDeleteUsers", "input": "BulkDeleteUsersInput", "roles": ["admin"] },
+          { "type": "mutation", "name": "bulkUpdateUsers", "input": "BulkUpdateUsersInput", "roles": ["admin"] },
+          { "type": "mutation", "name": "importUsers", "input": "ImportUsersInput", "roles": ["admin"] },
+          { "type": "mutation", "name": "createGroup", "input": "CreateGroupInput", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "updateGroup", "input": "UpdateGroupInput", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "deleteGroup", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "addMemberToGroup", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "removeMemberFromGroup", "roles": ["admin", "teacher"] }
+        ]
+      },
+      {
+        "module": "blog",
+        "operations": [
+          { "type": "query", "name": "blogFeed", "returns": "PostsPage", "auth_required": true },
+          { "type": "query", "name": "posts", "returns": "PostsPage", "auth_required": true },
+          { "type": "query", "name": "post", "returns": "Post", "auth_required": true },
+          { "type": "query", "name": "categories", "returns": "Category[]", "auth_required": true },
+          { "type": "query", "name": "comments", "returns": "CommentsPage", "auth_required": true },
+          { "type": "query", "name": "replies", "returns": "CommentsPage", "auth_required": true },
+          { "type": "query", "name": "draftQueue", "returns": "Post[]", "roles": ["admin", "teacher"] },
+          { "type": "query", "name": "myDrafts", "returns": "Post[]", "auth_required": true },
+          { "type": "mutation", "name": "createPost", "input": "CreatePostInput", "auth_required": true },
+          { "type": "mutation", "name": "updatePost", "input": "UpdatePostInput", "auth_required": true },
+          { "type": "mutation", "name": "deletePost", "auth_required": true },
+          { "type": "mutation", "name": "reviewDraft", "input": "ReviewDraftInput", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "addComment", "input": "AddCommentInput", "auth_required": true },
+          { "type": "mutation", "name": "updateComment", "auth_required": true },
+          { "type": "mutation", "name": "deleteComment", "auth_required": true },
+          { "type": "mutation", "name": "toggleReaction", "auth_required": true },
+          { "type": "mutation", "name": "createCategory", "input": "CreateCategoryInput", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "updateCategory", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "deleteCategory", "roles": ["admin", "teacher"] }
+        ]
+      },
+      {
+        "module": "tools",
+        "operations": [
+          { "type": "query", "name": "tools", "returns": "Tool[]", "auth_required": true },
+          { "type": "query", "name": "notes", "returns": "Note[]", "auth_required": true },
+          { "type": "query", "name": "taskItems", "returns": "TaskItem[]", "auth_required": true },
+          { "type": "mutation", "name": "createNote", "input": "CreateNoteInput", "auth_required": true },
+          { "type": "mutation", "name": "updateNote", "input": "UpdateNoteInput", "auth_required": true },
+          { "type": "mutation", "name": "deleteNote", "auth_required": true },
+          { "type": "mutation", "name": "createTaskItem", "input": "CreateTaskItemInput", "auth_required": true },
+          { "type": "mutation", "name": "updateTaskItem", "input": "UpdateTaskItemInput", "auth_required": true },
+          { "type": "mutation", "name": "deleteTaskItem", "auth_required": true },
+          { "type": "mutation", "name": "reorderTaskItems", "input": "ReorderTaskItemsInput", "auth_required": true }
+        ]
+      },
+      {
+        "module": "tools_rest",
+        "operations": [
+          { "type": "POST", "path": "/tools/file-convert", "description": "Convert Word/PDF files", "auth_required": true },
+          { "type": "GET", "path": "/tools/youtube-info", "description": "Fetch YouTube video metadata", "auth_required": true },
+          { "type": "POST", "path": "/tools/youtube-download", "description": "Download YouTube video/audio", "auth_required": true }
+        ]
+      },
+      {
+        "module": "transcription",
+        "operations": [
+          { "type": "query", "name": "recordings", "returns": "Recording[]", "roles": ["admin", "teacher"] },
+          { "type": "query", "name": "recording", "returns": "Recording", "roles": ["admin", "teacher"] },
+          { "type": "query", "name": "summaryPrompt", "returns": "String", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "createRecording", "input": "CreateRecordingInput", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "deleteRecording", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "updateTranscription", "input": "UpdateTranscriptionInput", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "updateSummaryPrompt", "input": "UpdateSummaryPromptInput", "roles": ["admin", "teacher"] },
+          { "type": "mutation", "name": "generateSummary", "input": "GenerateSummaryInput", "roles": ["admin", "teacher"] }
+        ]
+      }
+    ],
+    "entities": [
+      { "entity": "User", "fields": ["id", "name", "email", "password", "avatarUrl", "summaryPrompt", "role", "createdAt", "updatedAt", "deletedAt"] },
+      { "entity": "Group", "fields": ["id", "name", "description", "createdBy", "createdAt", "updatedAt", "deletedAt"] },
+      { "entity": "GroupMembership", "fields": ["userId", "groupId", "joinedAt"] },
+      { "entity": "AttendanceRecord", "fields": ["id", "userId", "groupId", "date", "status(present|absent|late|excused)", "createdAt", "updatedAt"] },
+      { "entity": "AttendanceSubmission", "fields": ["id", "groupId", "submittedBy", "date", "submittedAt"] },
+      { "entity": "Post", "fields": ["id", "title", "excerpt", "content", "authorId", "status(published|draft|rejected)", "rejectionNote", "publishedAt", "createdAt", "updatedAt", "deletedAt"] },
+      { "entity": "PostImage", "fields": ["id", "postId", "url", "publicId", "order", "createdAt"] },
+      { "entity": "Category", "fields": ["id", "name", "deletedAt"] },
+      { "entity": "Reaction", "fields": ["id", "postId", "commentId", "userId", "emoji"] },
+      { "entity": "Comment", "fields": ["id", "postId", "authorId", "parentId", "text", "gifUrl", "gifAlt", "depth", "createdAt", "updatedAt", "deletedAt"] },
+      { "entity": "Tool", "fields": ["id", "name", "slug", "description", "categoryId", "icon", "color", "deletedAt"] },
+      { "entity": "ToolCategory", "fields": ["id", "name", "slug", "order", "deletedAt"] },
+      { "entity": "Favorite", "fields": ["userId", "toolId"] },
+      { "entity": "Note", "fields": ["id", "content", "userId", "createdAt", "updatedAt", "deletedAt"] },
+      { "entity": "TaskItem", "fields": ["id", "text", "completed", "order", "userId", "createdAt", "updatedAt", "deletedAt"] },
+      { "entity": "Folder", "fields": ["id", "userId", "name", "deletedAt"] },
+      { "entity": "Recording", "fields": ["id", "userId", "folderId", "name", "duration", "audioUrl", "cloudinaryPublicId", "transcriptionStatus(none|processing|completed)", "createdAt", "updatedAt", "deletedAt"] },
+      { "entity": "Transcription", "fields": ["id", "recordingId", "status", "fullTranscript", "segments", "summary", "summaryStatus(none|generating|completed|failed)", "summaryError", "keyTakeaways", "actionItems", "completedAt"] },
+      { "entity": "Activity", "fields": ["id", "type", "description", "actorId", "actorRole", "entityId", "entityType", "createdAt"] }
+    ],
+    "websockets": [],
+    "scheduled_tasks": []
+  },
+  "flows": [
+    {
+      "id": "auth-login",
+      "name": "Log In to the Platform",
+      "description": "User opens the login page, enters email and password, and is redirected to the dashboard.",
+      "category": "Authentication",
+      "requires_auth": false,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/login",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/login", "description": "Open the login page", "expected_state": "Login form with email and password fields" },
+        { "step": 2, "action": "fill_form", "fields": { "email": { "type": "email", "sample_value": "admin@ceicavs.edu" }, "password": { "type": "password", "sample_value": "Admin123!" } }, "description": "Enter credentials" },
+        { "step": 3, "action": "click", "target": "Iniciar Sesión button", "api_call": "mutation login", "description": "Submit the form" },
+        { "step": 4, "action": "verify", "description": "Redirected to /dashboard", "expected_route": "/dashboard" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Wrong email or password", "expected_behavior": "Error toast displayed, stay on login page" },
+        { "trigger": "Empty fields", "expected_behavior": "Validation errors shown inline" }
+      ]
+    },
+    {
+      "id": "dashboard-admin",
+      "name": "Admin Dashboard Overview",
+      "description": "Admin sees platform statistics: total users by role, post statuses donut chart, attendance line chart over time, recent activity feed, and quick-action buttons.",
+      "category": "Dashboard",
+      "requires_auth": true,
+      "accessible_roles": ["admin"],
+      "starting_route": "/dashboard",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/dashboard", "description": "Open dashboard", "expected_state": "Admin dashboard with stat cards, charts, activity feed" }
+      ],
+      "error_scenarios": [
+        { "trigger": "API error loading stats", "expected_behavior": "Skeleton loaders shown, then empty state or error message" }
+      ]
+    },
+    {
+      "id": "dashboard-teacher",
+      "name": "Teacher Dashboard Overview",
+      "description": "Teacher sees group attendance charts, recent activity, and quick-action shortcuts for common tasks.",
+      "category": "Dashboard",
+      "requires_auth": true,
+      "accessible_roles": ["teacher"],
+      "starting_route": "/dashboard",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/dashboard", "description": "Open dashboard", "expected_state": "Teacher dashboard with group attendance charts and activity" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "dashboard-student",
+      "name": "Student Dashboard Overview",
+      "description": "Student sees their own attendance chart over time and recent activity in the school.",
+      "category": "Dashboard",
+      "requires_auth": true,
+      "accessible_roles": ["student"],
+      "starting_route": "/dashboard",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/dashboard", "description": "Open dashboard", "expected_state": "Student dashboard showing personal attendance chart" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "attendance-view-groups",
+      "name": "Browse Attendance Groups",
+      "description": "User opens the attendance section and sees all groups they can interact with. Teachers see all groups, students see only their enrolled groups.",
+      "category": "Attendance",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/attendance",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/attendance", "description": "Open attendance page", "expected_state": "Grid of group cards, each showing group name and member count" }
+      ],
+      "error_scenarios": [
+        { "trigger": "No groups exist", "expected_behavior": "Empty state message displayed" }
+      ]
+    },
+    {
+      "id": "attendance-take",
+      "name": "Take Attendance for a Group",
+      "description": "Teacher or admin opens a group's attendance roster, marks each student as present/absent/late/excused, and submits the attendance for the day.",
+      "category": "Attendance",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/attendance",
+      "depends_on": ["attendance-view-groups"],
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/attendance", "description": "Open attendance page" },
+        { "step": 2, "action": "click", "target": "Group card to open detail", "description": "Select a group", "expected_route": "/attendance/:id" },
+        { "step": 3, "action": "click", "target": "Open Roster button/sheet", "description": "Open the attendance roster sheet" },
+        { "step": 4, "action": "interact", "description": "Mark each student with a status: present, absent, late, or excused" },
+        { "step": 5, "action": "click", "target": "Submit Attendance button", "api_call": "mutation recordAttendance", "description": "Save attendance for today" },
+        { "step": 6, "action": "verify", "description": "Attendance saved, roster sheet closes" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Attendance already submitted for today", "expected_behavior": "Roster shows existing records, re-submission updates them" },
+        { "trigger": "Network error on submit", "expected_behavior": "Error toast, user can retry" }
+      ]
+    },
+    {
+      "id": "attendance-view-report",
+      "name": "View Attendance Report",
+      "description": "View a summary table of attendance records for a group over a selected time period.",
+      "category": "Attendance",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/attendance/:id",
+      "depends_on": ["attendance-view-groups"],
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/attendance/:id", "description": "Open attendance detail page for a group" },
+        { "step": 2, "action": "interact", "description": "Select a report period (weekly/monthly/custom)" },
+        { "step": 3, "action": "verify", "description": "Table shows each student's attendance percentage and record counts" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "attendance-export",
+      "name": "Export Attendance Report",
+      "description": "Teacher or admin exports attendance data for a group as CSV or PDF.",
+      "category": "Attendance",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/attendance/:id",
+      "depends_on": ["attendance-view-report"],
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/attendance/:id", "description": "Open group attendance report" },
+        { "step": 2, "action": "click", "target": "Export button", "description": "Select format (CSV or PDF)" },
+        { "step": 3, "action": "verify", "api_call": "mutation exportAttendance", "description": "Export job created, download starts or link provided" }
+      ],
+      "error_scenarios": [
+        { "trigger": "No attendance records in selected period", "expected_behavior": "Export generates empty file or warning" }
+      ]
+    },
+    {
+      "id": "attendance-student-history",
+      "name": "Student Views Own Attendance",
+      "description": "Student or teacher views a specific student's individual attendance history and summary statistics.",
+      "category": "Attendance",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/attendance/:id",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/attendance/:id", "description": "Open group attendance detail" },
+        { "step": 2, "action": "click", "target": "Student row to expand history", "description": "View individual student attendance history" },
+        { "step": 3, "action": "verify", "description": "Student attendance summary shown: present/absent/late/excused counts and history records" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "people-manage-users",
+      "name": "Manage Users (Admin)",
+      "description": "Admin views all users in a table, creates new users, edits existing ones, deletes users individually or in bulk, and can import users from a CSV file.",
+      "category": "People",
+      "requires_auth": true,
+      "accessible_roles": ["admin"],
+      "starting_route": "/people",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/people", "description": "Open people management page" },
+        { "step": 2, "action": "verify", "description": "Users table shows all users with name, email, role columns. Filter and search available." },
+        { "step": 3, "action": "click", "target": "New User button", "description": "Open create user sheet" },
+        { "step": 4, "action": "fill_form", "fields": { "name": { "type": "text", "sample_value": "Jane Doe" }, "email": { "type": "email", "sample_value": "jane@ceicavs.edu" }, "password": { "type": "password", "sample_value": "Temp1234!" }, "role": { "type": "select", "sample_value": "student" } }, "description": "Fill in user details" },
+        { "step": 5, "action": "click", "target": "Save button", "api_call": "mutation createUser", "description": "Create the user" },
+        { "step": 6, "action": "verify", "description": "New user appears in the table" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Duplicate email", "expected_behavior": "Error message: email already exists" },
+        { "trigger": "Weak password", "expected_behavior": "Validation error on password field" }
+      ]
+    },
+    {
+      "id": "people-manage-groups",
+      "name": "Manage Groups (Admin/Teacher)",
+      "description": "Create, edit, and delete groups. Add or remove members from a group. View group membership details.",
+      "category": "People",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/people",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/people", "description": "Open people management page" },
+        { "step": 2, "action": "interact", "description": "Switch to Groups tab to see all groups in a grid" },
+        { "step": 3, "action": "click", "target": "New Group button", "description": "Open create group sheet" },
+        { "step": 4, "action": "fill_form", "fields": { "name": { "type": "text", "sample_value": "Grupo A - Matemáticas" }, "description": { "type": "text", "sample_value": "Grupo de matemáticas nivel básico" } }, "description": "Fill group details" },
+        { "step": 5, "action": "click", "target": "Save button", "api_call": "mutation createGroup", "description": "Create the group" },
+        { "step": 6, "action": "click", "target": "Group card to open detail", "description": "View group details and members" },
+        { "step": 7, "action": "interact", "description": "Add or remove members from the group" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Delete group with existing attendance records", "expected_behavior": "Soft delete — records preserved" }
+      ]
+    },
+    {
+      "id": "people-csv-import",
+      "name": "Import Users from CSV (Admin)",
+      "description": "Admin uploads a CSV file to bulk-create or update users in the system.",
+      "category": "People",
+      "requires_auth": true,
+      "accessible_roles": ["admin"],
+      "starting_route": "/people",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/people", "description": "Open people management page" },
+        { "step": 2, "action": "click", "target": "Import CSV button", "description": "Open the CSV import sheet" },
+        { "step": 3, "action": "file_upload", "target": "CSV file input", "description": "Upload a CSV with name, email, password, role columns" },
+        { "step": 4, "action": "click", "target": "Import button", "api_call": "mutation importUsers", "description": "Process the CSV import" },
+        { "step": 5, "action": "verify", "description": "Import result shown: N users created, M errors listed" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Invalid CSV format", "expected_behavior": "Validation errors listed per row" },
+        { "trigger": "Duplicate emails in CSV", "expected_behavior": "Skipped rows listed in error summary" }
+      ]
+    },
+    {
+      "id": "blog-view-feed",
+      "name": "Browse Blog Feed",
+      "description": "User browses published blog posts, filters by category, and sees post cards with title, excerpt, author, and reaction counts.",
+      "category": "Blog",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/blog",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/blog", "description": "Open blog page" },
+        { "step": 2, "action": "verify", "description": "Feed shows published posts as cards. Category filter chips at top." },
+        { "step": 3, "action": "click", "target": "Category chip", "description": "Filter posts by category" },
+        { "step": 4, "action": "verify", "description": "Feed updates to show posts in selected category" }
+      ],
+      "error_scenarios": [
+        { "trigger": "No published posts", "expected_behavior": "Empty state message displayed" }
+      ]
+    },
+    {
+      "id": "blog-view-post",
+      "name": "Read a Blog Post",
+      "description": "User opens a blog post to read the full content, see images, react with emojis, and read/write comments and replies.",
+      "category": "Blog",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/blog/:id",
+      "depends_on": ["blog-view-feed"],
+      "steps": [
+        { "step": 1, "action": "click", "target": "Post card on blog feed", "description": "Open post detail", "expected_route": "/blog/:id" },
+        { "step": 2, "action": "verify", "description": "Full post content rendered, images shown, reaction bar visible" },
+        { "step": 3, "action": "click", "target": "Emoji reaction button", "api_call": "mutation toggleReaction", "description": "Add or remove an emoji reaction to the post" },
+        { "step": 4, "action": "fill_form", "fields": { "comment": { "type": "textarea", "sample_value": "Muy buen artículo!" } }, "description": "Write a comment" },
+        { "step": 5, "action": "click", "target": "Comment submit button", "api_call": "mutation addComment", "description": "Post the comment" },
+        { "step": 6, "action": "verify", "description": "Comment appears in the comment list" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Post not found (deleted or invalid ID)", "expected_behavior": "404 state or redirect to blog feed" },
+        { "trigger": "Comment text empty", "expected_behavior": "Submit button disabled or validation error" }
+      ]
+    },
+    {
+      "id": "blog-create-post",
+      "name": "Create a Blog Post",
+      "description": "User writes a new blog post with a title, excerpt, rich content, optional category tags, and optional images. Students submit as draft for review; teachers can publish directly.",
+      "category": "Blog",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/blog/new",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/blog/new", "description": "Open create post page" },
+        { "step": 2, "action": "fill_form", "fields": { "title": { "type": "text", "sample_value": "Novedades del semestre" }, "excerpt": { "type": "text", "sample_value": "Resumen de las actividades..." }, "content": { "type": "richtext", "sample_value": "Contenido del artículo..." }, "categories": { "type": "multiselect", "sample_value": "Noticias" } }, "description": "Fill post details" },
+        { "step": 3, "action": "click", "target": "Publish or Submit for Review button", "api_call": "mutation createPost", "description": "Create the post" },
+        { "step": 4, "action": "verify", "description": "Post created. Teachers/admins see it published; students see it in 'my drafts' pending review." }
+      ],
+      "error_scenarios": [
+        { "trigger": "Title or content empty", "expected_behavior": "Validation error shown" },
+        { "trigger": "Image upload fails", "expected_behavior": "Error toast, post creation can continue without image" }
+      ]
+    },
+    {
+      "id": "blog-draft-queue",
+      "name": "Review Draft Queue (Admin/Teacher)",
+      "description": "Teacher or admin reviews blog posts submitted by students, approving or rejecting each one with an optional note.",
+      "category": "Blog",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/blog/queue",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/blog/queue", "description": "Open draft review queue" },
+        { "step": 2, "action": "verify", "description": "List of student-submitted posts awaiting review" },
+        { "step": 3, "action": "click", "target": "Approve button on a post", "api_call": "mutation reviewDraft (APPROVE)", "description": "Approve the post — it becomes published" },
+        { "step": 4, "action": "click", "target": "Reject button on another post", "description": "Open rejection dialog" },
+        { "step": 5, "action": "fill_form", "fields": { "rejectionNote": { "type": "text", "sample_value": "El contenido no cumple con las normas." } }, "description": "Enter rejection reason" },
+        { "step": 6, "action": "click", "target": "Confirm Reject", "api_call": "mutation reviewDraft (REJECT)", "description": "Post is rejected with a note visible to the author" }
+      ],
+      "error_scenarios": [
+        { "trigger": "No drafts in queue", "expected_behavior": "Empty state message displayed" }
+      ]
+    },
+    {
+      "id": "blog-categories",
+      "name": "Manage Blog Categories (Admin/Teacher)",
+      "description": "Create, rename, and delete blog categories used to organize posts.",
+      "category": "Blog",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/blog/categories",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/blog/categories", "description": "Open category management page" },
+        { "step": 2, "action": "verify", "description": "List of existing categories with edit and delete actions" },
+        { "step": 3, "action": "fill_form", "fields": { "name": { "type": "text", "sample_value": "Deportes" } }, "description": "Enter new category name" },
+        { "step": 4, "action": "click", "target": "Add Category button", "api_call": "mutation createCategory", "description": "Create the category" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Duplicate category name", "expected_behavior": "Error: category already exists" }
+      ]
+    },
+    {
+      "id": "tools-browse",
+      "name": "Browse and Favorite Tools",
+      "description": "User opens the tools section, browses tools grouped by category, pins favorites, and navigates to an individual tool.",
+      "category": "Tools",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/tools",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/tools", "description": "Open tools page" },
+        { "step": 2, "action": "verify", "description": "Tool cards grouped by category. Favorite (star) button on each card." },
+        { "step": 3, "action": "click", "target": "Star/favorite button on a tool", "description": "Toggle tool as favorite" },
+        { "step": 4, "action": "click", "target": "Tool card", "description": "Open the tool", "expected_route": "/tools/:toolId" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "tool-countdown-timer",
+      "name": "Use Countdown Timer",
+      "description": "Set a countdown timer with hours/minutes/seconds. Start, pause, and reset. Plays an alert when time runs out.",
+      "category": "Tools",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/tools/countdown-timer",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/tools/countdown-timer", "description": "Open countdown timer tool" },
+        { "step": 2, "action": "fill_form", "fields": { "minutes": { "type": "number", "sample_value": "5" } }, "description": "Set timer duration" },
+        { "step": 3, "action": "click", "target": "Start button", "description": "Start countdown" },
+        { "step": 4, "action": "verify", "description": "Timer counts down in real time" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "tool-quick-notes",
+      "name": "Use Quick Notes",
+      "description": "Write short notes that are saved to the user's account and persist across sessions.",
+      "category": "Tools",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/tools/quick-notes",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/tools/quick-notes", "description": "Open quick notes tool" },
+        { "step": 2, "action": "fill_form", "fields": { "note": { "type": "textarea", "sample_value": "Recordar revisar tarea de matemáticas" } }, "description": "Write a note" },
+        { "step": 3, "action": "click", "target": "Save note button", "api_call": "mutation createNote", "description": "Save the note" },
+        { "step": 4, "action": "verify", "description": "Note appears in the notes list" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "tool-task-organizer",
+      "name": "Use Task Organizer",
+      "description": "Create a personal to-do list with tasks that can be checked off, reordered by drag-and-drop, and deleted.",
+      "category": "Tools",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/tools/task-organizer",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/tools/task-organizer", "description": "Open task organizer tool" },
+        { "step": 2, "action": "fill_form", "fields": { "task": { "type": "text", "sample_value": "Preparar presentación del lunes" } }, "description": "Enter a task" },
+        { "step": 3, "action": "click", "target": "Add task button", "api_call": "mutation createTaskItem", "description": "Add the task" },
+        { "step": 4, "action": "click", "target": "Checkbox on task", "api_call": "mutation updateTaskItem", "description": "Mark task as completed" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "tool-random-picker",
+      "name": "Random Student Picker (Teacher)",
+      "description": "Teacher uses the random student picker to randomly select a student from an enrolled group, useful for classroom participation.",
+      "category": "Tools",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/tools/random-student-picker",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/tools/random-student-picker", "description": "Open random student picker tool" },
+        { "step": 2, "action": "interact", "description": "Select a group from dropdown" },
+        { "step": 3, "action": "click", "target": "Pick Random Student button", "description": "Animate and display a random student name" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Group has no members", "expected_behavior": "Error or empty state message" }
+      ]
+    },
+    {
+      "id": "tool-text-simplifier",
+      "name": "Text Simplifier (AI)",
+      "description": "Paste complex text and the tool simplifies it using AI, making it easier to read and understand.",
+      "category": "Tools",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/tools/text-simplifier",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/tools/text-simplifier", "description": "Open text simplifier tool" },
+        { "step": 2, "action": "fill_form", "fields": { "text": { "type": "textarea", "sample_value": "El proceso de fotosíntesis involucra..." } }, "description": "Paste complex text" },
+        { "step": 3, "action": "click", "target": "Simplify button", "api_call": "AI text simplification", "description": "Process text with AI" },
+        { "step": 4, "action": "verify", "description": "Simplified text appears below the input" }
+      ],
+      "error_scenarios": [
+        { "trigger": "AI service unavailable", "expected_behavior": "Error toast with fallback message" }
+      ]
+    },
+    {
+      "id": "tool-screenshot-to-text",
+      "name": "Screenshot to Text (OCR)",
+      "description": "Upload an image containing text and extract the text content using OCR (Optical Character Recognition).",
+      "category": "Tools",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/tools/screenshot-to-text",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/tools/screenshot-to-text", "description": "Open screenshot-to-text tool" },
+        { "step": 2, "action": "file_upload", "target": "Image upload area", "description": "Upload a screenshot or image with text" },
+        { "step": 3, "action": "verify", "description": "Extracted text displayed in a text area for copying" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Image has no readable text", "expected_behavior": "Empty extraction result or warning message" }
+      ]
+    },
+    {
+      "id": "tool-other-utilities",
+      "name": "Use Utility Tools",
+      "description": "Access and use utility tools: Image Compressor, Image Format Converter, Password Generator, QR Code Generator, Ruleta (Wheel Spinner), Scientific Calculator, Word/PDF Converter, YouTube Downloader.",
+      "category": "Tools",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher", "student"],
+      "starting_route": "/tools",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/tools", "description": "Open tools page" },
+        { "step": 2, "action": "click", "target": "Any utility tool card", "description": "Open a specific tool" },
+        { "step": 3, "action": "verify", "description": "Tool interface loaded and functional" }
+      ],
+      "error_scenarios": []
+    },
+    {
+      "id": "transcription-list",
+      "name": "View All Recordings (Admin/Teacher)",
+      "description": "Teacher or admin sees the list of all their recorded audio sessions with transcription status indicators.",
+      "category": "AI Transcription",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/transcription",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/transcription", "description": "Open transcription recordings list" },
+        { "step": 2, "action": "verify", "description": "Table of recordings with name, duration, date, and transcription status columns" }
+      ],
+      "error_scenarios": [
+        { "trigger": "No recordings", "expected_behavior": "Empty state with a button to create first recording" }
+      ]
+    },
+    {
+      "id": "transcription-record",
+      "name": "Record and Upload Audio (Admin/Teacher)",
+      "description": "Teacher records audio directly in the browser or uploads an existing audio file. The recording is saved to Cloudinary and a transcription job is triggered.",
+      "category": "AI Transcription",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/transcription/new",
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/transcription/new", "description": "Open new recording page" },
+        { "step": 2, "action": "click", "target": "Start Recording button", "description": "Begin microphone recording" },
+        { "step": 3, "action": "click", "target": "Stop Recording button", "description": "Stop recording" },
+        { "step": 4, "action": "click", "target": "Upload/Save button", "api_call": "mutation createRecording", "description": "Upload recording to Cloudinary and save to database" },
+        { "step": 5, "action": "verify", "description": "Recording saved, transcription status set to 'processing'" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Microphone permission denied", "expected_behavior": "Error message asking user to grant microphone permission" },
+        { "trigger": "Upload fails", "expected_behavior": "Error toast, user can retry" }
+      ]
+    },
+    {
+      "id": "transcription-view",
+      "name": "View Transcription Result",
+      "description": "Teacher opens a completed recording to read the full transcript, listen to the audio, and view or generate an AI summary with key takeaways and action items.",
+      "category": "AI Transcription",
+      "requires_auth": true,
+      "accessible_roles": ["admin", "teacher"],
+      "starting_route": "/transcription/:id",
+      "depends_on": ["transcription-record"],
+      "steps": [
+        { "step": 1, "action": "navigate", "target": "/transcription/:id", "description": "Open recording detail page" },
+        { "step": 2, "action": "verify", "description": "Full transcript displayed with timestamps. Audio player controls available." },
+        { "step": 3, "action": "click", "target": "Generate Summary button", "description": "Open summary prompt sheet" },
+        { "step": 4, "action": "fill_form", "fields": { "prompt": { "type": "textarea", "sample_value": "Resume los puntos clave de esta clase" } }, "description": "Optionally customize the summary prompt" },
+        { "step": 5, "action": "click", "target": "Generate button", "api_call": "mutation generateSummary", "description": "Generate AI summary" },
+        { "step": 6, "action": "verify", "description": "Summary, key takeaways, and action items displayed" }
+      ],
+      "error_scenarios": [
+        { "trigger": "Transcription still processing", "expected_behavior": "Processing status shown, transcript not yet available" },
+        { "trigger": "AI summary generation fails", "expected_behavior": "summaryStatus set to 'failed', error message shown" }
+      ]
+    }
+  ],
+  "permissions": {
+    "roles": ["admin", "teacher", "student"],
+    "guards": [
+      { "guard": "JwtAuthGuard", "description": "Validates JWT access token. All protected routes require this.", "file": "apps/api/src/modules/auth/strategies/jwt.strategy.ts" },
+      { "guard": "PoliciesGuard", "description": "Checks CASL ability from user role against @Can() decorator on resolvers", "location": "apps/api/src/common/" },
+      { "guard": "RequireAbility (frontend)", "description": "React component that redirects to /dashboard if ability.can() returns false", "file": "apps/web/src/router/RequireAbility.tsx" }
+    ]
+  },
+  "limitations": [
+    { "type": "role_restriction", "description": "Students cannot access /people (user/group management) — requires Action.CREATE on Subject.GROUP" },
+    { "type": "role_restriction", "description": "Students cannot access /transcription — requires Action.CREATE on Subject.RECORDING" },
+    { "type": "role_restriction", "description": "Only admins can create, update, or delete users" },
+    { "type": "role_restriction", "description": "Only admins and teachers can approve/reject blog drafts, manage categories, take attendance, export reports" },
+    { "type": "workflow", "description": "Students can only SUBMIT posts (creates draft); posts must be approved by teacher/admin to become published" },
+    { "type": "data", "description": "Soft deletes on User, Group, Post, Category, Comment, Tool, Folder, Recording — records are never permanently removed" },
+    { "type": "ai", "description": "AI summary generation requires a completed transcription first" },
+    { "type": "ai", "description": "Text simplifier and transcription use external AI services (Groq/Gemini) — availability depends on API keys and service uptime" },
+    { "type": "language", "description": "UI is Spanish-first with i18n support for English; all user-facing text goes through react-i18next" }
+  ],
+  "feature_flags": [],
+  "upcoming_features": [],
+  "glossary_candidates": [
+    { "term": "Grupo", "definition": "A class or study group that students belong to and teachers manage for attendance tracking" },
+    { "term": "Asistencia", "definition": "Attendance — the daily record of whether each student was present, absent, late, or excused" },
+    { "term": "Borrador", "definition": "Draft — a blog post that has been written but not yet published; student posts go through a draft/review workflow" },
+    { "term": "Cola de revisión", "definition": "Draft queue — the list of student-submitted posts waiting for teacher/admin approval" },
+    { "term": "Transcripción", "definition": "AI-generated text transcript of an audio recording" },
+    { "term": "Resumen", "definition": "AI-generated summary of a transcription including key takeaways and action items" },
+    { "term": "Herramientas", "definition": "Tools — the suite of productivity utilities available to all users" },
+    { "term": "Favorito", "definition": "A tool that a user has bookmarked for quick access" },
+    { "term": "Reacción", "definition": "An emoji reaction added to a blog post or comment" }
+  ],
+  "role_flow_map": {
+    "admin": {
+      "exclusive_flows": ["people-manage-users", "people-csv-import"],
+      "shared_flows": [
+        "auth-login",
+        "dashboard-admin",
+        "attendance-view-groups",
+        "attendance-take",
+        "attendance-view-report",
+        "attendance-export",
+        "attendance-student-history",
+        "people-manage-groups",
+        "blog-view-feed",
+        "blog-view-post",
+        "blog-create-post",
+        "blog-draft-queue",
+        "blog-categories",
+        "tools-browse",
+        "tool-countdown-timer",
+        "tool-quick-notes",
+        "tool-task-organizer",
+        "tool-random-picker",
+        "tool-text-simplifier",
+        "tool-screenshot-to-text",
+        "tool-other-utilities",
+        "transcription-list",
+        "transcription-record",
+        "transcription-view"
+      ],
+      "blocked_flows": []
+    },
+    "teacher": {
+      "exclusive_flows": [],
+      "shared_flows": [
+        "auth-login",
+        "dashboard-teacher",
+        "attendance-view-groups",
+        "attendance-take",
+        "attendance-view-report",
+        "attendance-export",
+        "attendance-student-history",
+        "people-manage-groups",
+        "blog-view-feed",
+        "blog-view-post",
+        "blog-create-post",
+        "blog-draft-queue",
+        "blog-categories",
+        "tools-browse",
+        "tool-countdown-timer",
+        "tool-quick-notes",
+        "tool-task-organizer",
+        "tool-random-picker",
+        "tool-text-simplifier",
+        "tool-screenshot-to-text",
+        "tool-other-utilities",
+        "transcription-list",
+        "transcription-record",
+        "transcription-view"
+      ],
+      "blocked_flows": ["people-manage-users", "people-csv-import"]
+    },
+    "student": {
+      "exclusive_flows": [],
+      "shared_flows": [
+        "auth-login",
+        "dashboard-student",
+        "attendance-view-groups",
+        "attendance-view-report",
+        "attendance-student-history",
+        "blog-view-feed",
+        "blog-view-post",
+        "blog-create-post",
+        "tools-browse",
+        "tool-countdown-timer",
+        "tool-quick-notes",
+        "tool-task-organizer",
+        "tool-text-simplifier",
+        "tool-screenshot-to-text",
+        "tool-other-utilities"
+      ],
+      "blocked_flows": [
+        "people-manage-users",
+        "people-manage-groups",
+        "people-csv-import",
+        "attendance-take",
+        "attendance-export",
+        "blog-draft-queue",
+        "blog-categories",
+        "tool-random-picker",
+        "transcription-list",
+        "transcription-record",
+        "transcription-view"
+      ]
+    }
+  }
+}
