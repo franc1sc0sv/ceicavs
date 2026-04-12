@@ -10,3 +10,10 @@ dist
 # Generated files
 packages/db/src/types.ts
 packages/db/src/generated/
+
+# Playwright MCP temp files
+.playwright-mcp/
+
+# Documentation intermediates
+docs/ceicavs-documentation.html
+files/
