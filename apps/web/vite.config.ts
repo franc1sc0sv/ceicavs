@@ -22,6 +22,10 @@ export default defineConfig({
   optimizeDeps: {
     include: ['@casl/ability'],
   },
+  build: {
+    outDir: path.resolve(__dirname, '../../dist'),
+    emptyOutDir: true,
+  },
   worker: {
     format: 'es',
   },
