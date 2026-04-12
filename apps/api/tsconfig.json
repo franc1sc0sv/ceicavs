@@ -18,8 +18,6 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@ceicavs/shared": ["../../packages/shared/src/index.ts"],
-      "@ceicavs/db": ["../../packages/db/src/index.ts"],
       "@ceicavs/db/enums": ["../../packages/db/src/generated/client/enums.ts"]
     }
   }

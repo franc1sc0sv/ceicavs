@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "nest start --watch --exec tsx",
+    "prebuild": "pnpm --filter @ceicavs/db build",
     "build": "nest build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
