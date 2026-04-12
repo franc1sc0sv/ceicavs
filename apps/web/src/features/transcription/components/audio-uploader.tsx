@@ -222,7 +222,7 @@ export function AudioUploader({ onAudioReady, disabled }: AudioUploaderProps) {
       <TabsContent value="record" className="mt-4 flex flex-col gap-4">
         <Select
           value={selectedDeviceId}
-          onValueChange={setSelectedDeviceId}
+          onValueChange={(value) => { if (value !== null) setSelectedDeviceId(value) }}
           disabled={isRecording || disabled}
         >
           <SelectTrigger className="gap-2">
