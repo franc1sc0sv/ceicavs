@@ -16,9 +16,6 @@
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@ceicavs/db/enums": ["../../packages/db/src/generated/client/enums.ts"]
-    }
+    "noFallthroughCasesInSwitch": true
   }
 }

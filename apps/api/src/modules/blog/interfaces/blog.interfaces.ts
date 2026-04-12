@@ -1,4 +1,4 @@
-import type { PostStatus } from '@ceicavs/db/enums'
+import type { PostStatus } from '@ceicavs/db'
 
 export type { PostStatus }
 

@@ -1,4 +1,4 @@
-import type { AttendanceStatus } from '@ceicavs/db/enums'
+import type { AttendanceStatus } from '@ceicavs/db'
 import type { ExportJobStatus } from '../enums/export-job-status.enum'
 
 export type { AttendanceStatus }
