@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm --filter @ceicavs/shared build && pnpm --filter @ceicavs/web build && cp -r apps/web/dist dist",
+  "buildCommand": "pnpm --filter @ceicavs/shared build && pnpm --filter @ceicavs/web build",
   "outputDirectory": "dist",
   "installCommand": "pnpm install",
   "framework": null,

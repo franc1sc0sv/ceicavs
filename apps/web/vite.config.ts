@@ -31,4 +31,8 @@ export default defineConfig({
   preview: {
     headers: crossOriginHeaders,
   },
+  build: {
+    outDir: path.resolve(__dirname, '../../dist'),
+    emptyOutDir: true,
+  },
 })
