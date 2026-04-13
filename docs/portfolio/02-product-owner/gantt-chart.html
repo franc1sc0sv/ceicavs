@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama de Gantt — CEICAVS</title>
+  <link rel="stylesheet" href="../_shared/design.css">
+  <style>
+    .gantt-wrapper {
+      overflow-x: auto;
+    }
+    .gantt-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.72rem;
+      table-layout: fixed;
+    }
+    .gantt-table th {
+      background: var(--navy);
+      color: #fff;
+      padding: 2.5mm 1.5mm;
+      text-align: center;
+      font-size: 0.68rem;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .gantt-table th.task-col {
+      text-align: left;
+      padding-left: 3mm;
+      width: 52mm;
+    }
+    .gantt-table td {
+      padding: 1.5mm 1mm;
+      border: 1px solid var(--gray-200);
+      text-align: center;
+      vertical-align: middle;
+    }
+    .gantt-table td.task-name {
+      text-align: left;
+      padding: 1.5mm 3mm;
+      font-size: 0.76rem;
+      color: var(--gray-800);
+      vertical-align: middle;
+    }
+    .gantt-table tbody tr:nth-child(odd) td {
+      background: var(--gray-50);
+    }
+    .gantt-table tbody tr:nth-child(odd) td.filled-s1 { background: #bfdbfe; }
+    .gantt-table tbody tr:nth-child(odd) td.filled-s2 { background: #ddd6fe; }
+    .gantt-table tbody tr:nth-child(odd) td.filled-s3 { background: #fde68a; }
+    .gantt-table tbody tr:nth-child(odd) td.filled-s4 { background: #a7f3d0; }
+    .gantt-table tbody tr:nth-child(odd) td.filled-s5 { background: #fecaca; }
+    .gantt-table tbody tr:nth-child(even) td.filled-s1 { background: #93c5fd; }
+    .gantt-table tbody tr:nth-child(even) td.filled-s2 { background: #c4b5fd; }
+    .gantt-table tbody tr:nth-child(even) td.filled-s3 { background: #fcd34d; }
+    .gantt-table tbody tr:nth-child(even) td.filled-s4 { background: #6ee7b7; }
+    .gantt-table tbody tr:nth-child(even) td.filled-s5 { background: #fca5a5; }
+    .milestone-cell {
+      font-size: 0.85rem;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .sprint-group-header td {
+      background: var(--gray-100) !important;
+      font-weight: 700;
+      font-size: 0.73rem;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-top: 2px solid var(--navy) !important;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4mm 8mm;
+      margin-top: 5mm;
+      font-size: 0.8rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 2mm;
+    }
+    .legend-box {
+      width: 8mm;
+      height: 4mm;
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+    .s1-box { background: #3b82f6; }
+    .s2-box { background: #8b5cf6; }
+    .s3-box { background: #f59e0b; }
+    .s4-box { background: #10b981; }
+    .s5-box { background: #ef4444; }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-institution">Centro Escolar CEICAVS &mdash; Servicio Social</div>
+  <div class="cover-title">Diagrama de Gantt</div>
+  <div class="cover-subtitle">Planificaci&oacute;n y seguimiento del proyecto Sistema Escolar CEICAVS</div>
+  <div class="cover-meta">
+    <strong>Proyecto:</strong>     <span>Sistema Escolar CEICAVS</span>
+    <strong>Responsable:</strong>  <span>Francisco Hernandez</span>
+    <strong>Rol:</strong>          <span>Product Owner / Team Lead</span>
+    <strong>Periodo:</strong>      <span>16 de febrero &mdash; 25 de abril de 2025</span>
+    <strong>Versi&oacute;n:</strong><span>1.0</span>
+    <strong>Fecha:</strong>        <span>Abril 2025</span>
+  </div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Gesti&oacute;n de Proyecto</div>
+    <div class="doc-title">Diagrama de Gantt</div>
+  </div>
+  <div class="doc-header-right">
+    Sistema Escolar CEICAVS<br>
+    Febrero &mdash; Abril 2025
+  </div>
+</div>
+
+<h2>Resumen del Proyecto</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Atributo</th>
+      <th>Detalle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Nombre del proyecto</td><td>Sistema Escolar CEICAVS</td></tr>
+    <tr><td>Metodolog&iacute;a</td><td>Scrum &mdash; 5 sprints de 2 semanas</td></tr>
+    <tr><td>Fecha de inicio</td><td>16 de febrero de 2025</td></tr>
+    <tr><td>Fecha de cierre</td><td>25 de abril de 2025</td></tr>
+    <tr><td>Duraci&oacute;n total</td><td>10 semanas (70 d&iacute;as h&aacute;biles)</td></tr>
+    <tr><td>Responsable</td><td>Francisco Hernandez</td></tr>
+    <tr><td>Herramientas de seguimiento</td><td>Linear (tickets), GitHub (control de versiones)</td></tr>
+  </tbody>
+</table>
+
+<h2>Estructura de Sprints</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:10%">Sprint</th>
+      <th style="width:28%">Per&iacute;odo</th>
+      <th>Enfoque principal</th>
+      <th style="width:12%">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sprint 1</td>
+      <td>16 feb &mdash; 01 mar 2025</td>
+      <td>Fundamentos y Sistema de Asistencia</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>Sprint 2</td>
+      <td>02 mar &mdash; 15 mar 2025</td>
+      <td>M&oacute;dulos Educativos y Docentes</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>Sprint 3</td>
+      <td>16 mar &mdash; 29 mar 2025</td>
+      <td>Integraci&oacute;n de IA y Transcripci&oacute;n</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>Sprint 4</td>
+      <td>30 mar &mdash; 12 abr 2025</td>
+      <td>Aseguramiento de Calidad (QA)</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>Sprint 5</td>
+      <td>13 abr &mdash; 25 abr 2025</td>
+      <td>Documentaci&oacute;n, Capacitaci&oacute;n y Despliegue</td>
+      <td><span class="badge badge-wip">En progreso</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- PAGE 2: Gantt -->
+<div class="page-break"></div>
+<h2>Cronograma de Actividades</h2>
+
+<div class="gantt-wrapper">
+<table class="gantt-table">
+  <thead>
+    <tr>
+      <th class="task-col">Actividad</th>
+      <th>W1<br><small>16-22 feb</small></th>
+      <th>W2<br><small>23 feb-01 mar</small></th>
+      <th>W3<br><small>02-08 mar</small></th>
+      <th>W4<br><small>09-15 mar</small></th>
+      <th>W5<br><small>16-22 mar</small></th>
+      <th>W6<br><small>23-29 mar</small></th>
+      <th>W7<br><small>30 mar-05 abr</small></th>
+      <th>W8<br><small>06-12 abr</small></th>
+      <th>W9<br><small>13-19 abr</small></th>
+      <th>W10<br><small>20-25 abr</small></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- Sprint 1 -->
+    <tr class="sprint-group-header">
+      <td colspan="11">Sprint 1 &mdash; Fundamentos y Sistema de Asistencia</td>
+    </tr>
+    <tr>
+      <td class="task-name">Configuraci&oacute;n repositorio Git y entorno</td>
+      <td class="filled-s1"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Dise&ntilde;o de base de datos (ERD)</td>
+      <td class="filled-s1"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">API de autenticaci&oacute;n (Login/Roles)</td>
+      <td class="filled-s1"></td>
+      <td class="filled-s1"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Maquetaci&oacute;n Layout y Dashboard</td>
+      <td class="filled-s1"></td>
+      <td class="filled-s1"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Sistema de asistencia (Check-in/Check-out)</td>
+      <td></td>
+      <td class="filled-s1 milestone-cell">&#9679;</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+
+    <!-- Sprint 2 -->
+    <tr class="sprint-group-header">
+      <td colspan="11">Sprint 2 &mdash; M&oacute;dulos Educativos y Docentes</td>
+    </tr>
+    <tr>
+      <td class="task-name">Interfaz micro-aprendizaje (feed)</td>
+      <td></td><td></td>
+      <td class="filled-s2"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Gesti&oacute;n de contenido educativo (blog)</td>
+      <td></td><td></td>
+      <td class="filled-s2"></td>
+      <td class="filled-s2"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Herramientas docentes (14 utilidades)</td>
+      <td></td><td></td>
+      <td class="filled-s2"></td>
+      <td class="filled-s2"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Primera demo funcional con el cliente</td>
+      <td></td><td></td><td></td>
+      <td class="filled-s2 milestone-cell">&#9679;</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+
+    <!-- Sprint 3 -->
+    <tr class="sprint-group-header">
+      <td colspan="11">Sprint 3 &mdash; Integraci&oacute;n de IA y Transcripci&oacute;n</td>
+    </tr>
+    <tr>
+      <td class="task-name">Integraci&oacute;n Transformers.js (Whisper)</td>
+      <td></td><td></td><td></td><td></td>
+      <td class="filled-s3"></td>
+      <td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Flujo de transcripci&oacute;n (carga &rarr; texto)</td>
+      <td></td><td></td><td></td><td></td>
+      <td class="filled-s3"></td>
+      <td class="filled-s3"></td>
+      <td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Generaci&oacute;n de res&uacute;menes con Groq/Gemini</td>
+      <td></td><td></td><td></td><td></td>
+      <td class="filled-s3"></td>
+      <td class="filled-s3"></td>
+      <td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Optimizaci&oacute;n y manejo de errores en API</td>
+      <td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s3 milestone-cell">&#9679;</td>
+      <td></td><td></td><td></td><td></td>
+    </tr>
+
+    <!-- Sprint 4 -->
+    <tr class="sprint-group-header">
+      <td colspan="11">Sprint 4 &mdash; Aseguramiento de Calidad (QA)</td>
+    </tr>
+    <tr>
+      <td class="task-name">Ejecuci&oacute;n de casos de prueba manuales</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s4"></td>
+      <td class="filled-s4"></td>
+      <td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Correcci&oacute;n de bugs reportados</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s4"></td>
+      <td class="filled-s4"></td>
+      <td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Mejoras de UX y refinamiento visual</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s4"></td>
+      <td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Validaci&oacute;n de permisos y seguridad</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s4 milestone-cell">&#9679;</td>
+      <td></td><td></td>
+    </tr>
+
+    <!-- Sprint 5 -->
+    <tr class="sprint-group-header">
+      <td colspan="11">Sprint 5 &mdash; Documentaci&oacute;n, Capacitaci&oacute;n y Despliegue</td>
+    </tr>
+    <tr>
+      <td class="task-name">Manual de Usuario y Manual T&eacute;cnico</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s5"></td>
+      <td class="filled-s5"></td>
+    </tr>
+    <tr>
+      <td class="task-name">Videos tutoriales y capacitaciones</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s5"></td>
+      <td class="filled-s5"></td>
+    </tr>
+    <tr>
+      <td class="task-name">Despliegue en producci&oacute;n (Vercel + Render)</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s5"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="task-name">Entrega final y portafolio de evidencias</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="filled-s5 milestone-cell">&#9679;</td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+
+<p style="font-size:0.72rem; color:var(--gray-600); margin-top:2mm;">
+  <strong>&#9679;</strong> indica un hito o entrega al cierre del sprint.
+</p>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-box s1-box"></div> Sprint 1 (16 feb &mdash; 01 mar)</div>
+  <div class="legend-item"><div class="legend-box s2-box"></div> Sprint 2 (02 mar &mdash; 15 mar)</div>
+  <div class="legend-item"><div class="legend-box s3-box"></div> Sprint 3 (16 mar &mdash; 29 mar)</div>
+  <div class="legend-item"><div class="legend-box s4-box"></div> Sprint 4 (30 mar &mdash; 12 abr)</div>
+  <div class="legend-item"><div class="legend-box s5-box"></div> Sprint 5 (13 abr &mdash; 25 abr)</div>
+</div>
+
+<!-- PAGE 3: Milestones -->
+<div class="page-break"></div>
+<h2>Hitos del Proyecto</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:12%">Hito</th>
+      <th style="width:35%">Descripci&oacute;n</th>
+      <th style="width:20%">Fecha</th>
+      <th style="width:15%">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>M-01</td>
+      <td>Sistema de autenticaci&oacute;n y asistencia funcional</td>
+      <td>01 de marzo de 2025</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>M-02</td>
+      <td>Primera demo funcional con el cliente (PO)</td>
+      <td>15 de marzo de 2025</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>M-03</td>
+      <td>Transcripci&oacute;n con IA y generaci&oacute;n de res&uacute;menes operativa</td>
+      <td>29 de marzo de 2025</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>M-04</td>
+      <td>Ciclo QA completado, todos los bugs cr&iacute;ticos cerrados</td>
+      <td>12 de abril de 2025</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>M-05</td>
+      <td>Despliegue en producci&oacute;n y validaci&oacute;n final</td>
+      <td>19 de abril de 2025</td>
+      <td><span class="badge badge-wip">En progreso</span></td>
+    </tr>
+    <tr>
+      <td>M-06</td>
+      <td>Entrega de portafolio de evidencias y carta de finalizaci&oacute;n</td>
+      <td>25 de abril de 2025</td>
+      <td><span class="badge badge-wip">En progreso</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Notas Metodol&oacute;gicas</h2>
+<div class="note">
+  <div class="note-title">Metodolog&iacute;a Scrum adaptada</div>
+  El proyecto se desarrolla bajo una metodolog&iacute;a &aacute;gil Scrum con sprints de dos semanas. Cada sprint concluye con una revisi&oacute;n del entregable y, cuando aplica, una demo ante el cliente (Product Owner). El seguimiento se realiza en Linear para el registro de tickets y GitHub para el control de versiones.
+</div>
+
+</body>
+</html>

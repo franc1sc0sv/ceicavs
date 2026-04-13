@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Definici&oacute;n de Requerimientos — CEICAVS</title>
+  <link rel="stylesheet" href="../_shared/design.css">
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-institution">Centro Escolar CEICAVS &mdash; Servicio Social</div>
+  <div class="cover-title">Documento de Definici&oacute;n de Requerimientos</div>
+  <div class="cover-subtitle">Especificaci&oacute;n funcional y no funcional del Sistema Escolar CEICAVS</div>
+  <div class="cover-meta">
+    <strong>Proyecto:</strong>     <span>Sistema Escolar CEICAVS</span>
+    <strong>Rol:</strong>          <span>Product Owner</span>
+    <strong>Responsable:</strong>  <span>Francisco Hernandez</span>
+    <strong>Versi&oacute;n:</strong><span>1.0</span>
+    <strong>Fecha:</strong>        <span>Abril 2025</span>
+  </div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Product Owner</div>
+    <div class="doc-title">Definici&oacute;n de Requerimientos</div>
+  </div>
+  <div class="doc-header-right">
+    Sistema Escolar CEICAVS<br>
+    Versi&oacute;n 1.0 &mdash; Abril 2025
+  </div>
+</div>
+
+<h2>1. Introducci&oacute;n</h2>
+<p>El presente documento especifica los requerimientos del <strong>Sistema Escolar CEICAVS</strong>, una plataforma web de gesti&oacute;n escolar para el Centro Escolar CEICAVS. El sistema centraliza las operaciones administrativas y pedag&oacute;gicas en una sola aplicaci&oacute;n accesible desde cualquier navegador moderno.</p>
+<p>Este documento sirve como referencia de alcance para el equipo de desarrollo, el Product Owner y los stakeholders del proyecto. Cada requerimiento es trazable a una o m&aacute;s historias de usuario (ver documento <em>Historias de Usuario</em>).</p>
+
+<h2>2. Alcance del Sistema</h2>
+<table>
+  <thead>
+    <tr><th>M&oacute;dulo</th><th>Descripci&oacute;n</th><th>Prioridad</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Autenticaci&oacute;n</td><td>Inicio de sesi&oacute;n, control de acceso por roles (Admin, Docente, Estudiante)</td><td><span class="badge badge-must">Must</span></td></tr>
+    <tr><td>Dashboard</td><td>Panel personalizado por rol con estad&iacute;sticas y accesos r&aacute;pidos</td><td><span class="badge badge-must">Must</span></td></tr>
+    <tr><td>Gesti&oacute;n de Personas</td><td>CRUD de usuarios, importaci&oacute;n CSV, gesti&oacute;n de grupos</td><td><span class="badge badge-must">Must</span></td></tr>
+    <tr><td>Sistema de Asistencia</td><td>Registro, reportes, exportaci&oacute;n e historial individual</td><td><span class="badge badge-must">Must</span></td></tr>
+    <tr><td>Blog Institucional</td><td>Publicaci&oacute;n de art&iacute;culos, flujo de aprobaci&oacute;n, categor&iacute;as, comentarios</td><td><span class="badge badge-must">Must</span></td></tr>
+    <tr><td>Herramientas Educativas</td><td>Cat&aacute;logo de 14 utilidades para uso en clase</td><td><span class="badge badge-should">Should</span></td></tr>
+    <tr><td>Transcripci&oacute;n con IA</td><td>Transcripci&oacute;n de audio en el navegador + generaci&oacute;n de res&uacute;menes con LLM</td><td><span class="badge badge-must">Must</span></td></tr>
+  </tbody>
+</table>
+
+<h2>3. Usuarios del Sistema</h2>
+<table>
+  <thead>
+    <tr><th>Rol</th><th>Descripci&oacute;n</th><th>Permisos principales</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Administrador</strong></td>
+      <td>Personal directivo o t&eacute;cnico con acceso total al sistema</td>
+      <td>CRUD usuarios y grupos, asistencia, blog, herramientas, transcripciones, estad&iacute;sticas globales</td>
+    </tr>
+    <tr>
+      <td><strong>Docente</strong></td>
+      <td>Profesor con acceso a sus grupos y funcionalidades pedag&oacute;gicas</td>
+      <td>Grupos, asistencia, blog (publicar y revisar), herramientas, transcripciones</td>
+    </tr>
+    <tr>
+      <td><strong>Estudiante</strong></td>
+      <td>Alumno con acceso de consulta y participaci&oacute;n limitada</td>
+      <td>Ver propia asistencia, leer blog, enviar publicaciones para revisi&oacute;n, herramientas</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- PAGE 2: Functional Requirements -->
+<div class="page-break"></div>
+<h2>4. Requerimientos Funcionales</h2>
+
+<h3>RF-01 a RF-05: Autenticaci&oacute;n y Autorizaci&oacute;n</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Prioridad</th><th style="width:10%">Historia</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF-01</td>
+      <td>El sistema debe autenticar usuarios mediante correo electr&oacute;nico y contrase&ntilde;a, emitiendo tokens JWT de acceso (15 min) y refresco (7 d&iacute;as).</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-001</td>
+    </tr>
+    <tr>
+      <td>RF-02</td>
+      <td>El sistema debe renovar el token de acceso autom&aacute;ticamente usando el token de refresco antes de que expire la sesi&oacute;n.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-001</td>
+    </tr>
+    <tr>
+      <td>RF-03</td>
+      <td>El sistema debe controlar el acceso a cada operaci&oacute;n mediante la librer&iacute;a CASL seg&uacute;n el rol del usuario autenticado.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-002</td>
+    </tr>
+    <tr>
+      <td>RF-04</td>
+      <td>El frontend debe ocultar rutas y elementos de interfaz no permitidos para el rol activo usando el componente &lt;Can&gt;.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-002</td>
+    </tr>
+    <tr>
+      <td>RF-05</td>
+      <td>El backend debe rechazar con HTTP 403 cualquier operaci&oacute;n que el rol del usuario no tenga permitida, independientemente del frontend.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-002</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>RF-06 a RF-10: Gesti&oacute;n de Personas</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Prioridad</th><th style="width:10%">Historia</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF-06</td>
+      <td>El administrador debe poder crear, editar y eliminar (soft delete) cuentas de usuario con nombre, correo, contrase&ntilde;a cifrada y rol.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-006</td>
+    </tr>
+    <tr>
+      <td>RF-07</td>
+      <td>El sistema debe permitir la importaci&oacute;n masiva de usuarios desde archivos CSV con validaci&oacute;n de formato y detecci&oacute;n de duplicados.</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-007</td>
+    </tr>
+    <tr>
+      <td>RF-08</td>
+      <td>El administrador y el docente deben poder crear grupos, asignar nombre y agregar o remover miembros.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-008</td>
+    </tr>
+    <tr>
+      <td>RF-09</td>
+      <td>La lista de usuarios debe soportar b&uacute;squeda por nombre o correo y filtrado por rol.</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-006</td>
+    </tr>
+    <tr>
+      <td>RF-10</td>
+      <td>El sistema debe permitir la eliminaci&oacute;n en masa de usuarios seleccionados.</td>
+      <td><span class="badge badge-could">Could</span></td>
+      <td>US-006</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>RF-11 a RF-16: Sistema de Asistencia</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Prioridad</th><th style="width:10%">Historia</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF-11</td>
+      <td>El docente debe poder registrar asistencia para cada estudiante de un grupo con estado: Presente, Ausente, Tardanza o Justificado.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-009</td>
+    </tr>
+    <tr>
+      <td>RF-12</td>
+      <td>El sistema debe almacenar la fecha de cada registro con la hora del servidor para evitar manipulaci&oacute;n.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-009</td>
+    </tr>
+    <tr>
+      <td>RF-13</td>
+      <td>El sistema debe permitir ver reportes de asistencia por per&iacute;odo (semanal, mensual, personalizado) para un grupo.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-010</td>
+    </tr>
+    <tr>
+      <td>RF-14</td>
+      <td>El estudiante solo puede ver su propia fila en el reporte de asistencia del grupo.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-011</td>
+    </tr>
+    <tr>
+      <td>RF-15</td>
+      <td>El sistema debe generar un historial detallado de asistencia por estudiante individual.</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-011</td>
+    </tr>
+    <tr>
+      <td>RF-16</td>
+      <td>El sistema debe permitir exportar el reporte de asistencia en formato CSV o PDF.</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-012</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- PAGE 3: Blog, Tools, Transcription -->
+<div class="page-break"></div>
+<h3>RF-17 a RF-22: Blog Institucional</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Prioridad</th><th style="width:10%">Historia</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF-17</td>
+      <td>El sistema debe mostrar un feed de publicaciones publicadas con filtrado por categor&iacute;a y paginaci&oacute;n.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-013</td>
+    </tr>
+    <tr>
+      <td>RF-18</td>
+      <td>Administradores y docentes deben poder publicar art&iacute;culos directamente; los estudiantes deben enviarlos para revisi&oacute;n.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-014, US-015</td>
+    </tr>
+    <tr>
+      <td>RF-19</td>
+      <td>El sistema debe mantener una cola de publicaciones pendientes de revisi&oacute;n accesible para admin y docentes.</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-016</td>
+    </tr>
+    <tr>
+      <td>RF-20</td>
+      <td>El sistema debe notificar al estudiante cuando su publicaci&oacute;n es aprobada o rechazada (visible en la secci&oacute;n &laquo;Mis Borradores&raquo;).</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-016</td>
+    </tr>
+    <tr>
+      <td>RF-21</td>
+      <td>Los usuarios autenticados deben poder reaccionar a publicaciones con emojis y agregar comentarios con anidaci&oacute;n de un nivel.</td>
+      <td><span class="badge badge-could">Could</span></td>
+      <td>US-017</td>
+    </tr>
+    <tr>
+      <td>RF-22</td>
+      <td>El sistema debe permitir crear, editar y eliminar categor&iacute;as del blog (solo admin y docente).</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-018</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>RF-23 a RF-26: Herramientas Educativas</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Prioridad</th><th style="width:10%">Historia</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF-23</td>
+      <td>El sistema debe ofrecer un cat&aacute;logo con 14 herramientas educativas accesibles desde el navegador sin instalaci&oacute;n adicional.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-019</td>
+    </tr>
+    <tr>
+      <td>RF-24</td>
+      <td>El usuario debe poder marcar herramientas como favoritas para acceso r&aacute;pido desde el dashboard.</td>
+      <td><span class="badge badge-could">Could</span></td>
+      <td>US-019</td>
+    </tr>
+    <tr>
+      <td>RF-25</td>
+      <td>El Organizador de Tareas y las Notas R&aacute;pidas deben sincronizar su estado en la base de datos por usuario.</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-020</td>
+    </tr>
+    <tr>
+      <td>RF-26</td>
+      <td>El Selector de Estudiante Al Azar debe leer los grupos del usuario autenticado para seleccionar de forma aleatoria.</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-021</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>RF-27 a RF-30: Transcripci&oacute;n con Inteligencia Artificial</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Prioridad</th><th style="width:10%">Historia</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF-27</td>
+      <td>El sistema debe transcribir archivos de audio (MP3, WAV, M4A) directamente en el navegador usando el modelo Whisper ONNX via Web Worker.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-024</td>
+    </tr>
+    <tr>
+      <td>RF-28</td>
+      <td>El progreso de la transcripci&oacute;n debe mostrarse en tiempo real al usuario sin bloquear la interfaz.</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-024</td>
+    </tr>
+    <tr>
+      <td>RF-29</td>
+      <td>El backend debe generar un resumen estructurado (resumen, puntos clave, elementos de acci&oacute;n) de la transcripci&oacute;n usando un proveedor LLM (Groq como primario, Gemini como respaldo).</td>
+      <td><span class="badge badge-must">Must</span></td>
+      <td>US-026</td>
+    </tr>
+    <tr>
+      <td>RF-30</td>
+      <td>El usuario debe poder editar el texto de la transcripci&oacute;n y guardar los cambios.</td>
+      <td><span class="badge badge-should">Should</span></td>
+      <td>US-027</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- PAGE 4: Non-Functional Requirements -->
+<div class="page-break"></div>
+<h2>5. Requerimientos No Funcionales</h2>
+
+<h3>Rendimiento</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>RNF-01</td><td>Las p&aacute;ginas de la aplicaci&oacute;n deben cargarse en menos de 3 segundos en una conexi&oacute;n de 10 Mbps.</td></tr>
+    <tr><td>RNF-02</td><td>Las consultas GraphQL deben responder en menos de 500ms para operaciones de lectura simples.</td></tr>
+    <tr><td>RNF-03</td><td>La transcripci&oacute;n de un audio de 1 minuto no debe superar los 90 segundos de procesamiento en el navegador.</td></tr>
+  </tbody>
+</table>
+
+<h3>Seguridad</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>RNF-04</td><td>Las contrase&ntilde;as deben almacenarse hasheadas con bcrypt (factor de costo m&iacute;nimo 10).</td></tr>
+    <tr><td>RNF-05</td><td>Toda la comunicaci&oacute;n entre el cliente y la API debe realizarse mediante HTTPS.</td></tr>
+    <tr><td>RNF-06</td><td>El sistema debe aplicar validaci&oacute;n de entrada en el backend para prevenir inyecciones y datos malformados.</td></tr>
+    <tr><td>RNF-07</td><td>La autorizaci&oacute;n CASL debe verificarse tanto en el frontend (UX) como en el backend (seguridad), sin depender exclusivamente de uno.</td></tr>
+  </tbody>
+</table>
+
+<h3>Disponibilidad y Despliegue</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>RNF-08</td><td>El frontend debe estar desplegado en Vercel con disponibilidad m&iacute;nima del 99% (SLA de la plataforma).</td></tr>
+    <tr><td>RNF-09</td><td>El backend debe estar desplegado en Render con reinicio autom&aacute;tico ante ca&iacute;das.</td></tr>
+    <tr><td>RNF-10</td><td>La base de datos PostgreSQL debe ser accesible desde el backend mediante variables de entorno seguras (no hardcoded).</td></tr>
+  </tbody>
+</table>
+
+<h3>Usabilidad</h3>
+<table>
+  <thead>
+    <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>RNF-11</td><td>La interfaz debe ser completamente en espa&ntilde;ol y adaptada al contexto educativo del Centro Escolar CEICAVS.</td></tr>
+    <tr><td>RNF-12</td><td>La aplicaci&oacute;n debe ser responsiva y usable en pantallas desde 1024px de ancho.</td></tr>
+  </tbody>
+</table>
+
+<h2>6. Restricciones y Supuestos</h2>
+
+<h3>Restricciones</h3>
+<ul>
+  <li>La plataforma no incluye recuperaci&oacute;n autom&aacute;tica de contrase&ntilde;as (el administrador debe realizarlo manualmente).</li>
+  <li>No se implementar&aacute; versi&oacute;n m&oacute;vil nativa (iOS/Android); solo aplicaci&oacute;n web responsiva.</li>
+  <li>La transcripci&oacute;n funciona &uacute;nicamente en navegadores con soporte para WebGPU o WASM (Chrome 113+, Firefox 113+).</li>
+  <li>No se incluye notificaciones en tiempo real (WebSockets); el estado se actualiza por recarga o polling.</li>
+  <li>El idioma de la plataforma es exclusivamente espa&ntilde;ol; no hay selector de idioma.</li>
+</ul>
+
+<h3>Supuestos</h3>
+<ul>
+  <li>Los usuarios del sistema cuentan con dispositivos con conexi&oacute;n a internet y navegador moderno.</li>
+  <li>La administraci&oacute;n de las API keys (Groq, Gemini) es responsabilidad del administrador t&eacute;cnico del Centro Escolar.</li>
+  <li>Los datos existentes del Centro Escolar (alumnos, grupos) se migrar&aacute;n manualmente o mediante importaci&oacute;n CSV.</li>
+  <li>Las credenciales de producci&oacute;n (DATABASE_URL, JWT secrets) se configuran en las variables de entorno de Vercel y Render.</li>
+</ul>
+
+</body>
+</html>

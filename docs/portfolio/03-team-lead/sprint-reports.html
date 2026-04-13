@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportes de Seguimiento de Sprint — CEICAVS</title>
+  <link rel="stylesheet" href="../_shared/design.css">
+  <style>
+    .velocity-bar-container {
+      height: 6mm;
+      background: var(--gray-200);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 1mm 0;
+    }
+    .velocity-bar {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3mm;
+      margin: 3mm 0;
+    }
+    .metric-box {
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      padding: 3mm;
+      text-align: center;
+    }
+    .metric-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .metric-label {
+      font-size: 0.7rem;
+      color: var(--gray-600);
+      margin-top: 1mm;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-institution">Centro Escolar CEICAVS &mdash; Servicio Social</div>
+  <div class="cover-title">Reportes de Seguimiento de Sprint</div>
+  <div class="cover-subtitle">Registro de avance, entregables y m&eacute;tricas por sprint</div>
+  <div class="cover-meta">
+    <strong>Proyecto:</strong>     <span>Sistema Escolar CEICAVS</span>
+    <strong>Rol:</strong>          <span>Team Lead / Scrum Master</span>
+    <strong>Responsable:</strong>  <span>Francisco Hernandez</span>
+    <strong>Periodo:</strong>      <span>16 febrero &mdash; 25 abril 2025</span>
+    <strong>Sprints:</strong>      <span>5 sprints de 2 semanas</span>
+    <strong>Versi&oacute;n:</strong><span>1.0</span>
+  </div>
+</div>
+
+<!-- SPRINT 1 -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Team Lead &mdash; Seguimiento</div>
+    <div class="doc-title">Sprint 1: Fundamentos y Sistema de Asistencia</div>
+  </div>
+  <div class="doc-header-right">
+    16 feb &mdash; 01 mar 2025<br>
+    <span class="badge badge-pass">Completado</span>
+  </div>
+</div>
+
+<div class="metrics-grid no-break">
+  <div class="metric-box">
+    <div class="metric-value">8</div>
+    <div class="metric-label">Tareas planeadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--green)">8</div>
+    <div class="metric-label">Tareas completadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--red)">0</div>
+    <div class="metric-label">Tareas pendientes</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value">100%</div>
+    <div class="metric-label">Velocity</div>
+  </div>
+</div>
+
+<div style="margin-bottom:3mm;">
+  <div style="font-size:0.75rem;color:var(--gray-600);margin-bottom:1mm;">Velocity del sprint</div>
+  <div class="velocity-bar-container">
+    <div class="velocity-bar sprint-1" style="width:100%"></div>
+  </div>
+</div>
+
+<h3>Objetivo del Sprint</h3>
+<p>Establecer los fundamentos del proyecto y entregar el n&uacute;cleo funcional de la plataforma: autenticaci&oacute;n con roles, gesti&oacute;n de personas y grupos, y el sistema completo de registro de asistencia.</p>
+
+<div class="two-col">
+  <div>
+    <h3>Tareas Completadas</h3>
+    <ul class="checklist">
+      <li class="done">Inicializaci&oacute;n del repositorio Git y configuraci&oacute;n de ramas</li>
+      <li class="done">Configuraci&oacute;n del entorno en Linear y estructura de sprints</li>
+      <li class="done">Dise&ntilde;o del ERD y migraci&oacute;n inicial de la base de datos</li>
+      <li class="done">API GraphQL de autenticaci&oacute;n (login, refresh token)</li>
+      <li class="done">Control de acceso por roles con CASL (Admin, Docente, Estudiante)</li>
+      <li class="done">Maquetaci&oacute;n del layout principal y sistema de navegaci&oacute;n</li>
+      <li class="done">Dashboard diferenciado por rol</li>
+      <li class="done">M&oacute;dulo de asistencia: registro, visualizaci&oacute;n e historial</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Blockers Encontrados</h3>
+    <ul>
+      <li><strong>Ninguno.</strong> El sprint se complet&oacute; sin bloqueos significativos.</li>
+    </ul>
+    <h3>Notas del Sprint</h3>
+    <ul>
+      <li>Se decidi&oacute; usar Prisma 7 con driver adapter en lugar de Prisma 5 para compatibilidad con el entorno serverless de Render.</li>
+      <li>La configuraci&oacute;n CASL se centraliz&oacute; en <code>packages/shared</code> desde el inicio para evitar duplicaci&oacute;n.</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Entregable del Sprint 1</h3>
+<p>Sistema funcional de autenticaci&oacute;n con roles, gesti&oacute;n de personas y grupos, y registro de asistencia operativo. Base de datos migrada y API GraphQL documentada autom&aacute;ticamente por NestJS.</p>
+
+<!-- SPRINT 2 -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Team Lead &mdash; Seguimiento</div>
+    <div class="doc-title">Sprint 2: M&oacute;dulos Educativos y Docentes</div>
+  </div>
+  <div class="doc-header-right">
+    02 mar &mdash; 15 mar 2025<br>
+    <span class="badge badge-pass">Completado</span>
+  </div>
+</div>
+
+<div class="metrics-grid no-break">
+  <div class="metric-box">
+    <div class="metric-value">9</div>
+    <div class="metric-label">Tareas planeadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--green)">8</div>
+    <div class="metric-label">Tareas completadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--yellow)">1</div>
+    <div class="metric-label">Movida a S3</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value">89%</div>
+    <div class="metric-label">Velocity</div>
+  </div>
+</div>
+
+<div style="margin-bottom:3mm;">
+  <div style="font-size:0.75rem;color:var(--gray-600);margin-bottom:1mm;">Velocity del sprint</div>
+  <div class="velocity-bar-container">
+    <div class="velocity-bar sprint-2" style="width:89%"></div>
+  </div>
+</div>
+
+<h3>Objetivo del Sprint</h3>
+<p>Desarrollar los m&oacute;dulos de micro-aprendizaje (blog), gesti&oacute;n de contenido y las herramientas educativas para docentes. Realizar la primera demo funcional con el Product Owner.</p>
+
+<div class="two-col">
+  <div>
+    <h3>Tareas Completadas</h3>
+    <ul class="checklist">
+      <li class="done">Feed del blog institucional con filtrado por categor&iacute;a</li>
+      <li class="done">Creaci&oacute;n y publicaci&oacute;n de art&iacute;culos (admin/docente)</li>
+      <li class="done">Flujo de revisi&oacute;n de borradores de estudiantes</li>
+      <li class="done">CRUD de categor&iacute;as del blog</li>
+      <li class="done">Reacciones y comentarios en publicaciones</li>
+      <li class="done">Cat&aacute;logo de 14 herramientas educativas</li>
+      <li class="done">Herramientas: temporizador, calculadora, notas r&aacute;pidas, organizador de tareas</li>
+      <li class="done">Primera demo con el cliente (Product Owner) &mdash; 15 mar</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Tareas Movidas</h3>
+    <ul>
+      <li>Importaci&oacute;n masiva de usuarios desde CSV &rarr; movida al inicio de Sprint 3 por ajuste de prioridades tras la demo.</li>
+    </ul>
+    <h3>Blockers Encontrados</h3>
+    <ul>
+      <li>La integraci&oacute;n del conversor Word/PDF requiri&oacute; una API externa adicional, lo que retras&oacute; esa herramienta en 2 d&iacute;as.</li>
+    </ul>
+    <h3>Retroalimentaci&oacute;n del cliente (demo)</h3>
+    <ul>
+      <li>El cliente solicit&oacute; agregar la funcionalidad de exportaci&oacute;n CSV de asistencia &mdash; agregada al backlog de Sprint 4.</li>
+      <li>Aprobaci&oacute;n del flujo de blog y herramientas sin cambios.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SPRINT 3 -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Team Lead &mdash; Seguimiento</div>
+    <div class="doc-title">Sprint 3: Integraci&oacute;n de IA y Transcripci&oacute;n</div>
+  </div>
+  <div class="doc-header-right">
+    16 mar &mdash; 29 mar 2025<br>
+    <span class="badge badge-pass">Completado</span>
+  </div>
+</div>
+
+<div class="metrics-grid no-break">
+  <div class="metric-box">
+    <div class="metric-value">8</div>
+    <div class="metric-label">Tareas planeadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--green)">8</div>
+    <div class="metric-label">Tareas completadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--red)">0</div>
+    <div class="metric-label">Tareas pendientes</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value">100%</div>
+    <div class="metric-label">Velocity</div>
+  </div>
+</div>
+
+<div style="margin-bottom:3mm;">
+  <div style="font-size:0.75rem;color:var(--gray-600);margin-bottom:1mm;">Velocity del sprint</div>
+  <div class="velocity-bar-container">
+    <div class="velocity-bar sprint-3" style="width:100%"></div>
+  </div>
+</div>
+
+<h3>Objetivo del Sprint</h3>
+<p>Implementar el sistema de transcripci&oacute;n de audio con inteligencia artificial, incluyendo el procesamiento en el navegador con Whisper ONNX y la generaci&oacute;n de res&uacute;menes con LLM (Groq/Gemini). Tambi&eacute;n completar la importaci&oacute;n masiva CSV postergada del sprint anterior.</p>
+
+<div class="two-col">
+  <div>
+    <h3>Tareas Completadas</h3>
+    <ul class="checklist">
+      <li class="done">Importaci&oacute;n masiva de usuarios desde CSV (arrastrada de S2)</li>
+      <li class="done">Integraci&oacute;n de Transformers.js con modelo Whisper ONNX en Web Worker</li>
+      <li class="done">UI de transcripci&oacute;n: carga de audio, progreso en tiempo real</li>
+      <li class="done">API backend para almacenamiento y actualizaci&oacute;n de transcripciones</li>
+      <li class="done">Integraci&oacute;n Groq SDK como proveedor primario de resumen</li>
+      <li class="done">Integraci&oacute;n Google Gemini como proveedor fallback</li>
+      <li class="done">FallbackAIProvider con manejo de rate limit (HTTP 429)</li>
+      <li class="done">Optimizaci&oacute;n: fragmentaci&oacute;n de transcripciones largas (&gt;15 KB)</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Decisiones T&eacute;cnicas</h3>
+    <ul>
+      <li>Se eligi&oacute; <code>@huggingface/transformers</code> v4 sobre la versi&oacute;n anterior <code>@xenova/transformers</code> por mejor soporte WebGPU.</li>
+      <li>El modelo principal es <code>onnx-community/whisper-small</code> (WebGPU); fallback a <code>whisper-base</code> (WASM) para dispositivos sin WebGPU.</li>
+      <li>Groq se eligi&oacute; como proveedor primario por su latencia menor frente a Gemini.</li>
+    </ul>
+    <h3>Blockers Encontrados</h3>
+    <ul>
+      <li>La primera carga del modelo Whisper tarda ~30 segundos en conexiones lentas (cach&eacute; del modelo en el navegador resuelve las cargas posteriores).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SPRINT 4 -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Team Lead &mdash; Seguimiento</div>
+    <div class="doc-title">Sprint 4: Aseguramiento de Calidad (QA)</div>
+  </div>
+  <div class="doc-header-right">
+    30 mar &mdash; 12 abr 2025<br>
+    <span class="badge badge-pass">Completado</span>
+  </div>
+</div>
+
+<div class="metrics-grid no-break">
+  <div class="metric-box">
+    <div class="metric-value">6</div>
+    <div class="metric-label">Tareas planeadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--green)">6</div>
+    <div class="metric-label">Tareas completadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value">12</div>
+    <div class="metric-label">Bugs reportados</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--green)">12</div>
+    <div class="metric-label">Bugs resueltos</div>
+  </div>
+</div>
+
+<div style="margin-bottom:3mm;">
+  <div style="font-size:0.75rem;color:var(--gray-600);margin-bottom:1mm;">Velocity del sprint</div>
+  <div class="velocity-bar-container">
+    <div class="velocity-bar sprint-4" style="width:100%"></div>
+  </div>
+</div>
+
+<h3>Objetivo del Sprint</h3>
+<p>Ejecutar el plan de pruebas funcionales y de usabilidad en todos los m&oacute;dulos. Corregir todos los bugs encontrados y validar permisos de seguridad.</p>
+
+<div class="two-col">
+  <div>
+    <h3>Tareas Completadas</h3>
+    <ul class="checklist">
+      <li class="done">Ejecuci&oacute;n completa del plan de pruebas manuales (50+ casos)</li>
+      <li class="done">Reporte de bugs con severidad y m&oacute;dulo afectado</li>
+      <li class="done">Correcci&oacute;n de los 12 bugs identificados</li>
+      <li class="done">Mejoras de UX: estados de carga, mensajes de error, empty states</li>
+      <li class="done">Validaci&oacute;n de permisos CASL en todos los m&oacute;dulos</li>
+      <li class="done">Exportaci&oacute;n de asistencia en CSV (funcionalidad solicitada en S2)</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Bugs Destacados Corregidos</h3>
+    <ul>
+      <li>El token de refresco no se renovaba correctamente al expirar en segundo plano.</li>
+      <li>La p&aacute;gina de asistencia mostraba fechas en UTC en lugar de hora local.</li>
+      <li>Los comentarios anidados no se eliminaban en cascada al borrar el padre.</li>
+      <li>El selector de estudiante al azar cargaba grupos de otros docentes.</li>
+    </ul>
+    <h3>Cobertura</h3>
+    <ul>
+      <li>100% de los m&oacute;dulos probados manualmente.</li>
+      <li>Los 3 roles (Admin, Docente, Estudiante) verificados en cada flujo.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SPRINT 5 -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Team Lead &mdash; Seguimiento</div>
+    <div class="doc-title">Sprint 5: Documentaci&oacute;n, Capacitaci&oacute;n y Despliegue</div>
+  </div>
+  <div class="doc-header-right">
+    13 abr &mdash; 25 abr 2025<br>
+    <span class="badge badge-wip">En progreso</span>
+  </div>
+</div>
+
+<div class="metrics-grid no-break">
+  <div class="metric-box">
+    <div class="metric-value">7</div>
+    <div class="metric-label">Tareas planeadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--green)">4</div>
+    <div class="metric-label">Completadas</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--yellow)">3</div>
+    <div class="metric-label">En progreso</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value">57%</div>
+    <div class="metric-label">Avance actual</div>
+  </div>
+</div>
+
+<div style="margin-bottom:3mm;">
+  <div style="font-size:0.75rem;color:var(--gray-600);margin-bottom:1mm;">Avance del sprint (al 12 de abril)</div>
+  <div class="velocity-bar-container">
+    <div class="velocity-bar sprint-5" style="width:57%"></div>
+  </div>
+</div>
+
+<h3>Objetivo del Sprint</h3>
+<p>Completar toda la documentaci&oacute;n del proyecto (manual de usuario, manual t&eacute;cnico, portafolio de evidencias), realizar sesiones de capacitaci&oacute;n con el personal del CEICAVS y entregar la plataforma en producci&oacute;n.</p>
+
+<div class="two-col">
+  <div>
+    <h3>Tareas Completadas</h3>
+    <ul class="checklist">
+      <li class="done">Despliegue del backend en Render (producci&oacute;n)</li>
+      <li class="done">Despliegue del frontend en Vercel (producci&oacute;n)</li>
+      <li class="done">Documentaci&oacute;n t&eacute;cnica del sistema</li>
+      <li class="done">Manual de usuario completo con capturas de pantalla</li>
+    </ul>
+    <h3>Tareas en Progreso</h3>
+    <ul>
+      <li>Redacci&oacute;n del portafolio de evidencias de servicio social</li>
+      <li>Grabaci&oacute;n de videos tutoriales</li>
+      <li>Sesi&oacute;n de capacitaci&oacute;n con el personal del CEICAVS</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Proyecci&oacute;n de Cierre</h3>
+    <ul>
+      <li>Fecha estimada de entrega del portafolio: <strong>25 de abril de 2025</strong></li>
+      <li>Capacitaci&oacute;n programada para la tercera semana de abril.</li>
+      <li>Sin bloqueos actuales; velocidad de avance en l&iacute;nea con el plan.</li>
+    </ul>
+    <h3>Notas</h3>
+    <ul>
+      <li>El portafolio de evidencias se compartir&aacute; en la plataforma indicada por el tutor de servicio social.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SUMMARY PAGE -->
+<div class="page-break"></div>
+<h2>Resumen Global del Proyecto</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sprint</th>
+      <th>Per&iacute;odo</th>
+      <th>Planeadas</th>
+      <th>Completadas</th>
+      <th>Velocity</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sprint 1</td>
+      <td>16 feb &mdash; 01 mar</td>
+      <td>8</td>
+      <td>8</td>
+      <td>100%</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>Sprint 2</td>
+      <td>02 mar &mdash; 15 mar</td>
+      <td>9</td>
+      <td>8 (1 a S3)</td>
+      <td>89%</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>Sprint 3</td>
+      <td>16 mar &mdash; 29 mar</td>
+      <td>8</td>
+      <td>8</td>
+      <td>100%</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>Sprint 4</td>
+      <td>30 mar &mdash; 12 abr</td>
+      <td>6</td>
+      <td>6</td>
+      <td>100%</td>
+      <td><span class="badge badge-pass">Completado</span></td>
+    </tr>
+    <tr>
+      <td>Sprint 5</td>
+      <td>13 abr &mdash; 25 abr</td>
+      <td>7</td>
+      <td>4 (3 en curso)</td>
+      <td>57%*</td>
+      <td><span class="badge badge-wip">En progreso</span></td>
+    </tr>
+    <tr style="font-weight:700;">
+      <td>Total</td>
+      <td>&mdash;</td>
+      <td>38</td>
+      <td>34 + 3</td>
+      <td>97%</td>
+      <td>&mdash;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="font-size:0.75rem; color:var(--gray-600);">* Velocity parcial al 12 de abril. Sprint 5 finaliza el 25 de abril.</p>
+
+</body>
+</html>

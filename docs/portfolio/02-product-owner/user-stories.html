@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historias de Usuario — CEICAVS</title>
+  <link rel="stylesheet" href="../_shared/design.css">
+  <style>
+    .story-card {
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      margin-bottom: 5mm;
+      overflow: hidden;
+    }
+    .story-card-header {
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 2.5mm 4mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2mm;
+    }
+    .story-id {
+      font-family: 'Consolas', monospace;
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 0.82rem;
+    }
+    .story-title {
+      font-weight: 600;
+      color: var(--gray-800);
+      flex: 1;
+      padding: 0 4mm;
+    }
+    .story-badges {
+      display: flex;
+      gap: 2mm;
+      flex-wrap: wrap;
+    }
+    .story-body {
+      padding: 3mm 4mm;
+    }
+    .story-narrative {
+      font-style: italic;
+      color: var(--navy-light);
+      margin-bottom: 2.5mm;
+      font-size: 0.85rem;
+      border-left: 3px solid var(--blue);
+      padding-left: 3mm;
+    }
+    .ac-title {
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-600);
+      margin-bottom: 1mm;
+      margin-top: 2mm;
+    }
+    .ac-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .ac-list li {
+      padding-left: 4mm;
+      position: relative;
+      font-size: 0.8rem;
+      margin-bottom: 1mm;
+      color: var(--gray-800);
+    }
+    .ac-list li::before {
+      content: 'AC';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1.6;
+    }
+    .module-section {
+      margin-top: 6mm;
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-institution">Centro Escolar CEICAVS &mdash; Servicio Social</div>
+  <div class="cover-title">Historias de Usuario</div>
+  <div class="cover-subtitle">Definici&oacute;n de requerimientos en formato Scrum para migraci&oacute;n a Linear</div>
+  <div class="cover-meta">
+    <strong>Proyecto:</strong>     <span>Sistema Escolar CEICAVS</span>
+    <strong>Rol:</strong>          <span>Product Owner</span>
+    <strong>Responsable:</strong>  <span>Francisco Hernandez</span>
+    <strong>Total de historias:</strong><span>32</span>
+    <strong>Versi&oacute;n:</strong><span>1.0</span>
+    <strong>Fecha:</strong>        <span>Abril 2025</span>
+  </div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Product Owner &mdash; Backlog</div>
+    <div class="doc-title">Historias de Usuario</div>
+  </div>
+  <div class="doc-header-right">
+    CEICAVS &mdash; 2025<br>
+    32 historias &middot; 5 sprints
+  </div>
+</div>
+
+<div class="note">
+  <div class="note-title">Formato</div>
+  Cada historia sigue el formato: <em>Como [rol], quiero [funcionalidad], para [beneficio]</em>.
+  Prioridad MoSCoW: <span class="badge badge-must">Must</span> imprescindible &middot;
+  <span class="badge badge-should">Should</span> importante &middot;
+  <span class="badge badge-could">Could</span> deseable &middot;
+  <span class="badge badge-wont">Won&apos;t</span> fuera de alcance.
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:9%">ID</th>
+      <th style="width:9%">Sprint</th>
+      <th style="width:14%">M&oacute;dulo</th>
+      <th style="width:11%">Prioridad</th>
+      <th>Resumen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>US-001</td><td>Sprint 1</td><td>Autenticaci&oacute;n</td><td><span class="badge badge-must">Must</span></td><td>Iniciar sesi&oacute;n con correo institucional y contrase&ntilde;a</td></tr>
+    <tr><td>US-002</td><td>Sprint 1</td><td>Autenticaci&oacute;n</td><td><span class="badge badge-must">Must</span></td><td>Control de acceso por rol (Admin / Docente / Estudiante)</td></tr>
+    <tr><td>US-003</td><td>Sprint 1</td><td>Dashboard</td><td><span class="badge badge-must">Must</span></td><td>Panel de administrador con estad&iacute;sticas globales</td></tr>
+    <tr><td>US-004</td><td>Sprint 1</td><td>Dashboard</td><td><span class="badge badge-must">Must</span></td><td>Panel de docente con estad&iacute;sticas de sus grupos</td></tr>
+    <tr><td>US-005</td><td>Sprint 1</td><td>Dashboard</td><td><span class="badge badge-should">Should</span></td><td>Panel de estudiante con resumen de asistencia personal</td></tr>
+    <tr><td>US-006</td><td>Sprint 1</td><td>Personas</td><td><span class="badge badge-must">Must</span></td><td>Crear, editar y eliminar usuarios del sistema</td></tr>
+    <tr><td>US-007</td><td>Sprint 1</td><td>Personas</td><td><span class="badge badge-should">Should</span></td><td>Importar usuarios masivamente desde archivo CSV</td></tr>
+    <tr><td>US-008</td><td>Sprint 1</td><td>Personas</td><td><span class="badge badge-must">Must</span></td><td>Crear y gestionar grupos de estudiantes</td></tr>
+    <tr><td>US-009</td><td>Sprint 1</td><td>Asistencia</td><td><span class="badge badge-must">Must</span></td><td>Registrar asistencia de estudiantes en un grupo</td></tr>
+    <tr><td>US-010</td><td>Sprint 1</td><td>Asistencia</td><td><span class="badge badge-must">Must</span></td><td>Ver reporte de asistencia por per&iacute;odo y grupo</td></tr>
+    <tr><td>US-011</td><td>Sprint 1</td><td>Asistencia</td><td><span class="badge badge-should">Should</span></td><td>Ver historial de asistencia individual del estudiante</td></tr>
+    <tr><td>US-012</td><td>Sprint 1</td><td>Asistencia</td><td><span class="badge badge-should">Should</span></td><td>Exportar reporte de asistencia en CSV o PDF</td></tr>
+    <tr><td>US-013</td><td>Sprint 2</td><td>Blog</td><td><span class="badge badge-must">Must</span></td><td>Ver feed de publicaciones del blog institucional</td></tr>
+    <tr><td>US-014</td><td>Sprint 2</td><td>Blog</td><td><span class="badge badge-must">Must</span></td><td>Crear publicaciones de blog como docente o administrador</td></tr>
+    <tr><td>US-015</td><td>Sprint 2</td><td>Blog</td><td><span class="badge badge-should">Should</span></td><td>Enviar publicaci&oacute;n para revisi&oacute;n como estudiante</td></tr>
+    <tr><td>US-016</td><td>Sprint 2</td><td>Blog</td><td><span class="badge badge-should">Should</span></td><td>Revisar, aprobar o rechazar publicaciones de estudiantes</td></tr>
+    <tr><td>US-017</td><td>Sprint 2</td><td>Blog</td><td><span class="badge badge-could">Could</span></td><td>Reaccionar a publicaciones con emojis y comentar en hilos</td></tr>
+    <tr><td>US-018</td><td>Sprint 2</td><td>Blog</td><td><span class="badge badge-should">Should</span></td><td>Gestionar categor&iacute;as del blog (CRUD)</td></tr>
+    <tr><td>US-019</td><td>Sprint 2</td><td>Herramientas</td><td><span class="badge badge-must">Must</span></td><td>Acceder al cat&aacute;logo de herramientas educativas</td></tr>
+    <tr><td>US-020</td><td>Sprint 2</td><td>Herramientas</td><td><span class="badge badge-must">Must</span></td><td>Usar temporizador y organizador de tareas en clase</td></tr>
+    <tr><td>US-021</td><td>Sprint 2</td><td>Herramientas</td><td><span class="badge badge-should">Should</span></td><td>Seleccionar estudiante al azar con la ruleta del sal&oacute;n</td></tr>
+    <tr><td>US-022</td><td>Sprint 2</td><td>Herramientas</td><td><span class="badge badge-could">Could</span></td><td>Convertir documentos Word a PDF desde la plataforma</td></tr>
+    <tr><td>US-023</td><td>Sprint 2</td><td>Herramientas</td><td><span class="badge badge-could">Could</span></td><td>Generar c&oacute;digos QR personalizados</td></tr>
+    <tr><td>US-024</td><td>Sprint 3</td><td>Transcripci&oacute;n IA</td><td><span class="badge badge-must">Must</span></td><td>Subir archivo de audio para transcribir autom&aacute;ticamente</td></tr>
+    <tr><td>US-025</td><td>Sprint 3</td><td>Transcripci&oacute;n IA</td><td><span class="badge badge-must">Must</span></td><td>Ver transcripci&oacute;n completa del audio procesado</td></tr>
+    <tr><td>US-026</td><td>Sprint 3</td><td>Transcripci&oacute;n IA</td><td><span class="badge badge-must">Must</span></td><td>Generar resumen autom&aacute;tico con puntos clave y tareas</td></tr>
+    <tr><td>US-027</td><td>Sprint 3</td><td>Transcripci&oacute;n IA</td><td><span class="badge badge-should">Should</span></td><td>Editar y corregir la transcripci&oacute;n generada</td></tr>
+    <tr><td>US-028</td><td>Sprint 3</td><td>Transcripci&oacute;n IA</td><td><span class="badge badge-should">Should</span></td><td>Ver listado de todas mis grabaciones con estado</td></tr>
+    <tr><td>US-029</td><td>Sprint 4</td><td>Calidad</td><td><span class="badge badge-must">Must</span></td><td>Verificar que todos los m&oacute;dulos funcionen en producci&oacute;n</td></tr>
+    <tr><td>US-030</td><td>Sprint 4</td><td>Seguridad</td><td><span class="badge badge-must">Must</span></td><td>Garantizar que los permisos CASL se apliquen en todos los roles</td></tr>
+    <tr><td>US-031</td><td>Sprint 5</td><td>Documentaci&oacute;n</td><td><span class="badge badge-must">Must</span></td><td>Consultar el manual de usuario de la plataforma</td></tr>
+    <tr><td>US-032</td><td>Sprint 5</td><td>Capacitaci&oacute;n</td><td><span class="badge badge-must">Must</span></td><td>Recibir capacitaci&oacute;n sobre el uso de la plataforma</td></tr>
+  </tbody>
+</table>
+
+<!-- PAGE 2: Detailed stories - Auth & Dashboard -->
+<div class="page-break"></div>
+<h2>Detalle de Historias &mdash; Sprint 1</h2>
+
+<div class="module-section">
+<h3>Autenticaci&oacute;n</h3>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-001</span>
+    <span class="story-title">Iniciar sesi&oacute;n con correo institucional</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 1</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como usuario del sistema (administrador, docente o estudiante), quiero iniciar sesi&oacute;n con mi correo institucional y contrase&ntilde;a, para acceder a las funcionalidades correspondientes a mi rol.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El formulario de login acepta correo electr&oacute;nico y contrase&ntilde;a.</li>
+      <li>Si las credenciales son correctas, el sistema emite un access token y un refresh token JWT.</li>
+      <li>Si las credenciales son incorrectas, se muestra un mensaje de error sin revelar cu&aacute;l campo es incorrecto.</li>
+      <li>El usuario es redirigido al dashboard apropiado seg&uacute;n su rol.</li>
+      <li>El token es almacenado en localStorage y adjuntado a cada petici&oacute;n GraphQL.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-002</span>
+    <span class="story-title">Control de acceso por rol</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 1</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como administrador del sistema, quiero que cada usuario solo pueda acceder a las funcionalidades permitidas para su rol, para garantizar la seguridad y privacidad de la informaci&oacute;n.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El backend verifica el rol en cada operaci&oacute;n mediante el guard CASL.</li>
+      <li>El frontend oculta rutas y controles no permitidos para el rol activo.</li>
+      <li>Un estudiante que intenta acceder a /people es redirigido al dashboard.</li>
+      <li>Las operaciones de escritura en el backend devuelven 403 si el usuario no tiene permiso.</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Dashboard</h3>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-003</span>
+    <span class="story-title">Panel de administrador con estad&iacute;sticas globales</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 1</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como administrador, quiero ver un panel con estad&iacute;sticas globales de la plataforma al iniciar sesi&oacute;n, para tener visibilidad del estado general del sistema.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El panel muestra el conteo de usuarios por rol (Admin, Docente, Estudiante).</li>
+      <li>Muestra el n&uacute;mero de publicaciones del blog por estado (publicadas, en revisi&oacute;n).</li>
+      <li>Muestra estad&iacute;sticas generales de asistencia y actividad reciente.</li>
+      <li>Incluye accesos r&aacute;pidos a los m&oacute;dulos principales.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-004</span>
+    <span class="story-title">Panel de docente con estad&iacute;sticas de grupos</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 1</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como docente, quiero ver un panel con estad&iacute;sticas de mis grupos al iniciar sesi&oacute;n, para hacer seguimiento r&aacute;pido de la asistencia y actividad de mis estudiantes.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El panel muestra solo los grupos asignados al docente.</li>
+      <li>Muestra el porcentaje de asistencia reciente por grupo.</li>
+      <li>Incluye accesos r&aacute;pidos para tomar asistencia.</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 3: Personas & Asistencia -->
+<div class="page-break"></div>
+<h2>Detalle de Historias &mdash; Sprint 1 (continuaci&oacute;n)</h2>
+
+<h3>Gesti&oacute;n de Personas</h3>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-006</span>
+    <span class="story-title">Crear, editar y eliminar usuarios</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 1</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como administrador, quiero crear, editar y eliminar cuentas de usuario desde el panel de personas, para mantener actualizado el directorio del Centro Escolar.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El formulario de creaci&oacute;n solicita nombre, correo, contrase&ntilde;a y rol.</li>
+      <li>El formulario valida que el correo sea &uacute;nico antes de guardar.</li>
+      <li>La edici&oacute;n permite cambiar nombre, correo, contrase&ntilde;a y rol.</li>
+      <li>La eliminaci&oacute;n es l&oacute;gica (soft delete) y reversible por el administrador.</li>
+      <li>Se puede seleccionar m&uacute;ltiples usuarios para eliminar en masa.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-007</span>
+    <span class="story-title">Importar usuarios desde CSV</span>
+    <div class="story-badges">
+      <span class="badge badge-should">Should</span>
+      <span class="badge badge-pass">Sprint 1</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como administrador, quiero cargar un archivo CSV con informaci&oacute;n de usuarios, para crear m&uacute;ltiples cuentas de forma masiva sin ingresar cada una manualmente.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El sistema acepta archivos CSV con columnas: nombre, correo, contrase&ntilde;a, rol.</li>
+      <li>Se muestra una vista previa de los registros antes de confirmar la importaci&oacute;n.</li>
+      <li>Los registros duplicados (mismo correo) son ignorados con advertencia.</li>
+      <li>Se muestra un resumen de registros creados y omitidos al finalizar.</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Sistema de Asistencia</h3>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-009</span>
+    <span class="story-title">Registrar asistencia de un grupo</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 1</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como docente, quiero marcar el estado de asistencia de cada estudiante en mi grupo, para llevar un registro preciso de la presencia en clase.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El roster muestra todos los estudiantes del grupo con su foto o iniciales.</li>
+      <li>Los estados disponibles son: Presente, Ausente, Tardanza, Justificado.</li>
+      <li>El registro se guarda con la fecha y hora del servidor, no del cliente.</li>
+      <li>No es posible registrar asistencia para una fecha futura.</li>
+      <li>Si ya existe un registro para la fecha, se permite editar.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-010</span>
+    <span class="story-title">Ver reporte de asistencia por per&iacute;odo</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 1</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como docente o administrador, quiero ver un reporte de asistencia del grupo para un per&iacute;odo seleccionado, para identificar patrones de inasistencia y tomar decisiones.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El reporte ofrece filtros por per&iacute;odo: semanal, mensual y personalizado.</li>
+      <li>La tabla muestra por cada estudiante: total de presencias, ausencias, tardanzas y justificados.</li>
+      <li>El estudiante solo puede ver su propia fila en el reporte.</li>
+      <li>Los datos se actualizan al cambiar el filtro de per&iacute;odo sin recargar la p&aacute;gina.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 4: Blog & Tools -->
+<div class="page-break"></div>
+<h2>Detalle de Historias &mdash; Sprint 2</h2>
+
+<h3>Blog Institucional</h3>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-014</span>
+    <span class="story-title">Crear publicaciones de blog</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 2</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como docente o administrador, quiero redactar y publicar art&iacute;culos en el blog institucional, para compartir informaci&oacute;n relevante con la comunidad educativa.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El formulario incluye campos: t&iacute;tulo, extracto, contenido rico, categor&iacute;a e im&aacute;genes.</li>
+      <li>El docente y admin pueden publicar directamente (sin revisi&oacute;n).</li>
+      <li>El estudiante solo puede enviar para revisi&oacute;n; el sistema crea un borrador pendiente.</li>
+      <li>Las im&aacute;genes adjuntas se muestran en el cuerpo de la publicaci&oacute;n.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-016</span>
+    <span class="story-title">Revisar publicaciones de estudiantes</span>
+    <div class="story-badges">
+      <span class="badge badge-should">Should</span>
+      <span class="badge badge-pass">Sprint 2</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como docente o administrador, quiero revisar, aprobar o rechazar las publicaciones enviadas por estudiantes, para mantener la calidad del contenido del blog.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>La cola de revisi&oacute;n muestra todas las publicaciones en estado &laquo;pendiente&raquo;.</li>
+      <li>El revisor puede leer el contenido completo antes de tomar una decisi&oacute;n.</li>
+      <li>Aprobar una publicaci&oacute;n la pone en estado &laquo;publicada&raquo; y la hace visible en el feed.</li>
+      <li>Rechazar requiere una nota explicativa que se muestra al estudiante.</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Herramientas Educativas</h3>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-019</span>
+    <span class="story-title">Acceder al cat&aacute;logo de herramientas</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 2</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como usuario de la plataforma, quiero explorar el cat&aacute;logo de herramientas educativas organizadas por categor&iacute;a, para encontrar r&aacute;pidamente la utilidad que necesito en clase.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El cat&aacute;logo muestra las 14 herramientas disponibles en una cuadr&iacute;cula.</li>
+      <li>Cada herramienta tiene nombre, descripci&oacute;n breve e &iacute;cono de categor&iacute;a.</li>
+      <li>El usuario puede marcar herramientas como favoritas para acceso r&aacute;pido.</li>
+      <li>Las herramientas se abren sin necesidad de instalar software adicional.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 5: AI Transcription -->
+<div class="page-break"></div>
+<h2>Detalle de Historias &mdash; Sprint 3</h2>
+
+<h3>Sistema de Transcripci&oacute;n con IA</h3>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-024</span>
+    <span class="story-title">Subir audio para transcribir autom&aacute;ticamente</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 3</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como docente o administrador, quiero subir un archivo de audio de una reuni&oacute;n o clase, para obtener autom&aacute;ticamente la transcripci&oacute;n del contenido hablado.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El sistema acepta formatos MP3, WAV y M4A.</li>
+      <li>La transcripci&oacute;n se procesa completamente en el navegador usando Whisper ONNX (sin enviar el audio a servidores externos).</li>
+      <li>El progreso de la transcripci&oacute;n se muestra en tiempo real con barra de avance.</li>
+      <li>El resultado se guarda en la plataforma asociado al usuario.</li>
+      <li>En caso de error, se muestra un mensaje descriptivo con opci&oacute;n de reintentar.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-026</span>
+    <span class="story-title">Generar resumen autom&aacute;tico con puntos clave</span>
+    <div class="story-badges">
+      <span class="badge badge-must">Must</span>
+      <span class="badge badge-pass">Sprint 3</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como docente, quiero generar un resumen estructurado de la transcripci&oacute;n con puntos clave y elementos de acci&oacute;n, para aprovechar el contenido de la reuni&oacute;n sin leer el texto completo.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El resumen se genera mediante el proveedor de IA configurado (Groq / Gemini).</li>
+      <li>El resultado incluye: resumen ejecutivo, lista de puntos clave y lista de elementos de acci&oacute;n.</li>
+      <li>La generaci&oacute;n tarda menos de 30 segundos para transcripciones menores a 10,000 palabras.</li>
+      <li>El resumen se muestra en una pesta&ntilde;a separada sin reemplazar la transcripci&oacute;n original.</li>
+      <li>Si el proveedor primario falla por l&iacute;mite de tasa, el sistema usa autom&aacute;ticamente el proveedor alternativo.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="story-card no-break">
+  <div class="story-card-header">
+    <span class="story-id">US-027</span>
+    <span class="story-title">Editar la transcripci&oacute;n generada</span>
+    <div class="story-badges">
+      <span class="badge badge-should">Should</span>
+      <span class="badge badge-pass">Sprint 3</span>
+    </div>
+  </div>
+  <div class="story-body">
+    <p class="story-narrative">Como docente, quiero editar manualmente el texto de una transcripci&oacute;n para corregir errores de reconocimiento, para mejorar la precisi&oacute;n del documento antes de compartirlo.</p>
+    <div class="ac-title">Criterios de Aceptaci&oacute;n</div>
+    <ul class="ac-list">
+      <li>El campo de transcripci&oacute;n es editable directamente en pantalla.</li>
+      <li>Los cambios se guardan expl&iacute;citamente al hacer clic en &laquo;Guardar&raquo;.</li>
+      <li>Si el usuario navega sin guardar, se muestra una advertencia de confirmaci&oacute;n.</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

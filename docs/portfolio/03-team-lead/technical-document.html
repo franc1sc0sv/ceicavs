@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documento T&eacute;cnico del Sistema — CEICAVS</title>
+  <link rel="stylesheet" href="../_shared/design.css">
+  <style>
+    .arch-diagram {
+      font-family: 'Consolas', monospace;
+      font-size: 0.78rem;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-left: 3px solid var(--blue);
+      padding: 4mm 5mm;
+      border-radius: 2px;
+      white-space: pre;
+      line-height: 1.5;
+      margin-bottom: 4mm;
+    }
+    .tech-badge {
+      display: inline-block;
+      background: var(--blue-light);
+      color: #1d4ed8;
+      border-radius: 3px;
+      padding: 0.5px 5px;
+      font-size: 0.72rem;
+      font-family: 'Consolas', monospace;
+      margin: 1px;
+    }
+    .entity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3mm;
+      margin-bottom: 4mm;
+    }
+    .entity-card {
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .entity-card-header {
+      background: var(--navy);
+      color: white;
+      padding: 2mm 3mm;
+      font-weight: 700;
+      font-size: 0.8rem;
+      font-family: 'Consolas', monospace;
+    }
+    .entity-card-body {
+      padding: 2mm 3mm;
+      font-size: 0.73rem;
+      color: var(--gray-800);
+    }
+    .entity-card-body div {
+      padding: 0.5mm 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .entity-card-body div:last-child { border-bottom: none; }
+    .field-pk  { color: var(--yellow); font-weight: 700; }
+    .field-fk  { color: var(--blue); }
+    .flow-step {
+      display: flex;
+      gap: 3mm;
+      align-items: flex-start;
+      margin-bottom: 2mm;
+    }
+    .flow-step-num {
+      width: 6mm;
+      height: 6mm;
+      background: var(--navy);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .flow-step-content {
+      flex: 1;
+      font-size: 0.82rem;
+      padding-top: 0.5mm;
+    }
+    .pipeline-table td {
+      text-align: center;
+      padding: 2mm;
+      font-size: 0.75rem;
+    }
+    .pipeline-arrow {
+      color: var(--blue);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-institution">Centro Escolar CEICAVS &mdash; Servicio Social</div>
+  <div class="cover-title">Documento T&eacute;cnico del Sistema</div>
+  <div class="cover-subtitle">Arquitectura, base de datos, integraciones y despliegue del Sistema Escolar CEICAVS</div>
+  <div class="cover-meta">
+    <strong>Proyecto:</strong>     <span>Sistema Escolar CEICAVS</span>
+    <strong>Rol:</strong>          <span>Team Lead / Desarrollador</span>
+    <strong>Responsable:</strong>  <span>Francisco Hernandez</span>
+    <strong>Versi&oacute;n:</strong><span>1.0</span>
+    <strong>Fecha:</strong>        <span>Abril 2025</span>
+  </div>
+</div>
+
+<!-- PAGE 1: Stack & Architecture -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Team Lead</div>
+    <div class="doc-title">Documento T&eacute;cnico del Sistema</div>
+  </div>
+  <div class="doc-header-right">
+    CEICAVS &mdash; Versi&oacute;n 1.0<br>
+    Abril 2025
+  </div>
+</div>
+
+<h2>1. Stack Tecnol&oacute;gico</h2>
+<table>
+  <thead>
+    <tr><th style="width:20%">Capa</th><th style="width:35%">Tecnolog&iacute;a</th><th>Prop&oacute;sito</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Frontend</td><td><span class="tech-badge">React 19</span> <span class="tech-badge">Vite 6</span></td><td>SPA con renderizado en cliente, hot module replacement</td></tr>
+    <tr><td>Estilos</td><td><span class="tech-badge">Tailwind CSS v4</span> <span class="tech-badge">shadcn/ui</span></td><td>Sistema de dise&ntilde;o accesible basado en Radix UI</td></tr>
+    <tr><td>Routing</td><td><span class="tech-badge">React Router v7</span></td><td>Navegaci&oacute;n con loaders y actions (data mode)</td></tr>
+    <tr><td>Estado servidor</td><td><span class="tech-badge">Apollo Client 4</span> <span class="tech-badge">GraphQL</span></td><td>Queries, mutaciones y cach&eacute; normalizado</td></tr>
+    <tr><td>i18n</td><td><span class="tech-badge">react-i18next</span></td><td>Internacionalizaci&oacute;n (espa&ntilde;ol por defecto)</td></tr>
+    <tr><td>Autorizaci&oacute;n frontend</td><td><span class="tech-badge">CASL</span></td><td>Permisos basados en rol, componente &lt;Can&gt;</td></tr>
+    <tr><td>IA en navegador</td><td><span class="tech-badge">@huggingface/transformers v4</span></td><td>Transcripci&oacute;n de audio con Whisper ONNX via Web Worker</td></tr>
+    <tr><td>Backend</td><td><span class="tech-badge">NestJS 10</span> <span class="tech-badge">Apollo Server</span></td><td>API GraphQL code-first</td></tr>
+    <tr><td>Arquitectura backend</td><td><span class="tech-badge">CQRS</span></td><td>CommandBus + QueryBus, separaci&oacute;n de responsabilidades</td></tr>
+    <tr><td>Autenticaci&oacute;n</td><td><span class="tech-badge">Passport JWT</span></td><td>Access token (15 min) + refresh token (7 d&iacute;as)</td></tr>
+    <tr><td>Autorizaci&oacute;n backend</td><td><span class="tech-badge">CASL</span> <span class="tech-badge">PoliciesGuard</span></td><td>Guards a nivel de resolver + verificaci&oacute;n en handlers</td></tr>
+    <tr><td>Base de datos</td><td><span class="tech-badge">PostgreSQL 17</span> <span class="tech-badge">Prisma 7</span> <span class="tech-badge">Kysely</span></td><td>ORM con queries tipadas y driver adapter pg</td></tr>
+    <tr><td>Almacenamiento</td><td><span class="tech-badge">Cloudinary</span></td><td>Archivos de audio para transcripciones</td></tr>
+    <tr><td>LLM primario</td><td><span class="tech-badge">Groq SDK</span> <span class="tech-badge">llama-3.3-70b-versatile</span></td><td>Generaci&oacute;n de res&uacute;menes de transcripciones</td></tr>
+    <tr><td>LLM fallback</td><td><span class="tech-badge">Google Gemini</span> <span class="tech-badge">gemini-2.0-flash</span></td><td>Respaldo autom&aacute;tico ante rate limit de Groq</td></tr>
+    <tr><td>Monorepo</td><td><span class="tech-badge">Turborepo</span> <span class="tech-badge">pnpm workspaces</span></td><td>Compilaci&oacute;n incremental y gesti&oacute;n de dependencias</td></tr>
+    <tr><td>Despliegue</td><td><span class="tech-badge">Vercel</span> <span class="tech-badge">Render</span></td><td>Frontend en Vercel, backend en Render</td></tr>
+  </tbody>
+</table>
+
+<h2>2. Arquitectura General</h2>
+<div class="arch-diagram">ceicavs/
+├── apps/
+│   ├── web/          # React SPA (Puerto 5173 local)
+│   │   ├── src/
+│   │   │   ├── features/       # Módulos por dominio (auth, attendance, blog...)
+│   │   │   ├── components/     # Componentes compartidos
+│   │   │   ├── generated/      # Tipos GraphQL (auto-generados por codegen)
+│   │   │   └── main.tsx
+│   │   └── codegen.ts          # Configuración de graphql-codegen
+│   │
+│   └── api/          # NestJS GraphQL API (Puerto 3001 local)
+│       └── src/
+│           ├── modules/        # Módulos verticales (auth, users, attendance...)
+│           │   └── [domain]/
+│           │       ├── commands/    # Escrituras (CommandHandlers)
+│           │       ├── queries/     # Lecturas (QueryHandlers)
+│           │       ├── resolvers/   # GraphQL thin resolvers
+│           │       ├── repositories/# Implementaciones Prisma
+│           │       └── interfaces/  # Repos abstractos + tipos de dominio
+│           └── common/
+│               └── cqrs/       # BaseCommandHandler, BaseQueryHandler
+│
+└── packages/
+    ├── shared/       # CASL: UserRole, Action, Subject, defineAbilityFor()
+    ├── db/           # Prisma 7 + Kysely (query builder tipado)
+    └── ui/           # Componentes shadcn/ui compartidos</div>
+
+<!-- PAGE 2: Database -->
+<div class="page-break"></div>
+<h2>3. Modelo de Datos</h2>
+<p>Todas las tablas utilizan snake_case via <code>@map()</code> / <code>@@map()</code> en Prisma. Los registros sensibles implementan <strong>soft delete</strong> mediante el campo <code>deletedAt</code>.</p>
+
+<div class="entity-grid">
+  <div class="entity-card no-break">
+    <div class="entity-card-header">User</div>
+    <div class="entity-card-body">
+      <div><span class="field-pk">id</span>: String (cuid)</div>
+      <div>name: String</div>
+      <div>email: String (unique)</div>
+      <div>password: String (bcrypt)</div>
+      <div>role: UserRole (enum)</div>
+      <div>createdAt: DateTime</div>
+      <div>deletedAt: DateTime?</div>
+    </div>
+  </div>
+  <div class="entity-card no-break">
+    <div class="entity-card-header">Group</div>
+    <div class="entity-card-body">
+      <div><span class="field-pk">id</span>: String (cuid)</div>
+      <div>name: String</div>
+      <div><span class="field-fk">createdById</span>: String</div>
+      <div>createdAt: DateTime</div>
+      <div>deletedAt: DateTime?</div>
+      <div><em>rel: members, attendances</em></div>
+    </div>
+  </div>
+  <div class="entity-card no-break">
+    <div class="entity-card-header">Attendance</div>
+    <div class="entity-card-body">
+      <div><span class="field-pk">id</span>: String (cuid)</div>
+      <div><span class="field-fk">groupId</span>: String</div>
+      <div><span class="field-fk">studentId</span>: String</div>
+      <div>date: DateTime</div>
+      <div>status: AttendanceStatus</div>
+      <div><em>enum: PRESENT, ABSENT,</em></div>
+      <div><em>LATE, JUSTIFIED</em></div>
+    </div>
+  </div>
+  <div class="entity-card no-break">
+    <div class="entity-card-header">Post (Blog)</div>
+    <div class="entity-card-body">
+      <div><span class="field-pk">id</span>: String (cuid)</div>
+      <div>title: String</div>
+      <div>excerpt: String</div>
+      <div>content: String</div>
+      <div>status: PostStatus</div>
+      <div><span class="field-fk">authorId</span>: String</div>
+      <div><span class="field-fk">categoryId</span>: String?</div>
+      <div>deletedAt: DateTime?</div>
+    </div>
+  </div>
+  <div class="entity-card no-break">
+    <div class="entity-card-header">Recording</div>
+    <div class="entity-card-body">
+      <div><span class="field-pk">id</span>: String (cuid)</div>
+      <div>name: String</div>
+      <div>audioUrl: String (Cloudinary)</div>
+      <div>publicId: String (Cloudinary)</div>
+      <div><span class="field-fk">userId</span>: String</div>
+      <div>createdAt: DateTime</div>
+      <div>deletedAt: DateTime?</div>
+      <div><em>rel: transcription</em></div>
+    </div>
+  </div>
+  <div class="entity-card no-break">
+    <div class="entity-card-header">Transcription</div>
+    <div class="entity-card-body">
+      <div><span class="field-pk">id</span>: String (cuid)</div>
+      <div><span class="field-fk">recordingId</span>: String (unique)</div>
+      <div>fullTranscript: String?</div>
+      <div>summary: String?</div>
+      <div>keyTakeaways: String[]</div>
+      <div>actionItems: String[]</div>
+      <div>status: TranscriptionStatus</div>
+    </div>
+  </div>
+</div>
+
+<table style="font-size:0.8rem;">
+  <thead>
+    <tr><th>Enum</th><th>Valores</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>UserRole</td><td>ADMIN, TEACHER, STUDENT</td></tr>
+    <tr><td>AttendanceStatus</td><td>PRESENT, ABSENT, LATE, JUSTIFIED</td></tr>
+    <tr><td>PostStatus</td><td>DRAFT, PENDING_REVIEW, PUBLISHED, REJECTED</td></tr>
+    <tr><td>TranscriptionStatus</td><td>PENDING, PROCESSING, COMPLETED, FAILED</td></tr>
+  </tbody>
+</table>
+
+<!-- PAGE 3: Auth flow & GraphQL -->
+<div class="page-break"></div>
+<h2>4. Flujo de Autenticaci&oacute;n</h2>
+
+<div class="no-break">
+  <div class="flow-step">
+    <div class="flow-step-num">1</div>
+    <div class="flow-step-content">El usuario env&iacute;a <code>email</code> y <code>password</code> a la mutaci&oacute;n GraphQL <code>login</code>.</div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-step-num">2</div>
+    <div class="flow-step-content">El servidor verifica la contrase&ntilde;a con <code>bcrypt.compare()</code>. Si es correcta, genera <code>accessToken</code> (exp: 15 min) y <code>refreshToken</code> (exp: 7 d&iacute;as) firmados con JWT.</div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-step-num">3</div>
+    <div class="flow-step-content">El frontend almacena ambos tokens en <code>localStorage</code> y configura el Apollo Link para adjuntar <code>Authorization: Bearer &lt;accessToken&gt;</code> en cada petici&oacute;n.</div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-step-num">4</div>
+    <div class="flow-step-content"><code>AppBootstrap</code> rehidrata el contexto de autenticaci&oacute;n al recargar la p&aacute;gina leyendo el token de <code>localStorage</code>.</div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-step-num">5</div>
+    <div class="flow-step-content"><code>AbilityProvider</code> llama a <code>defineAbilityFor(role)</code> de <code>@ceicavs/shared</code> y publica el objeto CASL en el contexto React.</div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-step-num">6</div>
+    <div class="flow-step-content">Cuando el <code>accessToken</code> expira, el Apollo Link de refresco env&iacute;a autom&aacute;ticamente la mutaci&oacute;n <code>refreshToken</code> y retoma la petici&oacute;n original con el nuevo token.</div>
+  </div>
+</div>
+
+<h2>5. Pipeline GraphQL (Code-First &rarr; Codegen)</h2>
+<table class="pipeline-table">
+  <tbody>
+    <tr>
+      <td style="background:var(--navy);color:white;border-radius:3px;padding:2mm 4mm;"><strong>NestJS Backend</strong><br><small>@ObjectType, @Resolver</small></td>
+      <td class="pipeline-arrow">&rarr;</td>
+      <td style="background:var(--gray-100);border-radius:3px;padding:2mm 4mm;"><code>schema.gql</code><br><small>auto-generado</small></td>
+      <td class="pipeline-arrow">&rarr;</td>
+      <td style="background:var(--blue-light);border-radius:3px;padding:2mm 4mm;"><strong>graphql-codegen</strong><br><small>apps/web/codegen.ts</small></td>
+      <td class="pipeline-arrow">&rarr;</td>
+      <td style="background:var(--green-light);border-radius:3px;padding:2mm 4mm;"><code>src/generated/</code><br><small>tipos TypeScript exactos</small></td>
+    </tr>
+  </tbody>
+</table>
+<p>El frontend importa la funci&oacute;n <code>graphql()</code> generada para definir operaciones tipadas, eliminando la necesidad de declarar tipos manualmente.</p>
+
+<h2>6. Arquitectura de Autorizaci&oacute;n (CASL)</h2>
+<div class="note">
+  <div class="note-title">Fuente &uacute;nica de verdad</div>
+  <code>packages/shared/src/casl.ts</code> define los enums <code>UserRole</code>, <code>Action</code>, <code>Subject</code> y la funci&oacute;n <code>defineAbilityFor(role)</code> usados tanto en el backend como en el frontend.
+</div>
+<table>
+  <thead>
+    <tr><th>Capa</th><th>Mecanismo</th><th>Prop&oacute;sito</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Resolver (backend)</td><td><code>@Can(Action.X, Subject.Y)</code> decorator</td><td>Guard de ruta grueso: rol vs. recurso</td></tr>
+    <tr><td>Handler (backend)</td><td><code>ability.can(Action.X, Subject.Y)</code></td><td>Verificaci&oacute;n fina: ownership, condiciones</td></tr>
+    <tr><td>Rutas (frontend)</td><td><code>&lt;RequireAbility&gt;</code> component</td><td>Redirecci&oacute;n si el usuario no tiene permiso</td></tr>
+    <tr><td>UI (frontend)</td><td><code>&lt;Can I={Action.X} a={Subject.Y}&gt;</code></td><td>Oculta botones y controles no permitidos</td></tr>
+  </tbody>
+</table>
+
+<!-- PAGE 4: AI Integration & Deployment -->
+<div class="page-break"></div>
+<h2>7. Integraciones Externas</h2>
+<table>
+  <thead>
+    <tr><th style="width:20%">Servicio</th><th style="width:25%">Tecnolog&iacute;a</th><th>Prop&oacute;sito</th><th style="width:15%">Ubicaci&oacute;n</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Transcripci&oacute;n de audio</td>
+      <td>Transformers.js + Whisper ONNX</td>
+      <td>Audio &rarr; texto directamente en el navegador via Web Worker. Sin enviar datos a servidores externos.</td>
+      <td>Frontend</td>
+    </tr>
+    <tr>
+      <td>Almacenamiento de audio</td>
+      <td>Cloudinary REST API</td>
+      <td>Subir y almacenar archivos de audio. Se almacena <code>audioUrl</code> y <code>publicId</code> en la base de datos.</td>
+      <td>Frontend</td>
+    </tr>
+    <tr>
+      <td>Resumen LLM (primario)</td>
+      <td>Groq SDK &mdash; <code>llama-3.3-70b-versatile</code></td>
+      <td>Genera resumen estructurado (summary, keyTakeaways, actionItems) a partir de la transcripci&oacute;n.</td>
+      <td>Backend</td>
+    </tr>
+    <tr>
+      <td>Resumen LLM (fallback)</td>
+      <td>Google Gemini &mdash; <code>gemini-2.0-flash</code></td>
+      <td>Respaldo autom&aacute;tico cuando Groq retorna HTTP 429 (rate limit).</td>
+      <td>Backend</td>
+    </tr>
+    <tr>
+      <td>YouTube Metadata</td>
+      <td>yt-dlp + YouTube Data API</td>
+      <td>Obtener metadatos y enlace de descarga de videos de YouTube para la herramienta educativa.</td>
+      <td>Backend</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>8. Arquitectura del Despliegue</h2>
+<div class="arch-diagram">                        INTERNET
+                           |
+           ┌──────────────┴──────────────┐
+           |                              |
+    [Usuario]                      [Usuario]
+    HTTPS: Vercel                  HTTPS: Vercel
+           |                              |
+    ┌──────▼──────────────────────────────▼──────┐
+    │          Vercel CDN (Edge Network)         │
+    │          apps/web  (React SPA)             │
+    └─────────────────┬──────────────────────────┘
+                      | GraphQL HTTPS
+    ┌─────────────────▼──────────────────────────┐
+    │         Render.com (Web Service)            │
+    │         apps/api  (NestJS + Apollo)         │
+    └──────┬───────────────────┬─────────────────┘
+           |                   |
+    ┌──────▼──────┐    ┌───────▼───────┐
+    │ PostgreSQL  │    │  Cloudinary   │
+    │  (Render    │    │  (audio files)│
+    │   Managed)  │    └───────────────┘
+    └─────────────┘
+           |
+    ┌──────▼──────────────────────────┐
+    │  Groq API / Google Gemini API   │
+    │  (generación de resúmenes)      │
+    └─────────────────────────────────┘</div>
+
+<h2>9. Variables de Entorno</h2>
+<table>
+  <thead>
+    <tr><th>Variable</th><th>Ubicaci&oacute;n</th><th>Descripci&oacute;n</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>DATABASE_URL</code></td><td>Backend</td><td>Cadena de conexi&oacute;n PostgreSQL</td></tr>
+    <tr><td><code>JWT_ACCESS_SECRET</code></td><td>Backend</td><td>Clave para firmar access tokens</td></tr>
+    <tr><td><code>JWT_REFRESH_SECRET</code></td><td>Backend</td><td>Clave para firmar refresh tokens</td></tr>
+    <tr><td><code>GROQ_API_KEY</code></td><td>Backend</td><td>API key del servicio Groq</td></tr>
+    <tr><td><code>GEMINI_API_KEY</code></td><td>Backend</td><td>API key de Google Gemini (fallback)</td></tr>
+    <tr><td><code>CLOUDINARY_CLOUD_NAME</code></td><td>Frontend</td><td>Identificador de la cuenta Cloudinary</td></tr>
+    <tr><td><code>CLOUDINARY_UPLOAD_PRESET</code></td><td>Frontend</td><td>Preset de carga p&uacute;blica de Cloudinary</td></tr>
+    <tr><td><code>VITE_GRAPHQL_URL</code></td><td>Frontend</td><td>URL del endpoint GraphQL del backend</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

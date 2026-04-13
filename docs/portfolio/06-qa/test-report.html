@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte de Pruebas QA &mdash; CEICAVS</title>
+  <link rel="stylesheet" href="../../_shared/design.css">
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-institution">Centro Escolar CEICAVS &mdash; Servicio Social</div>
+  <div class="cover-title">Reporte de Aseguramiento de Calidad (QA)</div>
+  <div class="cover-subtitle">Plan de pruebas, casos de prueba manuales, reporte de bugs y evidencia de cobertura al 100%</div>
+  <div class="cover-meta">
+    <strong>Proyecto:</strong>       <span>Sistema Escolar CEICAVS</span>
+    <strong>Tipo de pruebas:</strong> <span>Pruebas manuales funcionales y de usabilidad</span>
+    <strong>Ambiente:</strong>        <span>Producci&oacute;n (Vercel + Render)</span>
+    <strong>Navegador:</strong>       <span>Google Chrome 124+</span>
+    <strong>Responsable QA:</strong>  <span>Francisco Hernandez</span>
+    <strong>Fecha:</strong>           <span>Sprint 4 &mdash; 30 mar al 12 abr 2025</span>
+  </div>
+</div>
+
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Aseguramiento de Calidad</div>
+    <div class="doc-title">Reporte de Pruebas QA</div>
+  </div>
+  <div class="doc-header-right">
+    Sprint 4 &mdash; Abril 2025<br>
+    <span class="badge badge-pass">100% cobertura funcional</span>
+  </div>
+</div>
+
+<h2>1. Plan de Pruebas</h2>
+
+<h3>1.1 Alcance</h3>
+<p>Las pruebas manuales cubren todos los m&oacute;dulos funcionales de la plataforma CEICAVS verificando la correctitud, usabilidad y control de acceso desde los tres roles del sistema (Administrador, Docente, Estudiante).</p>
+
+<h3>1.2 Ambiente de Pruebas</h3>
+<table>
+  <thead><tr><th>Atributo</th><th>Detalle</th></tr></thead>
+  <tbody>
+    <tr><td>Frontend URL</td><td>Despliegue en Vercel (producci&oacute;n)</td></tr>
+    <tr><td>Backend URL</td><td>Despliegue en Render (producci&oacute;n)</td></tr>
+    <tr><td>Base de datos</td><td>PostgreSQL administrado en Render</td></tr>
+    <tr><td>Navegador</td><td>Google Chrome 124+ (principal) &mdash; sin pruebas en Safari/Firefox</td></tr>
+    <tr><td>Tipo de prueba</td><td>Manual funcional y de usabilidad</td></tr>
+    <tr><td>Usuarios de prueba</td><td>admin@ceicavs.edu &middot; teacher@ceicavs.edu &middot; student@ceicavs.edu</td></tr>
+  </tbody>
+</table>
+
+<h3>1.3 Resumen de Resultados</h3>
+<table>
+  <thead><tr><th>M&oacute;dulo</th><th>Casos</th><th>Pasados</th><th>Fallados</th><th>N/A</th><th>Cobertura</th></tr></thead>
+  <tbody>
+    <tr><td>Autenticaci&oacute;n</td><td>6</td><td>6</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr><td>Dashboard</td><td>3</td><td>3</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr><td>Gesti&oacute;n de Personas</td><td>8</td><td>8</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr><td>Asistencia</td><td>8</td><td>8</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr><td>Blog</td><td>9</td><td>9</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr><td>Herramientas (14)</td><td>14</td><td>14</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr><td>Transcripci&oacute;n IA</td><td>5</td><td>5</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr><td>Control de acceso (CASL)</td><td>5</td><td>5</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr style="font-weight:700;"><td>TOTAL</td><td>58</td><td>58</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+<h2>2. Casos de Prueba</h2>
+
+<h3>Autenticaci&oacute;n</h3>
+<table>
+  <thead><tr><th style="width:8%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Rol</th><th style="width:10%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>TC-001</td><td>Iniciar sesi&oacute;n con credenciales v&aacute;lidas de administrador</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-002</td><td>Iniciar sesi&oacute;n con credenciales v&aacute;lidas de docente</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-003</td><td>Iniciar sesi&oacute;n con credenciales v&aacute;lidas de estudiante</td><td>Estudiante</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-004</td><td>Iniciar sesi&oacute;n con contrase&ntilde;a incorrecta: mensaje de error apropiado</td><td>Todos</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-005</td><td>Enviar formulario vac&iacute;o: validaci&oacute;n de campos requeridos</td><td>Todos</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-006</td><td>Renovaci&oacute;n autom&aacute;tica del token de acceso expirado</td><td>Todos</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Dashboard</h3>
+<table>
+  <thead><tr><th style="width:8%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Rol</th><th style="width:10%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>TC-007</td><td>Dashboard de administrador muestra estad&iacute;sticas globales correctas</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-008</td><td>Dashboard de docente muestra solo sus grupos asignados</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-009</td><td>Dashboard de estudiante muestra solo su asistencia personal</td><td>Estudiante</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Gesti&oacute;n de Personas</h3>
+<table>
+  <thead><tr><th style="width:8%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Rol</th><th style="width:10%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>TC-010</td><td>Crear usuario con todos los campos: se guarda correctamente</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-011</td><td>Crear usuario con correo duplicado: muestra error de validaci&oacute;n</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-012</td><td>Editar nombre y rol de un usuario existente</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-013</td><td>Eliminar usuario individual: soft delete aplicado correctamente</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-014</td><td>Importar CSV v&aacute;lido: usuarios creados masivamente</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-015</td><td>Crear grupo con nombre y agregar miembros</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-016</td><td>Remover miembro de un grupo</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-017</td><td>El docente no puede acceder al m&oacute;dulo de personas (verifica permiso)</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+<h3>Sistema de Asistencia</h3>
+<table>
+  <thead><tr><th style="width:8%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Rol</th><th style="width:10%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>TC-018</td><td>Registrar asistencia completa de un grupo (todos los estados)</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-019</td><td>Editar un registro de asistencia existente del mismo d&iacute;a</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-020</td><td>Ver reporte semanal de asistencia de un grupo</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-021</td><td>Ver reporte mensual de asistencia de un grupo</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-022</td><td>Estudiante solo ve su propia fila en el reporte del grupo</td><td>Estudiante</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-023</td><td>Exportar asistencia en formato CSV</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-024</td><td>Ver historial individual de un estudiante</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-025</td><td>Las fechas de asistencia se muestran en hora local del servidor</td><td>Todos</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Blog Institucional</h3>
+<table>
+  <thead><tr><th style="width:8%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Rol</th><th style="width:10%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>TC-026</td><td>Ver feed del blog con publicaciones publicadas</td><td>Todos</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-027</td><td>Filtrar publicaciones por categor&iacute;a</td><td>Todos</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-028</td><td>Crear y publicar art&iacute;culo directamente como docente</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-029</td><td>Estudiante env&iacute;a publicaci&oacute;n para revisi&oacute;n: queda en cola</td><td>Estudiante</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-030</td><td>Aprobar publicaci&oacute;n de estudiante desde la cola de revisi&oacute;n</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-031</td><td>Rechazar publicaci&oacute;n con nota explicativa</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-032</td><td>Agregar reacci&oacute;n y comentario a una publicaci&oacute;n</td><td>Todos</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-033</td><td>Crear nueva categor&iacute;a del blog</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-034</td><td>Editar y reenviar borrador rechazado como estudiante</td><td>Estudiante</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+<h3>Herramientas Educativas (una por herramienta)</h3>
+<table>
+  <thead><tr><th style="width:8%">ID</th><th>Herramienta</th><th style="width:10%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>TC-035</td><td>Temporizador: configurar y ejecutar cuenta regresiva</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-036</td><td>Organizador de Tareas: crear, completar y eliminar tareas (sincronizado)</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-037</td><td>Simplificador de Texto: simplificar un p&aacute;rrafo con IA</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-038</td><td>Conversor Word/PDF: convertir archivo .docx a PDF</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-039</td><td>Conversor de Im&aacute;genes: convertir PNG a JPEG</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-040</td><td>Descargador de YouTube: obtener metadatos de un video</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-041</td><td>Compresor de Im&aacute;genes: reducir tama&ntilde;o de una imagen</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-042</td><td>Generador de QR: generar c&oacute;digo QR con URL personalizada</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-043</td><td>Imagen a Texto (OCR): extraer texto de una captura de pantalla</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-044</td><td>Notas R&aacute;pidas: crear y persistir notas entre sesiones</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-045</td><td>Calculadora Cient&iacute;fica: operaciones con funciones trigonom&eacute;tricas</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-046</td><td>Generador de Contrase&ntilde;as: generar con todos los criterios activados</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-047</td><td>Ruleta del Sal&oacute;n: girar y obtener resultado aleatorio</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-048</td><td>Selector de Estudiante: seleccionar al azar del grupo del docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Transcripci&oacute;n con IA</h3>
+<table>
+  <thead><tr><th style="width:8%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Rol</th><th style="width:10%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>TC-049</td><td>Subir archivo MP3 y completar transcripci&oacute;n con barra de progreso</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-050</td><td>Ver transcripci&oacute;n completa y editar texto con errores</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-051</td><td>Generar resumen con puntos clave y elementos de acci&oacute;n</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-052</td><td>Ver lista de grabaciones propias con estado de cada una</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-053</td><td>Estudiante no puede acceder al m&oacute;dulo de transcripci&oacute;n</td><td>Estudiante</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Control de Acceso (CASL)</h3>
+<table>
+  <thead><tr><th style="width:8%">ID</th><th>Descripci&oacute;n</th><th style="width:12%">Rol</th><th style="width:10%">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>TC-054</td><td>Admin accede a todos los m&oacute;dulos sin restricciones</td><td>Admin</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-055</td><td>Docente es redirigido al intentar acceder a /people (gesti&oacute;n de usuarios)</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-056</td><td>Estudiante es redirigido al intentar acceder a /transcription</td><td>Estudiante</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-057</td><td>Operaci&oacute;n backend devuelve 403 si el rol no tiene permiso (via GraphQL)</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-058</td><td>Selector de estudiante no muestra grupos de otros docentes</td><td>Docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+<h2>3. Reporte de Bugs</h2>
+<table>
+  <thead>
+    <tr><th style="width:8%">ID</th><th style="width:15%">M&oacute;dulo</th><th>Descripci&oacute;n del Bug</th><th style="width:12%">Severidad</th><th style="width:12%">Estado</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BUG-001</td>
+      <td>Autenticaci&oacute;n</td>
+      <td>El token de refresco no se renovaba al expirar en segundo plano; la sesi&oacute;n expiraba silenciosamente sin redirecci&oacute;n al login</td>
+      <td><span class="badge badge-fail">Alta</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-002</td>
+      <td>Asistencia</td>
+      <td>Las fechas de asistencia se mostraban en UTC en lugar de la zona horaria local del servidor, causando discrepancias de +6 horas</td>
+      <td><span class="badge badge-fail">Alta</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-003</td>
+      <td>Blog</td>
+      <td>Los comentarios anidados no se eliminaban en cascada al borrar el comentario padre, dejando hu&eacute;rfanos en la base de datos</td>
+      <td><span class="badge badge-wip">Media</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-004</td>
+      <td>Herramientas</td>
+      <td>El Selector de Estudiante al Azar cargaba grupos de otros docentes por error en el filtro de la query</td>
+      <td><span class="badge badge-fail">Alta</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-005</td>
+      <td>Personas</td>
+      <td>La importaci&oacute;n CSV no mostraba conteo correcto de registros omitidos al haber duplicados</td>
+      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-006</td>
+      <td>Blog</td>
+      <td>El filtro por categor&iacute;a en el feed no se restablec&iacute;a al navegar a otra p&aacute;gina y regresar</td>
+      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-007</td>
+      <td>Transcripci&oacute;n</td>
+      <td>El bot&oacute;n "Generar resumen" permanec&iacute;a habilitado mientras la transcripci&oacute;n estaba en proceso</td>
+      <td><span class="badge badge-wip">Media</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-008</td>
+      <td>Dashboard</td>
+      <td>Las estad&iacute;sticas del dashboard del administrador no se actualizaban despu&eacute;s de crear un nuevo usuario sin recargar la p&aacute;gina</td>
+      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-009</td>
+      <td>Asistencia</td>
+      <td>El reporte de asistencia con per&iacute;odo personalizado no respetaba el d&iacute;a de fin al llegar a medianoche</td>
+      <td><span class="badge badge-wip">Media</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-010</td>
+      <td>Personas</td>
+      <td>La b&uacute;squeda de usuarios no era case-insensitive; no encontraba usuarios con letras may&uacute;sculas</td>
+      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-011</td>
+      <td>Herramientas</td>
+      <td>La herramienta de OCR fallaba silenciosamente con im&aacute;genes mayores a 5MB sin mostrar mensaje de error</td>
+      <td><span class="badge badge-wip">Media</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+    <tr>
+      <td>BUG-012</td>
+      <td>Blog</td>
+      <td>Al rechazar una publicaci&oacute;n sin ingresar nota, el formulario se cerraba sin guardar la acci&oacute;n</td>
+      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-pass">Resuelto</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="note" style="margin-top:4mm;">
+  <div class="note-title">Resultado final del ciclo QA</div>
+  Los 12 bugs identificados durante el Sprint 4 fueron corregidos en el mismo sprint. Al cierre del ciclo QA, los 58 casos de prueba pasaron exitosamente, alcanzando el 100% de cobertura funcional en todos los m&oacute;dulos del sistema.
+</div>
+
+</body>
+</html>
