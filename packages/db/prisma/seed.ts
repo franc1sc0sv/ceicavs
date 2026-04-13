@@ -71,15 +71,6 @@ const tools: ToolSeed[] = [
     color: 'sky',
   },
   {
-    name: 'Text Simplifier',
-    slug: 'text-simplifier',
-    description:
-      'Simplify complex texts to make them easier to understand — ideal for adapting materials for students',
-    categorySlug: 'teaching-classroom',
-    icon: 'sparkles',
-    color: 'violet',
-  },
-  {
     name: 'Word / PDF Converter',
     slug: 'word-pdf-converter',
     description: 'Convert PDF files to Word and Word documents to PDF instantly',

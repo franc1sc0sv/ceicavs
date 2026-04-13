@@ -58,6 +58,32 @@ input AttendanceRecordItemInput {
   studentId: String!
 }
 
+input AttendanceReportByRangeInput {
+  dateFrom: String!
+  dateTo: String!
+  groupId: String!
+  studentIds: [String!]
+}
+
+type AttendanceReportResultType {
+  dateFrom: String!
+  dateTo: String!
+  groupId: String!
+  groupName: String!
+  students: [StudentReportType!]!
+  summary: AttendanceReportSummaryType!
+}
+
+type AttendanceReportSummaryType {
+  averageRate: Float!
+  totalAbsent: Int!
+  totalExcused: Int!
+  totalLate: Int!
+  totalPresent: Int!
+  totalSessions: Int!
+  totalStudents: Int!
+}
+
 enum AttendanceStatus {
   absent
   excused
@@ -376,7 +402,8 @@ type Query {
   adminDashboard: AdminDashboardStatsType!
   attendanceExportStatus(jobId: String!): ExportStatusType!
   attendanceGroups: [AttendanceGroupType!]!
-  attendanceReport(groupId: String!, period: ReportPeriod!): [StudentReportType!]!
+  attendanceReport(date: String, groupId: String!, period: ReportPeriod!): [StudentReportType!]!
+  attendanceReportByRange(input: AttendanceReportByRangeInput!): AttendanceReportResultType!
   attendanceRoster(date: String!, groupId: String!): GroupRosterType!
   categories: [CategoryType!]!
   comments(cursor: String, limit: Int, postId: ID!): CommentsPageType!

@@ -1,6 +1,7 @@
 import type { RepositoryMethod } from '../../../common/cqrs'
 import type {
   IAttendanceGroup,
+  IAttendanceReportResult,
   IGroupRoster,
   IRecordAttendanceItem,
   IStudentHistoryRecord,
@@ -15,6 +16,10 @@ export abstract class IAttendanceRepository {
   abstract findAttendanceReport: RepositoryMethod<
     [groupId: string, dateRange: { from: Date; to: Date }],
     IStudentReport[]
+  >
+  abstract findAttendanceReportByRange: RepositoryMethod<
+    [groupId: string, dateFrom: string, dateTo: string, studentIds: string[] | null],
+    IAttendanceReportResult
   >
   abstract findStudentHistory: RepositoryMethod<[userId: string], IStudentHistoryRecord[]>
   abstract findStudentSummary: RepositoryMethod<[userId: string], IStudentSummary>

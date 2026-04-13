@@ -10,6 +10,7 @@ import { Action, Subject } from '@ceicavs/shared'
 const DashboardPage = React.lazy(() => import('@/features/dashboard/DashboardPage'))
 const AttendancePage = React.lazy(() => import('@/features/attendance/AttendancePage'))
 const AttendanceDetailPage = React.lazy(() => import('@/features/attendance/pages/attendance-detail-page'))
+const AttendanceReportsPage = React.lazy(() => import('@/features/attendance/pages/attendance-reports-page'))
 const PeoplePage = React.lazy(() => import('@/features/people/PeoplePage'))
 const BlogPage = React.lazy(() => import('@/features/blog/BlogPage'))
 const PostDetailPage = React.lazy(() => import('@/features/blog/pages/post-detail-page'))
@@ -48,6 +49,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to={ROUTES.DASHBOARD} replace /> },
       { path: 'dashboard', element: withSuspense(<DashboardPage />) },
       { path: 'attendance', element: withSuspense(<AttendancePage />) },
+      { path: 'attendance/reports', element: withSuspense(<AttendanceReportsPage />) },
       { path: 'attendance/:id', element: withSuspense(<AttendanceDetailPage />) },
       {
         element: <RequireAbility action={Action.CREATE} subject={Subject.GROUP} />,

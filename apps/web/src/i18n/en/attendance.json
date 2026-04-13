@@ -40,7 +40,9 @@
   },
   "report": {
     "student": "Student",
-    "attendance": "Attendance"
+    "attendance": "Attendance",
+    "days": "Days",
+    "rateTooltip": "% = (Present + Late) ÷ total days in period. Only present and late count as attendance."
   },
   "export": {
     "queued": "Export in progress",
@@ -73,5 +75,31 @@
     "noMembers": "No members yet",
     "noResults": "No results",
     "edit": "Edit group"
+  },
+  "reports": {
+    "title": "Reports",
+    "subtitle": "Filter by group and date range to generate an attendance report",
+    "group": "Group",
+    "groupPlaceholder": "Select a group",
+    "dateFrom": "From",
+    "dateTo": "To",
+    "run": "Run report",
+    "totalStudents": "Students",
+    "averageRate": "Avg. attendance",
+    "totalPresent": "Total present",
+    "totalAbsent": "Total absent",
+    "totalLate": "Total late",
+    "sessions": "{{count}} session(s)",
+    "columns": {
+      "student": "Student",
+      "rate": "Rate",
+      "present": "Present",
+      "absent": "Absent",
+      "late": "Late",
+      "excused": "Excused",
+      "totalDays": "Days"
+    },
+    "empty": "Select a group and date range, then click Run report",
+    "noData": "No attendance data for this selection"
   }
 }

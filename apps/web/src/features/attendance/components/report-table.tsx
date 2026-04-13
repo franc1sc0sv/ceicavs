@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
+import { Info, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { EmptyState } from './empty-state'
-import { useExportAttendance } from '../hooks/use-export-attendance'
-import type { ReportPeriod, ExportFormat } from '@/generated/graphql'
+import type { ReportPeriod } from '@/generated/graphql'
 
 interface StudentReport {
   studentId: string
@@ -16,16 +17,89 @@ interface StudentReport {
 }
 
 interface ReportTableProps {
-  groupId: string
   reports: StudentReport[]
   loading: boolean
   period: ReportPeriod
   onPeriodChange: (period: ReportPeriod) => void
+  selectedDate: string
+  onDateChange: (date: string) => void
 }
 
-export function ReportTable({ groupId, reports, loading, period, onPeriodChange }: ReportTableProps) {
+function rateColor(rate: number) {
+  if (rate >= 80) return 'text-emerald-500 dark:text-emerald-400'
+  if (rate >= 30) return 'text-amber-500 dark:text-amber-400'
+  return 'text-red-500 dark:text-red-400'
+}
+
+function barColor(rate: number) {
+  if (rate >= 80) return 'bg-emerald-500'
+  if (rate >= 30) return 'bg-amber-500'
+  return 'bg-red-500'
+}
+
+function formatDateLabel(period: ReportPeriod, selectedDate: string): string {
+  const anchor = new Date(selectedDate + 'T12:00:00')
+
+  if (period === 'DAILY') {
+    return anchor.toLocaleDateString('es-SV', { month: 'short', day: 'numeric', year: 'numeric' })
+  }
+
+  if (period === 'WEEKLY') {
+    const dayOfWeek = anchor.getDay()
+    const daysFromMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1
+    const monday = new Date(anchor)
+    monday.setDate(monday.getDate() - daysFromMonday)
+    const sunday = new Date(monday)
+    sunday.setDate(sunday.getDate() + 6)
+    const startStr = monday.toLocaleDateString('es-SV', { month: 'short', day: 'numeric' })
+    const endStr = sunday.toLocaleDateString('es-SV', { month: 'short', day: 'numeric', year: 'numeric' })
+    return `${startStr} – ${endStr}`
+  }
+
+  return anchor.toLocaleDateString('es-SV', { month: 'long', year: 'numeric' })
+}
+
+function addDays(dateStr: string, days: number): string {
+  const d = new Date(dateStr + 'T12:00:00')
+  d.setDate(d.getDate() + days)
+  return d.toLocaleDateString('en-CA')
+}
+
+function addMonths(dateStr: string, months: number): string {
+  const d = new Date(dateStr + 'T12:00:00')
+  d.setMonth(d.getMonth() + months)
+  return d.toLocaleDateString('en-CA')
+}
+
+function navigateDate(dateStr: string, period: ReportPeriod, direction: number): string {
+  if (period === 'MONTHLY') return addMonths(dateStr, direction)
+  if (period === 'WEEKLY') return addDays(dateStr, direction * 7)
+  return addDays(dateStr, direction)
+}
+
+function getMondayOf(d: Date): Date {
+  const day = d.getDay()
+  const daysFromMonday = day === 0 ? 6 : day - 1
+  const monday = new Date(d)
+  monday.setDate(monday.getDate() - daysFromMonday)
+  monday.setHours(0, 0, 0, 0)
+  return monday
+}
+
+function isAtCurrentLimit(dateStr: string, period: ReportPeriod): boolean {
+  const today = new Date()
+  const anchor = new Date(dateStr + 'T12:00:00')
+  if (period === 'MONTHLY') {
+    return anchor.getFullYear() === today.getFullYear() && anchor.getMonth() === today.getMonth()
+  }
+  if (period === 'WEEKLY') {
+    return getMondayOf(anchor) >= getMondayOf(today)
+  }
+  return dateStr === today.toLocaleDateString('en-CA')
+}
+
+export function ReportTable({ reports, loading, period, onPeriodChange, selectedDate, onDateChange }: ReportTableProps) {
   const { t } = useTranslation('attendance')
-  const { exportAttendance, loading: exporting } = useExportAttendance()
 
   const periods: { value: ReportPeriod; labelKey: string }[] = [
     { value: 'DAILY', labelKey: 'period.daily' },
@@ -33,15 +107,11 @@ export function ReportTable({ groupId, reports, loading, period, onPeriodChange 
     { value: 'MONTHLY', labelKey: 'period.monthly' },
   ]
 
-  const handleExport = (format: ExportFormat) => {
-    exportAttendance({ variables: { input: { groupId, period, format } } })
-  }
-
   return (
     <div>
-      <div className="flex items-center justify-between gap-3 mb-5">
+      <div className="flex items-center justify-between mb-5">
         <div
-          className="flex rounded-lg border border-border overflow-hidden"
+          className="flex rounded-lg border border-border overflow-hidden w-fit"
           role="group"
           aria-label={t('tabs.reports')}
         >
@@ -64,51 +134,28 @@ export function ReportTable({ groupId, reports, loading, period, onPeriodChange 
           ))}
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={() => handleExport('PDF')}
-            disabled={exporting}
-            aria-label={t('actions.exportPdf')}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-muted-foreground border border-border rounded-lg hover:bg-muted transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            onClick={() => onDateChange(navigateDate(selectedDate, period, -1))}
+            aria-label="Previous"
+            className="p-1.5 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            {t('actions.exportPdf')}
+            <ChevronLeft className="w-4 h-4" />
           </button>
+          <span className="min-w-[160px] text-center text-sm font-medium text-foreground tabular-nums">
+            {formatDateLabel(period, selectedDate)}
+          </span>
           <button
             type="button"
-            onClick={() => handleExport('EXCEL')}
-            disabled={exporting}
-            aria-label={t('actions.exportExcel')}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-muted-foreground border border-border rounded-lg hover:bg-muted transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            onClick={() => onDateChange(navigateDate(selectedDate, period, 1))}
+            disabled={isAtCurrentLimit(selectedDate, period)}
+            aria-label="Next"
+            className="p-1.5 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            {t('actions.exportExcel')}
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
-      </div>
-
-      <div className="flex items-center gap-4 mb-3 text-xs font-medium text-muted-foreground flex-wrap">
-        <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" aria-hidden="true" />
-          {t('legend.present')}
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-red-500 inline-block" aria-hidden="true" />
-          {t('legend.absent')}
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" aria-hidden="true" />
-          {t('legend.late')}
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-slate-400 inline-block" aria-hidden="true" />
-          {t('legend.excused')}
-        </span>
       </div>
 
       {loading ? (
@@ -120,20 +167,41 @@ export function ReportTable({ groupId, reports, loading, period, onPeriodChange 
       ) : reports.length === 0 ? (
         <EmptyState message={t('empty.noReports')} />
       ) : (
-        <div className="overflow-x-auto -mx-4 sm:mx-0">
-          <table className="w-full min-w-[480px] text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
             <thead>
               <tr className="border-b-2 border-border">
-                <th className="text-left py-2.5 px-4 sm:px-0 pr-4 font-semibold text-muted-foreground">
+                <th className="text-left py-2.5 pr-4 font-semibold text-muted-foreground w-[30%]">
                   {t('report.student')}
                 </th>
-                <th className="text-right py-2.5 px-3 font-semibold text-muted-foreground w-40">
-                  {t('report.attendance')}
+                <th className="text-left py-2.5 px-3 font-semibold text-muted-foreground w-[25%]">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger className="inline-flex items-center gap-1 cursor-default">
+                        {t('report.attendance')}
+                        <Info className="w-3.5 h-3.5 text-muted-foreground/60" />
+                      </TooltipTrigger>
+                      <TooltipContent side="top" className="max-w-[220px] text-center text-xs">
+                        {t('report.rateTooltip')}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </th>
-                <th className="text-right py-2.5 px-2 font-semibold text-emerald-600 dark:text-emerald-400 w-10">P</th>
-                <th className="text-right py-2.5 px-2 font-semibold text-red-500 dark:text-red-400 w-10">A</th>
-                <th className="text-right py-2.5 px-2 font-semibold text-amber-500 dark:text-amber-400 w-10">T</th>
-                <th className="text-right py-2.5 pl-2 pr-4 sm:pr-0 font-semibold text-slate-400 w-10">J</th>
+                <th className="text-center py-2.5 px-3 font-semibold text-emerald-600 dark:text-emerald-400 w-[9%]">
+                  {t('legend.present')}
+                </th>
+                <th className="text-center py-2.5 px-3 font-semibold text-red-500 dark:text-red-400 w-[9%]">
+                  {t('legend.absent')}
+                </th>
+                <th className="text-center py-2.5 px-3 font-semibold text-amber-500 dark:text-amber-400 w-[9%]">
+                  {t('legend.late')}
+                </th>
+                <th className="text-center py-2.5 px-3 font-semibold text-slate-400 w-[9%]">
+                  {t('legend.excused')}
+                </th>
+                <th className="text-center py-2.5 pl-3 font-semibold text-muted-foreground w-[9%]">
+                  {t('report.days')}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -142,43 +210,40 @@ export function ReportTable({ groupId, reports, loading, period, onPeriodChange 
                   key={r.studentId}
                   className="border-b border-border/60 last:border-0 hover:bg-muted/40 transition-colors"
                 >
-                  <td className="py-3 px-4 sm:px-0 pr-4 font-medium text-foreground">{r.studentName}</td>
+                  <td className="py-3 pr-4 font-medium text-foreground">{r.studentName}</td>
                   <td className="py-3 px-3">
-                    <div className="flex items-center justify-end gap-2">
+                    <div className="flex items-center gap-2">
                       <div
-                        className="w-20 h-1.5 rounded-full bg-muted overflow-hidden flex-shrink-0"
+                        className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden"
                         role="progressbar"
                         aria-valuenow={r.attendanceRate}
                         aria-valuemin={0}
                         aria-valuemax={100}
                       >
                         <div
-                          className={`h-full rounded-full ${
-                            r.attendanceRate >= 90
-                              ? 'bg-emerald-500'
-                              : r.attendanceRate >= 75
-                              ? 'bg-amber-500'
-                              : 'bg-red-500'
-                          }`}
+                          className={`h-full rounded-full ${barColor(r.attendanceRate)}`}
                           style={{ width: `${r.attendanceRate}%` }}
                         />
                       </div>
-                      <span className="font-semibold tabular-nums text-foreground w-10 text-right">
-                        {r.attendanceRate}%
+                      <span className={`font-semibold tabular-nums w-14 text-right ${rateColor(r.attendanceRate)}`}>
+                        {r.attendanceRate.toFixed(2)}%
                       </span>
                     </div>
                   </td>
-                  <td className="py-3 px-2 text-right font-medium tabular-nums text-emerald-600 dark:text-emerald-400">
+                  <td className="py-3 px-3 text-center font-medium tabular-nums text-emerald-600 dark:text-emerald-400">
                     {r.presentCount}
                   </td>
-                  <td className="py-3 px-2 text-right font-medium tabular-nums text-red-500 dark:text-red-400">
+                  <td className="py-3 px-3 text-center font-medium tabular-nums text-red-500 dark:text-red-400">
                     {r.absentCount}
                   </td>
-                  <td className="py-3 px-2 text-right font-medium tabular-nums text-amber-500 dark:text-amber-400">
+                  <td className="py-3 px-3 text-center font-medium tabular-nums text-amber-500 dark:text-amber-400">
                     {r.lateCount}
                   </td>
-                  <td className="py-3 pl-2 pr-4 sm:pr-0 text-right font-medium tabular-nums text-slate-400 dark:text-slate-500">
+                  <td className="py-3 px-3 text-center font-medium tabular-nums text-slate-400 dark:text-slate-500">
                     {r.excusedCount}
+                  </td>
+                  <td className="py-3 pl-3 text-center font-medium tabular-nums text-muted-foreground">
+                    {r.presentCount + r.lateCount}/{r.totalDays}
                   </td>
                 </tr>
               ))}

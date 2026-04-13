@@ -34,8 +34,8 @@ export const GET_ATTENDANCE_ROSTER = graphql(`
 `)
 
 export const GET_ATTENDANCE_REPORT = graphql(`
-  query GetAttendanceReport($groupId: String!, $period: ReportPeriod!) {
-    attendanceReport(groupId: $groupId, period: $period) {
+  query GetAttendanceReport($groupId: String!, $period: ReportPeriod!, $date: String) {
+    attendanceReport(groupId: $groupId, period: $period, date: $date) {
       studentId
       studentName
       attendanceRate
@@ -75,6 +75,36 @@ export const GET_EXPORT_STATUS = graphql(`
       jobId
       status
       downloadUrl
+    }
+  }
+`)
+
+export const GET_ATTENDANCE_REPORT_BY_RANGE = graphql(`
+  query AttendanceReportByRange($input: AttendanceReportByRangeInput!) {
+    attendanceReportByRange(input: $input) {
+      groupId
+      groupName
+      dateFrom
+      dateTo
+      summary {
+        totalStudents
+        averageRate
+        totalPresent
+        totalAbsent
+        totalLate
+        totalExcused
+        totalSessions
+      }
+      students {
+        studentId
+        studentName
+        attendanceRate
+        presentCount
+        absentCount
+        lateCount
+        excusedCount
+        totalDays
+      }
     }
   }
 `)

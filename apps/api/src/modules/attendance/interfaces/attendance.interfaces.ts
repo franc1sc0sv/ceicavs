@@ -53,6 +53,25 @@ export interface IRecordAttendanceItem {
   status: AttendanceStatus
 }
 
+export interface IAttendanceReportSummary {
+  totalStudents: number
+  averageRate: number
+  totalPresent: number
+  totalAbsent: number
+  totalLate: number
+  totalExcused: number
+  totalSessions: number
+}
+
+export interface IAttendanceReportResult {
+  groupId: string
+  groupName: string
+  dateFrom: string
+  dateTo: string
+  summary: IAttendanceReportSummary
+  students: IStudentReport[]
+}
+
 export interface IExportJobResult {
   jobId: string
 }

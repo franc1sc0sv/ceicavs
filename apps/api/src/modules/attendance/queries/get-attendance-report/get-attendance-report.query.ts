@@ -5,6 +5,7 @@ export class GetAttendanceReportQuery {
   constructor(
     public readonly groupId: string,
     public readonly period: ReportPeriod,
+    public readonly date: string,
     public readonly role: UserRole,
   ) {}
 }

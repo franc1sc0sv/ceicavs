@@ -57,10 +57,6 @@
     "roulette": {
       "name": "Roulette",
       "description": "Add custom options and spin the wheel to pick at random — great for draws and decisions"
-    },
-    "text-simplifier": {
-      "name": "Text Simplifier",
-      "description": "Simplify complex texts to make them easier to understand — ideal for adapting materials for students"
     }
   },
   "title": "Tools",
@@ -116,20 +112,5 @@
     "copied": "Copied",
     "processing": "Extracting text...",
     "error": "Failed to extract text. Please try again."
-  },
-  "textSimplifier": {
-    "inputLabel": "Text to simplify",
-    "inputPlaceholder": "Paste or type your text here...",
-    "toneLabel": "Tone",
-    "toneSimple": "Simpler",
-    "toneFormal": "Formal",
-    "toneCasual": "Casual",
-    "simplify": "Simplify",
-    "resultLabel": "Simplified text",
-    "copy": "Copy",
-    "copied": "Copied",
-    "processing": "Simplifying...",
-    "notAvailable": "This feature requires Chrome 138 or later.",
-    "emptyInput": "Type or paste text to simplify."
   }
 }

@@ -57,10 +57,6 @@
     "roulette": {
       "name": "Ruleta",
       "description": "Agrega opciones personalizadas y gira la rueda para elegir al azar — ideal para sorteos y decisiones"
-    },
-    "text-simplifier": {
-      "name": "Simplificador de texto",
-      "description": "Simplifica textos complejos para que sean más fáciles de entender — ideal para adaptar materiales a los estudiantes"
     }
   },
   "title": "Herramientas",
@@ -116,20 +112,5 @@
     "copied": "Copiado",
     "processing": "Extrayendo texto...",
     "error": "No se pudo extraer el texto. Por favor intenta de nuevo."
-  },
-  "textSimplifier": {
-    "inputLabel": "Texto a simplificar",
-    "inputPlaceholder": "Pega o escribe el texto aquí...",
-    "toneLabel": "Tono",
-    "toneSimple": "Más simple",
-    "toneFormal": "Formal",
-    "toneCasual": "Casual",
-    "simplify": "Simplificar",
-    "resultLabel": "Texto simplificado",
-    "copy": "Copiar",
-    "copied": "Copiado",
-    "processing": "Simplificando...",
-    "notAvailable": "Esta función requiere Chrome 138 o superior.",
-    "emptyInput": "Escribe o pega un texto para simplificarlo."
   }
 }

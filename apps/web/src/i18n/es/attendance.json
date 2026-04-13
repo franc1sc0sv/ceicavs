@@ -40,7 +40,9 @@
   },
   "report": {
     "student": "Alumno",
-    "attendance": "Asistencia"
+    "attendance": "Asistencia",
+    "days": "Días",
+    "rateTooltip": "% = (Presentes + Tardanzas) ÷ días del período. Solo presentes y tardanzas cuentan como asistencia."
   },
   "export": {
     "queued": "Exportación en proceso",
@@ -73,5 +75,31 @@
     "noMembers": "Sin miembros todavía",
     "noResults": "Sin resultados",
     "edit": "Editar grupo"
+  },
+  "reports": {
+    "title": "Reportes",
+    "subtitle": "Filtra por grupo y rango de fechas para generar un reporte de asistencia",
+    "group": "Grupo",
+    "groupPlaceholder": "Selecciona un grupo",
+    "dateFrom": "Desde",
+    "dateTo": "Hasta",
+    "run": "Generar reporte",
+    "totalStudents": "Alumnos",
+    "averageRate": "Asistencia promedio",
+    "totalPresent": "Total presentes",
+    "totalAbsent": "Total ausentes",
+    "totalLate": "Total tardanzas",
+    "sessions": "{{count}} sesión(es)",
+    "columns": {
+      "student": "Alumno",
+      "rate": "Tasa",
+      "present": "Presentes",
+      "absent": "Ausentes",
+      "late": "Tardanzas",
+      "excused": "Justificados",
+      "totalDays": "Días"
+    },
+    "empty": "Selecciona un grupo y rango de fechas, luego haz clic en Generar reporte",
+    "noData": "Sin datos de asistencia para esta selección"
   }
 }

@@ -5,15 +5,16 @@ import { GET_ATTENDANCE_REPORT } from '../graphql/attendance.queries'
 interface UseAttendanceReportParams {
   groupId: string | null
   period: ReportPeriod
+  date: string
 }
 
 interface AttendanceReportData {
   attendanceReport: { studentId: string; studentName: string; attendanceRate: number; presentCount: number; absentCount: number; lateCount: number; excusedCount: number; totalDays: number }[]
 }
 
-export function useAttendanceReport({ groupId, period }: UseAttendanceReportParams) {
+export function useAttendanceReport({ groupId, period, date }: UseAttendanceReportParams) {
   const { data, loading, error, refetch } = useQuery(GET_ATTENDANCE_REPORT, {
-    variables: { groupId: groupId ?? '', period },
+    variables: { groupId: groupId ?? '', period, date },
     skip: !groupId,
   })
   const typed = data as AttendanceReportData | undefined

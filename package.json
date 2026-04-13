@@ -12,6 +12,7 @@
     "db:seed": "turbo db:seed"
   },
   "devDependencies": {
+    "puppeteer": "^24.40.0",
     "turbo": "^2",
     "typescript": "^5"
   },

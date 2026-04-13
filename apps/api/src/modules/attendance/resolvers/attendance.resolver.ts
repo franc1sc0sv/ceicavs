@@ -13,9 +13,12 @@ import { ExportJobType } from '../types/export-job.type'
 import { ExportStatusType } from '../types/export-status.type'
 import { RecordAttendanceInput } from '../commands/record-attendance/record-attendance.input'
 import { ExportAttendanceInput } from '../types/export-attendance.input'
+import { AttendanceReportByRangeInput } from '../types/attendance-report-by-range.input'
+import { AttendanceReportResultType } from '../types/attendance-report-result.type'
 import { GetGroupsQuery } from '../queries/get-groups/get-groups.query'
 import { GetRosterQuery } from '../queries/get-roster/get-roster.query'
 import { GetAttendanceReportQuery } from '../queries/get-attendance-report/get-attendance-report.query'
+import { GetAttendanceReportByRangeQuery } from '../queries/get-attendance-report-by-range/get-attendance-report-by-range.query'
 import { GetStudentHistoryQuery } from '../queries/get-student-history/get-student-history.query'
 import { GetStudentSummaryQuery } from '../queries/get-student-summary/get-student-summary.query'
 import { GetExportStatusQuery } from '../queries/get-export-status/get-export-status.query'
@@ -24,6 +27,7 @@ import { ExportAttendanceCommand } from '../commands/export-attendance/export-at
 import { ReportPeriod } from '../enums/report-period.enum'
 import type {
   IAttendanceGroup,
+  IAttendanceReportResult,
   IExportJobResult,
   IExportStatus,
   IGroupRoster,
@@ -62,10 +66,12 @@ export class AttendanceResolver {
   async attendanceReport(
     @Args('groupId', { type: () => String }) groupId: string,
     @Args('period', { type: () => ReportPeriod }) period: ReportPeriod,
+    @Args('date', { type: () => String, nullable: true }) date: string | undefined,
     @CurrentUser() user: IJwtUser,
   ): Promise<IStudentReport[]> {
+    const anchorDate = date ?? new Date().toLocaleDateString('en-CA')
     return this.queryBus.execute<GetAttendanceReportQuery, IStudentReport[]>(
-      new GetAttendanceReportQuery(groupId, period, user.role),
+      new GetAttendanceReportQuery(groupId, period, anchorDate, user.role),
     )
   }
 
@@ -90,6 +96,23 @@ export class AttendanceResolver {
   ): Promise<IExportStatus> {
     return this.queryBus.execute<GetExportStatusQuery, IExportStatus>(
       new GetExportStatusQuery(jobId, user.role),
+    )
+  }
+
+  @Query(() => AttendanceReportResultType)
+  async attendanceReportByRange(
+    @Args('input') input: AttendanceReportByRangeInput,
+    @CurrentUser() user: IJwtUser,
+  ): Promise<IAttendanceReportResult> {
+    return this.queryBus.execute<GetAttendanceReportByRangeQuery, IAttendanceReportResult>(
+      new GetAttendanceReportByRangeQuery(
+        input.groupId,
+        input.dateFrom,
+        input.dateTo,
+        input.studentIds ?? null,
+        user.role,
+        user.id,
+      ),
     )
   }
 

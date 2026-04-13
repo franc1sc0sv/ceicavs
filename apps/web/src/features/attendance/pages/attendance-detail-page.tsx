@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Pencil } from 'lucide-react'
 import { Action, Subject } from '@ceicavs/shared'
+import type { ReportPeriod } from '@/generated/graphql'
 import { useAbility } from '@/context/ability.context'
 import { useSetBreadcrumb } from '@/context/breadcrumb.context'
 import { Button } from '@/components/ui/button'
@@ -12,8 +13,10 @@ import { DatePicker } from '@/components/ui/date-picker'
 import { RosterRow } from '../components/roster-row'
 import { EmptyState } from '../components/empty-state'
 import { GroupEditSheet } from '../components/group-edit-sheet'
+import { ReportTable } from '../components/report-table'
 import { useRoster } from '../hooks/use-roster'
 import { useRecordAttendance } from '../hooks/use-record-attendance'
+import { useAttendanceReport } from '../hooks/use-attendance-report'
 
 type AttendanceStatus = 'present' | 'absent' | 'late' | 'excused'
 
@@ -36,9 +39,12 @@ export default function AttendanceDetailPage() {
   const [changes, setChanges] = useState<Record<string, AttendanceStatus>>({})
   const [activeTab, setActiveTab] = useState<'roster' | 'reports'>('roster')
   const [editOpen, setEditOpen] = useState(false)
+  const [period, setPeriod] = useState<ReportPeriod>('WEEKLY')
+  const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString('en-CA'))
 
   const { rosterData, loading, error, refetch } = useRoster({ groupId: id ?? null, date })
   const { recordAttendance, loading: submitting } = useRecordAttendance()
+  const { reports, loading: reportsLoading } = useAttendanceReport({ groupId: id ?? null, period, date: selectedDate })
 
   const groupName = rosterData?.group.name ?? ''
 
@@ -194,8 +200,15 @@ export default function AttendanceDetailPage() {
           )}
         </div>
       ) : (
-        <div className="bg-card border border-border rounded-2xl p-8 text-center">
-          <p className="text-sm text-muted-foreground">{t('empty.noReports')}</p>
+        <div className="bg-card border border-border rounded-2xl p-5">
+          <ReportTable
+            reports={reports}
+            loading={reportsLoading}
+            period={period}
+            onPeriodChange={setPeriod}
+            selectedDate={selectedDate}
+            onDateChange={setSelectedDate}
+          />
         </div>
       )}
 

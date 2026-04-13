@@ -6,6 +6,7 @@ import { AttendanceResolver } from './resolvers/attendance.resolver'
 import { GetGroupsHandler } from './queries/get-groups/get-groups.handler'
 import { GetRosterHandler } from './queries/get-roster/get-roster.handler'
 import { GetAttendanceReportHandler } from './queries/get-attendance-report/get-attendance-report.handler'
+import { GetAttendanceReportByRangeHandler } from './queries/get-attendance-report-by-range/get-attendance-report-by-range.handler'
 import { GetStudentHistoryHandler } from './queries/get-student-history/get-student-history.handler'
 import { GetStudentSummaryHandler } from './queries/get-student-summary/get-student-summary.handler'
 import { GetExportStatusHandler } from './queries/get-export-status/get-export-status.handler'
@@ -20,6 +21,7 @@ import { ExportAttendanceHandler } from './commands/export-attendance/export-att
     GetGroupsHandler,
     GetRosterHandler,
     GetAttendanceReportHandler,
+    GetAttendanceReportByRangeHandler,
     GetStudentHistoryHandler,
     GetStudentSummaryHandler,
     GetExportStatusHandler,

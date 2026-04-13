@@ -56,7 +56,7 @@ export function RosterSheet({
 }: RosterSheetProps) {
   const { t } = useTranslation('attendance')
   const { rosterData, loading: rosterLoading, error: rosterError } = useRoster({ groupId, date: selectedDate })
-  const { reports, loading: reportLoading } = useAttendanceReport({ groupId, period: reportPeriod })
+  const { reports, loading: reportLoading } = useAttendanceReport({ groupId, period: reportPeriod, date: selectedDate })
   const { recordAttendance, loading: submitting } = useRecordAttendance()
 
   const mergedRoster: RosterStudent[] = (rosterData?.roster as RosterStudent[] | undefined ?? []).map((student: RosterStudent) => ({
@@ -141,11 +141,12 @@ export function RosterSheet({
           ) : (
             <div className="px-5 py-4">
               <ReportTable
-                groupId={groupId ?? ''}
                 reports={reports}
                 loading={reportLoading}
                 period={reportPeriod}
                 onPeriodChange={onReportPeriodChange}
+                selectedDate={selectedDate}
+                onDateChange={onDateChange}
               />
             </div>
           )}
