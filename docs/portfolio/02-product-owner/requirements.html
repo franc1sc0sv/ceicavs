@@ -354,8 +354,8 @@
     <tr><th style="width:10%">ID</th><th>Descripci&oacute;n</th></tr>
   </thead>
   <tbody>
-    <tr><td>RNF-08</td><td>El frontend debe estar desplegado en Vercel con disponibilidad m&iacute;nima del 99% (SLA de la plataforma).</td></tr>
-    <tr><td>RNF-09</td><td>El backend debe estar desplegado en Render con reinicio autom&aacute;tico ante ca&iacute;das.</td></tr>
+    <tr><td>RNF-08</td><td>El frontend debe estar desplegado en Vercel con disponibilidad m&iacute;nima del 99% (SLA de la plataforma). URL de producci&oacute;n: <strong>https://ceicavs-web.vercel.app</strong></td></tr>
+    <tr><td>RNF-09</td><td>El backend debe estar desplegado en Render con reinicio autom&aacute;tico ante ca&iacute;das. URL de producci&oacute;n: <strong>https://ceicavs-api.onrender.com</strong></td></tr>
     <tr><td>RNF-10</td><td>La base de datos PostgreSQL debe ser accesible desde el backend mediante variables de entorno seguras (no hardcoded).</td></tr>
   </tbody>
 </table>
@@ -387,7 +387,7 @@
   <li>Los usuarios del sistema cuentan con dispositivos con conexi&oacute;n a internet y navegador moderno.</li>
   <li>La administraci&oacute;n de las API keys (Groq, Gemini) es responsabilidad del administrador t&eacute;cnico del Centro Escolar.</li>
   <li>Los datos existentes del Centro Escolar (alumnos, grupos) se migrar&aacute;n manualmente o mediante importaci&oacute;n CSV.</li>
-  <li>Las credenciales de producci&oacute;n (DATABASE_URL, JWT secrets) se configuran en las variables de entorno de Vercel y Render.</li>
+  <li>Las credenciales de producci&oacute;n (DATABASE_URL, JWT secrets) se configuran en las variables de entorno de Vercel (<strong>https://ceicavs-web.vercel.app</strong>) y Render (<strong>https://ceicavs-api.onrender.com</strong>).</li>
 </ul>
 
 </body>
