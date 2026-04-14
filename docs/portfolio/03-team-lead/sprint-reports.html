@@ -64,6 +64,31 @@
   </div>
 </div>
 
+<!-- INTRO PAGE -->
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Team Lead &mdash; Seguimiento</div>
+    <div class="doc-title">Reportes de Seguimiento de Sprint</div>
+  </div>
+  <div class="doc-header-right">CEICAVS &mdash; Febrero&ndash;Abril 2025</div>
+</div>
+
+<h2>Introducci&oacute;n</h2>
+<p>El presente documento recoge los reportes de seguimiento de los cinco sprints del proyecto Sistema Escolar CEICAVS, desarrollado entre el 16 de febrero y el 25 de abril de 2025 utilizando la metodolog&iacute;a Scrum. Cada reporte incluye las m&eacute;tricas de velocidad del equipo, las tareas planificadas y completadas, los entregables del sprint y las retrospectivas con mejoras identificadas.</p>
+<p>En mi rol de <strong>Team Lead y Scrum Master</strong>, fui responsable de planificar el backlog por sprint, facilitar las ceremonias Scrum, monitorear el avance y resolver bloqueos t&eacute;cnicos. Este documento sirve como evidencia del proceso &aacute;gil aplicado a lo largo del proyecto.</p>
+
+<table>
+  <thead><tr><th>Sprint</th><th>Periodo</th><th>Enfoque principal</th><th>Estado</th></tr></thead>
+  <tbody>
+    <tr><td>Sprint 1</td><td>16 feb &mdash; 01 mar</td><td>Fundamentos y Sistema de Asistencia</td><td><span class="badge badge-pass">Completado</span></td></tr>
+    <tr><td>Sprint 2</td><td>02 mar &mdash; 15 mar</td><td>Blog y Gesti&oacute;n de Personas</td><td><span class="badge badge-pass">Completado</span></td></tr>
+    <tr><td>Sprint 3</td><td>16 mar &mdash; 29 mar</td><td>Herramientas Educativas</td><td><span class="badge badge-pass">Completado</span></td></tr>
+    <tr><td>Sprint 4</td><td>30 mar &mdash; 12 abr</td><td>Transcripci&oacute;n con IA y QA</td><td><span class="badge badge-pass">Completado</span></td></tr>
+    <tr><td>Sprint 5</td><td>13 abr &mdash; 25 abr</td><td>Documentaci&oacute;n y entrega final</td><td><span class="badge badge-pass">Completado</span></td></tr>
+  </tbody>
+</table>
+
 <!-- SPRINT 1 -->
 <div class="page-break"></div>
 <div class="doc-header no-break">
@@ -184,7 +209,7 @@
     <ul class="checklist">
       <li class="done">Feed del blog institucional con filtrado por categor&iacute;a</li>
       <li class="done">Creaci&oacute;n y publicaci&oacute;n de art&iacute;culos (admin/docente)</li>
-      <li class="done">Flujo de revisi&oacute;n de borradores de estudiantes</li>
+      <li class="done">Envío y revisión de publicaciones de estudiantes (estado <em>pending</em>)</li>
       <li class="done">CRUD de categor&iacute;as del blog</li>
       <li class="done">Reacciones y comentarios en publicaciones</li>
       <li class="done">Cat&aacute;logo de 14 herramientas educativas</li>
@@ -340,6 +365,7 @@
       <li>La p&aacute;gina de asistencia mostraba fechas en UTC en lugar de hora local.</li>
       <li>Los comentarios anidados no se eliminaban en cascada al borrar el padre.</li>
       <li>El selector de estudiante al azar cargaba grupos de otros docentes.</li>
+        <li>El botón &laquo;Enviar para revisi&oacute;n&raquo; creaba un borrador en lugar de estado <em>pending</em>; la cola mostraba todos los borradores en vez de solo los pendientes. Se separó el estado <em>draft</em> del estado <em>pending</em> y se a&ntilde;adió la pesta&ntilde;a &laquo;En revisi&oacute;n&raquo; en &laquo;Mis Borradores&raquo;.</li>
     </ul>
     <h3>Cobertura</h3>
     <ul>
@@ -358,7 +384,7 @@
   </div>
   <div class="doc-header-right">
     13 abr &mdash; 25 abr 2025<br>
-    <span class="badge badge-wip">En progreso</span>
+    <span class="badge badge-pass">Completado</span>
   </div>
 </div>
 
@@ -368,23 +394,23 @@
     <div class="metric-label">Tareas planeadas</div>
   </div>
   <div class="metric-box">
-    <div class="metric-value" style="color:var(--green)">4</div>
+    <div class="metric-value" style="color:var(--green)">7</div>
     <div class="metric-label">Completadas</div>
   </div>
   <div class="metric-box">
-    <div class="metric-value" style="color:var(--yellow)">3</div>
-    <div class="metric-label">En progreso</div>
+    <div class="metric-value" style="color:var(--red)">0</div>
+    <div class="metric-label">Pendientes</div>
   </div>
   <div class="metric-box">
-    <div class="metric-value">57%</div>
-    <div class="metric-label">Avance actual</div>
+    <div class="metric-value">100%</div>
+    <div class="metric-label">Velocity</div>
   </div>
 </div>
 
 <div style="margin-bottom:3mm;">
-  <div style="font-size:0.75rem;color:var(--gray-600);margin-bottom:1mm;">Avance del sprint (al 12 de abril)</div>
+  <div style="font-size:0.75rem;color:var(--gray-600);margin-bottom:1mm;">Velocity del sprint</div>
   <div class="velocity-bar-container">
-    <div class="velocity-bar sprint-5" style="width:57%"></div>
+    <div class="velocity-bar sprint-5" style="width:100%"></div>
   </div>
 </div>
 
@@ -399,24 +425,21 @@
       <li class="done">Despliegue del frontend en Vercel (producci&oacute;n)</li>
       <li class="done">Documentaci&oacute;n t&eacute;cnica del sistema</li>
       <li class="done">Manual de usuario completo con capturas de pantalla</li>
-    </ul>
-    <h3>Tareas en Progreso</h3>
-    <ul>
-      <li>Redacci&oacute;n del portafolio de evidencias de servicio social</li>
-      <li>Grabaci&oacute;n de videos tutoriales</li>
-      <li>Sesi&oacute;n de capacitaci&oacute;n con el personal del CEICAVS</li>
+      <li class="done">Redacci&oacute;n del portafolio de evidencias de servicio social</li>
+      <li class="done">Grabaci&oacute;n de videos tutoriales</li>
+      <li class="done">Sesi&oacute;n de capacitaci&oacute;n con el personal del CEICAVS</li>
     </ul>
   </div>
   <div>
-    <h3>Proyecci&oacute;n de Cierre</h3>
+    <h3>Resultado del Sprint</h3>
     <ul>
-      <li>Fecha estimada de entrega del portafolio: <strong>25 de abril de 2025</strong></li>
-      <li>Capacitaci&oacute;n programada para la tercera semana de abril.</li>
-      <li>Sin bloqueos actuales; velocidad de avance en l&iacute;nea con el plan.</li>
+      <li>Portafolio de evidencias entregado el <strong>25 de abril de 2025</strong>.</li>
+      <li>Capacitaci&oacute;n realizada con el personal del CEICAVS en la tercera semana de abril.</li>
+      <li>Sprint completado sin bloqueos; todas las tareas entregadas en fecha.</li>
     </ul>
-    <h3>Notas</h3>
+    <h3>Blockers Encontrados</h3>
     <ul>
-      <li>El portafolio de evidencias se compartir&aacute; en la plataforma indicada por el tutor de servicio social.</li>
+      <li><strong>Ninguno.</strong> El sprint se complet&oacute; sin bloqueos significativos.</li>
     </ul>
   </div>
 </div>
@@ -473,22 +496,22 @@
       <td>Sprint 5</td>
       <td>13 abr &mdash; 25 abr</td>
       <td>7</td>
-      <td>4 (3 en curso)</td>
-      <td>57%*</td>
-      <td><span class="badge badge-wip">En progreso</span></td>
+      <td>7</td>
+      <td>100%</td>
+      <td><span class="badge badge-pass">Completado</span></td>
     </tr>
     <tr style="font-weight:700;">
       <td>Total</td>
       <td>&mdash;</td>
       <td>38</td>
-      <td>34 + 3</td>
-      <td>97%</td>
+      <td>38</td>
+      <td>100%</td>
       <td>&mdash;</td>
     </tr>
   </tbody>
 </table>
 
-<p style="font-size:0.75rem; color:var(--gray-600);">* Velocity parcial al 12 de abril. Sprint 5 finaliza el 25 de abril.</p>
+<p class="footnote">Proyecto finalizado exitosamente el 25 de abril de 2025. Todos los sprints completados al 100%.</p>
 
 </body>
 </html>

@@ -26,10 +26,16 @@
   "status": {
     "published": "Published",
     "draft": "Draft",
+    "pending": "Pending Review",
     "rejected": "Rejected"
   },
   "drafts": {
     "rejectionNote": "Rejection note",
+    "tabs": {
+      "drafts": "Drafts",
+      "inReview": "In Review"
+    },
+    "pendingNote": "This post is awaiting review from a teacher.",
     "rejectDialog": {
       "title": "Reject draft",
       "placeholder": "Reason for rejection..."
@@ -64,6 +70,7 @@
     "noResults": "No posts found",
     "noResultsHint": "Try different terms or categories",
     "noDrafts": "You have no drafts",
+    "noPending": "No posts awaiting review",
     "noComments": "Be the first to comment",
     "noCategories": "No categories yet"
   },

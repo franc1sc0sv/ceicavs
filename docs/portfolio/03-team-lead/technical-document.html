@@ -124,6 +124,10 @@
   </div>
 </div>
 
+<h2>Introducci&oacute;n</h2>
+<p>Este documento t&eacute;cnico describe la arquitectura, el stack tecnol&oacute;gico, el modelo de datos y las integraciones externas del Sistema Escolar CEICAVS. Fue elaborado en mi rol de <strong>Team Lead y desarrollador principal</strong> del proyecto, con el objetivo de documentar las decisiones de dise&ntilde;o tomadas durante el desarrollo.</p>
+<p>El sistema se construy&oacute; como un monorepo con separaci&oacute;n clara entre frontend (React SPA), backend (NestJS API GraphQL) y base de datos (PostgreSQL con Prisma ORM), siguiendo principios de arquitectura limpia y patrones CQRS para garantizar mantenibilidad y escalabilidad.</p>
+
 <h2>1. Stack Tecnol&oacute;gico</h2>
 <table>
   <thead>
@@ -266,7 +270,7 @@
   <tbody>
     <tr><td>UserRole</td><td>ADMIN, TEACHER, STUDENT</td></tr>
     <tr><td>AttendanceStatus</td><td>PRESENT, ABSENT, LATE, JUSTIFIED</td></tr>
-    <tr><td>PostStatus</td><td>DRAFT, PENDING_REVIEW, PUBLISHED, REJECTED</td></tr>
+    <tr><td>PostStatus</td><td>draft, pending, published, rejected</td></tr>
     <tr><td>TranscriptionStatus</td><td>PENDING, PROCESSING, COMPLETED, FAILED</td></tr>
   </tbody>
 </table>

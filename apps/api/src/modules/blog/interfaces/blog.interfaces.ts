@@ -65,6 +65,7 @@ export interface IUpdatePostData {
   content?: string
   categoryIds?: string[]
   images?: IPostImageInput[]
+  publish?: boolean
 }
 
 export interface IPostFilters {

@@ -21,7 +21,7 @@ El estudiante puede **consultar** su asistencia pero no puede registrarla.
 En `/attendance`, el estudiante ve únicamente los grupos en los que está inscrito. Si no pertenece a ningún grupo, verá un estado vacío. Ver: [Ver Grupos de Asistencia](../flows/attendance-view-groups.md)
 
 ### Ver reporte de asistencia propio
-Al entrar a un grupo en `/attendance/:id`, el estudiante puede ver el reporte de asistencia pero **solo verá su propia fila**; no tiene acceso a los datos de asistencia de otros compañeros. Ver: [Ver Reporte de Asistencia](../flows/attendance-view-report.md)
+Al entrar a un grupo en `/attendance/:id` y abrir la pestaña **Reportes**, el estudiante puede ver el reporte de asistencia con el selector de período (Diario / Semanal / Mensual), pero **solo verá su propia fila**; no tiene acceso a los datos de asistencia de otros compañeros. Ver: [Ver Reporte de Asistencia](../flows/attendance-view-report.md)
 
 ### Ver su historial individual
 El estudiante puede hacer clic en su propia fila del reporte para ver el historial detallado de su asistencia: estado de cada sesión registrada y estadísticas de resumen. Ver: [Historial de Asistencia](../flows/attendance-student-history.md)
@@ -53,7 +53,6 @@ El estudiante tiene acceso al mismo catálogo de herramientas que los demás rol
 Las herramientas más relevantes para el estudiante:
 - [Temporizador](../flows/tools-countdown-timer.md) — Para gestionar tiempos de estudio
 - [Organizador de Tareas](../flows/tools-task-organizer.md) — Para organizar tareas y trabajos
-- [Simplificador de Texto](../flows/tools-text-simplifier.md) — Para comprender textos complejos
 - [Calculadora Científica](../flows/tools-scientific-calculator.md) — Para cálculos matemáticos
 - [Generador de QR](../flows/tools-qr-code-generator.md) — Para compartir información
 - [Notas Rápidas](../flows/tools-quick-notes.md) — Para apuntes rápidos en clase

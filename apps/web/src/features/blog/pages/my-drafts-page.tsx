@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { ArrowRight, Loader2, Pencil } from 'lucide-react'
+import { ArrowRight, Clock, Loader2, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { StatusBadge } from '../components/status-badge'
 import { useMyDrafts } from '../hooks/use-my-drafts'
 
@@ -13,6 +14,99 @@ interface MyDraftItem {
   updatedAt: string
   rejectionNote: string | null
   categories: { id: string; name: string }[]
+}
+
+function DraftCard({ draft, onEdit }: { draft: MyDraftItem; onEdit: () => void }) {
+  const { t } = useTranslation('blog')
+
+  return (
+    <Card className="dark:bg-slate-900 dark:border-slate-800">
+      <CardContent className="p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0 space-y-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <StatusBadge status={draft.status as 'published' | 'draft' | 'pending' | 'rejected'} />
+              {draft.categories.map((cat) => (
+                <span
+                  key={cat.id}
+                  className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400"
+                >
+                  {cat.name}
+                </span>
+              ))}
+            </div>
+            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 line-clamp-2">
+              {draft.title}
+            </h3>
+            <p className="text-xs text-slate-400 dark:text-slate-500">
+              {new Date(draft.updatedAt).toLocaleDateString('es-MX', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              })}
+            </p>
+            {draft.status === 'rejected' && draft.rejectionNote && (
+              <div className="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 px-4 py-3">
+                <p className="text-xs font-semibold text-red-700 dark:text-red-400 mb-1">
+                  {t('drafts.rejectionNote')}
+                </p>
+                <p className="text-sm text-red-800 dark:text-red-300">{draft.rejectionNote}</p>
+              </div>
+            )}
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onEdit}
+            className="gap-1.5 shrink-0"
+          >
+            <Pencil className="size-3.5" />
+            {t('actions.edit')}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function PendingCard({ draft }: { draft: MyDraftItem }) {
+  const { t } = useTranslation('blog')
+
+  return (
+    <Card className="dark:bg-slate-900 dark:border-slate-800">
+      <CardContent className="p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0 space-y-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <StatusBadge status="pending" />
+              {draft.categories.map((cat) => (
+                <span
+                  key={cat.id}
+                  className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400"
+                >
+                  {cat.name}
+                </span>
+              ))}
+            </div>
+            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 line-clamp-2">
+              {draft.title}
+            </h3>
+            <p className="text-xs text-slate-400 dark:text-slate-500">
+              {new Date(draft.updatedAt).toLocaleDateString('es-MX', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              })}
+            </p>
+            <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
+              <Clock className="size-3.5 shrink-0" />
+              <span>{t('drafts.pendingNote')}</span>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
 }
 
 export function MyDraftsPage() {
@@ -36,6 +130,11 @@ export function MyDraftsPage() {
     )
   }
 
+  const allDrafts = (drafts as MyDraftItem[]).filter(
+    (d) => d.status === 'draft' || d.status === 'rejected',
+  )
+  const pendingDrafts = (drafts as MyDraftItem[]).filter((d) => d.status === 'pending')
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -46,66 +145,58 @@ export function MyDraftsPage() {
         </Button>
       </div>
 
-      {drafts.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-24 gap-3">
-          <p className="text-sm text-slate-500 dark:text-slate-400">{t('empty.noDrafts')}</p>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {(drafts as MyDraftItem[]).map((draft: MyDraftItem) => (
-            <Card key={draft.id} className="dark:bg-slate-900 dark:border-slate-800">
-              <CardContent className="p-5">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0 space-y-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <StatusBadge status={draft.status as 'published' | 'draft' | 'rejected'} />
-                      {draft.categories.map((cat: { id: string; name: string }) => (
-                        <span
-                          key={cat.id}
-                          className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400"
-                        >
-                          {cat.name}
-                        </span>
-                      ))}
-                    </div>
-                    <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 line-clamp-2">
-                      {draft.title}
-                    </h3>
-                    <p className="text-xs text-slate-400 dark:text-slate-500">
-                      {new Date(draft.updatedAt).toLocaleDateString('es-MX', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                      })}
-                    </p>
-                    {draft.status === 'rejected' && draft.rejectionNote && (
-                      <div className="rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 px-4 py-3">
-                        <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1">
-                          {t('drafts.rejectionNote')}
-                        </p>
-                        <p className="text-sm text-amber-800 dark:text-amber-300">
-                          {draft.rejectionNote}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  {(draft.status === 'draft' || draft.status === 'rejected') && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => navigate(`/blog/${draft.id}/edit`)}
-                      className="gap-1.5 shrink-0"
-                    >
-                      <Pencil className="size-3.5" />
-                      {t('actions.edit')}
-                    </Button>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+      <Tabs defaultValue="drafts">
+        <TabsList>
+          <TabsTrigger value="drafts" className="gap-2">
+            {t('drafts.tabs.drafts')}
+            {allDrafts.length > 0 && (
+              <span className="inline-flex items-center justify-center size-5 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                {allDrafts.length}
+              </span>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="pending" className="gap-2">
+            {t('drafts.tabs.inReview')}
+            {pendingDrafts.length > 0 && (
+              <span className="inline-flex items-center justify-center size-5 rounded-full bg-amber-100 dark:bg-amber-500/20 text-xs font-semibold text-amber-700 dark:text-amber-400">
+                {pendingDrafts.length}
+              </span>
+            )}
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="drafts" className="mt-4">
+          {allDrafts.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-24 gap-3">
+              <p className="text-sm text-slate-500 dark:text-slate-400">{t('empty.noDrafts')}</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {allDrafts.map((draft) => (
+                <DraftCard
+                  key={draft.id}
+                  draft={draft}
+                  onEdit={() => navigate(`/blog/${draft.id}/edit`)}
+                />
+              ))}
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="pending" className="mt-4">
+          {pendingDrafts.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-24 gap-3">
+              <p className="text-sm text-slate-500 dark:text-slate-400">{t('empty.noPending')}</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {pendingDrafts.map((draft) => (
+                <PendingCard key={draft.id} draft={draft} />
+              ))}
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

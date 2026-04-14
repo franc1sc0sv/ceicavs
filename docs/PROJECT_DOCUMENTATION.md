@@ -146,9 +146,9 @@ Abrir el roster de un grupo, marcar estado de cada estudiante (presente/ausente/
 Ver: [Tomar Asistencia](flows/attendance-take.md)
 
 #### Ver reporte de asistencia
-Tabla de estadísticas por estudiante para un período seleccionado (semanal, mensual, personalizado).
+En la pestaña **Reportes** del detalle de grupo: tabla de estadísticas por estudiante con selector de período (Diario / Semanal / Mensual) y navegación de fechas con flechas. Muestra tasa de asistencia con barra de progreso codificada por color, y conteos de Presente / Ausente / Tardanza / Justificado.
 
-**Roles:** Todos (estudiantes solo ven su fila) | **URL:** `/attendance/:id`
+**Roles:** Todos (estudiantes solo ven su fila) | **URL:** `/attendance/:id` → pestaña Reportes
 
 Ver: [Ver Reporte](flows/attendance-view-report.md)
 
@@ -217,7 +217,7 @@ Ver: [Mis Borradores](flows/blog-my-drafts.md)
 ### Herramientas Educativas
 
 #### Catálogo de herramientas
-Cuadrícula con 14 herramientas organizadas por categoría. El usuario puede marcar favoritas.
+Cuadrícula con 13 herramientas organizadas por categoría. El usuario puede marcar favoritas.
 
 **Roles:** Todos | **URL:** `/tools`
 
@@ -229,7 +229,6 @@ Ver: [Explorar Herramientas](flows/tools-browse.md)
 |-------------|-----|------|
 | Temporizador | `/tools/countdown-timer` | Local |
 | Organizador de tareas | `/tools/task-organizer` | GraphQL (sincronizado) |
-| Simplificador de texto | `/tools/text-simplifier` | IA (frontend) |
 | Convertidor Word/PDF | `/tools/word-pdf-converter` | REST API |
 | Convertidor de imágenes | `/tools/image-format-converter` | Local/REST |
 | Descargador de YouTube | `/tools/youtube-downloader` | REST API |
@@ -314,7 +313,7 @@ Ver: [Ver Transcripción](flows/transcription-view.md)
 - **Autorización granular:** CASL garantiza que cada acción sea verificada tanto en el frontend (UI) como en el backend (handler), sin posibilidad de bypass.
 - **Transcripción con IA:** Integración completa con Groq Whisper + Gemini para convertir audio a texto y generar resúmenes estructurados.
 - **Blog con flujo de aprobación:** Los estudiantes pueden contribuir contenido que pasa por revisión editorial antes de publicarse.
-- **Herramientas sin instalación:** 14 herramientas educativas accesibles desde el navegador sin instalar nada.
+- **Herramientas sin instalación:** 13 herramientas educativas accesibles desde el navegador sin instalar nada.
 - **Soft delete:** Los registros eliminados se marcan con `deletedAt` pero no se borran de la base de datos, permitiendo auditoría y recuperación manual.
 - **Tipado extremo:** Desde el schema GraphQL hasta los componentes React, todos los tipos son generados automáticamente por codegen, eliminando discrepancias.
 

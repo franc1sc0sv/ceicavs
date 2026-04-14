@@ -416,18 +416,22 @@
     {
       "id": "attendance-view-report",
       "name": "View Attendance Report",
-      "description": "View a summary table of attendance records for a group over a selected time period.",
+      "description": "Inside the group detail page, the Reportes tab shows a summary table of attendance records per student for the selected period (Daily/Weekly/Monthly) with date navigation arrows.",
       "category": "Attendance",
       "requires_auth": true,
       "accessible_roles": ["admin", "teacher", "student"],
       "starting_route": "/attendance/:id",
       "depends_on": ["attendance-view-groups"],
       "steps": [
-        { "step": 1, "action": "navigate", "target": "/attendance/:id", "description": "Open attendance detail page for a group" },
-        { "step": 2, "action": "interact", "description": "Select a report period (weekly/monthly/custom)" },
-        { "step": 3, "action": "verify", "description": "Table shows each student's attendance percentage and record counts" }
+        { "step": 1, "action": "navigate", "target": "/attendance/:id", "description": "Open attendance detail page for a group — default tab is Lista del día (roster)" },
+        { "step": 2, "action": "click", "target": "Reportes tab", "description": "Switch to the Reports tab" },
+        { "step": 3, "action": "interact", "description": "Select period: Diario, Semanal, or Mensual using the toggle button group" },
+        { "step": 4, "action": "interact", "description": "Navigate between periods using the Previous (‹) and Next (›) arrows. Next is disabled at the current period." },
+        { "step": 5, "action": "verify", "description": "Table shows each student's attendance rate (color-coded progress bar + %), plus Present/Absent/Late/Excused counts and Days ratio" }
       ],
-      "error_scenarios": []
+      "error_scenarios": [
+        { "trigger": "No attendance recorded in the selected period", "expected_behavior": "Empty state message shown. Change period or record attendance first." }
+      ]
     },
     {
       "id": "attendance-export",
@@ -703,24 +707,6 @@
       ]
     },
     {
-      "id": "tool-text-simplifier",
-      "name": "Text Simplifier (AI)",
-      "description": "Paste complex text and the tool simplifies it using AI, making it easier to read and understand.",
-      "category": "Tools",
-      "requires_auth": true,
-      "accessible_roles": ["admin", "teacher", "student"],
-      "starting_route": "/tools/text-simplifier",
-      "steps": [
-        { "step": 1, "action": "navigate", "target": "/tools/text-simplifier", "description": "Open text simplifier tool" },
-        { "step": 2, "action": "fill_form", "fields": { "text": { "type": "textarea", "sample_value": "El proceso de fotosíntesis involucra..." } }, "description": "Paste complex text" },
-        { "step": 3, "action": "click", "target": "Simplify button", "api_call": "AI text simplification", "description": "Process text with AI" },
-        { "step": 4, "action": "verify", "description": "Simplified text appears below the input" }
-      ],
-      "error_scenarios": [
-        { "trigger": "AI service unavailable", "expected_behavior": "Error toast with fallback message" }
-      ]
-    },
-    {
       "id": "tool-screenshot-to-text",
       "name": "Screenshot to Text (OCR)",
       "description": "Upload an image containing text and extract the text content using OCR (Optical Character Recognition).",
@@ -827,7 +813,7 @@
     { "type": "workflow", "description": "Students can only SUBMIT posts (creates draft); posts must be approved by teacher/admin to become published" },
     { "type": "data", "description": "Soft deletes on User, Group, Post, Category, Comment, Tool, Folder, Recording — records are never permanently removed" },
     { "type": "ai", "description": "AI summary generation requires a completed transcription first" },
-    { "type": "ai", "description": "Text simplifier and transcription use external AI services (Groq/Gemini) — availability depends on API keys and service uptime" },
+    { "type": "ai", "description": "Transcription uses external AI services (Groq Whisper for transcription, Gemini for summaries) — availability depends on API keys and service uptime" },
     { "type": "language", "description": "UI is Spanish-first with i18n support for English; all user-facing text goes through react-i18next" }
   ],
   "feature_flags": [],
@@ -865,7 +851,6 @@
         "tool-quick-notes",
         "tool-task-organizer",
         "tool-random-picker",
-        "tool-text-simplifier",
         "tool-screenshot-to-text",
         "tool-other-utilities",
         "transcription-list",
@@ -895,7 +880,6 @@
         "tool-quick-notes",
         "tool-task-organizer",
         "tool-random-picker",
-        "tool-text-simplifier",
         "tool-screenshot-to-text",
         "tool-other-utilities",
         "transcription-list",
@@ -919,7 +903,6 @@
         "tool-countdown-timer",
         "tool-quick-notes",
         "tool-task-organizer",
-        "tool-text-simplifier",
         "tool-screenshot-to-text",
         "tool-other-utilities"
       ],

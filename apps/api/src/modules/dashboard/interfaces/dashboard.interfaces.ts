@@ -2,6 +2,7 @@ export interface IDashboardPostsByStatus {
   published: number
   draft: number
   rejected: number
+  pending: number
 }
 
 export interface IDashboardUsersByRole {

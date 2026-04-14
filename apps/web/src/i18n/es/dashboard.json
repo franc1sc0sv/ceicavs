@@ -69,6 +69,7 @@
     "usersByRole": "Usuarios por rol",
     "published": "Publicados",
     "draft": "Borradores",
+    "pending": "En revisión",
     "rejected": "Rechazados",
     "present": "Presente",
     "absent": "Ausente",

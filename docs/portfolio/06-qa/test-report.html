@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reporte de Pruebas QA &mdash; CEICAVS</title>
-  <link rel="stylesheet" href="../../_shared/design.css">
+  <link rel="stylesheet" href="../_shared/design.css">
 </head>
 <body>
 
@@ -33,6 +33,10 @@
     <span class="badge badge-pass">100% cobertura funcional</span>
   </div>
 </div>
+
+<h2>Introducci&oacute;n</h2>
+<p>El presente reporte documenta el proceso de aseguramiento de calidad (QA) aplicado al Sistema Escolar CEICAVS durante el Sprint 4. El objetivo es demostrar que todas las funcionalidades implementadas cumplen con los requerimientos definidos y operan correctamente desde los tres roles de usuario: Administrador, Docente y Estudiante.</p>
+<p>Las pruebas fueron ejecutadas manualmente en el ambiente de producci&oacute;n, cubriendo el 100% de los m&oacute;dulos funcionales del sistema. Cada caso de prueba documenta las precondiciones, los pasos de ejecuci&oacute;n, el resultado esperado y el resultado obtenido, junto con capturas de pantalla como evidencia.</p>
 
 <h2>1. Plan de Pruebas</h2>
 
@@ -212,7 +216,7 @@
       <td>BUG-003</td>
       <td>Blog</td>
       <td>Los comentarios anidados no se eliminaban en cascada al borrar el comentario padre, dejando hu&eacute;rfanos en la base de datos</td>
-      <td><span class="badge badge-wip">Media</span></td>
+      <td><span class="badge badge-severity-medium">Media</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
     <tr>
@@ -226,62 +230,62 @@
       <td>BUG-005</td>
       <td>Personas</td>
       <td>La importaci&oacute;n CSV no mostraba conteo correcto de registros omitidos al haber duplicados</td>
-      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-severity-low">Baja</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
     <tr>
       <td>BUG-006</td>
       <td>Blog</td>
       <td>El filtro por categor&iacute;a en el feed no se restablec&iacute;a al navegar a otra p&aacute;gina y regresar</td>
-      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-severity-low">Baja</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
     <tr>
       <td>BUG-007</td>
       <td>Transcripci&oacute;n</td>
       <td>El bot&oacute;n "Generar resumen" permanec&iacute;a habilitado mientras la transcripci&oacute;n estaba en proceso</td>
-      <td><span class="badge badge-wip">Media</span></td>
+      <td><span class="badge badge-severity-medium">Media</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
     <tr>
       <td>BUG-008</td>
       <td>Dashboard</td>
       <td>Las estad&iacute;sticas del dashboard del administrador no se actualizaban despu&eacute;s de crear un nuevo usuario sin recargar la p&aacute;gina</td>
-      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-severity-low">Baja</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
     <tr>
       <td>BUG-009</td>
       <td>Asistencia</td>
       <td>El reporte de asistencia con per&iacute;odo personalizado no respetaba el d&iacute;a de fin al llegar a medianoche</td>
-      <td><span class="badge badge-wip">Media</span></td>
+      <td><span class="badge badge-severity-medium">Media</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
     <tr>
       <td>BUG-010</td>
       <td>Personas</td>
       <td>La b&uacute;squeda de usuarios no era case-insensitive; no encontraba usuarios con letras may&uacute;sculas</td>
-      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-severity-low">Baja</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
     <tr>
       <td>BUG-011</td>
       <td>Herramientas</td>
       <td>La herramienta de OCR fallaba silenciosamente con im&aacute;genes mayores a 5MB sin mostrar mensaje de error</td>
-      <td><span class="badge badge-wip">Media</span></td>
+      <td><span class="badge badge-severity-medium">Media</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
     <tr>
       <td>BUG-012</td>
       <td>Blog</td>
       <td>Al rechazar una publicaci&oacute;n sin ingresar nota, el formulario se cerraba sin guardar la acci&oacute;n</td>
-      <td><span class="badge badge-wip">Baja</span></td>
+      <td><span class="badge badge-severity-low">Baja</span></td>
       <td><span class="badge badge-pass">Resuelto</span></td>
     </tr>
   </tbody>
 </table>
 
-<div class="note" style="margin-top:4mm;">
+<div class="note">
   <div class="note-title">Resultado final del ciclo QA</div>
   Los 12 bugs identificados durante el Sprint 4 fueron corregidos en el mismo sprint. Al cierre del ciclo QA, los 58 casos de prueba pasaron exitosamente, alcanzando el 100% de cobertura funcional en todos los m&oacute;dulos del sistema.
 </div>

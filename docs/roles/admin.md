@@ -52,7 +52,7 @@ El administrador ve todos los grupos de la plataforma en `/attendance`. Ver: [Ve
 El administrador puede registrar asistencia para cualquier grupo. En `/attendance/:id`, abre el roster, marca el estado de cada estudiante (presente, ausente, tardanza, justificado) y guarda. Ver: [Tomar Asistencia](../flows/attendance-take.md)
 
 ### Ver reportes de asistencia
-En `/attendance/:id`, el administrador selecciona un período y ve la tabla de reporte con estadísticas por estudiante. Ver: [Ver Reporte de Asistencia](../flows/attendance-view-report.md)
+En `/attendance/:id`, el administrador abre la pestaña **Reportes**, selecciona un período (Diario / Semanal / Mensual) y navega entre fechas para ver la tabla con estadísticas por estudiante. Ver: [Ver Reporte de Asistencia](../flows/attendance-view-report.md)
 
 ### Exportar reportes
 El administrador puede exportar reportes de asistencia en CSV o PDF. Ver: [Exportar Asistencia](../flows/attendance-export.md)
@@ -87,7 +87,6 @@ El administrador tiene acceso a todas las herramientas del catálogo. Ver: [Expl
 Herramientas disponibles:
 - [Temporizador](../flows/tools-countdown-timer.md)
 - [Organizador de Tareas](../flows/tools-task-organizer.md)
-- [Simplificador de Texto](../flows/tools-text-simplifier.md)
 - [Convertidor Word/PDF](../flows/tools-word-pdf-converter.md)
 - [Convertidor de Imágenes](../flows/tools-image-format-converter.md)
 - [Descargador de YouTube](../flows/tools-youtube-downloader.md)

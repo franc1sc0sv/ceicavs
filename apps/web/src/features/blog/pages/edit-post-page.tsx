@@ -51,7 +51,7 @@ export function EditPostPage() {
           content: values.content,
           categoryIds: values.categoryIds,
           images: values.images.length > 0 ? values.images : undefined,
-          ...(asDraft ? { status: 'draft' } : {}),
+          publish: !asDraft,
         },
       },
     })

@@ -94,14 +94,16 @@ export class DashboardRepository extends IDashboardRepository {
     let published = 0
     let draft = 0
     let rejected = 0
+    let pending = 0
 
     for (const g of groups) {
       if (g.status === 'published') published = g._count.status
       else if (g.status === 'draft') draft = g._count.status
       else if (g.status === 'rejected') rejected = g._count.status
+      else if (g.status === 'pending') pending = g._count.status
     }
 
-    return { published, draft, rejected }
+    return { published, draft, rejected, pending }
   }
 
   countAllPostsByStatus = async (tx: TxClient): Promise<IDashboardPostsByStatus> => {
@@ -114,14 +116,16 @@ export class DashboardRepository extends IDashboardRepository {
     let published = 0
     let draft = 0
     let rejected = 0
+    let pending = 0
 
     for (const g of groups) {
       if (g.status === 'published') published = g._count.status
       else if (g.status === 'draft') draft = g._count.status
       else if (g.status === 'rejected') rejected = g._count.status
+      else if (g.status === 'pending') pending = g._count.status
     }
 
-    return { published, draft, rejected }
+    return { published, draft, rejected, pending }
   }
 
   computeGlobalAttendanceRateInRange = async (
@@ -367,14 +371,16 @@ export class DashboardRepository extends IDashboardRepository {
     let published = 0
     let draft = 0
     let rejected = 0
+    let pending = 0
 
     for (const g of groups) {
       if (g.status === 'published') published = g._count.status
       else if (g.status === 'draft') draft = g._count.status
       else if (g.status === 'rejected') rejected = g._count.status
+      else if (g.status === 'pending') pending = g._count.status
     }
 
-    return { published, draft, rejected }
+    return { published, draft, rejected, pending }
   }
 
   computeStudentAttendanceRate = async (userId: string, tx: TxClient): Promise<number> => {

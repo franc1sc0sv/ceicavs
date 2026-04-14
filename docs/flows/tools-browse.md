@@ -34,7 +34,6 @@ Al hacer clic en la tarjeta (o en el botón "Abrir"), el usuario navega a `/tool
 |-------------|------|-------------|
 | Temporizador | `countdown-timer` | Cuenta regresiva configurable |
 | Organizador de tareas | `task-organizer` | Lista de tareas con orden arrastrable |
-| Simplificador de texto | `text-simplifier` | IA para simplificar textos complejos |
 | Convertidor Word/PDF | `word-pdf-converter` | Convierte documentos de Word a PDF |
 | Conversor de imágenes | `image-format-converter` | Convierte entre formatos de imagen |
 | Descargador de YouTube | `youtube-downloader` | Descarga videos/audio de YouTube |

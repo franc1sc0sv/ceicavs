@@ -10,4 +10,7 @@ export class DashboardPostsByStatusType {
 
   @Field(() => Int)
   rejected: number
+
+  @Field(() => Int)
+  pending: number
 }

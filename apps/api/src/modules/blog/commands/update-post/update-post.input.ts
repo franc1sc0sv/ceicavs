@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { IsArray, IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
+import { IsArray, IsBoolean, IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
 import { Type } from 'class-transformer'
 import { PostImageInput } from '../create-post/create-post.input'
 
@@ -35,4 +35,9 @@ export class UpdatePostInput {
   @ValidateNested({ each: true })
   @Type(() => PostImageInput)
   images?: PostImageInput[]
+
+  @Field(() => Boolean, { nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  publish?: boolean
 }

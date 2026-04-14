@@ -6,6 +6,7 @@ import { IDatabaseService } from '../../../../common/database/database.abstract'
 import { ForbiddenException } from '../../../../common/errors'
 import { IPostRepository } from '../../interfaces/post.repository'
 import type { IPostWithRelations } from '../../interfaces/blog.interfaces'
+import { PostStatus } from '../../types/post-status.enum'
 import { GetMyDraftsQuery } from './get-my-drafts.query'
 
 @QueryHandler(GetMyDraftsQuery)
@@ -24,6 +25,11 @@ export class GetMyDraftsHandler extends BaseQueryHandler<GetMyDraftsQuery, IPost
       throw new ForbiddenException()
     }
 
-    return this.postRepository.findMany({ authorId: query.userId }, tx)
+    const [drafts, pending] = await Promise.all([
+      this.postRepository.findMany({ authorId: query.userId, status: PostStatus.draft }, tx),
+      this.postRepository.findMany({ authorId: query.userId, status: PostStatus.pending }, tx),
+    ])
+
+    return [...drafts, ...pending]
   }
 }

@@ -44,7 +44,7 @@ function imgGrid(...pairs) {
 }
 
 // ─── CSS LINK ──────────────────────────────────────────────────────────────
-const CSS_LINK = '<link rel="stylesheet" href="../../_shared/design.css">';
+const CSS_LINK = '<link rel="stylesheet" href="../_shared/design.css">';
 
 // ─── 04: Attendance & Microlearning ────────────────────────────────────────
 function buildAttendanceMicrolearning() {
@@ -81,6 +81,8 @@ function buildAttendanceMicrolearning() {
   </div>
   <div class="doc-header-right">CEICAVS &mdash; 2025</div>
 </div>
+
+<p>Este documento presenta la evidencia t&eacute;cnica y funcional de dos m&oacute;dulos centrales del sistema CEICAVS: el sistema de registro de asistencia escolar y el cat&aacute;logo de herramientas educativas digitales. Ambos m&oacute;dulos fueron dise&ntilde;ados con el objetivo de digitalizar y agilizar las tareas pedag&oacute;gicas del Centro Escolar CEICAVS, reduciendo la carga administrativa de los docentes y mejorando el acceso a recursos educativos para estudiantes.</p>
 
 <h2>1. Sistema de Asistencia Inteligente</h2>
 
@@ -128,9 +130,11 @@ ${imgGrid(
 )}
 
 ${imgGrid(
-  ['attendance-view-report_01_initial.png', 'Reporte de asistencia por per&iacute;odo'],
-  ['attendance-admin_03_reports.png', 'Vista de reportes desde el panel de administrador']
+  ['attendance-view-report_01_roster-tab.png', 'Lista del d&iacute;a &mdash; toma de asistencia del grupo'],
+  ['attendance-view-report_02_reports-tab.png', 'Pesta&ntilde;a Reportes con selector de per&iacute;odo Semanal activo']
 )}
+
+${img('attendance-view-report_03_period-navigation.png', 'Navegaci&oacute;n entre per&iacute;odos con flechas')}
 
 ${img('attendance-student_01_view.png', 'Vista del estudiante: solo puede ver su propia asistencia')}
 
@@ -153,7 +157,7 @@ ${img('attendance-student_01_view.png', 'Vista del estudiante: solo puede ver su
 <h2>2. Herramientas de Micro-Aprendizaje</h2>
 
 <h3>2.1 Descripci&oacute;n General</h3>
-<p>La secci&oacute;n de Herramientas Educativas ofrece 14 utilidades digitales accesibles directamente desde el navegador sin necesidad de instalar software adicional. Est&aacute;n organizadas en categor&iacute;as y dise&ntilde;adas para apoyar el desarrollo de clases.</p>
+<p>La secci&oacute;n de Herramientas Educativas ofrece 13 utilidades digitales accesibles directamente desde el navegador sin necesidad de instalar software adicional. Est&aacute;n organizadas en categor&iacute;as y dise&ntilde;adas para apoyar el desarrollo de clases.</p>
 
 <h3>2.2 Cat&aacute;logo de Herramientas</h3>
 <table>
@@ -163,7 +167,6 @@ ${img('attendance-student_01_view.png', 'Vista del estudiante: solo puede ver su
   <tbody>
     <tr><td>Temporizador</td><td>Local</td><td>Cuenta regresiva configurable para actividades en clase</td></tr>
     <tr><td>Organizador de Tareas</td><td>Sincronizado (GraphQL)</td><td>Listas de tareas persistentes por usuario en la base de datos</td></tr>
-    <tr><td>Simplificador de Texto</td><td>IA (frontend)</td><td>Simplifica textos complejos usando modelos de IA del navegador</td></tr>
     <tr><td>Conversor Word/PDF</td><td>REST API</td><td>Convierte documentos Word a PDF mediante servicio externo</td></tr>
     <tr><td>Conversor de Im&aacute;genes</td><td>Local</td><td>Convierte im&aacute;genes entre formatos (PNG, JPEG, WebP)</td></tr>
     <tr><td>Descargador de YouTube</td><td>REST API</td><td>Obtiene metadatos y enlace de descarga de videos educativos</td></tr>
@@ -198,7 +201,7 @@ ${imgGrid(
 
 ${imgGrid(
   ['tools-scientific-calculator_01_initial.png', 'Calculadora cient&iacute;fica'],
-  ['tools-text-simplifier_01_initial.png', 'Simplificador de texto con IA']
+  ['tools-password-generator_02_generated.png', 'Generador de contrase&ntilde;as seguras']
 )}
 
 <div class="note" style="margin-top:4mm;">
@@ -294,6 +297,8 @@ function buildAiIntegration() {
   </div>
   <div class="doc-header-right">CEICAVS &mdash; 2025</div>
 </div>
+
+<p>Este documento describe la arquitectura t&eacute;cnica y el flujo de datos del m&oacute;dulo de transcripci&oacute;n con inteligencia artificial integrado en la plataforma CEICAVS. El sistema combina dos tecnolog&iacute;as de IA complementarias: transcripci&oacute;n de audio en el navegador mediante modelos ONNX (sin enviar el audio a servidores externos) y generaci&oacute;n de res&uacute;menes estructurados mediante modelos de lenguaje de gran escala (LLM) en la nube. El resultado es un flujo completo que convierte grabaciones de reuniones en documentos estructurados con resumen ejecutivo, puntos clave y elementos de acci&oacute;n.</p>
 
 <h2>1. Visi&oacute;n General del Sistema</h2>
 <p>El m&oacute;dulo de transcripci&oacute;n de CEICAVS combina dos tecnolog&iacute;as de inteligencia artificial para ofrecer un flujo completo desde el audio de una reuni&oacute;n hasta un resumen estructurado:</p>
@@ -637,7 +642,7 @@ function buildQaReport() {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reporte de Pruebas QA &mdash; CEICAVS</title>
-  <link rel="stylesheet" href="../../_shared/design.css">
+  ${CSS_LINK}
 </head>
 <body>
 
@@ -667,6 +672,8 @@ function buildQaReport() {
   </div>
 </div>
 
+<p>El presente reporte documenta el proceso de aseguramiento de calidad (QA) aplicado a la plataforma CEICAVS durante el Sprint 4. Se llevaron a cabo pruebas manuales funcionales y de usabilidad sobre todos los m&oacute;dulos del sistema, verificando el correcto funcionamiento desde los tres roles de usuario: Administrador, Docente y Estudiante. El objetivo fue garantizar que cada flujo de usuario se comportara seg&uacute;n las especificaciones definidas en las historias de usuario, que los controles de acceso CASL funcionaran correctamente, y que la experiencia de usuario fuera coherente y libre de errores cr&iacute;ticos.</p>
+
 <h2>1. Plan de Pruebas</h2>
 
 <h3>1.1 Alcance</h3>
@@ -694,10 +701,10 @@ function buildQaReport() {
     <tr><td>Gesti&oacute;n de Personas</td><td>8</td><td>8</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
     <tr><td>Asistencia</td><td>8</td><td>8</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
     <tr><td>Blog</td><td>9</td><td>9</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
-    <tr><td>Herramientas (14)</td><td>14</td><td>14</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr><td>Herramientas (13)</td><td>13</td><td>13</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
     <tr><td>Transcripci&oacute;n IA</td><td>5</td><td>5</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
     <tr><td>Control de acceso (CASL)</td><td>5</td><td>5</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
-    <tr style="font-weight:700;"><td>TOTAL</td><td>58</td><td>58</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
+    <tr style="font-weight:700;"><td>TOTAL</td><td>57</td><td>57</td><td>0</td><td>0</td><td><span class="badge badge-pass">100%</span></td></tr>
   </tbody>
 </table>
 
@@ -781,18 +788,17 @@ function buildQaReport() {
   <tbody>
     <tr><td>TC-035</td><td>Temporizador: configurar y ejecutar cuenta regresiva</td><td><span class="badge badge-pass">PASSED</span></td></tr>
     <tr><td>TC-036</td><td>Organizador de Tareas: crear, completar y eliminar tareas (sincronizado)</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-037</td><td>Simplificador de Texto: simplificar un p&aacute;rrafo con IA</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-038</td><td>Conversor Word/PDF: convertir archivo .docx a PDF</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-039</td><td>Conversor de Im&aacute;genes: convertir PNG a JPEG</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-040</td><td>Descargador de YouTube: obtener metadatos de un video</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-041</td><td>Compresor de Im&aacute;genes: reducir tama&ntilde;o de una imagen</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-042</td><td>Generador de QR: generar c&oacute;digo QR con URL personalizada</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-043</td><td>Imagen a Texto (OCR): extraer texto de una captura de pantalla</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-044</td><td>Notas R&aacute;pidas: crear y persistir notas entre sesiones</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-045</td><td>Calculadora Cient&iacute;fica: operaciones con funciones trigonom&eacute;tricas</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-046</td><td>Generador de Contrase&ntilde;as: generar con todos los criterios activados</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-047</td><td>Ruleta del Sal&oacute;n: girar y obtener resultado aleatorio</td><td><span class="badge badge-pass">PASSED</span></td></tr>
-    <tr><td>TC-048</td><td>Selector de Estudiante: seleccionar al azar del grupo del docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-037</td><td>Conversor Word/PDF: convertir archivo .docx a PDF</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-038</td><td>Conversor de Im&aacute;genes: convertir PNG a JPEG</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-039</td><td>Descargador de YouTube: obtener metadatos de un video</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-040</td><td>Compresor de Im&aacute;genes: reducir tama&ntilde;o de una imagen</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-041</td><td>Generador de QR: generar c&oacute;digo QR con URL personalizada</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-042</td><td>Imagen a Texto (OCR): extraer texto de una captura de pantalla</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-043</td><td>Notas R&aacute;pidas: crear y persistir notas entre sesiones</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-044</td><td>Calculadora Cient&iacute;fica: operaciones con funciones trigonom&eacute;tricas</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-045</td><td>Generador de Contrase&ntilde;as: generar con todos los criterios activados</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-046</td><td>Ruleta del Sal&oacute;n: girar y obtener resultado aleatorio</td><td><span class="badge badge-pass">PASSED</span></td></tr>
+    <tr><td>TC-047</td><td>Selector de Estudiante: seleccionar al azar del grupo del docente</td><td><span class="badge badge-pass">PASSED</span></td></tr>
   </tbody>
 </table>
 
@@ -916,7 +922,7 @@ function buildQaReport() {
 
 <div class="note" style="margin-top:4mm;">
   <div class="note-title">Resultado final del ciclo QA</div>
-  Los 12 bugs identificados durante el Sprint 4 fueron corregidos en el mismo sprint. Al cierre del ciclo QA, los 58 casos de prueba pasaron exitosamente, alcanzando el 100% de cobertura funcional en todos los m&oacute;dulos del sistema.
+  Los 12 bugs identificados durante el Sprint 4 fueron corregidos en el mismo sprint. Al cierre del ciclo QA, los 57 casos de prueba pasaron exitosamente, alcanzando el 100% de cobertura funcional en todos los m&oacute;dulos del sistema.
 </div>
 
 </body>
@@ -937,7 +943,7 @@ function buildUserManual() {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manual de Usuario &mdash; CEICAVS</title>
-  <link rel="stylesheet" href="../../_shared/design.css">
+  ${CSS_LINK}
 </head>
 <body>
 
@@ -965,6 +971,8 @@ function buildUserManual() {
 
 <h2>Introducci&oacute;n</h2>
 <p>La plataforma CEICAVS es un sistema de gesti&oacute;n escolar dise&ntilde;ado para el Centro Escolar CEICAVS. Permite administrar usuarios, registrar asistencia, publicar contenido en el blog institucional, acceder a herramientas educativas digitales y transcribir reuniones con inteligencia artificial.</p>
+<p>Este manual est&aacute; organizado por m&oacute;dulos del sistema y est&aacute; dirigido a los tres tipos de usuarios: administradores, docentes y estudiantes. Cada secci&oacute;n describe paso a paso c&oacute;mo realizar las operaciones disponibles para ese m&oacute;dulo, acompa&ntilde;adas de capturas de pantalla tomadas del sistema en producci&oacute;n.</p>
+<p>Para obtener soporte t&eacute;cnico o reportar un problema, contactar al administrador del sistema del Centro Escolar CEICAVS.</p>
 
 <h3>Acceso a la plataforma</h3>
 <p>Ingresa a la plataforma desde cualquier navegador moderno (Chrome, Edge, Firefox). No es necesario instalar ninguna aplicaci&oacute;n.</p>
@@ -1085,7 +1093,7 @@ ${imgGrid(
 <p>Los reportes muestran estad&iacute;sticas por estudiante para el per&iacute;odo seleccionado.</p>
 
 ${imgGrid(
-  ['attendance-view-report_01_initial.png', 'Reporte de asistencia con filtros de per&iacute;odo'],
+  ['attendance-view-report_02_reports-tab.png', 'Reporte de asistencia con filtros de per&iacute;odo'],
   ['attendance-student_01_view.png', 'Vista del estudiante: solo su propia fila del reporte']
 )}
 
@@ -1125,7 +1133,7 @@ ${imgGrid(
 <!-- TOOLS -->
 <div class="page-break"></div>
 <h1>6. Herramientas Educativas</h1>
-<p>El cat&aacute;logo de herramientas est&aacute; disponible en <code>/tools</code> para todos los usuarios. Agrupa 14 utilidades sin necesidad de instalar software adicional.</p>
+<p>El cat&aacute;logo de herramientas est&aacute; disponible en <code>/tools</code> para todos los usuarios. Agrupa 13 utilidades sin necesidad de instalar software adicional.</p>
 
 ${img('tools-browse_01_full.png', 'Cat&aacute;logo completo de herramientas educativas')}
 
@@ -1179,11 +1187,219 @@ ${img('transcription-list_02_with-recording.png', 'Lista de grabaciones del usua
   console.log('  Done: 07-user-manual/user-manual.html');
 }
 
+// ─── 03: Linear Ticket Management ─────────────────────────────────────────
+function buildLinearTicketManagement() {
+  console.log('Building: 03-team-lead/ticket-management.html');
+
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gesti&oacute;n de Tickets con Linear &mdash; CEICAVS</title>
+  ${CSS_LINK}
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-institution">Centro Escolar CEICAVS &mdash; Servicio Social</div>
+  <div class="cover-title">Gesti&oacute;n de Tickets y Planificaci&oacute;n de Sprints</div>
+  <div class="cover-subtitle">Evidencia del proceso de asignaci&oacute;n de tareas, seguimiento de sprints y cadena de dependencias usando Linear</div>
+  <div class="cover-meta">
+    <strong>Proyecto:</strong>        <span>Sistema Escolar CEICAVS</span>
+    <strong>Herramienta:</strong>     <span>Linear (Gesti&oacute;n de Proyectos)</strong>
+    <strong>Equipo:</strong>          <span>ceicavs-team</span>
+    <strong>Responsable:</strong>     <span>Francisco Josue Hernandez</span>
+    <strong>Per&iacute;odo:</strong>        <span>14 Abr &mdash; 8 Jun 2025</span>
+    <strong>Fecha:</strong>           <span>Abril 2025</span>
+  </div>
+</div>
+
+<div class="page-break"></div>
+<div class="doc-header no-break">
+  <div class="doc-header-left">
+    <div class="doc-name">Rol: Team Lead &mdash; Gesti&oacute;n de Proyectos</div>
+    <div class="doc-title">Gesti&oacute;n de Tickets con Linear</div>
+  </div>
+  <div class="doc-header-right">CEICAVS &mdash; 2025</div>
+</div>
+
+<p>Este documento presenta la evidencia del proceso de planificaci&oacute;n y gesti&oacute;n de tareas del proyecto CEICAVS utilizando Linear como herramienta de seguimiento. Se documentan los 35 tickets creados, su organizaci&oacute;n en 6 proyectos dom&iacute;nio, la planificaci&oacute;n en 4 sprints, la cadena de dependencias y el proceso de asignaci&oacute;n de responsabilidades.</p>
+
+<h2>1. Estructura del Workspace</h2>
+
+<h3>1.1 Organizaci&oacute;n por Proyectos</h3>
+<p>El backlog completo del sistema fue organizado en <strong>6 proyectos tem&aacute;ticos</strong> que representan los dominios funcionales del sistema. Esta estructura permite filtrar y visualizar el progreso de cada &aacute;rea de forma independiente.</p>
+
+<table>
+  <thead>
+    <tr><th>Proyecto</th><th>Dominio</th><th>Tickets</th><th>Prioridad</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Auth &amp; Users</strong></td><td>Autenticaci&oacute;n, perfiles, CASL</td><td>SOL-10 a SOL-13, SOL-41 a SOL-45</td><td><span class="badge badge-fail">Alta</span></td></tr>
+    <tr><td><strong>Attendance</strong></td><td>Registro y reportes de asistencia</td><td>SOL-14 a SOL-19</td><td><span class="badge badge-wip">Media</span></td></tr>
+    <tr><td><strong>Blog &amp; Posts</strong></td><td>Feed, publicaciones, comentarios</td><td>SOL-28 a SOL-35</td><td><span class="badge badge-wip">Media</span></td></tr>
+    <tr><td><strong>Learning Tools</strong></td><td>Herramientas educativas digitales</td><td>SOL-20 a SOL-27</td><td><span class="badge badge-wip">Media</span></td></tr>
+    <tr><td><strong>AI Transcription</strong></td><td>Grabaciones y transcripci&oacute;n con IA</td><td>SOL-36 a SOL-40</td><td><span class="badge badge-wip">Media</span></td></tr>
+    <tr><td><strong>Admin</strong></td><td>Dashboard y gesti&oacute;n de usuarios/grupos</td><td>SOL-41 a SOL-45</td><td><span class="badge badge-pass">Normal</span></td></tr>
+  </tbody>
+</table>
+
+${img('linear_03_projects.png', 'Vista de los 6 proyectos del workspace con su estado y porcentaje de completitud')}
+
+<div class="page-break"></div>
+<h2>2. Inventario Completo de Tickets</h2>
+
+<h3>2.1 Vista General &mdash; All Issues</h3>
+<p>Se crearon <strong>35 historias de usuario</strong> (SOL-10 a SOL-45), todas asignadas al responsable del proyecto y marcadas como <strong>Done</strong> al momento del inventario inicial. Cada ticket incluye criterios de aceptaci&oacute;n, proyecto asignado, milestone de sprint y dependencias bloqueantes.</p>
+
+${img('linear_01_all-issues.png', 'Vista completa de todos los tickets del equipo ceicavs-team ordenados por proyecto y prioridad')}
+
+<h3>2.2 Asignaci&oacute;n de Responsabilidades</h3>
+<p>Todos los tickets fueron asignados a <strong>Francisco Josue Hernandez</strong> como responsable t&eacute;cnico &uacute;nico del proyecto de servicio social. La vista "My Issues" muestra el conjunto completo de tareas bajo esta asignaci&oacute;n.</p>
+
+${img('linear_11_my-issues.png', 'Vista "My Issues" mostrando los 35 tickets asignados al responsable del proyecto')}
+
+<div class="page-break"></div>
+<h2>3. Planificaci&oacute;n de Sprints</h2>
+
+<h3>3.1 Estructura de Milestones</h3>
+<p>El proyecto se dividi&oacute; en <strong>4 sprints de 2 semanas</strong>, cada uno representado como un milestone en Linear. Los milestones definen las fechas l&iacute;mite y agrupan los tickets correspondientes a cada fase de desarrollo.</p>
+
+<table>
+  <thead>
+    <tr><th>Sprint</th><th>Nombre</th><th>Per&iacute;odo</th><th>Enfoque</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge badge-pass">Sprint 1</span></td>
+      <td>Foundation: Auth</td>
+      <td>14 Abr &mdash; 27 Abr</td>
+      <td>Autenticaci&oacute;n, JWT, CASL, Dashboard Admin, Gesti&oacute;n de Usuarios y Grupos</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-pass">Sprint 2</span></td>
+      <td>Core Features: Attendance</td>
+      <td>28 Abr &mdash; 11 May</td>
+      <td>Vista de grupos, roster, registro de asistencia, reportes y exportaci&oacute;n</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-pass">Sprint 3</span></td>
+      <td>Content: Blog &amp; Posts</td>
+      <td>12 May &mdash; 25 May</td>
+      <td>Feed del blog, publicaciones, comentarios, reacciones, cola de revisi&oacute;n</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-pass">Sprint 4</span></td>
+      <td>Tools &amp; AI Recordings</td>
+      <td>26 May &mdash; 8 Jun</td>
+      <td>Herramientas educativas, grabaci&oacute;n de audio, transcripci&oacute;n con IA</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>3.2 Evidencia de Milestone en Proyecto</h3>
+<p>Cada proyecto registra su milestone de sprint asociado. La imagen siguiente muestra el proyecto <strong>Attendance</strong> con su milestone "Sprint 2 &mdash; Core Features" asignado, su descripci&oacute;n funcional y el porcentaje de avance.</p>
+
+${img('linear_10_project-attendance.png', 'Proyecto Attendance con milestone Sprint 2, descripci&oacute;n, miembro asignado y estado al 100%')}
+
+<div class="page-break"></div>
+<h2>4. Detalle de Tickets por &Aacute;rea</h2>
+
+<h3>4.1 Ticket Ra&iacute;z &mdash; Autenticaci&oacute;n (SOL-10)</h3>
+<p>SOL-10 es el ticket ra&iacute;z de toda la cadena de dependencias. Contiene criterios de aceptaci&oacute;n detallados, el historial de cambios de estado y un comentario de auditor&iacute;a que documenta su rol en la arquitectura del sistema. Todos los dem&aacute;s tickets dependen (directa o indirectamente) de este ticket.</p>
+
+${img('linear_05_ticket-sol10.png', 'SOL-10: Login con email y contrase&ntilde;a &mdash; ticket ra&iacute;z con criterios de aceptaci&oacute;n y comentario de auditor&iacute;a Sprint 1')}
+
+<h3>4.2 M&oacute;dulo de Asistencia (SOL-16)</h3>
+<p>SOL-16 representa la operaci&oacute;n transaccional central del m&oacute;dulo de asistencia. El ticket registra su milestone de Sprint 2, la cadena de tickets bloqueados por &eacute;l (reportes, exportaci&oacute;n, historial) y el comentario de auditor&iacute;a con las dependencias t&eacute;cnicas.</p>
+
+${img('linear_06_ticket-sol16.png', 'SOL-16: Marcar asistencia para un grupo &mdash; milestone Sprint 2 y auditor&iacute;a del m&oacute;dulo de asistencia')}
+
+<div class="page-break"></div>
+<h3>4.3 Gesti&oacute;n de Usuarios (SOL-42)</h3>
+<p>SOL-42 cubre el CRUD completo de usuarios desde el panel de administraci&oacute;n. El ticket est&aacute; asignado al Sprint 1 y es bloqueante para la importaci&oacute;n CSV (SOL-43), ya que la estructura de usuarios debe existir antes de importar en masa.</p>
+
+${img('linear_08_ticket-sol42.png', 'SOL-42: Gestionar usuarios &mdash; milestone Sprint 1 Foundation y comentario de auditor&iacute;a de gesti&oacute;n de usuarios')}
+
+<h3>4.4 Transcripci&oacute;n con IA (SOL-36)</h3>
+<p>SOL-36 inicia el flujo del m&oacute;dulo de grabaciones. Depende de CASL (SOL-13) para el control de acceso y es bloqueante para el proceso de transcripci&oacute;n (SOL-37), generaci&oacute;n de resumen IA (SOL-38), listado (SOL-39) y reproducci&oacute;n (SOL-40).</p>
+
+${img('linear_07_ticket-sol36.png', 'SOL-36: Subir grabaci&oacute;n de audio &mdash; milestone Sprint 4 y auditor&iacute;a del m&oacute;dulo de transcripci&oacute;n con IA')}
+
+<div class="page-break"></div>
+<h2>5. Cadena de Dependencias (Blocker Chain)</h2>
+
+<p>Se estableci&oacute; una cadena de dependencias l&oacute;gica entre todos los tickets para representar fielmente el orden real de implementaci&oacute;n. SOL-10 es el &uacute;nico ticket sin bloqueantes previos; todos los dem&aacute;s tickets tienen al menos un ticket que los bloquea.</p>
+
+<div class="note">
+  <div class="note-title">Principio de dise&ntilde;o de las dependencias</div>
+  Las dependencias reflejan orden arquitect&oacute;nico real: ning&uacute;n m&oacute;dulo puede operar sin autenticaci&oacute;n (SOL-10) ni sin control de acceso (SOL-13). Dentro de cada dominio, las operaciones de escritura bloquean a las de lectura y exportaci&oacute;n.
+</div>
+
+<table>
+  <thead>
+    <tr><th>Ticket</th><th>T&iacute;tulo</th><th>Bloqueado por</th><th>Bloquea a</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>SOL-10</td><td>Login con email y contrase&ntilde;a</td><td>&mdash; (ra&iacute;z)</td><td>SOL-11, SOL-12, SOL-13</td></tr>
+    <tr><td>SOL-13</td><td>Control de acceso basado en roles (CASL)</td><td>SOL-10</td><td>SOL-41, SOL-42, SOL-44, SOL-35, SOL-28, SOL-20, SOL-36</td></tr>
+    <tr><td>SOL-16</td><td>Marcar asistencia para un grupo</td><td>SOL-15</td><td>SOL-17, SOL-18, SOL-19</td></tr>
+    <tr><td>SOL-30</td><td>Crear publicaci&oacute;n de blog</td><td>SOL-35</td><td>SOL-31, SOL-34</td></tr>
+    <tr><td>SOL-36</td><td>Subir grabaci&oacute;n de audio</td><td>SOL-13</td><td>SOL-37, SOL-38, SOL-39, SOL-40</td></tr>
+    <tr><td>SOL-42</td><td>Gestionar usuarios</td><td>SOL-13</td><td>SOL-43</td></tr>
+  </tbody>
+</table>
+
+<h2>6. Metodolog&iacute;a de Auditor&iacute;a</h2>
+
+<p>Se agregaron <strong>comentarios de auditor&iacute;a</strong> en los 6 tickets ancla (SOL-10, SOL-16, SOL-30, SOL-36, SOL-42, SOL-20) para documentar:</p>
+
+<ul>
+  <li>Fecha de completaci&oacute;n del m&oacute;dulo</li>
+  <li>Sprint al que pertenece</li>
+  <li>Cadena de dependencias descendentes</li>
+  <li>Notas t&eacute;cnicas de implementaci&oacute;n</li>
+</ul>
+
+<div class="note">
+  <div class="note-title">Uso de Linear como herramienta de team lead</div>
+  La estructura implementada en Linear permite a cualquier nuevo miembro del equipo entender el orden de implementaci&oacute;n, las dependencias entre m&oacute;dulos, el propietario de cada tarea y el sprint de entrega simplemente navegando el backlog. Los comentarios de auditor&iacute;a sirven como documentaci&oacute;n viva del proceso de desarrollo.
+</div>
+
+<div class="metrics-grid" style="margin-top:6mm;">
+  <div class="metric-box">
+    <div class="metric-value">35</div>
+    <div class="metric-label">Tickets creados</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value">6</div>
+    <div class="metric-label">Proyectos dom&iacute;nio</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value">4</div>
+    <div class="metric-label">Sprints planificados</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value">100%</div>
+    <div class="metric-label">Tickets completados</div>
+  </div>
+</div>
+
+</body>
+</html>`;
+
+  const outPath = join(PORTFOLIO_DIR, '03-team-lead', 'ticket-management.html');
+  writeFileSync(outPath, html, 'utf8');
+  console.log('  Done: 03-team-lead/ticket-management.html');
+}
+
 // ─── Main ──────────────────────────────────────────────────────────────────
 const target = process.argv[2];
 
 console.log('\nCEICAVS Portfolio — HTML Builder\n');
 
+if (!target || target === 'linear') buildLinearTicketManagement();
 if (!target || target === 'attendance') buildAttendanceMicrolearning();
 if (!target || target === 'transcription') { buildAiIntegration(); buildAnalysisExamples(); }
 if (!target || target === 'qa') buildQaReport();

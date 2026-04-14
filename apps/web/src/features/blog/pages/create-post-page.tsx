@@ -4,16 +4,11 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { PostForm } from '../components/post-form'
 import { usePostMutations } from '../hooks/use-post-mutations'
-import { useAbility } from '@/context/ability.context'
-import { Action, Subject } from '@ceicavs/shared'
 
 export function CreatePostPage() {
   const { t } = useTranslation('blog')
   const navigate = useNavigate()
-  const ability = useAbility()
   const { createPost, creating } = usePostMutations()
-
-  const canPublish = ability.can(Action.PUBLISH, Subject.POST)
 
   async function handleSubmit(
     values: {
@@ -25,8 +20,6 @@ export function CreatePostPage() {
     },
     asDraft: boolean,
   ) {
-    const status = asDraft ? 'draft' : canPublish ? 'published' : 'draft'
-
     const result = await createPost({
       variables: {
         input: {
@@ -34,7 +27,7 @@ export function CreatePostPage() {
           excerpt: values.excerpt,
           content: values.content,
           categoryIds: values.categoryIds,
-          publish: status === 'published',
+          publish: !asDraft,
           images: values.images.length > 0 ? values.images : undefined,
         },
       },

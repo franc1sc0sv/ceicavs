@@ -29,6 +29,7 @@ enum AttendanceStatus {
 enum PostStatus {
   published
   draft
+  pending
   rejected
 }
 

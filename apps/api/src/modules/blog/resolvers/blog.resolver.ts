@@ -159,6 +159,7 @@ export class BlogResolver {
           content: input.content,
           categoryIds: input.categoryIds,
           images: input.images,
+          publish: input.publish,
         },
         user.id,
         user.role,

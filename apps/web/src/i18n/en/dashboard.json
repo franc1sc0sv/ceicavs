@@ -69,6 +69,7 @@
     "usersByRole": "Users by role",
     "published": "Published",
     "draft": "Drafts",
+    "pending": "Pending Review",
     "rejected": "Rejected",
     "present": "Present",
     "absent": "Absent",

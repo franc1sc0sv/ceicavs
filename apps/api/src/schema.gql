@@ -175,6 +175,7 @@ input CreateUserInput {
 
 type DashboardPostsByStatusType {
   draft: Int!
+  pending: Int!
   published: Int!
   rejected: Int!
 }
@@ -370,6 +371,7 @@ type PostImageType {
 
 enum PostStatus {
   draft
+  pending
   published
   rejected
 }
@@ -586,6 +588,7 @@ input UpdatePostInput {
   content: String
   excerpt: String
   images: [PostImageInput!]
+  publish: Boolean
   title: String
 }
 

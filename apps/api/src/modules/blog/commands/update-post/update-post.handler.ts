@@ -1,6 +1,7 @@
 import { CommandHandler } from '@nestjs/cqrs'
 import type { TxClient } from '@ceicavs/db'
 import { defineAbilityFor, Action, Subject, UserRole } from '@ceicavs/shared'
+import { PostStatus } from '../../types/post-status.enum'
 import { BaseCommandHandler } from '../../../../common/cqrs'
 import type { IDomainEvent } from '../../../../common/cqrs'
 import { IDatabaseService } from '../../../../common/database/database.abstract'
@@ -45,6 +46,16 @@ export class UpdatePostHandler extends BaseCommandHandler<UpdatePostCommand, IPo
     }
 
     await this.postRepository.update(command.postId, command.data, tx)
+
+    if (command.data.publish === true) {
+      const isTeacherOrAdmin = command.role === UserRole.ADMIN || command.role === UserRole.TEACHER
+      if (isTeacherOrAdmin) {
+        await this.postRepository.updateStatus(command.postId, PostStatus.published, undefined, tx)
+      } else {
+        if (!ability.can(Action.SUBMIT, Subject.POST)) throw new ForbiddenException()
+        await this.postRepository.updateStatus(command.postId, PostStatus.pending, undefined, tx)
+      }
+    }
 
     const posts = await this.postRepository.findMany({ authorId: post.authorId }, tx)
     const fullPost = posts.find((p) => p.id === command.postId)

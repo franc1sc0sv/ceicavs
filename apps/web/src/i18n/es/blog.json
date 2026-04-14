@@ -26,10 +26,16 @@
   "status": {
     "published": "Publicado",
     "draft": "Borrador",
+    "pending": "En revisión",
     "rejected": "Rechazado"
   },
   "drafts": {
     "rejectionNote": "Nota de rechazo",
+    "tabs": {
+      "drafts": "Borradores",
+      "inReview": "En revisión"
+    },
+    "pendingNote": "Esta publicación está esperando revisión de un docente.",
     "rejectDialog": {
       "title": "Rechazar borrador",
       "placeholder": "Razón del rechazo..."
@@ -63,6 +69,7 @@
     "noResults": "No se encontraron publicaciones",
     "noResultsHint": "Intenta con otros términos o categorías",
     "noDrafts": "No tienes borradores",
+    "noPending": "No tienes publicaciones en revisión",
     "noComments": "Sé el primero en comentar",
     "noCategories": "No hay categorías"
   },

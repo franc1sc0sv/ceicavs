@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Badge } from '@/components/ui/badge'
 
-type PostStatus = 'published' | 'draft' | 'rejected'
+type PostStatus = 'published' | 'draft' | 'pending' | 'rejected'
 
 interface StatusBadgeProps {
   status: PostStatus
@@ -10,6 +10,7 @@ interface StatusBadgeProps {
 const STATUS_CLASSES: Record<PostStatus, string> = {
   published: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300',
   draft: 'bg-slate-100 text-slate-600 dark:bg-slate-700/60 dark:text-slate-300',
+  pending: 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300',
   rejected: 'bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300',
 }
 

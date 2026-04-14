@@ -40,7 +40,7 @@ El docente ve todos los grupos de la plataforma. Ver: [Ver Grupos de Asistencia]
 Función principal del docente. En `/attendance/:id`, abre el roster y registra la asistencia de cada estudiante. Ver: [Tomar Asistencia](../flows/attendance-take.md)
 
 ### Ver reportes
-Visualiza reportes de asistencia por período para cualquier grupo. Ver: [Ver Reporte de Asistencia](../flows/attendance-view-report.md)
+En la pestaña **Reportes** del detalle de grupo, selecciona Diario / Semanal / Mensual y navega entre fechas para ver estadísticas por estudiante. Ver: [Ver Reporte de Asistencia](../flows/attendance-view-report.md)
 
 ### Exportar reportes
 Exporta datos de asistencia en CSV o PDF. Ver: [Exportar Asistencia](../flows/attendance-export.md)
@@ -77,7 +77,6 @@ Las herramientas más útiles para el docente incluyen:
 - [Ruleta](../flows/tools-roulette.md) — Para sorteos y dinámicas grupales
 - [Temporizador](../flows/tools-countdown-timer.md) — Para controlar tiempos de exámenes
 - [Organizador de Tareas](../flows/tools-task-organizer.md) — Para gestionar pendientes personales
-- [Simplificador de Texto](../flows/tools-text-simplifier.md) — Para adaptar material educativo
 
 ## Transcripción con IA (`/transcription`)
 

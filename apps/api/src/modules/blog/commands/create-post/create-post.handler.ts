@@ -8,6 +8,7 @@ import { IEventEmitter } from '../../../../common/events/event-emitter.abstract'
 import { ForbiddenException, NotFoundException } from '../../../../common/errors'
 import { IPostRepository } from '../../interfaces/post.repository'
 import type { IPostWithRelations } from '../../interfaces/blog.interfaces'
+import { PostStatus } from '../../types/post-status.enum'
 import { PostCreatedEvent } from '../../events/post-created.event'
 import { CreatePostCommand } from './create-post.command'
 
@@ -34,7 +35,16 @@ export class CreatePostHandler extends BaseCommandHandler<CreatePostCommand, IPo
 
     const isTeacherOrAdmin =
       command.role === UserRole.ADMIN || command.role === UserRole.TEACHER
-    const status = isTeacherOrAdmin && command.data.publish ? 'published' : 'draft'
+
+    let status: PostStatus
+    if (!command.data.publish) {
+      status = PostStatus.draft
+    } else if (isTeacherOrAdmin) {
+      status = PostStatus.published
+    } else {
+      if (!ability.can(Action.SUBMIT, Subject.POST)) throw new ForbiddenException()
+      status = PostStatus.pending
+    }
 
     const post = await this.postRepository.create(command.data, command.userId, status, tx)
 

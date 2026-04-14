@@ -17,6 +17,7 @@ export const GET_ADMIN_DASHBOARD = graphql(`
       postsByStatus {
         published
         draft
+        pending
         rejected
       }
       attendanceTrend {
@@ -45,6 +46,7 @@ export const GET_TEACHER_DASHBOARD = graphql(`
       myPostsByStatus {
         published
         draft
+        pending
         rejected
       }
     }

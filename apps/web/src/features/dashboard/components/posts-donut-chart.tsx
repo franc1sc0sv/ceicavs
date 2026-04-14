@@ -13,6 +13,7 @@ import {
 interface PostsByStatus {
   published: number
   draft: number
+  pending: number
   rejected: number
 }
 
@@ -26,12 +27,14 @@ export function PostsDonutChart({ data }: PostsDonutChartProps) {
   const chartConfig = {
     published: { label: t('charts.published'), color: 'var(--chart-1)' },
     draft: { label: t('charts.draft'), color: 'var(--chart-2)' },
+    pending: { label: t('charts.pending'), color: '#f59e0b' },
     rejected: { label: t('charts.rejected'), color: 'var(--chart-3)' },
   } satisfies ChartConfig
 
   const chartData = [
     { status: 'published', value: data.published, fill: 'var(--color-published)' },
     { status: 'draft', value: data.draft, fill: 'var(--color-draft)' },
+    { status: 'pending', value: data.pending, fill: '#f59e0b' },
     { status: 'rejected', value: data.rejected, fill: 'var(--color-rejected)' },
   ].filter((d) => d.value > 0)
 
