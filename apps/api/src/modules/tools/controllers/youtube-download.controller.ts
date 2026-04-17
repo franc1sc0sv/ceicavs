@@ -73,6 +73,28 @@ function ffmpegArgs(): string[] {
   return ffmpegPath ? ['--ffmpeg-location', ffmpegPath] : []
 }
 
+function extractorArgs(): string[] {
+  return ['--extractor-args', 'youtube:player_client=default,web_safari,tv,mweb']
+}
+
+function jsRuntimeArgs(): string[] {
+  const denoPath = process.env.DENO_PATH
+  return denoPath ? ['--js-runtimes', `deno:${denoPath}`] : []
+}
+
+async function dumpInfo(ytDlp: YTDlpWrap, url: string): Promise<IYtDlpRawInfo> {
+  const stdout = await ytDlp.execPromise([
+    url,
+    '--no-playlist',
+    '--dump-json',
+    '--skip-download',
+    ...cookiesArgs(),
+    ...extractorArgs(),
+    ...jsRuntimeArgs(),
+  ])
+  return JSON.parse(stdout.toString()) as IYtDlpRawInfo
+}
+
 @Controller('tools/youtube')
 @UseGuards(JwtRestAuthGuard)
 export class YoutubeDownloadController {
@@ -87,7 +109,7 @@ export class YoutubeDownloadController {
     }
 
     const ytDlp = await getYtDlp()
-    const raw = await ytDlp.getVideoInfo([query.url, '--no-playlist', ...cookiesArgs()]) as IYtDlpRawInfo
+    const raw = await dumpInfo(ytDlp, query.url)
 
     return {
       title: raw.title ?? 'Unknown',
@@ -126,7 +148,7 @@ export class YoutubeDownloadController {
 
     try {
       const ytDlp = await getYtDlp()
-      const raw = await ytDlp.getVideoInfo([body.url, '--no-playlist', ...cookiesArgs()]) as IYtDlpRawInfo
+      const raw = await dumpInfo(ytDlp, body.url)
       const title = (raw.title ?? 'video').replace(/[^\w\s-]/g, '').trim()
 
       const dlArgs = isAudio
@@ -138,6 +160,8 @@ export class YoutubeDownloadController {
             '-o', tmpFile,
             '--no-playlist',
             ...cookiesArgs(),
+            ...extractorArgs(),
+            ...jsRuntimeArgs(),
             ...ffmpegArgs(),
           ]
         : [
@@ -147,6 +171,8 @@ export class YoutubeDownloadController {
             '-o', tmpFile,
             '--no-playlist',
             ...cookiesArgs(),
+            ...extractorArgs(),
+            ...jsRuntimeArgs(),
             ...ffmpegArgs(),
           ]
 
