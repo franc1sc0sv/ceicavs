@@ -11,16 +11,11 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import type { Request, Response } from 'express'
-import * as fs from 'fs'
-import * as os from 'os'
-import * as path from 'path'
-import YTDlpWrap from 'yt-dlp-wrap'
-import ffmpegPath from 'ffmpeg-static'
 import { defineAbilityFor, Action, Subject } from '@ceicavs/shared'
 import { JwtRestAuthGuard } from '../../../common/guards/jwt-rest-auth.guard'
 import { ForbiddenException } from '../../../common/errors'
 import type { IJwtUser } from '../../../common/types'
-import type { IVideoInfo, IYtDlpRawInfo, VideoQuality } from '../interfaces/youtube.interfaces'
+import type { IVideoInfo, VideoQuality } from '../interfaces/youtube.interfaces'
 import { YoutubeDownloadDto } from './dto/youtube-download.dto'
 import { YoutubeInfoDto } from './dto/youtube-info.dto'
 
@@ -28,71 +23,90 @@ interface AuthenticatedRequest extends Request {
   user: IJwtUser
 }
 
-const YT_DLP_BINARY = path.join(process.cwd(), '.yt-dlp')
-const COOKIES_FILE = path.join(os.tmpdir(), 'ceicavs-yt-cookies.txt')
-const MAX_CONCURRENT = parseInt(process.env.YOUTUBE_MAX_CONCURRENT ?? '3', 10)
-
-const QUALITY_FORMAT: Record<VideoQuality, string> = {
-  '1080p': 'bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=1080]+bestaudio/best[height<=1080]',
-  '720p':  'bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=720]+bestaudio/best[height<=720]',
-  '480p':  'bestvideo[height<=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=480]+bestaudio/best[height<=480]',
-  audio:   'bestaudio[ext=m4a]/bestaudio',
+interface OEmbedResponse {
+  title?: string
+  thumbnail_url?: string
 }
 
-let ytDlpReady: Promise<YTDlpWrap> | null = null
-let cookiesReady: string[] | null = null
+interface CobaltSuccessResponse {
+  status: 'tunnel' | 'redirect'
+  url: string
+  filename?: string
+}
+
+type CobaltResponse =
+  | CobaltSuccessResponse
+  | { status: 'error'; error?: { code?: string } }
+  | { status: 'picker' }
+  | { status: 'local-processing' }
+
+interface CobaltPayload {
+  url: string
+  videoQuality?: string
+  audioFormat?: string
+  downloadMode?: 'auto' | 'audio' | 'mute'
+  filenameStyle?: string
+}
+
+const COBALT_API_URL = process.env.COBALT_API_URL ?? 'https://api.cobalt.tools/'
+const MAX_CONCURRENT = parseInt(process.env.YOUTUBE_MAX_CONCURRENT ?? '3', 10)
+const BROWSER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+
 let activeDownloads = 0
 
-function getYtDlp(): Promise<YTDlpWrap> {
-  if (!ytDlpReady) {
-    ytDlpReady = (async () => {
-      if (!fs.existsSync(YT_DLP_BINARY)) {
-        await YTDlpWrap.downloadFromGithub(YT_DLP_BINARY)
-      }
-      return new YTDlpWrap(YT_DLP_BINARY)
-    })()
+function cobaltPayload(url: string, quality: VideoQuality): CobaltPayload {
+  if (quality === 'audio') {
+    return { url, downloadMode: 'audio', audioFormat: 'mp3', filenameStyle: 'basic' }
   }
-  return ytDlpReady
+  return { url, videoQuality: quality.replace('p', ''), downloadMode: 'auto', filenameStyle: 'basic' }
 }
 
-function cookiesArgs(): string[] {
-  if (cookiesReady !== null) return cookiesReady
-  const b64 = process.env.YOUTUBE_COOKIES_B64
-  const raw = process.env.YOUTUBE_COOKIES_TXT
-  const decoded = b64 ? Buffer.from(b64.replace(/\s+/g, ''), 'base64').toString('utf8') : raw
-  if (!decoded) {
-    cookiesReady = []
-    return cookiesReady
+async function callCobalt(payload: CobaltPayload): Promise<CobaltSuccessResponse> {
+  const res = await fetch(COBALT_API_URL, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'User-Agent': BROWSER_UA,
+    },
+    body: JSON.stringify(payload),
+  })
+  const data = await res.json() as CobaltResponse
+  if (data.status === 'tunnel' || data.status === 'redirect') {
+    return data
   }
-  fs.writeFileSync(COOKIES_FILE, decoded, { mode: 0o600 })
-  cookiesReady = ['--cookies', COOKIES_FILE]
-  return cookiesReady
+  if (data.status === 'error') {
+    throw new InternalServerErrorException(`cobalt: ${data.error?.code ?? 'error'}`)
+  }
+  throw new InternalServerErrorException(`cobalt: ${data.status}`)
 }
 
-function ffmpegArgs(): string[] {
-  return ffmpegPath ? ['--ffmpeg-location', ffmpegPath] : []
+async function fetchOEmbed(url: string): Promise<OEmbedResponse> {
+  try {
+    const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`
+    const res = await fetch(oembedUrl, { headers: { 'User-Agent': BROWSER_UA } })
+    if (!res.ok) return {}
+    return await res.json() as OEmbedResponse
+  } catch {
+    return {}
+  }
 }
 
-function extractorArgs(): string[] {
-  return ['--extractor-args', 'youtube:player_client=default,web_safari,tv,mweb']
+async function fetchDuration(url: string): Promise<number> {
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': BROWSER_UA } })
+    if (!res.ok) return 0
+    const html = await res.text()
+    const match = html.match(/"lengthSeconds":"(\d+)"/)
+    return match ? parseInt(match[1], 10) : 0
+  } catch {
+    return 0
+  }
 }
 
-function jsRuntimeArgs(): string[] {
-  const denoPath = process.env.DENO_PATH
-  return denoPath ? ['--js-runtimes', `deno:${denoPath}`] : []
-}
-
-async function dumpInfo(ytDlp: YTDlpWrap, url: string): Promise<IYtDlpRawInfo> {
-  const stdout = await ytDlp.execPromise([
-    url,
-    '--no-playlist',
-    '--dump-json',
-    '--skip-download',
-    ...cookiesArgs(),
-    ...extractorArgs(),
-    ...jsRuntimeArgs(),
-  ])
-  return JSON.parse(stdout.toString()) as IYtDlpRawInfo
+function sanitizeFilename(name: string, fallback: string): string {
+  const cleaned = name.replace(/[^\w\s.-]/g, '').trim()
+  return cleaned.length > 0 ? cleaned : fallback
 }
 
 @Controller('tools/youtube')
@@ -108,13 +122,15 @@ export class YoutubeDownloadController {
       throw new ForbiddenException()
     }
 
-    const ytDlp = await getYtDlp()
-    const raw = await dumpInfo(ytDlp, query.url)
+    const [oembed, durationSeconds] = await Promise.all([
+      fetchOEmbed(query.url),
+      fetchDuration(query.url),
+    ])
 
     return {
-      title: raw.title ?? 'Unknown',
-      thumbnail: raw.thumbnail ?? '',
-      durationSeconds: raw.duration ?? 0,
+      title: oembed.title ?? 'Unknown',
+      thumbnail: oembed.thumbnail_url ?? '',
+      durationSeconds,
     }
   }
 
@@ -144,56 +160,44 @@ export class YoutubeDownloadController {
 
     const isAudio = body.quality === 'audio'
     const ext = isAudio ? 'mp3' : 'mp4'
-    const tmpFile = path.join(os.tmpdir(), `ceicavs-yt-${Date.now()}.${ext}`)
 
     try {
-      const ytDlp = await getYtDlp()
-      const raw = await dumpInfo(ytDlp, body.url)
-      const title = (raw.title ?? 'video').replace(/[^\w\s-]/g, '').trim()
-
-      const dlArgs = isAudio
-        ? [
-            body.url,
-            '-f', QUALITY_FORMAT[body.quality],
-            '-x',
-            '--audio-format', 'mp3',
-            '-o', tmpFile,
-            '--no-playlist',
-            ...cookiesArgs(),
-            ...extractorArgs(),
-            ...jsRuntimeArgs(),
-            ...ffmpegArgs(),
-          ]
-        : [
-            body.url,
-            '-f', QUALITY_FORMAT[body.quality],
-            '--merge-output-format', 'mp4',
-            '-o', tmpFile,
-            '--no-playlist',
-            ...cookiesArgs(),
-            ...extractorArgs(),
-            ...jsRuntimeArgs(),
-            ...ffmpegArgs(),
-          ]
-
-      await ytDlp.execPromise(dlArgs)
-
-      const stat = fs.statSync(tmpFile)
-      res.setHeader('Content-Type', isAudio ? 'audio/mpeg' : 'video/mp4')
-      res.setHeader('Content-Disposition', `attachment; filename="${title}.${ext}"`)
-      res.setHeader('Content-Length', stat.size)
-
-      const fileStream = fs.createReadStream(tmpFile)
-
-      fileStream.on('close', () => {
+      const cobalt = await callCobalt(cobaltPayload(body.url, body.quality))
+      const upstream = await fetch(cobalt.url, { headers: { 'User-Agent': BROWSER_UA } })
+      if (!upstream.ok || !upstream.body) {
         release()
-        fs.unlink(tmpFile, () => undefined)
-      })
+        throw new InternalServerErrorException('Download failed')
+      }
 
-      fileStream.pipe(res)
-    } catch {
+      const filename = sanitizeFilename(cobalt.filename ?? `video.${ext}`, `video.${ext}`)
+      res.setHeader('Content-Type', isAudio ? 'audio/mpeg' : 'video/mp4')
+      res.setHeader('Content-Disposition', `attachment; filename="${filename}"`)
+      const contentLength = upstream.headers.get('content-length')
+      if (contentLength) res.setHeader('Content-Length', contentLength)
+
+      const reader = upstream.body.getReader()
+      const pump = async (): Promise<void> => {
+        try {
+          while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
+            if (!res.write(value)) {
+              await new Promise<void>((resolve) => res.once('drain', resolve))
+            }
+          }
+          res.end()
+        } finally {
+          release()
+        }
+      }
+      void pump().catch(() => {
+        release()
+        res.end()
+      })
+    } catch (err) {
       release()
-      fs.unlink(tmpFile, () => undefined)
+      if (err instanceof ServiceUnavailableException) throw err
+      if (err instanceof ForbiddenException) throw err
       throw new InternalServerErrorException('Download failed')
     }
   }

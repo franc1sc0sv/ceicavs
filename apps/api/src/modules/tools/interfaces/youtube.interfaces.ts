@@ -5,9 +5,3 @@ export interface IVideoInfo {
   thumbnail: string
   durationSeconds: number
 }
-
-export interface IYtDlpRawInfo {
-  title?: string
-  thumbnail?: string
-  duration?: number
-}
