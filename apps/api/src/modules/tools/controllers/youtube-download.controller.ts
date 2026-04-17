@@ -57,12 +57,14 @@ function getYtDlp(): Promise<YTDlpWrap> {
 
 function cookiesArgs(): string[] {
   if (cookiesReady !== null) return cookiesReady
+  const b64 = process.env.YOUTUBE_COOKIES_B64
   const raw = process.env.YOUTUBE_COOKIES_TXT
-  if (!raw) {
+  const decoded = b64 ? Buffer.from(b64.replace(/\s+/g, ''), 'base64').toString('utf8') : raw
+  if (!decoded) {
     cookiesReady = []
     return cookiesReady
   }
-  fs.writeFileSync(COOKIES_FILE, raw, { mode: 0o600 })
+  fs.writeFileSync(COOKIES_FILE, decoded, { mode: 0o600 })
   cookiesReady = ['--cookies', COOKIES_FILE]
   return cookiesReady
 }
