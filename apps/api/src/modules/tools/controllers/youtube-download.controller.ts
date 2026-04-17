@@ -29,6 +29,7 @@ interface AuthenticatedRequest extends Request {
 }
 
 const YT_DLP_BINARY = path.join(process.cwd(), '.yt-dlp')
+const COOKIES_FILE = path.join(os.tmpdir(), 'ceicavs-yt-cookies.txt')
 const MAX_CONCURRENT = parseInt(process.env.YOUTUBE_MAX_CONCURRENT ?? '3', 10)
 
 const QUALITY_FORMAT: Record<VideoQuality, string> = {
@@ -39,6 +40,7 @@ const QUALITY_FORMAT: Record<VideoQuality, string> = {
 }
 
 let ytDlpReady: Promise<YTDlpWrap> | null = null
+let cookiesReady: string[] | null = null
 let activeDownloads = 0
 
 function getYtDlp(): Promise<YTDlpWrap> {
@@ -51,6 +53,18 @@ function getYtDlp(): Promise<YTDlpWrap> {
     })()
   }
   return ytDlpReady
+}
+
+function cookiesArgs(): string[] {
+  if (cookiesReady !== null) return cookiesReady
+  const raw = process.env.YOUTUBE_COOKIES_TXT
+  if (!raw) {
+    cookiesReady = []
+    return cookiesReady
+  }
+  fs.writeFileSync(COOKIES_FILE, raw, { mode: 0o600 })
+  cookiesReady = ['--cookies', COOKIES_FILE]
+  return cookiesReady
 }
 
 function ffmpegArgs(): string[] {
@@ -71,7 +85,7 @@ export class YoutubeDownloadController {
     }
 
     const ytDlp = await getYtDlp()
-    const raw = await ytDlp.getVideoInfo([query.url, '--no-playlist']) as IYtDlpRawInfo
+    const raw = await ytDlp.getVideoInfo([query.url, '--no-playlist', ...cookiesArgs()]) as IYtDlpRawInfo
 
     return {
       title: raw.title ?? 'Unknown',
@@ -110,7 +124,7 @@ export class YoutubeDownloadController {
 
     try {
       const ytDlp = await getYtDlp()
-      const raw = await ytDlp.getVideoInfo([body.url, '--no-playlist']) as IYtDlpRawInfo
+      const raw = await ytDlp.getVideoInfo([body.url, '--no-playlist', ...cookiesArgs()]) as IYtDlpRawInfo
       const title = (raw.title ?? 'video').replace(/[^\w\s-]/g, '').trim()
 
       const dlArgs = isAudio
@@ -121,6 +135,7 @@ export class YoutubeDownloadController {
             '--audio-format', 'mp3',
             '-o', tmpFile,
             '--no-playlist',
+            ...cookiesArgs(),
             ...ffmpegArgs(),
           ]
         : [
@@ -129,6 +144,7 @@ export class YoutubeDownloadController {
             '--merge-output-format', 'mp4',
             '-o', tmpFile,
             '--no-playlist',
+            ...cookiesArgs(),
             ...ffmpegArgs(),
           ]
 
