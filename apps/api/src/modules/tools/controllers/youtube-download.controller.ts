@@ -63,17 +63,33 @@ function cobaltPayload(url: string, quality: VideoQuality): CobaltPayload {
   return { url, videoQuality: quality.replace('p', ''), downloadMode: 'auto', filenameStyle: 'basic' }
 }
 
+const debugLogger = new Logger('CobaltClient')
+
 async function callCobalt(payload: CobaltPayload): Promise<CobaltSuccessResponse> {
-  const res = await fetch(COBALT_API_URL, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'User-Agent': BROWSER_UA,
-    },
-    body: JSON.stringify(payload),
-  })
-  const data = await res.json() as CobaltResponse
+  debugLogger.log(`POST ${COBALT_API_URL} payload=${JSON.stringify(payload)}`)
+  let res: globalThis.Response
+  try {
+    res = await fetch(COBALT_API_URL, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'User-Agent': BROWSER_UA,
+      },
+      body: JSON.stringify(payload),
+    })
+  } catch (err) {
+    debugLogger.error(`cobalt fetch threw: ${(err as Error).message}`)
+    throw new InternalServerErrorException(`cobalt fetch failed: ${(err as Error).message}`)
+  }
+  const rawBody = await res.text()
+  debugLogger.log(`cobalt http=${res.status} body=${rawBody.slice(0, 500)}`)
+  let data: CobaltResponse
+  try {
+    data = JSON.parse(rawBody) as CobaltResponse
+  } catch {
+    throw new InternalServerErrorException(`cobalt non-json response http=${res.status} body=${rawBody.slice(0, 200)}`)
+  }
   if (data.status === 'tunnel' || data.status === 'redirect') {
     return data
   }
@@ -171,10 +187,13 @@ export class YoutubeDownloadController implements OnModuleInit {
 
     try {
       const cobalt = await callCobalt(cobaltPayload(body.url, body.quality))
+      this.logger.log(`cobalt ${cobalt.status} → fetching ${cobalt.url.slice(0, 120)}`)
       const upstream = await fetch(cobalt.url, { headers: { 'User-Agent': BROWSER_UA } })
       if (!upstream.ok || !upstream.body) {
+        const body = upstream.body ? await upstream.text().catch(() => '') : '<no body>'
+        this.logger.error(`upstream http=${upstream.status} body=${body.slice(0, 300)}`)
         release()
-        throw new InternalServerErrorException('Download failed')
+        throw new InternalServerErrorException(`upstream http=${upstream.status}`)
       }
 
       const filename = sanitizeFilename(cobalt.filename ?? `video.${ext}`, `video.${ext}`)
@@ -184,6 +203,7 @@ export class YoutubeDownloadController implements OnModuleInit {
       if (contentLength) res.setHeader('Content-Length', contentLength)
 
       const reader = upstream.body.getReader()
+      const logger = this.logger
       const pump = async (): Promise<void> => {
         try {
           while (true) {
@@ -194,11 +214,13 @@ export class YoutubeDownloadController implements OnModuleInit {
             }
           }
           res.end()
+          logger.log(`download complete: ${filename}`)
         } finally {
           release()
         }
       }
-      void pump().catch(() => {
+      void pump().catch((err: Error) => {
+        logger.error(`stream pump failed: ${err.message}`)
         release()
         res.end()
       })
@@ -206,7 +228,9 @@ export class YoutubeDownloadController implements OnModuleInit {
       release()
       if (err instanceof ServiceUnavailableException) throw err
       if (err instanceof ForbiddenException) throw err
-      throw new InternalServerErrorException('Download failed')
+      if (err instanceof InternalServerErrorException) throw err
+      this.logger.error(`download failed: ${(err as Error).message}`, (err as Error).stack)
+      throw new InternalServerErrorException(`download failed: ${(err as Error).message}`)
     }
   }
 }
