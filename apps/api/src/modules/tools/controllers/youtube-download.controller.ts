@@ -3,6 +3,8 @@ import {
   Controller,
   Get,
   InternalServerErrorException,
+  Logger,
+  OnModuleInit,
   Post,
   Query,
   Req,
@@ -111,7 +113,13 @@ function sanitizeFilename(name: string, fallback: string): string {
 
 @Controller('tools/youtube')
 @UseGuards(JwtRestAuthGuard)
-export class YoutubeDownloadController {
+export class YoutubeDownloadController implements OnModuleInit {
+  private readonly logger = new Logger(YoutubeDownloadController.name)
+
+  onModuleInit(): void {
+    this.logger.log(`youtube downloads: using cobalt at ${COBALT_API_URL}`)
+  }
+
   @Get('info')
   async info(
     @Req() req: AuthenticatedRequest,
