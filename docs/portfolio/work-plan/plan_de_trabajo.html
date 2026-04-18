@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Plan de Trabajo - Servicio Social Estudiantil</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.6cm 2cm 2cm 2cm;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 10pt;
+      color: #000;
+      background: white;
+    }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      padding: 2cm;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #003087;
+    }
+
+    .header img {
+      height: 64px;
+      margin-right: 20px;
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+    }
+
+    .header-title h1 {
+      font-size: 13pt;
+      font-weight: bold;
+      color: #003087;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+
+    .section-title {
+      background: #003087;
+      color: white;
+      padding: 5px 10px;
+      font-weight: bold;
+      font-size: 9.5pt;
+      margin: 12px 0 6px 0;
+    }
+
+    .section-subtitle {
+      font-size: 8.5pt;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .form-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .form-table td {
+      border: 1px solid #aaa;
+      padding: 5px 8px;
+      vertical-align: middle;
+    }
+
+    .form-table .lbl {
+      font-weight: bold;
+      background: #eef2f7;
+      color: #003087;
+      white-space: nowrap;
+      font-size: 8.5pt;
+    }
+
+    .form-table .val {
+      min-height: 22px;
+    }
+
+    .date-note {
+      font-size: 7.5pt;
+      color: #666;
+      font-style: italic;
+      padding: 4px 8px;
+      border: 1px solid #aaa;
+      border-top: none;
+      background: #fffef2;
+      margin-bottom: 3px;
+    }
+
+    .text-area-box {
+      border: 1px solid #aaa;
+      padding: 10px 12px;
+      width: 100%;
+      font-size: 9pt;
+      line-height: 1.5;
+    }
+
+    .text-area-box p {
+      margin-bottom: 6px;
+    }
+
+    .text-area-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .text-area-box strong {
+      color: #003087;
+    }
+
+    .evidence-area {
+      border: 1px solid #aaa;
+      padding: 10px;
+      width: 100%;
+    }
+
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+
+    .screenshot-item {
+      border: 1px solid #ddd;
+      overflow: hidden;
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      height: 233px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .screenshot-caption {
+      font-size: 7.5pt;
+      color: #555;
+      padding: 3px 8px;
+      background: #f4f7fb;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .drive-link-box {
+      border: 1px solid #003087;
+      background: #f4f7fb;
+      padding: 8px 12px;
+      margin-top: 10px;
+      font-size: 8.5pt;
+    }
+
+    .drive-link-box strong {
+      color: #003087;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .drive-link-box a {
+      color: #0057cc;
+      word-break: break-all;
+      font-size: 8pt;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <img src="../_shared/udb-logo.png" alt="Universidad Don Bosco - Servicio Social">
+      <div class="header-title">
+        <h1>Plan de Trabajo<br>Servicio Social Estudiantil</h1>
+      </div>
+    </div>
+
+    <div class="section-title">Sección 1: Datos generales de proyecto</div>
+    <table class="form-table">
+      <tr>
+        <td class="lbl" style="width:32%;">Fecha de inicio de su proyecto:</td>
+        <td class="val" style="width:18%;">16 de febrero de 2026</td>
+        <td class="lbl" style="width:32%;">Fecha de finalización de su proyecto:</td>
+        <td class="val" style="width:18%;">25 de abril de 2026</td>
+      </tr>
+    </table>
+    <table class="form-table" style="margin-top: 3px;">
+      <tr>
+        <td class="lbl" style="width:50%;">Nombre completo:</td>
+        <td class="val">Francisco Hernández</td>
+      </tr>
+      <tr>
+        <td class="lbl">Número de carné:</td>
+        <td class="val">HM242655</td>
+      </tr>
+      <tr>
+        <td class="lbl">Nombre del proyecto:</td>
+        <td class="val">Sistema Escolar CEICAVS</td>
+      </tr>
+      <tr>
+        <td class="lbl">Cantidad de horas:</td>
+        <td class="val">300</td>
+      </tr>
+      <tr>
+        <td class="lbl">Nombre de la institución donde realizó su servicio social:</td>
+        <td class="val">Centro Escolar Ingeniero Carlos Armando Velásquez Serrano</td>
+      </tr>
+      <tr>
+        <td class="lbl">Supervisor de su proyecto en la institución:</td>
+        <td class="val">Mery Morelia Meléndez de Pineda</td>
+      </tr>
+    </table>
+
+    <div class="section-title">Sección 2: Experiencia adquirida</div>
+    <div class="text-area-box">
+      <p>Durante el desarrollo del <strong>Sistema Escolar CEICAVS</strong> construí una plataforma educativa completa en un monorepo Turborepo + pnpm, con frontend en React 19, Vite y Tailwind CSS v4, y backend en NestJS con GraphQL y Prisma 7. El proyecto me permitió aplicar patrones de ingeniería avanzados que rara vez se abordan en el entorno académico tradicional, trabajando de forma estructurada sobre una base de código real con usuarios reales.</p>
+
+      <p><strong>Claude Code y Multi-Agentes:</strong> Trabajé con Claude Code mediante un sistema de agentes especializados (backend, frontend, database, testing, review), cada uno con herramientas y conocimiento específico de su dominio. Los agentes se despachaban en paralelo sobre capas independientes del sistema, lo que redujo drásticamente los tiempos de desarrollo y me obligó a pensar en responsabilidades bien delimitadas. Aprendí a redactar especificaciones precisas y a coordinar trabajo complejo de forma estructurada, habilidades directamente transferibles a equipos de ingeniería reales.</p>
+
+      <p><strong>Arquitectura CQRS:</strong> El backend implementa Command Query Responsibility Segregation: cada escritura tiene su propio <em>CommandHandler</em> y cada lectura su <em>QueryHandler</em>, sin clases de servicio intermedias. Los resolvers de GraphQL son completamente delgados y solo despachan a los buses de comandos y consultas. Los repositorios exigen una transacción activa (<em>tx: TxClient</em>) como parámetro obligatorio en tiempo de compilación, eliminando errores de consistencia de base de datos a nivel de tipos. Esta disciplina me formó en el diseño de sistemas desacoplados, mantenibles y fáciles de probar.</p>
+
+      <p><strong>Web Workers y transcripción con Hugging Face:</strong> El módulo de transcripción utiliza Web Workers del navegador para ejecutar el modelo Whisper de OpenAI directamente en el cliente mediante Transformers.js, la librería de Hugging Face que porta modelos de machine learning al navegador a través de WebAssembly. Al iniciarse una transcripción, la aplicación instancia un Worker dedicado que descarga los pesos del modelo desde Hugging Face Hub (solo la primera vez), procesa el audio en segmentos y envía resultados parciales al hilo principal mediante <em>postMessage</em>. La interfaz reacciona a cada mensaje mostrando el progreso en tiempo real sin congelar la UI en ningún momento. Adicionalmente, el sistema genera un resumen automático del contenido transcrito usando la API de inteligencia artificial. Este patrón me enseñó a separar el trabajo computacionalmente intenso del hilo principal y a diseñar flujos reactivos basados en mensajería entre hilos.</p>
+
+      <p><strong>Base de datos — Prisma 7 + Kysely:</strong> La capa de datos combina Prisma 7 como ORM principal (con adaptador PrismaPg que acepta directamente la cadena de conexión sin Pool) y Kysely en modo DummyDriver para construcción de consultas dinámicas de tipo seguro, ejecutadas luego mediante <em>$queryRawUnsafe</em>. Todas las columnas del esquema están en snake_case vía <em>@map()</em>/<em>@@map()</em>, y los modelos sensibles implementan soft delete con <em>deletedAt</em>. Aprendí a distinguir cuándo un ORM es suficiente y cuándo se necesita un query builder para consultas complejas, sin sacrificar la seguridad de tipos.</p>
+
+      <p><strong>Diseño de interfaz — shadcn/ui + Tailwind CSS v4:</strong> Toda la interfaz se construyó sobre primitivas de shadcn/ui (botones, formularios, diálogos, tablas, sheets, badges, toasts), integrándolas directamente en el código fuente para permitir personalización total. Tailwind CSS v4 provee el sistema de tokens de diseño. Esta disciplina me enseñó a trabajar con design systems maduros y a entregar interfaces accesibles y consistentes. Toda cadena de texto visible al usuario pasa por <em>react-i18next</em> con namespaces por módulo, garantizando una base lista para internacionalización completa.</p>
+
+      <p><strong>Gestión del proyecto con Linear:</strong> El ciclo de vida del desarrollo se organizó en Linear: cada funcionalidad se registró como issue, se agrupó en proyectos por módulo (asistencia, personas, blog, herramientas, transcripción) y se priorizó en el backlog con estimaciones de esfuerzo. Los milestones marcaron las entregas clave. Trabajar con esta herramienta me introdujo a metodologías ágiles reales, al rastreo de deuda técnica y a la práctica de cerrar issues contra commits concretos.</p>
+
+      <p><strong>Impacto institucional:</strong> El sistema digitaliza procesos clave del Centro Escolar CEICAVS: control de asistencia por grupo y período, gestión de usuarios y grupos con importación CSV masiva, publicación y moderación de contenido educativo, transcripción automática de clases con resumen generado por IA y acceso a herramientas pedagógicas interactivas (ruleta, temporizador, generador de QR, notas rápidas, calculadora científica, entre otras). Administradores, docentes y estudiantes pasaron de procesos manuales en papel a una plataforma centralizada accesible desde cualquier navegador, con control de acceso por roles que garantiza que cada actor solo vea y opere lo que le corresponde.</p>
+    </div>
+
+    <div class="section-title">Sección 3: Anexar evidencias de su participación en el proyecto</div>
+    <div class="evidence-area">
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <img src="../../screenshots/auth-login_01_initial.png" alt="Login">
+          <div class="screenshot-caption">Inicio de sesión</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/dashboard-admin_01_initial.png" alt="Dashboard administrador">
+          <div class="screenshot-caption">Panel principal — administrador</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/dashboard-student_01_initial.png" alt="Dashboard estudiante">
+          <div class="screenshot-caption">Panel principal — estudiante</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/attendance-take_01_roster.png" alt="Lista de asistencia">
+          <div class="screenshot-caption">Registro de asistencia — lista</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/attendance-take_02_marked.png" alt="Asistencia marcada">
+          <div class="screenshot-caption">Registro de asistencia — marcada</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/attendance-report_01_overview.png" alt="Reporte asistencia">
+          <div class="screenshot-caption">Reportes de asistencia</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/people-manage-users_01_full.png" alt="Gestión de usuarios">
+          <div class="screenshot-caption">Gestión de usuarios y roles</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/people-manage-groups_02_detail.png" alt="Detalle de grupo">
+          <div class="screenshot-caption">Detalle de grupo escolar</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/blog-view-feed_01_full.png" alt="Feed">
+          <div class="screenshot-caption">Feed de publicaciones</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/blog-admin_01_feed.png" alt="Blog admin">
+          <div class="screenshot-caption">Moderación de contenido</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/transcription-view_03_progress.png" alt="Transcripción en progreso">
+          <div class="screenshot-caption">Transcripción — procesando audio</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/transcription-view_08_summary-complete.png" alt="Resumen completado">
+          <div class="screenshot-caption">Transcripción — resumen IA generado</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/tools-browse_01_full.png" alt="Hub herramientas">
+          <div class="screenshot-caption">Hub de herramientas pedagógicas</div>
+        </div>
+        <div class="screenshot-item">
+          <img src="../../screenshots/linear_01_all-issues.png" alt="Linear issues">
+          <div class="screenshot-caption">Gestión de proyecto en Linear</div>
+        </div>
+      </div>
+
+      <div class="drive-link-box">
+        <strong>Centro de recursos — archivos y evidencias del proyecto:</strong>
+        <a href="https://drive.google.com/drive/folders/13W5xQjkTaqe6g4W_9ViSzk0__LyaDZBx?usp=sharing">
+          https://drive.google.com/drive/folders/13W5xQjkTaqe6g4W_9ViSzk0__LyaDZBx?usp=sharing
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

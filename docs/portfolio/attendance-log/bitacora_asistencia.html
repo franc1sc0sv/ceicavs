@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bitácora de Asistencia - SSE - Francisco Josue Hernandez</title>
+  <style>
+    @page {
+      size: letter landscape;
+      margin: 1.2cm 1.5cm;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 9pt;
+      color: #000;
+      background: white;
+    }
+    .page {
+      width: 279.4mm;
+      padding: 0;
+      margin: 0 auto;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 3px solid #003087;
+    }
+    .header img {
+      height: 58px;
+      margin-right: 18px;
+    }
+    .header-title {
+      flex: 1;
+      text-align: center;
+    }
+    .header-title h1 {
+      font-size: 13pt;
+      font-weight: bold;
+      color: #003087;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+    .info-section {
+      margin-bottom: 8px;
+    }
+    .info-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+      font-size: 8.5pt;
+    }
+    .info-row .lbl {
+      font-weight: bold;
+      color: #003087;
+      white-space: nowrap;
+    }
+    .info-row .val {
+      border-bottom: 1px solid #000;
+      flex: 1;
+      min-height: 14px;
+      padding-bottom: 1px;
+    }
+    .info-row .val-fixed {
+      border-bottom: 1px solid #000;
+      min-height: 14px;
+      padding-bottom: 1px;
+    }
+    .attendance-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .attendance-table th {
+      background: #003087;
+      color: white;
+      border: 1px solid #003087;
+      padding: 5px 6px;
+      text-align: center;
+      font-size: 8.5pt;
+      font-weight: bold;
+    }
+    .attendance-table td {
+      border: 1px solid #aaa;
+      padding: 0 2mm;
+      height: 12mm;
+      font-size: 8pt;
+      vertical-align: middle;
+    }
+    .attendance-table td.firma-cell {
+      padding: 1mm;
+      vertical-align: middle;
+      text-align: center;
+    }
+    .attendance-table td.center {
+      text-align: center;
+    }
+    .col-no     { width: 4%; }
+    .col-fecha  { width: 13%; }
+    .col-act    { width: 38%; }
+    .col-nombre { width: 17%; }
+    .col-firma  { width: 19%; }
+    .col-horas  { width: 9%; text-align: center; }
+    .footer {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 8pt;
+    }
+    .footer-contact {
+      color: #444;
+      line-height: 1.5;
+    }
+    .footer-signature {
+      text-align: center;
+      padding-top: 4px;
+      border-top: 1px solid #000;
+      min-width: 220px;
+      font-weight: bold;
+      font-size: 8pt;
+    }
+    @media print {
+      .attendance-table { page-break-inside: auto; }
+      .attendance-table tr { page-break-inside: avoid; }
+      .attendance-table thead { display: table-header-group; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <img src="../_shared/udb-logo.png" alt="Universidad Don Bosco - Servicio Social">
+      <div class="header-title">
+        <h1>Bitácora de Asistencia<br>Servicio Social Estudiantil</h1>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="info-row">
+        <span class="lbl">NOMBRE DEL ALUMNO:</span>
+        <span class="val" style="white-space:nowrap; flex:1.2;">Francisco Josue Hernandez</span>
+        <span class="lbl">CARNÉ:</span>
+        <span class="val-fixed" style="width:90px; white-space:nowrap;">HM242655</span>
+        <span class="lbl">CARRERA:</span>
+        <span class="val" style="white-space:nowrap; flex:1.5;">Técnico en Ingeniería en Computación (PILET)</span>
+        <span class="lbl">FECHA DE ENTREGA:</span>
+        <span class="val-fixed" style="width:120px; white-space:nowrap;">25 de abril de 2026</span>
+      </div>
+      <div class="info-row">
+        <span class="lbl">NOMBRE DEL COORDINADOR DE H.S. UDB:</span>
+        <span class="val">Licda. Morena Ortiz</span>
+        <span class="lbl">CANTIDAD DE HORAS:</span>
+        <span class="val-fixed" style="width:80px;">300</span>
+      </div>
+      <div class="info-row">
+        <span class="lbl">FECHA DE INICIO:</span>
+        <span class="val-fixed" style="width:130px;">lunes 16 feb. 2026</span>
+        <span class="lbl">FECHA FINALIZACIÓN:</span>
+        <span class="val-fixed" style="width:130px;">sábado 25 abr. 2026</span>
+        <span class="lbl">TEL. DEL ALUMNO:</span>
+        <span class="val">6069-9553</span>
+      </div>
+      <div class="info-row">
+        <span class="lbl">INSTITUCIÓN DONDE REALIZA SUS H.S.:</span>
+        <span class="val">Centro Escolar Ingeniero Carlos Armando Velásquez Serrano</span>
+      </div>
+      <div class="info-row">
+        <span class="lbl">NOMBRE DE LA PERSONA COORDINADORA DE LA INSTITUCIÓN:</span>
+        <span class="val">Mery Morelia Meléndez de Pineda</span>
+      </div>
+    </div>
+
+    <table class="attendance-table">
+      <thead>
+        <tr>
+          <th class="col-no">No.</th>
+          <th class="col-fecha">Fecha</th>
+          <th class="col-act">Actividades</th>
+          <th class="col-nombre">Nombre del Alumno</th>
+          <th class="col-firma">Firma Alumno</th>
+          <th class="col-horas">No. Horas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="center">1</td>
+          <td>Lunes 16 feb. 2026</td>
+          <td>Reunión de inicio de proyecto; configuración del entorno de desarrollo (Turborepo, pnpm workspaces, Docker)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">2</td>
+          <td>Martes 17 feb. 2026</td>
+          <td>Configuración de base de datos PostgreSQL con Docker Compose; schema inicial de Prisma con modelos User y Group</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">3</td>
+          <td>Miércoles 18 feb. 2026</td>
+          <td>Implementación del módulo de autenticación JWT con NestJS Passport y estrategia local (SOL-10)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">4</td>
+          <td>Jueves 19 feb. 2026</td>
+          <td>Implementación de refresh tokens y rotación automática de tokens JWT (SOL-11)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">5</td>
+          <td>Viernes 20 feb. 2026</td>
+          <td>Implementación del módulo de perfil de usuario con resolvers GraphQL (SOL-12)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">6</td>
+          <td>Sábado 21 feb. 2026</td>
+          <td>Implementación de control de acceso basado en roles con CASL; definición de permisos por rol (SOL-13)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">7</td>
+          <td>Domingo 22 feb. 2026</td>
+          <td>Pruebas de integración del módulo de autenticación; corrección de errores de validación</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">8</td>
+          <td>Lunes 23 feb. 2026</td>
+          <td>Implementación del panel de administrador con estadísticas globales del sistema (SOL-41)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">9</td>
+          <td>Martes 24 feb. 2026</td>
+          <td>Implementación de CRUD de usuarios desde el panel administrativo con soft delete (SOL-42)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">10</td>
+          <td>Miércoles 25 feb. 2026</td>
+          <td>Funcionalidad de importación masiva de usuarios desde archivo CSV con validación (SOL-43)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">11</td>
+          <td>Jueves 26 feb. 2026</td>
+          <td>Implementación de CRUD de grupos de estudiantes con asignación de docentes (SOL-44)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">12</td>
+          <td>Viernes 27 feb. 2026</td>
+          <td>Implementación del dashboard diferenciado por rol: administrador, docente y estudiante (SOL-45)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">13</td>
+          <td>Sábado 28 feb. 2026</td>
+          <td>Pruebas del módulo de personas; revisión de permisos CASL por rol</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">14</td>
+          <td>Domingo 1 mar. 2026</td>
+          <td>Revisión general Sprint 1; correcciones menores de interfaz y validación de formularios</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">15</td>
+          <td>Lunes 2 mar. 2026</td>
+          <td>Cierre Sprint 1; retrospectiva del equipo; planificación y definición del Sprint 2</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">16</td>
+          <td>Martes 3 mar. 2026</td>
+          <td>Planificación Sprint 2; diseño de la arquitectura del módulo de asistencia</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">17</td>
+          <td>Miércoles 4 mar. 2026</td>
+          <td>Implementación de vista de lista de grupos asignados al docente (SOL-14)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">18</td>
+          <td>Jueves 5 mar. 2026</td>
+          <td>Implementación de vista de roster con foto e iniciales de estudiantes por grupo (SOL-15)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">19</td>
+          <td>Viernes 6 mar. 2026</td>
+          <td>Implementación del sistema de registro de asistencia transaccional con estados: Presente, Ausente, Tardanza, Justificado (SOL-16)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">20</td>
+          <td>Sábado 7 mar. 2026</td>
+          <td>Integración del registro de asistencia con validación de fecha en servidor (sin fechas futuras)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">21</td>
+          <td>Domingo 8 mar. 2026</td>
+          <td>Implementación del historial de asistencia individual del estudiante (SOL-17)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">22</td>
+          <td>Lunes 9 mar. 2026</td>
+          <td>Pruebas del módulo de asistencia; corrección de errores de concurrencia</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">23</td>
+          <td>Martes 10 mar. 2026</td>
+          <td>Implementación de reporte de asistencia por período y grupo con filtros (SOL-18)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">24</td>
+          <td>Miércoles 11 mar. 2026</td>
+          <td>Implementación de exportación de reportes de asistencia en formato CSV y PDF (SOL-19)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">25</td>
+          <td>Jueves 12 mar. 2026</td>
+          <td>Pruebas de generación y descarga de reportes de asistencia</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">26</td>
+          <td>Viernes 13 mar. 2026</td>
+          <td>Correcciones de interfaz del módulo de asistencia; ajustes de filtros por período</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">27</td>
+          <td>Sábado 14 mar. 2026</td>
+          <td>Integración completa frontend-backend del módulo de asistencia con Apollo Client</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">28</td>
+          <td>Domingo 15 mar. 2026</td>
+          <td>Optimización de consultas de base de datos para reportes de asistencia con Kysely</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">29</td>
+          <td>Lunes 16 mar. 2026</td>
+          <td>Cierre Sprint 2; retrospectiva; pruebas de aceptación del módulo de asistencia completo</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">30</td>
+          <td>Martes 17 mar. 2026</td>
+          <td>Planificación Sprint 3; diseño del módulo Blog institucional y estructura de datos</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">31</td>
+          <td>Miércoles 18 mar. 2026</td>
+          <td>Implementación del feed de publicaciones del blog con paginación infinita (SOL-28)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">32</td>
+          <td>Jueves 19 mar. 2026</td>
+          <td>Implementación de creación de publicaciones con editor de contenido rico y adjuntos (SOL-29)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">33</td>
+          <td>Viernes 20 mar. 2026</td>
+          <td>Implementación del flujo de edición y eliminación de publicaciones (SOL-30)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">34</td>
+          <td>Sábado 21 mar. 2026</td>
+          <td>Implementación de la cola de revisión para publicaciones pendientes de estudiantes (SOL-31)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">35</td>
+          <td>Domingo 22 mar. 2026</td>
+          <td>Implementación del sistema de comentarios anidados en hilo por publicación (SOL-32)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">36</td>
+          <td>Lunes 23 mar. 2026</td>
+          <td>Implementación de reacciones con emojis en publicaciones del blog (SOL-33)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">37</td>
+          <td>Martes 24 mar. 2026</td>
+          <td>Implementación de gestión de categorías del blog con CRUD administrativo (SOL-34)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">38</td>
+          <td>Miércoles 25 mar. 2026</td>
+          <td>Implementación del sistema de borradores y vista previa de publicaciones (SOL-35)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">39</td>
+          <td>Jueves 26 mar. 2026</td>
+          <td>Integración completa del módulo Blog frontend-backend; pruebas del flujo editorial</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">40</td>
+          <td>Viernes 27 mar. 2026</td>
+          <td>Pruebas de aceptación del módulo Blog; revisión de permisos por rol</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">41</td>
+          <td>Sábado 28 mar. 2026</td>
+          <td>Correcciones del módulo Blog; optimización de carga de imágenes adjuntas</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">42</td>
+          <td>Domingo 29 mar. 2026</td>
+          <td>Implementación de búsqueda y filtrado de publicaciones por categoría y estado</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">43</td>
+          <td>Lunes 30 mar. 2026</td>
+          <td>Cierre Sprint 3; retrospectiva del equipo; planificación Sprint 4</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">44</td>
+          <td>Martes 31 mar. 2026</td>
+          <td>Planificación Sprint 4; diseño del catálogo de herramientas educativas</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">45</td>
+          <td>Miércoles 1 abr. 2026</td>
+          <td>Implementación del catálogo de herramientas educativas con cuadrícula por categoría (SOL-20)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">46</td>
+          <td>Jueves 2 abr. 2026</td>
+          <td>Implementación del temporizador de clase con alertas visuales y sonoras (SOL-21)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">47</td>
+          <td>Viernes 3 abr. 2026</td>
+          <td>Implementación del organizador de tareas para gestión en clase (SOL-22)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">48</td>
+          <td>Sábado 4 abr. 2026</td>
+          <td>Implementación de la ruleta de estudiantes para selección aleatoria (SOL-23)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">49</td>
+          <td>Domingo 5 abr. 2026</td>
+          <td>Implementación del convertidor de documentos Markdown a PDF desde la plataforma (SOL-24)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">50</td>
+          <td>Lunes 6 abr. 2026</td>
+          <td>Implementación del generador de códigos QR personalizados (SOL-25)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">51</td>
+          <td>Martes 7 abr. 2026</td>
+          <td>Implementación del temporizador Pomodoro integrado en el catálogo de herramientas (SOL-26)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">52</td>
+          <td>Miércoles 8 abr. 2026</td>
+          <td>Implementación del sistema de categorías de herramientas con marcado de favoritos (SOL-27)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">53</td>
+          <td>Jueves 9 abr. 2026</td>
+          <td>Pruebas de integración de todas las herramientas educativas del catálogo</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">54</td>
+          <td>Viernes 10 abr. 2026</td>
+          <td>Correcciones y optimizaciones del módulo de herramientas educativas</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">55</td>
+          <td>Sábado 11 abr. 2026</td>
+          <td>Implementación del sistema de carga de grabaciones de audio (formatos MP3, WAV, M4A) (SOL-36)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">56</td>
+          <td>Domingo 12 abr. 2026</td>
+          <td>Implementación del motor de transcripción automática con Whisper ONNX en el navegador (SOL-37)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">57</td>
+          <td>Lunes 13 abr. 2026</td>
+          <td>Integración con proveedores de IA (Groq/Gemini) para generación de resúmenes automáticos (SOL-38)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">58</td>
+          <td>Martes 14 abr. 2026</td>
+          <td>Implementación del listado de grabaciones con estado de procesamiento (SOL-39)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">59</td>
+          <td>Miércoles 15 abr. 2026</td>
+          <td>Implementación del reproductor de grabaciones con transcripción sincronizada (SOL-40)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">60</td>
+          <td>Jueves 16 abr. 2026</td>
+          <td>Pruebas de transcripción de audio y generación de resúmenes con inteligencia artificial</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">61</td>
+          <td>Viernes 17 abr. 2026</td>
+          <td>Correcciones del módulo de transcripción; optimización de rendimiento y manejo de errores</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">62</td>
+          <td>Sábado 18 abr. 2026</td>
+          <td>Verificación integral de permisos CASL en todos los módulos del sistema (US-030)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">63</td>
+          <td>Domingo 19 abr. 2026</td>
+          <td>Pruebas de seguridad y autorización; verificación de roles en entorno de producción</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+        <tr>
+          <td class="center">64</td>
+          <td>Lunes 20 abr. 2026</td>
+          <td>Pruebas de producción; verificación del funcionamiento de todos los módulos (US-029)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">65</td>
+          <td>Martes 21 abr. 2026</td>
+          <td>Elaboración del manual de usuario de la plataforma educativa (US-031)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">66</td>
+          <td>Miércoles 22 abr. 2026</td>
+          <td>Capacitación a usuarios finales sobre el uso de la plataforma CEICAVS (US-032)</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">67</td>
+          <td>Jueves 23 abr. 2026</td>
+          <td>Revisión final del sistema; correcciones menores previas a la entrega del proyecto</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">68</td>
+          <td>Viernes 24 abr. 2026</td>
+          <td>Preparación de documentación final y empaquetado del entregable del proyecto</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">3</td>
+        </tr>
+        <tr>
+          <td class="center">69</td>
+          <td>Sábado 25 abr. 2026</td>
+          <td>Entrega final del proyecto CEICAVS; cierre oficial del servicio social estudiantil</td>
+          <td>Francisco Josue Hernandez</td>
+          <td class="center firma-cell"><img src="../_shared/signature.png" style="max-height:10mm; width:auto; max-width:95%; display:block; margin:auto;"></td>
+          <td class="center">8</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer">
+      <div class="footer-contact">
+        Correo: serviciosocial@udb.edu.sv<br>
+        WhatsApp: 6301-2954
+      </div>
+      <div class="footer-signature">
+        FIRMA Y SELLO DE LA INSTITUCIÓN
+      </div>
+    </div>
+  </div>
+</body>
+</html>
