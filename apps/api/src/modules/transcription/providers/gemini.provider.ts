@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { IAIService, IAICompletionParams } from './ai.provider'
+import { TokenUsageService } from './token-usage.service'
 
 const GEMINI_MODEL = 'gemini-2.0-flash' as const
 
 @Injectable()
 export class GeminiService implements IAIService {
   private readonly client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
+
+  constructor(private readonly tokenUsage: TokenUsageService) {}
 
   async createCompletion({ systemPrompt, userMessage }: IAICompletionParams): Promise<string> {
     const model = this.client.getGenerativeModel({
@@ -22,6 +25,9 @@ export class GeminiService implements IAIService {
         maxOutputTokens: 8192,
       },
     })
+
+    const tokensUsed = result.response.usageMetadata?.totalTokenCount ?? 0
+    if (tokensUsed > 0) this.tokenUsage.updateGemini(tokensUsed)
 
     const content = result.response.text()
     if (!content) throw new Error('Empty response from Gemini')

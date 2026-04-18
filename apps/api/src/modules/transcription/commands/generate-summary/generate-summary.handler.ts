@@ -14,6 +14,8 @@ import {
   buildGenerateSummaryUserPrompt,
   buildChunkUserPrompt,
   buildCombineUserPrompt,
+  buildSystemPromptForLanguage,
+  buildChunkSystemPromptForLanguage,
 } from '../../prompts/generate-summary.prompt'
 import { GenerateSummaryCommand } from './generate-summary.command'
 
@@ -103,7 +105,11 @@ export class GenerateSummaryHandler extends BaseCommandHandler<GenerateSummaryCo
     )
 
     try {
-      const parsed = await this.summarize(transcription.fullTranscript, command.prompt ?? undefined)
+      const parsed = await this.summarize(
+        transcription.fullTranscript,
+        command.prompt ?? undefined,
+        command.language ?? undefined,
+      )
 
       await this.db.$transaction((tx) =>
         this.transcriptionRepository.updateSummary(
@@ -127,7 +133,19 @@ export class GenerateSummaryHandler extends BaseCommandHandler<GenerateSummaryCo
 
   protected async handle(_command: GenerateSummaryCommand, _tx: TxClient, _events: IDomainEvent[]): Promise<void> {}
 
-  private async summarize(fullTranscript: string, customPrompt: string | undefined): Promise<GroqSummaryResponse> {
+  private async summarize(
+    fullTranscript: string,
+    customPrompt: string | undefined,
+    language: string | undefined,
+  ): Promise<GroqSummaryResponse> {
+    const mainSystemPrompt = language
+      ? buildSystemPromptForLanguage(language)
+      : GENERATE_SUMMARY_SYSTEM_PROMPT
+
+    const chunkSystemPrompt = language
+      ? buildChunkSystemPromptForLanguage(language)
+      : CHUNK_SUMMARY_SYSTEM_PROMPT
+
     const chunks = splitIntoChunks(fullTranscript)
 
     if (chunks.length === 1) {
@@ -136,7 +154,7 @@ export class GenerateSummaryHandler extends BaseCommandHandler<GenerateSummaryCo
         : buildGenerateSummaryUserPrompt(chunks[0])
 
       const content = await this.aiService.createCompletion({
-        systemPrompt: GENERATE_SUMMARY_SYSTEM_PROMPT,
+        systemPrompt: mainSystemPrompt,
         userMessage,
       })
       return JSON.parse(content) as GroqSummaryResponse
@@ -145,7 +163,7 @@ export class GenerateSummaryHandler extends BaseCommandHandler<GenerateSummaryCo
     const chunkSummaries: GroqSummaryResponse[] = []
     for (const [i, chunk] of chunks.entries()) {
       const content = await this.aiService.createCompletion({
-        systemPrompt: CHUNK_SUMMARY_SYSTEM_PROMPT,
+        systemPrompt: chunkSystemPrompt,
         userMessage: buildChunkUserPrompt(chunk, i, chunks.length),
       })
       chunkSummaries.push(JSON.parse(content) as GroqSummaryResponse)
@@ -156,7 +174,7 @@ export class GenerateSummaryHandler extends BaseCommandHandler<GenerateSummaryCo
       : buildCombineUserPrompt(serializeChunkSummaries(chunkSummaries))
 
     const combined = await this.aiService.createCompletion({
-      systemPrompt: GENERATE_SUMMARY_SYSTEM_PROMPT,
+      systemPrompt: mainSystemPrompt,
       userMessage,
     })
     return JSON.parse(combined) as GroqSummaryResponse

@@ -82,6 +82,7 @@ type Documents = {
     "\n  query GetRecordings {\n    getRecordings {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n    }\n  }\n": typeof types.GetRecordingsDocument,
     "\n  mutation UpdateTranscription($input: UpdateTranscriptionInput!) {\n    updateTranscription(input: $input)\n  }\n": typeof types.UpdateTranscriptionDocument,
     "\n  mutation GenerateSummary($input: GenerateSummaryInput!) {\n    generateSummary(input: $input)\n  }\n": typeof types.GenerateSummaryDocument,
+    "\n  query GetAITokenUsage {\n    getAITokenUsage {\n      groq {\n        remaining\n        limit\n        percentRemaining\n      }\n      gemini {\n        usedToday\n        dailyLimit\n        percentRemaining\n      }\n    }\n  }\n": typeof types.GetAiTokenUsageDocument,
     "\n  query GetRecordingDetail($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n": typeof types.GetRecordingDetailDocument,
 };
 const documents: Documents = {
@@ -153,6 +154,7 @@ const documents: Documents = {
     "\n  query GetRecordings {\n    getRecordings {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n    }\n  }\n": types.GetRecordingsDocument,
     "\n  mutation UpdateTranscription($input: UpdateTranscriptionInput!) {\n    updateTranscription(input: $input)\n  }\n": types.UpdateTranscriptionDocument,
     "\n  mutation GenerateSummary($input: GenerateSummaryInput!) {\n    generateSummary(input: $input)\n  }\n": types.GenerateSummaryDocument,
+    "\n  query GetAITokenUsage {\n    getAITokenUsage {\n      groq {\n        remaining\n        limit\n        percentRemaining\n      }\n      gemini {\n        usedToday\n        dailyLimit\n        percentRemaining\n      }\n    }\n  }\n": types.GetAiTokenUsageDocument,
     "\n  query GetRecordingDetail($input: GetRecordingInput!) {\n    getRecording(input: $input) {\n      id\n      name\n      duration\n      audioUrl\n      transcriptionStatus\n      createdAt\n      transcription {\n        status\n        summaryStatus\n        summaryError\n        fullTranscript\n        segments\n        summary\n        keyTakeaways\n        actionItems\n        completedAt\n      }\n    }\n  }\n": types.GetRecordingDetailDocument,
 };
 
@@ -442,6 +444,10 @@ export function graphql(source: "\n  mutation UpdateTranscription($input: Update
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation GenerateSummary($input: GenerateSummaryInput!) {\n    generateSummary(input: $input)\n  }\n"): (typeof documents)["\n  mutation GenerateSummary($input: GenerateSummaryInput!) {\n    generateSummary(input: $input)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetAITokenUsage {\n    getAITokenUsage {\n      groq {\n        remaining\n        limit\n        percentRemaining\n      }\n      gemini {\n        usedToday\n        dailyLimit\n        percentRemaining\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetAITokenUsage {\n    getAITokenUsage {\n      groq {\n        remaining\n        limit\n        percentRemaining\n      }\n      gemini {\n        usedToday\n        dailyLimit\n        percentRemaining\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

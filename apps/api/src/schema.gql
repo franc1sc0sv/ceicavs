@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AITokenUsageType {
+  gemini: GeminiTokenUsageType!
+  groq: GroqTokenUsageType!
+}
+
 type ActivityItemType {
   actorAvatarUrl: String
   actorName: String!
@@ -231,13 +236,26 @@ type ExportStatusType {
   status: ExportJobStatus!
 }
 
+type GeminiTokenUsageType {
+  dailyLimit: Int!
+  percentRemaining: Int!
+  usedToday: Int!
+}
+
 input GenerateSummaryInput {
+  language: String
   prompt: String
   recordingId: ID!
 }
 
 input GetRecordingInput {
   id: ID!
+}
+
+type GroqTokenUsageType {
+  limit: Int!
+  percentRemaining: Int!
+  remaining: Int!
 }
 
 input GroupFiltersInput {
@@ -411,6 +429,7 @@ type Query {
   comments(cursor: String, limit: Int, postId: ID!): CommentsPageType!
   draftQueue: [PostType!]!
   feed(cursor: String, filters: PostFiltersInput, limit: Int): PostsPageType!
+  getAITokenUsage: AITokenUsageType!
   getGroup(id: ID!): GroupWithMembersType
   getGroups(filters: GroupFiltersInput): [GroupType!]!
   getRecording(input: GetRecordingInput!): RecordingType!

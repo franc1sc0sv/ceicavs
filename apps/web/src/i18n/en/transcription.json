@@ -92,7 +92,13 @@
     "notFound": "Recording not found.",
     "transcriptSaved": "Transcript saved successfully",
     "summarySaved": "Summary saved successfully",
-    "saveError": "Failed to save. Please try again."
+    "saveError": "Failed to save. Please try again.",
+    "summaryLanguageLabel": "Output language",
+    "tokenUsageTitle": "API usage",
+    "tokenUsageUnknown": "—",
+    "tokenUsageExhausted": "Exhausted",
+    "tokenUsageGroq": "Groq (per min)",
+    "tokenUsageGemini": "Gemini (daily)"
   },
   "languages": {
     "spanish": "Spanish",

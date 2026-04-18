@@ -92,7 +92,13 @@
     "notFound": "No se encontró la grabación.",
     "transcriptSaved": "Transcripción guardada correctamente",
     "summarySaved": "Resumen guardado correctamente",
-    "saveError": "Error al guardar. Intenta de nuevo."
+    "saveError": "Error al guardar. Intenta de nuevo.",
+    "summaryLanguageLabel": "Idioma de salida",
+    "tokenUsageTitle": "Uso de API",
+    "tokenUsageUnknown": "—",
+    "tokenUsageExhausted": "Agotado",
+    "tokenUsageGroq": "Groq (por min)",
+    "tokenUsageGemini": "Gemini (diario)"
   },
   "languages": {
     "spanish": "Español",

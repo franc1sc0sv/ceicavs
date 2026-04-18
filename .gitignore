@@ -4,8 +4,10 @@ dist
 .env
 .env.*
 !.env.example
+.dev.vars
 *.log
 *.tsbuildinfo
+node-compile-cache
 
 # Generated files
 packages/db/src/types.ts

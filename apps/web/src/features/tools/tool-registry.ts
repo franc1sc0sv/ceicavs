@@ -6,7 +6,6 @@ const registry = new Map<string, LazyExoticComponent<ComponentType>>([
   ['task-organizer', lazy(() => import('./implementations/task-organizer/task-organizer').then(m => ({ default: m.TaskOrganizer })))],
 ['word-pdf-converter', lazy(() => import('./implementations/word-pdf-converter/word-pdf-converter').then(m => ({ default: m.WordPdfConverter })))],
   ['image-format-converter', lazy(() => import('./implementations/image-format-converter/image-format-converter').then(m => ({ default: m.ImageFormatConverter })))],
-  ['youtube-downloader', lazy(() => import('./implementations/youtube-downloader/youtube-downloader').then(m => ({ default: m.YoutubeDownloader })))],
   ['image-compressor', lazy(() => import('./implementations/image-compressor/image-compressor').then(m => ({ default: m.ImageCompressor })))],
   ['qr-code-generator', lazy(() => import('./implementations/qr-code-generator/qr-code-generator').then(m => ({ default: m.QrCodeGenerator })))],
   ['screenshot-to-text', lazy(() => import('./implementations/screenshot-to-text/screenshot-to-text').then(m => ({ default: m.ScreenshotToText })))],

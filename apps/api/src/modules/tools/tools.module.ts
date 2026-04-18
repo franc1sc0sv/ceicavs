@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { ToolsResolver } from './resolvers/tools.resolver'
-import { YoutubeDownloadController } from './controllers/youtube-download.controller'
 import { FileConvertController } from './controllers/file-convert.controller'
 import { INoteRepository } from './interfaces/note.repository'
 import { ITaskItemRepository } from './interfaces/task-item.repository'
@@ -22,7 +21,7 @@ import { ReorderTaskItemsHandler } from './commands/reorder-task-items/reorder-t
 
 @Module({
   imports: [CqrsModule],
-  controllers: [YoutubeDownloadController, FileConvertController],
+  controllers: [FileConvertController],
   providers: [
     ToolsResolver,
     { provide: INoteRepository, useClass: NoteRepository },

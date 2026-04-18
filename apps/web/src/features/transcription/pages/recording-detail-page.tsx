@@ -27,6 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from '@/components/ui/sheet'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { useQuery, useMutation } from '@apollo/client/react'
@@ -54,6 +55,23 @@ const GENERATE_SUMMARY = graphql(`
 const GET_SUMMARY_PROMPT = graphql(`
   query GetSummaryPrompt {
     getSummaryPrompt
+  }
+`)
+
+const GET_AI_TOKEN_USAGE = graphql(`
+  query GetAITokenUsage {
+    getAITokenUsage {
+      groq {
+        remaining
+        limit
+        percentRemaining
+      }
+      gemini {
+        usedToday
+        dailyLimit
+        percentRemaining
+      }
+    }
   }
 `)
 
@@ -133,14 +151,8 @@ export default function RecordingDetailPage() {
   const recording = data?.getRecording ?? null
   const transcription = recording?.transcription ?? null
   const summaryStatus = transcription?.summaryStatus ?? null
-
-  const [summaryWasGeneratingThisSession, setSummaryWasGeneratingThisSession] = useState(false)
-
-  useEffect(() => {
-    if (summaryStatus === 'generating') {
-      setSummaryWasGeneratingThisSession(true)
-    }
-  }, [summaryStatus])
+  const summaryErrorCode = transcription?.summaryError ?? 'unknown'
+  const isRateLimitError = summaryErrorCode === 'rate_limit_day' || summaryErrorCode === 'rate_limit_minute'
 
   useEffect(() => {
     const isTranscriptionProcessing = recording?.transcriptionStatus === 'processing'
@@ -170,8 +182,46 @@ export default function RecordingDetailPage() {
   const [isFetchingAudio, setIsFetchingAudio] = useState(false)
   const [isSavingTranscript, setIsSavingTranscript] = useState(false)
   const [language, setLanguage] = useState('spanish')
+  const [summaryLanguage, setSummaryLanguage] = useState('spanish')
   const [activeTab, setActiveTab] = useState('transcript')
   const [promptValue, setPromptValue] = useState('')
+
+  const { data: tokenUsageData } = useQuery(GET_AI_TOKEN_USAGE, {
+    pollInterval: 30000,
+    skip: activeTab !== 'summary' || recording?.transcriptionStatus !== 'completed',
+  })
+
+  const groqData = tokenUsageData?.getAITokenUsage.groq
+  const geminiData = tokenUsageData?.getAITokenUsage.gemini
+
+  const groqText = !groqData || groqData.limit === 0
+    ? '—'
+    : groqData.percentRemaining === 0
+      ? t('detail.tokenUsageExhausted')
+      : `${groqData.percentRemaining}%`
+
+  const groqColorClass = !groqData || groqData.limit === 0
+    ? 'text-muted-foreground'
+    : groqData.percentRemaining === 0
+      ? 'text-destructive'
+      : groqData.percentRemaining < 20
+        ? 'text-amber-500'
+        : 'text-emerald-500'
+
+  const geminiText = !geminiData
+    ? '—'
+    : geminiData.percentRemaining === 0
+      ? t('detail.tokenUsageExhausted')
+      : `${geminiData.percentRemaining}%`
+
+  const geminiColorClass = !geminiData
+    ? 'text-muted-foreground'
+    : geminiData.percentRemaining === 0
+      ? 'text-destructive'
+      : geminiData.percentRemaining < 20
+        ? 'text-amber-500'
+        : 'text-emerald-500'
+
   const [promptSheetOpen, setPromptSheetOpen] = useState(false)
 
   const isProcessing = isTranscribing || isSavingTranscript || isFetchingAudio
@@ -487,19 +537,35 @@ export default function RecordingDetailPage() {
 
             {!isProcessing && activeTab === 'summary' && (
               <Can I={Action.TRANSCRIBE} a={Subject.RECORDING}>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
+                  <LanguageSelect value={summaryLanguage} onValueChange={setSummaryLanguage} className="w-[120px]" />
+                  <Separator orientation="vertical" className="mx-1 h-4" />
+                  <div className="flex items-center gap-1 text-xs">
+                    <Badge variant="secondary" className="h-5 gap-1 px-1.5 font-normal">
+                      <span className="text-muted-foreground">Groq</span>
+                      <span className={`font-medium tabular-nums ${groqColorClass}`}>{groqText}</span>
+                    </Badge>
+                    <Badge variant="secondary" className="h-5 gap-1 px-1.5 font-normal">
+                      <span className="text-muted-foreground">Gemini</span>
+                      <span className={`font-medium tabular-nums ${geminiColorClass}`}>{geminiText}</span>
+                    </Badge>
+                  </div>
+                  <Separator orientation="vertical" className="mx-1 h-4" />
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger
+                        onClick={() => setPromptSheetOpen(true)}
+                        className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                      >
+                        <Settings2 className="size-3.5" />
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom">{t('prompt.customize')}</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setPromptSheetOpen(true)}
-                  >
-                    <Settings2 className="size-3.5" />
-                    {t('prompt.customize')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => void generateSummaryMutation({ variables: { input: { recordingId: id ?? '', prompt: promptValue || null } } })}
+                    onClick={() => void generateSummaryMutation({ variables: { input: { recordingId: id ?? '', prompt: promptValue || null, language: summaryLanguage } } })}
                     disabled={isGeneratingSummary}
                   >
                     <Sparkles className="size-3.5" />
@@ -551,11 +617,11 @@ export default function RecordingDetailPage() {
           <TabsContent value="summary" className="mt-4 flex-1 flex flex-col min-h-0">
             <ScrollArea className="h-full">
             <div className="flex flex-col gap-4 pr-4 pb-4">
-            {summaryStatus === 'failed' && summaryWasGeneratingThisSession && (
-              <div className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2">
-                <AlertCircle className="size-4 shrink-0 text-destructive" />
-                <p className="text-sm text-destructive">
-                  {t(`summary.error.${transcription?.summaryError ?? 'unknown'}`, { defaultValue: t('summary.error.unknown') })}
+            {summaryStatus === 'failed' && (
+              <div className={`flex items-center gap-2 rounded-lg border px-3 py-2 ${isRateLimitError ? 'border-amber-400/30 bg-amber-400/10' : 'border-destructive/30 bg-destructive/10'}`}>
+                <AlertCircle className={`size-4 shrink-0 ${isRateLimitError ? 'text-amber-600 dark:text-amber-400' : 'text-destructive'}`} />
+                <p className={`text-sm ${isRateLimitError ? 'text-amber-600 dark:text-amber-400' : 'text-destructive'}`}>
+                  {t(`summary.error.${summaryErrorCode}`, { defaultValue: t('summary.error.unknown') })}
                 </p>
               </div>
             )}
@@ -636,7 +702,7 @@ export default function RecordingDetailPage() {
                   </div>
                   <Can I={Action.TRANSCRIBE} a={Subject.RECORDING}>
                     <Button
-                      onClick={() => void generateSummaryMutation({ variables: { input: { recordingId: id ?? '', prompt: promptValue || null } } })}
+                      onClick={() => void generateSummaryMutation({ variables: { input: { recordingId: id ?? '', prompt: promptValue || null, language: summaryLanguage } } })}
                       disabled={isGeneratingSummary}
                     >
                       <Sparkles className="size-4" />

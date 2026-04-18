@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard'
 import { CurrentUser } from '../../../common/decorators/current-user.decorator'
 import type { IJwtUser } from '../../../common/types'
 import { RecordingType } from '../types/recording.type'
+import { AITokenUsageType } from '../types/ai-token-usage.type'
 import { CreateRecordingInput } from '../commands/create-recording/create-recording.input'
 import { UpdateTranscriptionInput } from '../commands/update-transcription/update-transcription.input'
 import { DeleteRecordingInput } from '../commands/delete-recording/delete-recording.input'
@@ -19,7 +20,9 @@ import { UpdateSummaryPromptCommand } from '../commands/update-summary-prompt/up
 import { GetRecordingsQuery } from '../queries/get-recordings/get-recordings.query'
 import { GetRecordingQuery } from '../queries/get-recording/get-recording.query'
 import { GetSummaryPromptQuery } from '../queries/get-summary-prompt/get-summary-prompt.query'
+import { GetAITokenUsageQuery } from '../queries/get-ai-token-usage/get-ai-token-usage.query'
 import type { IRecording } from '../interfaces/recording.interfaces'
+import type { IAITokenUsage } from '../interfaces/ai-token-usage.interfaces'
 
 @Resolver()
 @UseGuards(JwtAuthGuard)
@@ -50,6 +53,13 @@ export class TranscriptionResolver {
   async getSummaryPrompt(@CurrentUser() user: IJwtUser): Promise<string> {
     return this.queryBus.execute<GetSummaryPromptQuery, string>(
       new GetSummaryPromptQuery(user.id, user.role),
+    )
+  }
+
+  @Query(() => AITokenUsageType)
+  async getAITokenUsage(@CurrentUser() user: IJwtUser): Promise<IAITokenUsage> {
+    return this.queryBus.execute<GetAITokenUsageQuery, IAITokenUsage>(
+      new GetAITokenUsageQuery(user.id, user.role),
     )
   }
 
@@ -91,7 +101,7 @@ export class TranscriptionResolver {
     @Args('input') input: GenerateSummaryInput,
   ): Promise<boolean> {
     await this.commandBus.execute<GenerateSummaryCommand, void>(
-      new GenerateSummaryCommand(user.id, user.role, input.recordingId, input.prompt ?? null),
+      new GenerateSummaryCommand(user.id, user.role, input.recordingId, input.prompt ?? null, input.language ?? null),
     )
     return true
   }

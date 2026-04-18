@@ -10,6 +10,7 @@ import { IAIService } from './providers/ai.provider'
 import { GroqService } from './providers/groq.provider'
 import { GeminiService } from './providers/gemini.provider'
 import { FallbackAIService } from './providers/fallback-ai.provider'
+import { TokenUsageService } from './providers/token-usage.service'
 import { TranscriptionResolver } from './resolvers/transcription.resolver'
 import { CreateRecordingHandler } from './commands/create-recording/create-recording.handler'
 import { UpdateTranscriptionHandler } from './commands/update-transcription/update-transcription.handler'
@@ -19,6 +20,7 @@ import { GetRecordingHandler } from './queries/get-recording/get-recording.handl
 import { GenerateSummaryHandler } from './commands/generate-summary/generate-summary.handler'
 import { UpdateSummaryPromptHandler } from './commands/update-summary-prompt/update-summary-prompt.handler'
 import { GetSummaryPromptHandler } from './queries/get-summary-prompt/get-summary-prompt.handler'
+import { GetAITokenUsageHandler } from './queries/get-ai-token-usage/get-ai-token-usage.handler'
 
 @Module({
   imports: [CqrsModule],
@@ -29,6 +31,7 @@ import { GetSummaryPromptHandler } from './queries/get-summary-prompt/get-summar
     { provide: ITranscriptionUserRepository, useClass: TranscriptionUserRepository },
     GroqService,
     GeminiService,
+    TokenUsageService,
     { provide: IAIService, useClass: FallbackAIService },
     CreateRecordingHandler,
     UpdateTranscriptionHandler,
@@ -38,6 +41,7 @@ import { GetSummaryPromptHandler } from './queries/get-summary-prompt/get-summar
     GenerateSummaryHandler,
     UpdateSummaryPromptHandler,
     GetSummaryPromptHandler,
+    GetAITokenUsageHandler,
   ],
 })
 export class TranscriptionModule {}

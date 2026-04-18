@@ -13,4 +13,10 @@ export class GenerateSummaryInput {
   @MaxLength(10000)
   @Field({ nullable: true })
   prompt?: string
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(50)
+  @Field({ nullable: true })
+  language?: string
 }

@@ -26,10 +26,6 @@
       "name": "Conversor de formato de imagen",
       "description": "Convierte imágenes entre PNG, JPG y WebP con control de calidad"
     },
-    "youtube-downloader": {
-      "name": "Descargador de YouTube",
-      "description": "Pega una URL de YouTube, elige la calidad y descarga el video para verlo sin conexión"
-    },
     "image-compressor": {
       "name": "Compresor de imágenes",
       "description": "Reduce el tamaño de archivos de imagen y cambia el tamaño sin perder calidad visible"
@@ -76,19 +72,6 @@
   "error": {
     "title": "Error al cargar",
     "retry": "Reintentar"
-  },
-  "youtubeDownloader": {
-    "title": "Descargador de YouTube",
-    "urlLabel": "URL de YouTube",
-    "urlPlaceholder": "Pega una URL de YouTube...",
-    "lookup": "Buscar",
-    "looking": "Cargando...",
-    "qualityLabel": "Calidad",
-    "download": "Descargar",
-    "downloading": "Descargando...",
-    "error": "Error al descargar. Intenta de nuevo.",
-    "errorInfo": "No se pudo cargar el video. Verifica la URL.",
-    "errorBusy": "El servidor está ocupado. Intenta en un momento."
   },
   "wordPdfConverter": {
     "title": "Conversor Word / PDF",

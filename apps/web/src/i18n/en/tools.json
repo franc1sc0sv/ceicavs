@@ -26,10 +26,6 @@
       "name": "Image Format Converter",
       "description": "Convert images between PNG, JPG, and WebP formats with quality control"
     },
-    "youtube-downloader": {
-      "name": "YouTube Downloader",
-      "description": "Paste a YouTube URL, choose quality, and download the video for offline use"
-    },
     "image-compressor": {
       "name": "Image Compressor",
       "description": "Reduce image file size and resize without losing visible quality"
@@ -76,19 +72,6 @@
   "error": {
     "title": "Failed to load",
     "retry": "Retry"
-  },
-  "youtubeDownloader": {
-    "title": "YouTube Downloader",
-    "urlLabel": "YouTube URL",
-    "urlPlaceholder": "Paste a YouTube URL...",
-    "lookup": "Look up",
-    "looking": "Loading...",
-    "qualityLabel": "Quality",
-    "download": "Download",
-    "downloading": "Downloading...",
-    "error": "Download failed. Try again.",
-    "errorInfo": "Could not load video. Check the URL.",
-    "errorBusy": "Server is busy. Try again in a moment."
   },
   "wordPdfConverter": {
     "title": "Word / PDF Converter",

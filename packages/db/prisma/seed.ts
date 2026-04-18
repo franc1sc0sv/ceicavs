@@ -87,14 +87,6 @@ const tools: ToolSeed[] = [
     color: 'violet',
   },
   {
-    name: 'YouTube Downloader',
-    slug: 'youtube-downloader',
-    description: 'Paste a YouTube URL, choose quality, and download the video for offline use',
-    categorySlug: 'media-tools',
-    icon: 'download',
-    color: 'red',
-  },
-  {
     name: 'Image Compressor',
     slug: 'image-compressor',
     description: 'Reduce image file size and resize without losing visible quality',

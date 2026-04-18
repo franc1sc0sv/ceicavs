@@ -18,6 +18,12 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type AiTokenUsageType = {
+  __typename?: 'AITokenUsageType';
+  gemini: GeminiTokenUsageType;
+  groq: GroqTokenUsageType;
+};
+
 export type ActivityItemType = {
   __typename?: 'ActivityItemType';
   actorAvatarUrl: Maybe<Scalars['String']['output']>;
@@ -255,13 +261,28 @@ export type ExportStatusType = {
   status: ExportJobStatus;
 };
 
+export type GeminiTokenUsageType = {
+  __typename?: 'GeminiTokenUsageType';
+  dailyLimit: Scalars['Int']['output'];
+  percentRemaining: Scalars['Int']['output'];
+  usedToday: Scalars['Int']['output'];
+};
+
 export type GenerateSummaryInput = {
+  language: InputMaybe<Scalars['String']['input']>;
   prompt: InputMaybe<Scalars['String']['input']>;
   recordingId: Scalars['ID']['input'];
 };
 
 export type GetRecordingInput = {
   id: Scalars['ID']['input'];
+};
+
+export type GroqTokenUsageType = {
+  __typename?: 'GroqTokenUsageType';
+  limit: Scalars['Int']['output'];
+  percentRemaining: Scalars['Int']['output'];
+  remaining: Scalars['Int']['output'];
 };
 
 export type GroupFiltersInput = {
@@ -645,6 +666,7 @@ export type Query = {
   comments: CommentsPageType;
   draftQueue: Array<PostType>;
   feed: PostsPageType;
+  getAITokenUsage: AiTokenUsageType;
   getGroup: Maybe<GroupWithMembersType>;
   getGroups: Array<GroupType>;
   getRecording: RecordingType;
@@ -1448,6 +1470,11 @@ export type GenerateSummaryMutationVariables = Exact<{
 
 export type GenerateSummaryMutation = { __typename?: 'Mutation', generateSummary: boolean };
 
+export type GetAiTokenUsageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAiTokenUsageQuery = { __typename?: 'Query', getAITokenUsage: { __typename?: 'AITokenUsageType', groq: { __typename?: 'GroqTokenUsageType', remaining: number, limit: number, percentRemaining: number }, gemini: { __typename?: 'GeminiTokenUsageType', usedToday: number, dailyLimit: number, percentRemaining: number } } };
+
 export type GetRecordingDetailQueryVariables = Exact<{
   input: GetRecordingInput;
 }>;
@@ -1524,4 +1551,5 @@ export const GetRecordingDocument = {"kind":"Document","definitions":[{"kind":"O
 export const GetRecordingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRecordings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getRecordings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"duration"}},{"kind":"Field","name":{"kind":"Name","value":"audioUrl"}},{"kind":"Field","name":{"kind":"Name","value":"transcriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<GetRecordingsQuery, GetRecordingsQueryVariables>;
 export const UpdateTranscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateTranscription"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateTranscriptionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateTranscription"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<UpdateTranscriptionMutation, UpdateTranscriptionMutationVariables>;
 export const GenerateSummaryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GenerateSummary"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GenerateSummaryInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateSummary"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<GenerateSummaryMutation, GenerateSummaryMutationVariables>;
+export const GetAiTokenUsageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAITokenUsage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAITokenUsage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"groq"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"remaining"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"percentRemaining"}}]}},{"kind":"Field","name":{"kind":"Name","value":"gemini"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"usedToday"}},{"kind":"Field","name":{"kind":"Name","value":"dailyLimit"}},{"kind":"Field","name":{"kind":"Name","value":"percentRemaining"}}]}}]}}]}}]} as unknown as DocumentNode<GetAiTokenUsageQuery, GetAiTokenUsageQueryVariables>;
 export const GetRecordingDetailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRecordingDetail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetRecordingInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getRecording"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"duration"}},{"kind":"Field","name":{"kind":"Name","value":"audioUrl"}},{"kind":"Field","name":{"kind":"Name","value":"transcriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"transcription"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"summaryStatus"}},{"kind":"Field","name":{"kind":"Name","value":"summaryError"}},{"kind":"Field","name":{"kind":"Name","value":"fullTranscript"}},{"kind":"Field","name":{"kind":"Name","value":"segments"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"keyTakeaways"}},{"kind":"Field","name":{"kind":"Name","value":"actionItems"}},{"kind":"Field","name":{"kind":"Name","value":"completedAt"}}]}}]}}]}}]} as unknown as DocumentNode<GetRecordingDetailQuery, GetRecordingDetailQueryVariables>;

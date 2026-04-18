@@ -6,5 +6,6 @@ export class GenerateSummaryCommand {
     public readonly role: UserRole,
     public readonly recordingId: string,
     public readonly prompt: string | null = null,
+    public readonly language: string | null = null,
   ) {}
 }
