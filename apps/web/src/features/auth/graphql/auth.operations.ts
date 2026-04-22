@@ -29,3 +29,18 @@ export const ME_QUERY = graphql(`
     }
   }
 `)
+
+export const REQUEST_LOGIN_CODE_MUTATION = graphql(`
+  mutation RequestLoginCode($input: RequestLoginCodeInput!) {
+    requestLoginCode(input: $input)
+  }
+`)
+
+export const LOGIN_WITH_CODE_MUTATION = graphql(`
+  mutation LoginWithCode($input: LoginWithCodeInput!) {
+    loginWithCode(input: $input) {
+      accessToken
+      refreshToken
+    }
+  }
+`)

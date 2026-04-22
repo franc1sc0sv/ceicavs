@@ -26,6 +26,8 @@ type Documents = {
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      accessToken\n      refreshToken\n    }\n  }\n": typeof types.LoginDocument,
     "\n  mutation RefreshToken($input: RefreshTokenInput!) {\n    refreshToken(input: $input) {\n      accessToken\n      refreshToken\n    }\n  }\n": typeof types.RefreshTokenDocument,
     "\n  query Me {\n    me {\n      id\n      email\n      name\n      role\n      avatarUrl\n    }\n  }\n": typeof types.MeDocument,
+    "\n  mutation RequestLoginCode($input: RequestLoginCodeInput!) {\n    requestLoginCode(input: $input)\n  }\n": typeof types.RequestLoginCodeDocument,
+    "\n  mutation LoginWithCode($input: LoginWithCodeInput!) {\n    loginWithCode(input: $input) {\n      accessToken\n      refreshToken\n    }\n  }\n": typeof types.LoginWithCodeDocument,
     "\n  mutation CreatePost($input: CreatePostInput!) {\n    createPost(input: $input) {\n      id\n      status\n    }\n  }\n": typeof types.CreatePostDocument,
     "\n  mutation UpdatePost($id: ID!, $input: UpdatePostInput!) {\n    updatePost(id: $id, input: $input) {\n      id\n    }\n  }\n": typeof types.UpdatePostDocument,
     "\n  mutation DeletePost($id: ID!) {\n    deletePost(id: $id)\n  }\n": typeof types.DeletePostDocument,
@@ -98,6 +100,8 @@ const documents: Documents = {
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      accessToken\n      refreshToken\n    }\n  }\n": types.LoginDocument,
     "\n  mutation RefreshToken($input: RefreshTokenInput!) {\n    refreshToken(input: $input) {\n      accessToken\n      refreshToken\n    }\n  }\n": types.RefreshTokenDocument,
     "\n  query Me {\n    me {\n      id\n      email\n      name\n      role\n      avatarUrl\n    }\n  }\n": types.MeDocument,
+    "\n  mutation RequestLoginCode($input: RequestLoginCodeInput!) {\n    requestLoginCode(input: $input)\n  }\n": types.RequestLoginCodeDocument,
+    "\n  mutation LoginWithCode($input: LoginWithCodeInput!) {\n    loginWithCode(input: $input) {\n      accessToken\n      refreshToken\n    }\n  }\n": types.LoginWithCodeDocument,
     "\n  mutation CreatePost($input: CreatePostInput!) {\n    createPost(input: $input) {\n      id\n      status\n    }\n  }\n": types.CreatePostDocument,
     "\n  mutation UpdatePost($id: ID!, $input: UpdatePostInput!) {\n    updatePost(id: $id, input: $input) {\n      id\n    }\n  }\n": types.UpdatePostDocument,
     "\n  mutation DeletePost($id: ID!) {\n    deletePost(id: $id)\n  }\n": types.DeletePostDocument,
@@ -220,6 +224,14 @@ export function graphql(source: "\n  mutation RefreshToken($input: RefreshTokenI
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Me {\n    me {\n      id\n      email\n      name\n      role\n      avatarUrl\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    me {\n      id\n      email\n      name\n      role\n      avatarUrl\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation RequestLoginCode($input: RequestLoginCodeInput!) {\n    requestLoginCode(input: $input)\n  }\n"): (typeof documents)["\n  mutation RequestLoginCode($input: RequestLoginCodeInput!) {\n    requestLoginCode(input: $input)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation LoginWithCode($input: LoginWithCodeInput!) {\n    loginWithCode(input: $input) {\n      accessToken\n      refreshToken\n    }\n  }\n"): (typeof documents)["\n  mutation LoginWithCode($input: LoginWithCodeInput!) {\n    loginWithCode(input: $input) {\n      accessToken\n      refreshToken\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

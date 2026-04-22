@@ -319,6 +319,11 @@ input LoginInput {
   password: String!
 }
 
+input LoginWithCodeInput {
+  code: String!
+  email: String!
+}
+
 type Mutation {
   addComment(input: AddCommentInput!): CommentType!
   addMemberToGroup(groupId: ID!, userId: ID!): Boolean!
@@ -343,10 +348,12 @@ type Mutation {
   generateSummary(input: GenerateSummaryInput!): Boolean!
   importUsers(input: ImportUsersInput!): ImportUsersResultType!
   login(input: LoginInput!): AuthTokensType!
+  loginWithCode(input: LoginWithCodeInput!): AuthTokensType!
   recordAttendance(input: RecordAttendanceInput!): Boolean!
   refreshToken(input: RefreshTokenInput!): AuthTokensType!
   removeMemberFromGroup(groupId: ID!, userId: ID!): Boolean!
   reorderTaskItems(input: ReorderTaskItemsInput!): Boolean!
+  requestLoginCode(input: RequestLoginCodeInput!): Boolean!
   reviewDraft(id: ID!, input: ReviewDraftInput!): PostType!
   toggleReaction(commentId: ID, emoji: String, postId: ID): [ReactionSummaryType!]!
   updateCategory(id: ID!, name: String!): CategoryType!
@@ -493,6 +500,10 @@ enum ReportPeriod {
   DAILY
   MONTHLY
   WEEKLY
+}
+
+input RequestLoginCodeInput {
+  email: String!
 }
 
 input ReviewDraftInput {

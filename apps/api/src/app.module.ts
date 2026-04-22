@@ -5,6 +5,7 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { join } from 'path'
 import { DatabaseModule } from './common/database/database.module'
 import { EventModule } from './common/events/event.module'
+import { MailModule } from './common/mail/mail.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { DashboardModule } from './modules/dashboard/dashboard.module'
 import { AttendanceModule } from './modules/attendance/attendance.module'
@@ -24,6 +25,7 @@ import { ActivityModule } from './modules/activity/activity.module'
     CqrsModule.forRoot(),
     DatabaseModule,
     EventModule,
+    MailModule,
     AuthModule,
     DashboardModule,
     AttendanceModule,
